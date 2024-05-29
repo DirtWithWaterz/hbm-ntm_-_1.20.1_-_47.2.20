@@ -1,0 +1,12 @@
+{
+  "creativetab.resources_and_parts": "NTM Resources and Parts",
+  "creativetab.ntm_blocks": "NTM Blocks",
+
+  "item.hbm.ingot_beryllium": "Beryllium Ingot",
+  "item.hbm.ingot_titanium": "Titanium Ingot",
+
+  "block.hbm.block_titanium": "Block of Titanium",
+
+  "block.hbm.ore_titanium": "Titanium Ore",
+  "block.hbm.deepslate_ore_titanium": "Deepslate Titanium Ore"
+}

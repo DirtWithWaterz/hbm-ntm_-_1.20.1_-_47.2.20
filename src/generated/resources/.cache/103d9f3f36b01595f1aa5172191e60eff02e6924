@@ -1,0 +1,4 @@
+// 1.20.1	2024-05-29T02:12:40.2086984	Registries
+6812423d9cd8883108b96ff7afb91befb6eb996f data/hbm/forge/biome_modifier/add_ore_titanium.json
+0ea0d3859f55c02bdb23ffcd367d4750b205507b data/hbm/worldgen/configured_feature/ore_titanium.json
+d70be7d0c6de35562356bdad12d4dbc13ef972e9 data/hbm/worldgen/placed_feature/ore_titanium_placed.json

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "hbm:ore_titanium",
+    "#forge:ores",
+    "hbm:deepslate_ore_titanium",
+    "#forge:ores",
+    "hbm:block_titanium"
+  ]
+}

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="437ca65d-ec14-4b05-bd37-e2cfa16e074f" name="Changes" comment="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/blockstates/block_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/blockstates/block_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/lang/en_us.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/block/block_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/block/block_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/block_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/block_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/ingot_beryllium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/ingot_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/block/block_raw_titanium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/block/block_titanium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/ingot_beryllium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/ingot_titanium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/raw_titanium.png" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="hbm-ntm - 1.20.1 - 47.2.20" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="hbm-ntm - 1.20.1 - 47.2.20" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="hbm-ntm - 1.20.1 - 47.2.20" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="forgegradle runs" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="jg514 &lt;jg514williams@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DirtWithWaterz&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DirtWithWaterz/HBM-s-Nuclear-Tech-Rewrite-Edition.git&quot;,
+    &quot;accountId&quot;: &quot;7601e0d0-80ae-4eda-a61a-d31f685a639e&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2h2RyWEK9Pabkf5yMGUcMPIllW5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runClient].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runData].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/hbm-ntm - 1.20.1 - 47.2.20/src/main/resources/data/hbm/recipes&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\data\hbm\recipes" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\data\hbm\loot_tables\blocks" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\models\item" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\models\block" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\blockstates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\textures\block" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\textures\item" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runClient]">
+    <configuration name="hbm-ntm - 1.20.1 - 47.2.20 [runClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="runClient" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="hbm-ntm - 1.20.1 - 47.2.20 [runData]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="runData" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runClient]" />
+        <item itemvalue="Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runData]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="437ca65d-ec14-4b05-bd37-e2cfa16e074f" name="Changes" comment="" />
+      <created>1716790445731</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716790445731</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added RegisterItems.java&#10;Added RegisterBlocks.java&#10;Added RegisterCreativeTabs.java">
+      <option name="closed" value="true" />
+      <created>1716806392434</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716806392434</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.">
+      <option name="closed" value="true" />
+      <created>1716990777189</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1716990777189</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Added RegisterItems.java&#10;Added RegisterBlocks.java&#10;Added RegisterCreativeTabs.java" />
+    <MESSAGE value="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards." />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/hbm_ntm___1_20_1___47_2_20$hbm_ntm___1_20_1___47_2_20__runData_.ic" NAME="hbm-ntm - 1.20.1 - 47.2.20 [runData] Coverage Results" MODIFIED="1716963706423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+  </component>
+</project>
