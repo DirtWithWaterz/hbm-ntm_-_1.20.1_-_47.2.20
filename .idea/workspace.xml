@@ -4,62 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437ca65d-ec14-4b05-bd37-e2cfa16e074f" name="Changes" comment="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.">
-      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-05-29-2.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-2.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-3.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-4.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2024-06-06_13.49.26-server.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-05-29-3.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-05-29-4.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-1.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-2.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-3.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-4.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-5.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-6.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-7.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-8.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/hbm/models/item/ingot_uranium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/hbm/models/item/raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/hbm/models/item/reacher.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/advancements/recipes/misc/ingot_titanium_from_blasting_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/advancements/recipes/misc/ingot_titanium_from_smelting_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/damage_type/radiation.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/recipes/ingot_titanium_from_blasting_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/recipes/ingot_titanium_from_smelting_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/config/GeneralConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/handler/RadiationSystemNT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/HazardItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/interfaces/IItemHazard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/special/CustomLoreItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/lib/Library.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/lib/ModDamageSource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/modules/ItemHazardModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/network/HbmLivingProps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/network/HbmModVariables.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/saveddata/RadiationSavedData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/util/ContaminationUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/raw_titanium.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="437ca65d-ec14-4b05-bd37-e2cfa16e074f" name="Changes" comment="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.&#10;Added Uranium Ingot.&#10;Finished implementing the radiation hazard.">
+      <change afterPath="$PROJECT_DIR$/Original HBM/src/main/resources/assets/hbm/textures/items/ingot_uranium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Original HBM/src/main/resources/assets/hbm/textures/items/reacher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-9.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/59eb3dbb5f86130e09b3c62d89b9525ee01cf52d" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/59eb3dbb5f86130e09b3c62d89b9525ee01cf52d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/837464b93ca9286838a8bd3da3a5317fa1f6c7ce" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/837464b93ca9286838a8bd3da3a5317fa1f6c7ce" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/9fb1092f32d4fcbf9e061ffd718d4ec689c6c95e" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/9fb1092f32d4fcbf9e061ffd718d4ec689c6c95e" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/deepslate_ore_titanium.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/deepslate_ore_titanium.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/ore_titanium.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/ore_titanium.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/HBM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/HBM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModItemModelProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModItemModelProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModRecipeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModRecipeProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/loot/ModBlockLootTables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/loot/ModBlockLootTables.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/HazardModifier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/type/HazardTypeAsbestos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/type/HazardTypeBase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterCreativeTabs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterCreativeTabs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/util/I18nUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/hbm/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/lang/en_us.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +102,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
@@ -247,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716990777189</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.&#10;Added Uranium Ingot.&#10;Finished implementing the radiation hazard.">
+      <option name="closed" value="true" />
+      <created>1717718690523</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717718690523</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -277,7 +235,9 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added RegisterItems.java&#10;Added RegisterBlocks.java&#10;Added RegisterCreativeTabs.java" />
     <MESSAGE value="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards." />
+    <MESSAGE value="Initial commit&#10;&#10;- Added Titanium Ingot, Block and Ores&#10;- Added Beryllium Ingot&#10;- Added Data and World Gen&#10;- Begun work on Hazard System" />
+    <MESSAGE value="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.&#10;Added Uranium Ingot.&#10;Finished implementing the radiation hazard." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.&#10;Added Uranium Ingot.&#10;Finished implementing the radiation hazard." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbm_ntm___1_20_1___47_2_20$hbm_ntm___1_20_1___47_2_20__runData_.ic" NAME="hbm-ntm - 1.20.1 - 47.2.20 [runData] Coverage Results" MODIFIED="1716963706423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
