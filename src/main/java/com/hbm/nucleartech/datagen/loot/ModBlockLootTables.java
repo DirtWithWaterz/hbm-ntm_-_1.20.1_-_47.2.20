@@ -23,8 +23,10 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.dropSelf(RegisterBlocks.BLOCK_TITANIUM.get());
 
-        this.dropSelf(RegisterBlocks.ORE_TITANIUM.get());
-        this.dropSelf(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get());
+        this.add(RegisterBlocks.ORE_TITANIUM.get(),
+                block -> createOreDrop(RegisterBlocks.ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));
+        this.add(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(),
+                block -> createOreDrop(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));
     }
 
     @Override

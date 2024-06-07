@@ -19,8 +19,11 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
 
+        simpleItem(RegisterItems.INGOT_URANIUM);
         simpleItem(RegisterItems.INGOT_BERYLLIUM);
         simpleItem(RegisterItems.INGOT_TITANIUM);
+        simpleItem(RegisterItems.RAW_TITANIUM);
+        simpleItem(RegisterItems.REACHER);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

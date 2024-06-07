@@ -5,21 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="437ca65d-ec14-4b05-bd37-e2cfa16e074f" name="Changes" comment="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/blockstates/block_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/blockstates/block_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/lang/en_us.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/block/block_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/block/block_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/block_raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/block_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/ingot_beryllium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/ingot_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/models/item/raw_titanium.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/block/block_raw_titanium.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/block/block_titanium.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/ingot_beryllium.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/ingot_titanium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-05-29-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-1.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run-data/logs/2024-06-06-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2024-06-06_13.49.26-server.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-05-29-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-05-29-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-1.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-5.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-6.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-7.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-8.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/hbm/models/item/ingot_uranium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/hbm/models/item/raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/hbm/models/item/reacher.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/advancements/recipes/misc/ingot_titanium_from_blasting_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/advancements/recipes/misc/ingot_titanium_from_smelting_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/damage_type/radiation.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/recipes/ingot_titanium_from_blasting_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/recipes/ingot_titanium_from_smelting_raw_titanium.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/config/GeneralConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/handler/RadiationSystemNT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/HazardItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/interfaces/IItemHazard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/special/CustomLoreItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/lib/Library.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/lib/ModDamageSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/modules/ItemHazardModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/network/HbmLivingProps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/network/HbmModVariables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/saveddata/RadiationSavedData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/util/ContaminationUtil.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/textures/item/raw_titanium.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/59eb3dbb5f86130e09b3c62d89b9525ee01cf52d" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/59eb3dbb5f86130e09b3c62d89b9525ee01cf52d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/837464b93ca9286838a8bd3da3a5317fa1f6c7ce" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/837464b93ca9286838a8bd3da3a5317fa1f6c7ce" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/9fb1092f32d4fcbf9e061ffd718d4ec689c6c95e" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/9fb1092f32d4fcbf9e061ffd718d4ec689c6c95e" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/deepslate_ore_titanium.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/deepslate_ore_titanium.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/ore_titanium.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/hbm/loot_tables/blocks/ore_titanium.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/HBM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/HBM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModItemModelProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModItemModelProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModRecipeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/ModRecipeProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/loot/ModBlockLootTables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/datagen/loot/ModBlockLootTables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/HazardModifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/type/HazardTypeAsbestos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/hazard/type/HazardTypeBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterCreativeTabs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterCreativeTabs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/item/RegisterItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/util/I18nUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/hbm/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/hbm/lang/en_us.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,22 +139,23 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runClient].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runData].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/hbm-ntm - 1.20.1 - 47.2.20/src/main/resources/data/hbm/recipes&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runClient].executor": "Run",
+    "Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runData].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/hbm-ntm - 1.20.1 - 47.2.20",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\data\hbm\recipes" />
@@ -124,8 +165,9 @@
       <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\blockstates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\textures\block" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\java\com\hbm\nucleartech\lib" />
       <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\textures\item" />
+      <recent name="E:\hbm-ntm - 1.20.1 - 47.2.20\src\main\resources\assets\hbm\textures\block" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.hbm-ntm - 1.20.1 - 47.2.20 [runClient]">

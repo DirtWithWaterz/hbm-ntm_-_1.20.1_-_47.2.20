@@ -16,12 +16,15 @@ public class RegisterCreativeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, HBM.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> NTM_RESOURCES_AND_PARTS = CREATIVE_TABS.register("resources_and_parts",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterItems.INGOT_BERYLLIUM.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterItems.INGOT_URANIUM.get()))
                     .title(Component.translatable("creativetab.resources_and_parts"))
                     .displayItems((itemDisplayParameters, output) -> {
 
                         output.accept(RegisterItems.INGOT_TITANIUM.get());
                         output.accept(RegisterItems.INGOT_BERYLLIUM.get());
+                        output.accept(RegisterItems.INGOT_URANIUM.get());
+
+                        output.accept(RegisterItems.RAW_TITANIUM.get());
                     })
                     .build());
 

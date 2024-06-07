@@ -1,9 +1,18 @@
 {
+  "death.attack.radiation": "%1$s died from radiation poisoning",
+  "death.attack.radiation.player": "%1$s died from radiation poisoning whilst trying to escape %2$s",
+  "death.attack.radiation.item": "%1$s was killed by %2$s using %3$s",
+
   "creativetab.resources_and_parts": "NTM Resources and Parts",
   "creativetab.ntm_blocks": "NTM Blocks",
 
+  "item.hbm.ingot_uranium": "Uranium Ingot",
   "item.hbm.ingot_beryllium": "Beryllium Ingot",
   "item.hbm.ingot_titanium": "Titanium Ingot",
+
+  "item.hbm.raw_titanium": "Raw Titanium",
+
+  "item.hbm.reacher": "Tungsten Reacher",
 
   "block.hbm.block_titanium": "Block of Titanium",
 

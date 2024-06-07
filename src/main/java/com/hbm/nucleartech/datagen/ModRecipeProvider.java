@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
-    private static final List<ItemLike> TITANIUM_SMELTABLES = List.of(RegisterBlocks.ORE_TITANIUM.get(), RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get());
+    private static final List<ItemLike> TITANIUM_SMELTABLES = List.of(RegisterBlocks.ORE_TITANIUM.get(), RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get());
 
     public ModRecipeProvider(PackOutput pOutput) {
         super(pOutput);
