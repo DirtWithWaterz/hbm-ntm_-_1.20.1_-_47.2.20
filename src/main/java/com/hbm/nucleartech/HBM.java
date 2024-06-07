@@ -99,7 +99,7 @@ public class HBM
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
 
-            
+
         }
     }
 }

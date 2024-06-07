@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="437ca65d-ec14-4b05-bd37-e2cfa16e074f" name="Changes" comment="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.&#10;Added Uranium Ingot.&#10;Finished implementing the radiation hazard.">
-      <change afterPath="$PROJECT_DIR$/Original HBM/src/main/resources/assets/hbm/textures/items/ingot_uranium.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Original HBM/src/main/resources/assets/hbm/textures/items/reacher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2024-06-06-9.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/HBM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hbm/nucleartech/HBM.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717718690523</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added Titanium &amp; Some Beryllium&#10;also in the beginning steps of hazards.&#10;Added Uranium Ingot.&#10;Finished implementing the radiation hazard.">
+      <option name="closed" value="true" />
+      <created>1717719362224</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717719362224</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
