@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class HBMBiomeModifiers {
 
     public static final ResourceKey<BiomeModifier> ADD_ORE_TITANIUM = registerKey("add_ore_titanium");
+    public static final ResourceKey<BiomeModifier> ADD_ORE_URANIUM = registerKey("add_ore_uranium");
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
 
@@ -24,6 +25,12 @@ public class HBMBiomeModifiers {
         context.register(ADD_ORE_TITANIUM, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatures.getOrThrow(HBMPlacedFeatures.ORE_TITANIUM_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_ORE_URANIUM, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(HBMPlacedFeatures.ORE_URANIUM_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
     }

@@ -10,11 +10,24 @@
   "item.hbm.ingot_beryllium": "Beryllium Ingot",
   "item.hbm.ingot_titanium": "Titanium Ingot",
 
+  "item.hbm.raw_uranium": "Raw Uranium",
   "item.hbm.raw_titanium": "Raw Titanium",
+
+  "item.hbm.powder_uranium": "Uranium Powder",
+  "item.hbm.nugget_uranium": "Uranium Nugget",
+  "item.hbm.crystal_uranium": "Uranium Crystals",
+  "item.hbm.billet_uranium": "Uranium Billet",
+  "item.hbm.pile_rod_uranium": "Chicago Pile Uranium Rod",
+
+  "item.hbm.plate_iron": "Iron Plate",
 
   "item.hbm.reacher": "Tungsten Reacher",
 
+  "block.hbm.block_uranium": "Block of Uranium",
   "block.hbm.block_titanium": "Block of Titanium",
+
+  "block.hbm.ore_uranium": "Uranium Ore",
+  "block.hbm.deepslate_ore_uranium": "Deepslate Uranium Ore",
 
   "block.hbm.ore_titanium": "Titanium Ore",
   "block.hbm.deepslate_ore_titanium": "Deepslate Titanium Ore"

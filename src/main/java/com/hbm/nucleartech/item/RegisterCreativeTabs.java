@@ -24,7 +24,14 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterItems.INGOT_BERYLLIUM.get());
                         output.accept(RegisterItems.INGOT_URANIUM.get());
 
+                        output.accept(RegisterItems.POWDER_URANIUM.get());
+                        output.accept(RegisterItems.NUGGET_URANIUM.get());
+                        output.accept(RegisterItems.CRYSTAL_URANIUM.get());
+                        output.accept(RegisterItems.BILLET_URANIUM.get());
+                        output.accept(RegisterItems.PILE_ROD_URANIUM.get());
+
                         output.accept(RegisterItems.RAW_TITANIUM.get());
+                        output.accept(RegisterItems.RAW_URANIUM.get());
                     })
                     .build());
 
@@ -33,7 +40,12 @@ public class RegisterCreativeTabs {
                     .title(Component.translatable("creativetab.ntm_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
 
+                        output.accept(RegisterBlocks.BLOCK_URANIUM.get());
                         output.accept(RegisterBlocks.BLOCK_TITANIUM.get());
+
+                        output.accept(RegisterBlocks.ORE_URANIUM.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get());
+
                         output.accept(RegisterBlocks.ORE_TITANIUM.get());
                         output.accept(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get());
                     })

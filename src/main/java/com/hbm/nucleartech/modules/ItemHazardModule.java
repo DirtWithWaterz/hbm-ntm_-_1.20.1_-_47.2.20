@@ -138,14 +138,14 @@ public class ItemHazardModule {
 
         if(this.radiation * tempMod > 0) {
 
-            list.add(Component.literal("§a" + "[Radioactive]"));
+            list.add(Component.literal("§a[Radioactive]"));
             double itemRad = radiation * tempMod;
             list.add(Component.literal("§e" + (Library.roundDouble(getNewValue(itemRad), 3) + getSuffix(itemRad) + " RAD/s")));
 
             if(stack.getCount() > 1) {
 
                 double stackRad = radiation * tempMod * stack.getCount();
-                list.add(Component.literal("§e" + "Stack: " + Library.roundDouble(getNewValue(stackRad), 3) + getSuffix(stackRad) + " RAD/s"));
+                list.add(Component.literal("§eStack: " + Library.roundDouble(getNewValue(stackRad), 3) + getSuffix(stackRad) + " RAD/s"));
             }
         }
     }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ingot_uranium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbm:ingot_uranium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hbm:pile_rod_uranium_from_billet_uranium_and_plate_iron"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_ingot_uranium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hbm:pile_rod_uranium_from_billet_uranium_and_plate_iron"
+    ]
+  },
+  "sends_telemetry_event": false
+}

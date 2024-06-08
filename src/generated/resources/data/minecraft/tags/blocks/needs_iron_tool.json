@@ -4,6 +4,11 @@
     "#forge:ores",
     "hbm:deepslate_ore_titanium",
     "#forge:ores",
-    "hbm:block_titanium"
+    "hbm:ore_uranium",
+    "#forge:ores",
+    "hbm:deepslate_ore_uranium",
+    "#forge:ores",
+    "hbm:block_titanium",
+    "hbm:block_uranium"
   ]
 }

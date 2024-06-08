@@ -1,4 +1,7 @@
-// 1.20.1	2024-05-29T02:12:40.2086984	Registries
+// 1.20.1	2024-06-08T04:19:57.2802163	Registries
 6812423d9cd8883108b96ff7afb91befb6eb996f data/hbm/forge/biome_modifier/add_ore_titanium.json
+df3a95cb51d484cc99341021fa019d400757f048 data/hbm/forge/biome_modifier/add_ore_uranium.json
 0ea0d3859f55c02bdb23ffcd367d4750b205507b data/hbm/worldgen/configured_feature/ore_titanium.json
-d70be7d0c6de35562356bdad12d4dbc13ef972e9 data/hbm/worldgen/placed_feature/ore_titanium_placed.json
+a5cd9cb77edcf9b5385185f14fbbefd86b52e145 data/hbm/worldgen/configured_feature/ore_uranium.json
+a87404509b6a8e2f6d049baab4244236c45f0428 data/hbm/worldgen/placed_feature/ore_titanium_placed.json
+63d59ecf7530756636e4cfc660ddaee0165ef331 data/hbm/worldgen/placed_feature/ore_uranium_placed.json

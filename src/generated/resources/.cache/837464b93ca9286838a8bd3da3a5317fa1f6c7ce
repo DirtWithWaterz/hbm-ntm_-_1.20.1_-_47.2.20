@@ -1,6 +1,13 @@
-// 1.20.1	2024-06-06T12:26:32.8174462	Item Models: hbm
+// 1.20.1	2024-06-08T03:48:55.375255	Item Models: hbm
+4cf7e7653b1aae33f78753c224f5f9bc5f290001 assets/hbm/models/item/billet_uranium.json
+717138e2327b0dfad433d85e77dddd88fd5cb7c1 assets/hbm/models/item/crystal_uranium.json
 acfe492ff3721a4e8be36b8c0cd1198f5312600d assets/hbm/models/item/ingot_beryllium.json
 b10ac8224dfd993d21ad32a35c0de2f788dbbac7 assets/hbm/models/item/ingot_titanium.json
 c40effc73e3599852caad529d0ae71d882c7e588 assets/hbm/models/item/ingot_uranium.json
+39b3be4521a8e6f2fb2529093ed0cb8fdf3135ee assets/hbm/models/item/nugget_uranium.json
+b05f9edc228d4af7b4dcefc88d5302e9c3a4057f assets/hbm/models/item/pile_rod_uranium.json
+89419948880690a686f978689ac5ceebce3d51e9 assets/hbm/models/item/plate_iron.json
+3caefddb66809253401e2b02eb05602889d4a9e0 assets/hbm/models/item/powder_uranium.json
 1df28891bf55b2db353d0fe14acdde3f23721d2b assets/hbm/models/item/raw_titanium.json
+a4b54b7c94d3eb2a7ddee0339860f5d27d3239bc assets/hbm/models/item/raw_uranium.json
 fe25280b5c6dfba43e46c5b2ae4ceaba64fc144f assets/hbm/models/item/reacher.json

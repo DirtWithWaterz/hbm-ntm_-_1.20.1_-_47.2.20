@@ -21,19 +21,25 @@ import java.util.List;
 public class HBMConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_TITANIUM_KEY = registerKey("ore_titanium");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_URANIUM_KEY = registerKey("ore_uranium");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 
-        RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+        RuleTest stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         RuleTest netherrackReplaceables = new BlockMatchTest(Blocks.NETHERRACK);
         RuleTest endstoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
-        List<OreConfiguration.TargetBlockState> overworldTitaniumOres = List.of(OreConfiguration.target(stoneReplaceable,
+        List<OreConfiguration.TargetBlockState> overworldTitaniumOres = List.of(OreConfiguration.target(stoneReplaceables,
                         RegisterBlocks.ORE_TITANIUM.get().defaultBlockState()),
                 OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get().defaultBlockState()));
 
+        List<OreConfiguration.TargetBlockState> overworldUraniumOres = List.of(OreConfiguration.target(stoneReplaceables,
+                        RegisterBlocks.ORE_URANIUM.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_ORE_URANIUM.get().defaultBlockState()));
+
         register(context, OVERWORLD_ORE_TITANIUM_KEY, Feature.ORE, new OreConfiguration(overworldTitaniumOres, 8));
+        register(context, OVERWORLD_ORE_URANIUM_KEY, Feature.ORE, new OreConfiguration(overworldUraniumOres, 12));
 
     }
 

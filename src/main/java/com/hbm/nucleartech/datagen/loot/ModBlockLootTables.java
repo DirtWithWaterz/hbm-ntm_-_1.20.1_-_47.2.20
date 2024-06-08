@@ -22,11 +22,17 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     protected void generate() {
 
         this.dropSelf(RegisterBlocks.BLOCK_TITANIUM.get());
+        this.dropSelf(RegisterBlocks.BLOCK_URANIUM.get());
 
         this.add(RegisterBlocks.ORE_TITANIUM.get(),
                 block -> createOreDrop(RegisterBlocks.ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));
         this.add(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(),
                 block -> createOreDrop(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));
+
+        this.add(RegisterBlocks.ORE_URANIUM.get(),
+                block -> createOreDrop(RegisterBlocks.ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get()));
+        this.add(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(),
+                block -> createOreDrop(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get()));
     }
 
     @Override

@@ -20,8 +20,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(RegisterBlocks.BLOCK_TITANIUM);
 
+        blockWithItem(RegisterBlocks.BLOCK_URANIUM);
+
         blockWithItem(RegisterBlocks.ORE_TITANIUM);
         blockWithItem(RegisterBlocks.DEEPSLATE_ORE_TITANIUM);
+
+        blockWithItem(RegisterBlocks.ORE_URANIUM);
+        blockWithItem(RegisterBlocks.DEEPSLATE_ORE_URANIUM);
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
