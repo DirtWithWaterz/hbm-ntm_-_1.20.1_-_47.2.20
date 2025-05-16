@@ -1,6 +1,7 @@
 package com.hbm.nucleartech.block;
 
 import com.hbm.nucleartech.HBM;
+import com.hbm.nucleartech.hazard.DeconRadBlock;
 import com.hbm.nucleartech.hazard.HazardBlockItem;
 import com.hbm.nucleartech.item.RegisterItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -9,10 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -59,6 +57,11 @@ public class RegisterBlocks {
                     UniformInt.of(2, 5)
             ));
 
+    public static final RegistryObject<Block> RADIATION_DECONTAMINATOR = registerDeconRadBlock("radiation_decontaminator",
+            () -> new DeconRadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
 
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -76,6 +79,18 @@ public class RegisterBlocks {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerHazardBlockItem(radiation, name, toReturn);
         return toReturn;
+    }
+
+    private static <T extends Block>RegistryObject<T> registerDeconRadBlock(String name, Supplier<T> block) {
+
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        registerDeconRadBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block>RegistryObject<Item> registerDeconRadBlockItem(String name, RegistryObject<T> block) {
+
+        return RegisterItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     private static <T extends Block>RegistryObject<Item> registerHazardBlockItem(double radiation, String name, RegistryObject<T> block) {

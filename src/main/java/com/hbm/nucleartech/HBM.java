@@ -1,6 +1,7 @@
 package com.hbm.nucleartech;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
+import com.hbm.nucleartech.handler.RadiationSystemNT;
 import com.hbm.nucleartech.item.RegisterCreativeTabs;
 import com.hbm.nucleartech.item.RegisterItems;
 import com.mojang.logging.LogUtils;
@@ -89,7 +90,8 @@ public class HBM
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
-
+        AdvancementManager.init(event.getServer());
+        RadiationSystemNT.init(event.getServer());
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

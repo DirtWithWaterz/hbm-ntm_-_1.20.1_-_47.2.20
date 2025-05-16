@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "hbm:block/radiation_decontaminator_side",
+    "front": "hbm:block/radiation_decontaminator_side",
+    "particle": "hbm:block/radiation_decontaminator_side",
+    "side": "hbm:block/radiation_decontaminator_side",
+    "top": "hbm:block/radiation_decontaminator_top"
+  }
+}

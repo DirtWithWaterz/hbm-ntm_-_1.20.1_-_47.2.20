@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "hbm:block/radiation_decontaminator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "hbm:block/radiation_decontaminator"
+    },
+    "facing=south": {
+      "model": "hbm:block/radiation_decontaminator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "hbm:block/radiation_decontaminator",
+      "y": 270
+    }
+  }
+}

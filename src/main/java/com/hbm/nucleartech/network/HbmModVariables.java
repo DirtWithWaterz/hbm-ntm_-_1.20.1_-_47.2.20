@@ -1,5 +1,6 @@
 package com.hbm.nucleartech.network;
 
+import net.minecraft.world.entity.Mob;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

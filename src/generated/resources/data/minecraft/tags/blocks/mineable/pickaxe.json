@@ -5,6 +5,7 @@
     "hbm:deepslate_ore_titanium",
     "hbm:block_uranium",
     "hbm:ore_uranium",
-    "hbm:deepslate_ore_uranium"
+    "hbm:deepslate_ore_uranium",
+    "hbm:radiation_decontaminator"
   ]
 }

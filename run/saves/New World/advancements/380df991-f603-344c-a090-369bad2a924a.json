@@ -131,21 +131,21 @@
     },
     "done": true
   },
+  "hbm:recipes/misc/block_titanium_from_ingot_titanium": {
+    "criteria": {
+      "has_ingot_titanium": "2024-06-08 03:55:28 -0700"
+    },
+    "done": true
+  },
   "hbm:recipes/misc/ingot_uranium_from_smelting_ore_uranium": {
     "criteria": {
       "has_ore_uranium": "2024-06-08 03:55:39 -0700"
     },
     "done": true
   },
-  "hbm:recipes/misc/ingot_uranium_from_block_uranium": {
+  "hbm:recipes/misc/ingot_uranium_from_blasting_ore_uranium": {
     "criteria": {
-      "has_the_recipe": "2024-06-08 03:58:02 -0700"
-    },
-    "done": true
-  },
-  "hbm:recipes/misc/ingot_uranium_from_blasting_raw_uranium": {
-    "criteria": {
-      "has_raw_uranium": "2024-06-08 03:56:22 -0700"
+      "has_ore_uranium": "2024-06-08 03:55:39 -0700"
     },
     "done": true
   },
@@ -161,33 +161,9 @@
     },
     "done": true
   },
-  "hbm:recipes/misc/pile_rod_uranium_from_billet_uranium_and_plate_iron": {
+  "hbm:recipes/misc/ingot_uranium_from_blasting_raw_uranium": {
     "criteria": {
-      "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
-    },
-    "done": true
-  },
-  "hbm:recipes/misc/nugget_uranium_from_billet_uranium": {
-    "criteria": {
-      "has_billet_uranium": "2024-06-08 03:58:25 -0700"
-    },
-    "done": true
-  },
-  "hbm:recipes/misc/billet_uranium_from_ingot_uranium": {
-    "criteria": {
-      "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
-    },
-    "done": true
-  },
-  "hbm:recipes/misc/ingot_uranium_from_billet_uranium": {
-    "criteria": {
-      "has_billet_uranium": "2024-06-08 03:58:25 -0700"
-    },
-    "done": true
-  },
-  "hbm:recipes/misc/nugget_uranium_from_ingot_uranium": {
-    "criteria": {
-      "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
+      "has_raw_uranium": "2024-06-08 03:56:22 -0700"
     },
     "done": true
   },
@@ -197,27 +173,51 @@
     },
     "done": true
   },
+  "hbm:recipes/misc/pile_rod_uranium_from_billet_uranium_and_plate_iron": {
+    "criteria": {
+      "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
+    },
+    "done": true
+  },
+  "hbm:recipes/misc/billet_uranium_from_ingot_uranium": {
+    "criteria": {
+      "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
+    },
+    "done": true
+  },
+  "hbm:recipes/misc/nugget_uranium_from_ingot_uranium": {
+    "criteria": {
+      "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
+    },
+    "done": true
+  },
   "hbm:recipes/misc/block_uranium_from_ingot_uranium": {
     "criteria": {
       "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
     },
     "done": true
   },
-  "hbm:recipes/misc/block_titanium_from_ingot_titanium": {
-    "criteria": {
-      "has_ingot_titanium": "2024-06-08 03:55:28 -0700"
-    },
-    "done": true
-  },
-  "hbm:recipes/misc/ingot_uranium_from_blasting_ore_uranium": {
-    "criteria": {
-      "has_ore_uranium": "2024-06-08 03:55:39 -0700"
-    },
-    "done": true
-  },
   "hbm:recipes/misc/ingot_uranium_from_nugget_uranium": {
     "criteria": {
       "has_ingot_uranium": "2024-06-08 03:56:43 -0700"
+    },
+    "done": true
+  },
+  "hbm:recipes/misc/ingot_uranium_from_block_uranium": {
+    "criteria": {
+      "has_the_recipe": "2024-06-08 03:58:02 -0700"
+    },
+    "done": true
+  },
+  "hbm:recipes/misc/nugget_uranium_from_billet_uranium": {
+    "criteria": {
+      "has_billet_uranium": "2024-06-08 03:58:25 -0700"
+    },
+    "done": true
+  },
+  "hbm:recipes/misc/ingot_uranium_from_billet_uranium": {
+    "criteria": {
+      "has_billet_uranium": "2024-06-08 03:58:25 -0700"
     },
     "done": true
   },

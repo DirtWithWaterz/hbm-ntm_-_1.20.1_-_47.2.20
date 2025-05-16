@@ -1,12 +1,16 @@
 package com.hbm.nucleartech.handler;
 
 
+import com.hbm.nucleartech.AdvancementManager;
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.lib.ModDamageSource;
 import com.hbm.nucleartech.network.HbmLivingProps;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,14 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = HBM.MOD_ID)
 public class RadiationSystemNT {
+
+    static MinecraftServer server;
+
+    public static void init(MinecraftServer pServer) {
+
+        server = pServer;
+
+    }
 
     private static void updateEntityContamination(Level world, boolean updateData) {
 
@@ -43,9 +56,9 @@ public class RadiationSystemNT {
 
                     LivingEntity entity = (LivingEntity) e;
 
-                    if(entity instanceof Player) {
+                    if(entity instanceof ServerPlayer) {
 
-                        Player player = (Player) entity;
+                        ServerPlayer player = (ServerPlayer) entity;
                         if(player.isCreative() || player.isSpectator())
                             continue;
 
@@ -59,6 +72,7 @@ public class RadiationSystemNT {
                             player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("hbm:radiation")))), 1000f);
 
                             // Grant achievement, "Ouch, Radiation!"
+
 
                         } else if(eRad >= 800) {
 
@@ -120,6 +134,7 @@ public class RadiationSystemNT {
                                 player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 1 * 20, 0, true, false));
 
                             // Grant achievement, "Yay, Radiation!"
+                            AdvancementManager.grant(player, "story/achradpoison");
                         }
                     }
                 }

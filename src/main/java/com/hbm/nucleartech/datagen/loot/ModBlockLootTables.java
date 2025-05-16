@@ -23,6 +23,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.dropSelf(RegisterBlocks.BLOCK_TITANIUM.get());
         this.dropSelf(RegisterBlocks.BLOCK_URANIUM.get());
+        this.dropSelf(RegisterBlocks.RADIATION_DECONTAMINATOR.get());
 
         this.add(RegisterBlocks.ORE_TITANIUM.get(),
                 block -> createOreDrop(RegisterBlocks.ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));

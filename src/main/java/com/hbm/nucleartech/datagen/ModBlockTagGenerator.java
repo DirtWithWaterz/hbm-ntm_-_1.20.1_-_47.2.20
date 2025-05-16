@@ -26,7 +26,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(),
                         RegisterBlocks.BLOCK_URANIUM.get(),
                         RegisterBlocks.ORE_URANIUM.get(),
-                        RegisterBlocks.DEEPSLATE_ORE_URANIUM.get());
+                        RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(),
+                        RegisterBlocks.RADIATION_DECONTAMINATOR.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(RegisterBlocks.ORE_TITANIUM.get()).addTag(Tags.Blocks.ORES);

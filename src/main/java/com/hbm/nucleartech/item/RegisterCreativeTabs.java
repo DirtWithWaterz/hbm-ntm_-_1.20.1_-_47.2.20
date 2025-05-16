@@ -51,6 +51,14 @@ public class RegisterCreativeTabs {
                     })
                     .build());
 
+    public static final RegistryObject<CreativeModeTab> NTM_MACHINES = CREATIVE_TABS.register("ntm_machines",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterBlocks.RADIATION_DECONTAMINATOR.get()))
+                    .title(Component.translatable("creativetab.ntm_machines"))
+                    .displayItems((itemDisplayParameters, output) -> {
+                        output.accept(RegisterBlocks.RADIATION_DECONTAMINATOR.get());
+                    })
+                    .build());
+
     public static void register(IEventBus eventBus) {
 
         CREATIVE_TABS.register(eventBus);

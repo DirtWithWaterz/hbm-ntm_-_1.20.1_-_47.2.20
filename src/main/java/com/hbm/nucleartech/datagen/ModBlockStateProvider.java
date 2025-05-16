@@ -3,8 +3,11 @@ package com.hbm.nucleartech.datagen;
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.block.RegisterBlocks;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -27,10 +30,40 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(RegisterBlocks.ORE_URANIUM);
         blockWithItem(RegisterBlocks.DEEPSLATE_ORE_URANIUM);
+
+        blockWithItem(RegisterBlocks.RADIATION_DECONTAMINATOR,
+                new ResourceLocation("hbm:block/radiation_decontaminator_top"),
+                new ResourceLocation("hbm:block/radiation_decontaminator_side"),
+                new ResourceLocation("hbm:block/radiation_decontaminator_side"),
+                new ResourceLocation("hbm:block/radiation_decontaminator_side"),
+                new ResourceLocation("hbm:block/radiation_decontaminator_side"));
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
 
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+    }
+    private void blockWithItem(RegistryObject<Block> blockRegistryObject, ResourceLocation bottom, ResourceLocation side, ResourceLocation top) {
+
+//        System.err.println(blockRegistryObject.getId().getPath());
+        simpleBlockWithItem(blockRegistryObject.get(), models().cube(blockRegistryObject.getId().getPath(), bottom, top, side, side, side, side));
+    }
+    private void blockWithItem(RegistryObject<Block> blockRegistryObject, ResourceLocation top, ResourceLocation bottom, ResourceLocation side, ResourceLocation front, ResourceLocation particle) {
+        String name = blockRegistryObject.getId().getPath();
+
+        // Create the model using orientable_with_bottom
+        ModelFile model = models()
+                .withExistingParent(name, mcLoc("block/orientable_with_bottom"))
+                .texture("top", top)
+                .texture("bottom", bottom)
+                .texture("side", side)
+                .texture("front", front)
+                .texture("particle", particle);
+
+        // Register blockstate with facing direction
+        horizontalBlock(blockRegistryObject.get(), model);
+
+        // Register the item model to point to the block model
+        itemModels().getBuilder(name).parent(model);
     }
 }
