@@ -21,6 +21,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
 
+        this.dropSelf(RegisterBlocks.BLOCK_WASTE.get());
         this.dropSelf(RegisterBlocks.BLOCK_TITANIUM.get());
         this.dropSelf(RegisterBlocks.BLOCK_URANIUM.get());
         this.dropSelf(RegisterBlocks.RADIATION_DECONTAMINATOR.get());

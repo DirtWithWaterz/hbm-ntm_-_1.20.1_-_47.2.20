@@ -1,6 +1,7 @@
-// 1.20.1	2025-05-15T18:55:40.223181	Block States: hbm
+// 1.20.1	2025-05-24T23:12:05.8858869	Block States: hbm
 9c646a66397dadb14e6baf5c3b90f6cd368eaf6a assets/hbm/blockstates/block_titanium.json
 98d8ea598f33c58e59e972384ca26096dde38214 assets/hbm/blockstates/block_uranium.json
+42fdc7bdac0fa83f4cfb76c3d4e8a004a5d77dad assets/hbm/blockstates/block_waste.json
 08bf085b928c90f7f1f7893ffe69d7209d506fa2 assets/hbm/blockstates/deepslate_ore_titanium.json
 796028fd737701945b51a67f41f5591acb7e17c3 assets/hbm/blockstates/deepslate_ore_uranium.json
 bebe76699e843e7ddc79077d78d918eac05329c0 assets/hbm/blockstates/ore_titanium.json
@@ -8,6 +9,7 @@ bebe76699e843e7ddc79077d78d918eac05329c0 assets/hbm/blockstates/ore_titanium.jso
 7ba4a70ec779786c20ac47b1684dfb070994c355 assets/hbm/blockstates/radiation_decontaminator.json
 41cb691c28ab9d7ac7f581318ba3b594430b4c63 assets/hbm/models/block/block_titanium.json
 827916c42442439edbb29714545e179d3765d480 assets/hbm/models/block/block_uranium.json
+029809ffc7ccb7d5a1ed40379483c0cffd4dabe0 assets/hbm/models/block/block_waste.json
 12b612f1fa02a17a6f93d09691fbe1883d5b957c assets/hbm/models/block/deepslate_ore_titanium.json
 afae3f230fc665c056d83130cc44dc588315f21d assets/hbm/models/block/deepslate_ore_uranium.json
 e9810b684ba8a9f4289a3ceff7aa53b860fe5151 assets/hbm/models/block/ore_titanium.json
@@ -15,6 +17,7 @@ d1acfe7c4a47cd7d52d18c3c11163d0e6ce38085 assets/hbm/models/block/ore_uranium.jso
 f61e4cd0e358f598018a2cecbecfbaf1474af303 assets/hbm/models/block/radiation_decontaminator.json
 445596f0d878453312214f2f9e856307bb28829b assets/hbm/models/item/block_titanium.json
 f765e23643d677d7b46979ce22aa56fb6a47ef5e assets/hbm/models/item/block_uranium.json
+d0bb80b71ae0f98f3a38d30fc57bc6b3874b8450 assets/hbm/models/item/block_waste.json
 10a897ffc5d20027ce406a893622aa6afcbb6192 assets/hbm/models/item/deepslate_ore_titanium.json
 12a79e078a80126b64a4957da5701976b80ef879 assets/hbm/models/item/deepslate_ore_uranium.json
 aa6f90fa3c3d23d37454c0ad1450649a5175fbca assets/hbm/models/item/ore_titanium.json

@@ -40,6 +40,7 @@ public class RegisterCreativeTabs {
                     .title(Component.translatable("creativetab.ntm_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
 
+                        output.accept(RegisterBlocks.BLOCK_WASTE.get());
                         output.accept(RegisterBlocks.BLOCK_URANIUM.get());
                         output.accept(RegisterBlocks.BLOCK_TITANIUM.get());
 

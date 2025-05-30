@@ -1,7 +1,8 @@
 package com.hbm.nucleartech.block;
 
 import com.hbm.nucleartech.HBM;
-import com.hbm.nucleartech.hazard.DeconRadBlock;
+import com.hbm.nucleartech.block.custom.DeconRadBlock;
+import com.hbm.nucleartech.hazard.HazardBlock;
 import com.hbm.nucleartech.hazard.HazardBlockItem;
 import com.hbm.nucleartech.item.RegisterItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -23,14 +24,21 @@ public class RegisterBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, HBM.MOD_ID);
 
+    public static final RegistryObject<Block> BLOCK_WASTE = registerHazardBlock(4500, "block_waste",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f),
+                    4500
+            ));
+
     public static final RegistryObject<Block> BLOCK_TITANIUM = registerBlock("block_titanium",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(5.0f, 10.0f)
             ));
 
     public static final RegistryObject<Block> BLOCK_URANIUM = registerHazardBlock(3.5, "block_uranium",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)
-                    .strength(5.0f, 10.0f)
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)
+                    .strength(5.0f, 10.0f),
+                    3.5
             ));
 
     public static final RegistryObject<Block> ORE_TITANIUM = registerBlock("ore_titanium",
@@ -46,15 +54,17 @@ public class RegisterBlocks {
             ));
 
     public static final RegistryObject<Block> ORE_URANIUM = registerHazardBlock(0.003, "ore_uranium",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_ORE)
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_ORE)
                     .strength(5.0f, 10.0f),
-                    UniformInt.of(2, 4)
+                    UniformInt.of(2, 4),
+                    0.003
             ));
 
     public static final RegistryObject<Block> DEEPSLATE_ORE_URANIUM = registerHazardBlock(0.0035, "deepslate_ore_uranium",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_DIAMOND_ORE)
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_DIAMOND_ORE)
                     .strength(8.0f, 15.0f),
-                    UniformInt.of(2, 5)
+                    UniformInt.of(2, 5),
+                    0.0035
             ));
 
     public static final RegistryObject<Block> RADIATION_DECONTAMINATOR = registerDeconRadBlock("radiation_decontaminator",

@@ -1,13 +1,18 @@
 package com.hbm.nucleartech;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
+import com.hbm.nucleartech.damagetype.RegisterDamageTypes;
+import com.hbm.nucleartech.entity.HbmEntities;
+import com.hbm.nucleartech.entity.client.NuclearCreeperRenderer;
 import com.hbm.nucleartech.handler.RadiationSystemNT;
 import com.hbm.nucleartech.item.RegisterCreativeTabs;
 import com.hbm.nucleartech.item.RegisterItems;
+import com.hbm.nucleartech.network.HbmPacketHandler;
+import com.hbm.nucleartech.particle.RegisterParticles;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -46,6 +51,10 @@ public class HBM
 
         RegisterItems.register(modEventBus);
         RegisterBlocks.register(modEventBus);
+        RegisterDamageTypes.register(modEventBus);
+        RegisterParticles.register(modEventBus);
+        HbmEntities.register(modEventBus);
+//        ClientSetup.init(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -77,7 +86,7 @@ public class HBM
 
     private void commonSetup(final FMLCommonSetupEvent event) {
 
-
+        HbmPacketHandler.register();
     }
 
     // Add the example block item to the building blocks tab
@@ -101,7 +110,7 @@ public class HBM
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
 
-
+            EntityRenderers.register(HbmEntities.NUCLEAR_CREEPER.get(), NuclearCreeperRenderer::new);
         }
     }
 }

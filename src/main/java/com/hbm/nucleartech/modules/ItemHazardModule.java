@@ -107,7 +107,8 @@ public class ItemHazardModule {
             if(reacher)
                 rad = (double) Math.min(Math.sqrt(rad), rad);
 
-            ContaminationUtil.contaminate(entity, HazardType.RADIATION, ContaminationType.CREATIVE, rad);
+//            System.err.println("calling ContaminationUtil.contaminate() for " + entity.getName().getString() + " with rad value: " + rad);
+            ContaminationUtil.contaminate(entity, HazardType.RADIATION, ContaminationType.CREATIVE, (float) rad);
         }
     }
 

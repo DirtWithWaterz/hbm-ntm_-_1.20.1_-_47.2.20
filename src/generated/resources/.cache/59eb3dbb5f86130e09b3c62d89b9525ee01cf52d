@@ -1,6 +1,7 @@
-// 1.20.1	2025-05-15T17:44:36.2345541	Loot Tables
+// 1.20.1	2025-05-24T23:12:05.8888653	Loot Tables
 3d521f4c59d579d087ed1a59fbca3b6dccdb62e6 data/hbm/loot_tables/blocks/block_titanium.json
 41d404e3afd6f6cd6e7b9c858b1c78a9d2735d03 data/hbm/loot_tables/blocks/block_uranium.json
+b9bdaa6f1a86398dd4c8b1d91f31b836d1d7d9ff data/hbm/loot_tables/blocks/block_waste.json
 9939c61b0f5beba9fb487771cacbcad48f494101 data/hbm/loot_tables/blocks/deepslate_ore_titanium.json
 74b84b088e69c3a5c326f1b4b12eb3a1620642eb data/hbm/loot_tables/blocks/deepslate_ore_uranium.json
 8810e0a6c84d56016d93aa02c401c902a67a6118 data/hbm/loot_tables/blocks/ore_titanium.json
