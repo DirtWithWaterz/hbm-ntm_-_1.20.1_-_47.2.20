@@ -2,6 +2,6 @@
 /.gradle/
 /build/
 /build/classes/java/main/
-/Original HBM/*
-/run/*
-/run-data/*
+/Original HBM/
+/run/
+/run-data/
