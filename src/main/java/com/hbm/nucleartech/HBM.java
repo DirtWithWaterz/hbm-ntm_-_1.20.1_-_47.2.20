@@ -1,7 +1,6 @@
 package com.hbm.nucleartech;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
-import com.hbm.nucleartech.damagetype.RegisterDamageTypes;
 import com.hbm.nucleartech.entity.HbmEntities;
 import com.hbm.nucleartech.entity.client.NuclearCreeperRenderer;
 import com.hbm.nucleartech.handler.RadiationSystemNT;
@@ -51,7 +50,6 @@ public class HBM
 
         RegisterItems.register(modEventBus);
         RegisterBlocks.register(modEventBus);
-        RegisterDamageTypes.register(modEventBus);
         RegisterParticles.register(modEventBus);
         HbmEntities.register(modEventBus);
 //        ClientSetup.init(modEventBus);

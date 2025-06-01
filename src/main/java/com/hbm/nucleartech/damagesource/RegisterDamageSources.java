@@ -1,0 +1,32 @@
+package com.hbm.nucleartech.damagesource;
+
+import com.hbm.nucleartech.HBM;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+
+public class RegisterDamageSources {
+
+    public static final DamageSource RADIATION_DAMAGE;
+    public static final DamageSource NUCLEAR_BLAST_DAMAGE;
+    public static final DamageSource BLAST_DAMAGE;
+
+    static {
+
+        assert Minecraft.getInstance().level != null;
+        RADIATION_DAMAGE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
+
+                ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HBM.MOD_ID, "radiation"))
+        ));
+        NUCLEAR_BLAST_DAMAGE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
+
+                ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HBM.MOD_ID, "nuclear_blast"))
+        ));
+        BLAST_DAMAGE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
+
+                ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HBM.MOD_ID, "blast"))
+        ));
+    }
+}

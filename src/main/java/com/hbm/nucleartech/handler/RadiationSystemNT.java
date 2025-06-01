@@ -4,8 +4,8 @@ package com.hbm.nucleartech.handler;
 import com.hbm.nucleartech.AdvancementManager;
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.capability.HbmCapabilities;
+import com.hbm.nucleartech.damagesource.RegisterDamageSources;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
-import com.hbm.nucleartech.lib.ModDamageSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,9 +16,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
@@ -71,12 +69,16 @@ public class RadiationSystemNT {
 
 
                                     if (eRad > 2500000)
-                                        HbmCapabilities.getData(player).setValue(Type.RADIATION, 2500000);
+                                        HbmCapabilities.getData(player).setValue(Type.RADIATION, 2500000); // grant achievement "HOW"
 
                                     if (eRad >= 1000) {
 
 //                                        player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("hbm:radiation")))), 1000f);
-                                        player.hurt(ModDamageSource.radiationDamage((ServerLevel) world), 1000F);
+                                        try {
+
+                                            player.hurt(RegisterDamageSources.RADIATION_DAMAGE, 1000f);
+                                            // grant achievement "wait, what?"
+                                        } catch (Exception ignored) { System.err.println("client had a packet error!"); }
                                         // Grant achievement, "Ouch, Radiation!"
 
 
@@ -293,7 +295,8 @@ public class RadiationSystemNT {
 //        }
 
         // Make entities stinky
-        updateEntityContamination(event.level, allowUpdate);
+        if(!event.level.isClientSide())
+            updateEntityContamination(event.level, allowUpdate);
     }
 
     private static @NotNull AABB getAabb(Level world, ChunkPos chunkPos) {

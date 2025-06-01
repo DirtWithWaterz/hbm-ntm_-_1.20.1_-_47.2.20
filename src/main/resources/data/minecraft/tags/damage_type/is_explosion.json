@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:nuclear_blast",
+    "blast"
+  ]
+}

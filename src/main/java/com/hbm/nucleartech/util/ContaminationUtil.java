@@ -1,7 +1,7 @@
 package com.hbm.nucleartech.util;
 
+import com.hbm.nucleartech.damagesource.RegisterDamageSources;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
-import com.hbm.nucleartech.lib.ModDamageSource;
 //import com.hbm.nucleartech.network.HbmProps;
 import com.hbm.nucleartech.capability.HbmCapabilities;
 import com.hbm.nucleartech.render.amlfrom1710.Vec3;
@@ -107,9 +107,9 @@ public class ContaminationUtil {
                 blastDmg /= (float)(dmgLen * dmgLen * res);
                 if(blastDmg > 0.025F){
                     if(rad3d > 0)
-                        e.hurt(ModDamageSource.nuclearBlastDamage((ServerLevel) pLevel), blastDmg);
+                        e.hurt(RegisterDamageSources.NUCLEAR_BLAST_DAMAGE, blastDmg);
                     else
-                        e.hurt(ModDamageSource.BlastDamage((ServerLevel) pLevel), blastDmg);
+                        e.hurt(RegisterDamageSources.BLAST_DAMAGE, blastDmg);
                 }
                 net.minecraft.world.phys.Vec3 cVel = e.getDeltaMovement();
                 e.setDeltaMovement(
