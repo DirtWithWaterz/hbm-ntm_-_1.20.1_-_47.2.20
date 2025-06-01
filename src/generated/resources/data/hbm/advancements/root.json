@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "hbm:textures/block/brick_concrete.png",
+    "description": {
+      "text": "And so the nuclear adventure starts... again."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:book"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "NTM Rewrote"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -142,7 +142,7 @@ public class RadiationSystemNT {
                                             player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 1 * 20, 0, true, false));
 
                                         // Grant achievement, "Yay, Radiation!"
-                                        AdvancementManager.grant(player, "story/achradpoison");
+                                        AdvancementManager.grant(player, "rad_poison");
                                     }
                                 }
 

@@ -57,21 +57,22 @@ public class ModDamageTypeProvider implements DataProvider {
     public String getName() {
         return HBM.MOD_ID + ":ModDamageTypeProvider";
     }
+
+    enum Scaling {
+
+        never,
+        always,
+        when_caused_by_living_non_player
+    }
+
+    enum Effect {
+
+        hurt,
+        thorns,
+        drowning,
+        burning,
+        poking,
+        freezing
+    }
 }
 
-enum Scaling {
-
-    never,
-    always,
-    when_caused_by_living_non_player
-}
-
-enum Effect {
-
-    hurt,
-    thorns,
-    drowning,
-    burning,
-    poking,
-    freezing
-}

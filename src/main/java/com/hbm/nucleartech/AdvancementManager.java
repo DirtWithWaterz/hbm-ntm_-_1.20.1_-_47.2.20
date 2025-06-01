@@ -19,8 +19,84 @@ public class AdvancementManager {
         CUSTOM_ADVANCEMENTS.clear();
 
         // Preload all advancements you want to trigger by code
-        preload(server, "story/root");
-        preload(server, "story/achradpoison");
+        preload(server, "root");
+
+        preload(server, "sacrifice");
+        preload(server, "impossible");
+        preload(server, "taste_of_blood");
+        preload(server, "go_fish");
+        preload(server, "potato");
+        preload(server, "c20_5");
+        preload(server, "fiend");
+        preload(server, "fiend2");
+        preload(server, "stratum");
+        preload(server, "omega12");
+
+        preload(server, "no9");
+        preload(server, "slimeball");
+        preload(server, "sulfuric");
+        preload(server, "inferno");
+        preload(server, "red_room");
+
+        preload(server, "hidden");
+
+        preload(server, "horizons_start");
+        preload(server, "horizons_end");
+        preload(server, "horizons_bonus");
+
+        preload(server, "boss_creeper");
+        preload(server, "boss_meltdown");
+        preload(server, "boss_mask_man");
+        preload(server, "boss_worm");
+        preload(server, "boss_ufo");
+
+        preload(server, "rad_poison");
+        preload(server, "rad_death");
+
+        preload(server, "some_wounds");
+
+        preload(server, "digamma_see");
+        preload(server, "digamma_feel");
+        preload(server, "digamma_know");
+        preload(server, "digamma_kauai_moho");
+        preload(server, "digamma_up_on_top");
+
+        // progression achievements
+        preload(server, "burner_press");
+        preload(server, "blast_furnace");
+        preload(server, "assembly");
+        preload(server, "selenium");
+        preload(server, "chem_plant");
+        preload(server, "concrete");
+        preload(server, "polymer");
+        preload(server, "desh");
+        preload(server, "tantalum");
+        preload(server, "gas_cent");
+        preload(server, "centrifuge");
+        preload(server, "foeq");
+        preload(server, "soyuz");
+        preload(server, "space");
+        preload(server, "schrab");
+        preload(server, "acidizer");
+        preload(server, "radium");
+        preload(server, "technetium");
+        preload(server, "zirnox_boom");
+        preload(server, "chicago_pile");
+        preload(server, "silex");
+        preload(server, "watz");
+        preload(server, "watz_boom");
+        preload(server, "rbmk");
+        preload(server, "rbmk_boom");
+        preload(server, "bismuth");
+        preload(server, "breeding");
+        preload(server, "fusion");
+        preload(server, "meltdown");
+        preload(server, "red_balloons");
+        preload(server, "manhattan");
+
+
+
+
     }
 
     private static void preload(MinecraftServer server, String path) {

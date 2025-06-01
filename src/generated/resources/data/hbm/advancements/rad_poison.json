@@ -1,0 +1,32 @@
+{
+  "parent": "hbm:root",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Suffer the effects of radiation poisoning."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "hbm:billet_uranium"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Yay, Radiation!"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "rewards": {
+    "experience": 17
+  },
+  "sends_telemetry_event": true
+}
