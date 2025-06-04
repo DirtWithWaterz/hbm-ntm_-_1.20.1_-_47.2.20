@@ -18,15 +18,15 @@ public class RegisterDamageSources {
         assert Minecraft.getInstance().level != null;
         RADIATION_DAMAGE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
 
-                ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HBM.MOD_ID, "radiation"))
+                HbmDamageTypes.RADIATION
         ));
         NUCLEAR_BLAST_DAMAGE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
 
-                ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HBM.MOD_ID, "nuclear_blast"))
+                HbmDamageTypes.NUCLEAR_BLAST
         ));
         BLAST_DAMAGE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
 
-                ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(HBM.MOD_ID, "blast"))
+                HbmDamageTypes.BLAST
         ));
     }
 }
