@@ -1,10 +1,7 @@
 package com.hbm.nucleartech.damagesource;
 
-import com.hbm.nucleartech.HBM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 
 public class RegisterDamageSources {

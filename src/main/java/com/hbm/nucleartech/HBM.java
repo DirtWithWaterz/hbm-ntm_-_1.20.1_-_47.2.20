@@ -1,7 +1,7 @@
 package com.hbm.nucleartech;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
-import com.hbm.nucleartech.damagesource.HbmDamageTypes;
+import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.entity.HbmEntities;
 import com.hbm.nucleartech.entity.client.NuclearCreeperRenderer;
 import com.hbm.nucleartech.handler.RadiationSystemNT;
@@ -54,6 +54,7 @@ public class HBM
         RegisterParticles.register(modEventBus);
         HbmEntities.register(modEventBus);
 //        ClientSetup.init(modEventBus);
+        RadResistantBlock.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

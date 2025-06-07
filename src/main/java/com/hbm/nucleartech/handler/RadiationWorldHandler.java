@@ -1,71 +1,84 @@
 package com.hbm.nucleartech.handler;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
-import com.hbm.nucleartech.saveddata.RadiationSavedData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-//import com.hbm.nucleartech.handler.RadiationSystemNT.RadPocket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RadiationWorldHandler {
 
-//    public static void handleWorldDestruction(Level pLevel) {
-//        if(!(pLevel instanceof ServerLevel))
-//            return;
-//        if(false) // !RadiationConfig.worldRadEffects || !GeneralConfig.enableRads
-//            return;
-//
-//        int count = 50; // worldRad
-//        int threshold = 5; // worldRadThreshold
-//
-//        if(true) { // if GeneralConfig.advancedRadiation
-//
-//            Collection<RadPocket> activePockets = RadiationSystemNT.getActiveCollection(pLevel);
-//            if(activePockets.size() == 0)
-//                return;
-//            int randIdx = pLevel.random.nextInt(activePockets.size());
-//            int itr = 0;
-//            for(RadPocket p : activePockets){
-//                if(itr == randIdx){
-//                    if(p.radiation < threshold)
-//                        return;
-//                    BlockPos startPos = p.getSubChunkPos();
-//                    RadPocket[] pocketsByBlock = p.parent.pocketsByBlock;
-//
-//                    for(int i = 0; i < 16; i++){
-//                        for(int j = 0; j < 16; j++){
-//                            for(int k = 0; k < 16; k++){
-//                                if(pLevel.random.nextInt(3) != 0)
-//                                    continue;
-//                                if(pocketsByBlock != null && pocketsByBlock[i*16*16+j*16+k] != p)
-//                                    continue;
-//                                BlockPos pos = startPos.offset(i, j, k);
-//                                BlockState b = pLevel.getBlockState(pos);
-//                                Block block = b.getBlock();
-//
-//                                if(!pLevel.isEmptyBlock(pos)){
-//                                    if(block == Blocks.GRASS){
-//                                        pLevel.setBlock(pos, RegisterBlocks.BLOCK_TITANIUM.get().defaultBlockState(), 2); // change to waste_grass
-//                                    }
-//                                    // vvv other blocks that need to be replaced by waste effects go here. vvv
-//
-//                                    // ^^^                                                                 ^^^
-//                                }
-//                            }
-//                        }
-//                    }
-//                    break;
-//                }
-//                itr++;
-//            }
-//            return;
-//        }
-//
-//        // a bunch of non 3d radiation code goes here
-//    }
+    public static void handleWorldDestruction(Level level) {
+        if (!(level instanceof ServerLevel world)) return;
+
+        Collection<RadiationSystemChunksNT.RadPocket> active = RadiationSystemChunksNT.getAllActivePockets();
+        if (active.isEmpty()) return;
+
+        int threshold = 5;
+        RadiationSystemChunksNT.RadPocket pocket = pickRandomAboveThreshold(active, world, threshold);
+        if (pocket == null) return;
+
+        Set<RadiationSystemChunksNT.RadPocket> graph = RadiationSystemChunksNT.RadPocket.floodConnected(pocket, world);
+        if(graph == null) {
+
+            graph = new HashSet<>();
+            graph.add(pocket);
+        }
+        for (RadiationSystemChunksNT.RadPocket p : graph) {
+            // for each pocket, iterate its subchunk and flat‐index map, etc.
+            // grab the pocket’s subchunk storage:
+            RadiationSystemChunksNT.SubChunkRadiationStorage sc = p.parent;
+            int[] map = sc.pocketsByBlock;
+
+            // compute the world-origin of this subchunk:
+            int chunkX = sc.parentChunk.chunk.getPos().x;
+            int chunkZ = sc.parentChunk.chunk.getPos().z;
+            int baseY   = (sc.yIndex << 4) - 64;
+
+            // iterate every local block in the 16×16×16 subchunk:
+            for (int flat = 0; flat < map.length; flat++) {
+                if (map[flat] != p.index) continue;  // only blocks in *this* pocket
+
+                // decode flat → local coords
+                int localX =  flat        & 0xF;          // bits 0–3
+                int localZ = (flat >> 4)  & 0xF;          // bits 4–7
+                int localY = (flat >> 8)  & 0xF;          // bits 8–11
+
+                // compute the global BlockPos
+                BlockPos pos = new BlockPos(
+                        (chunkX << 4) + localX,
+                        baseY   + localY,
+                        (chunkZ << 4) + localZ
+                );
+
+                BlockState state = world.getBlockState(pos);
+                Block b = state.getBlock();
+                if (state.isAir()) continue;
+
+                // now your “waste effect” replacements:
+                if (b == Blocks.GRASS_BLOCK) {
+                    world.setBlock(pos, RegisterBlocks.BLOCK_TITANIUM.get().defaultBlockState(), 2);
+                }
+                // …etc.
+            }
+        }
+    }
+
+    // helper to choose a random pocket above threshold:
+    private static RadiationSystemChunksNT.RadPocket pickRandomAboveThreshold(Collection<RadiationSystemChunksNT.RadPocket> pockets, ServerLevel w, int th) {
+        List<RadiationSystemChunksNT.RadPocket> good = pockets.stream()
+                .filter(r -> r.radiation >= th)
+                .collect(Collectors.toList());
+        if (good.isEmpty()) return null;
+        return good.get(w.random.nextInt(good.size()));
+    }
+
 }

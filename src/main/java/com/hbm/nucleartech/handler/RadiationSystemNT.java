@@ -29,11 +29,7 @@ public class RadiationSystemNT {
 
     static MinecraftServer server;
 
-    private static int ticks;
-
-    public static final int Y_MIN = -64;
-    public static final int Y_MAX = 320;
-    public static final int Y_RANGE = Y_MAX - Y_MIN; // 384
+//    private static int ticks;
 
     public static void init(MinecraftServer pServer) {
 
@@ -289,10 +285,10 @@ public class RadiationSystemNT {
 
         boolean allowUpdate = (event.phase == TickEvent.Phase.START);
 
-//        if (allowUpdate) {
-//            // Make the world stinky
-//            RadiationWorldHandler.handleWorldDestruction(e.world);
-//        }
+        if (allowUpdate) {
+            // Make the world stinky
+            RadiationWorldHandler.handleWorldDestruction(event.level);
+        }
 
         // Make entities stinky
         if(!event.level.isClientSide())
