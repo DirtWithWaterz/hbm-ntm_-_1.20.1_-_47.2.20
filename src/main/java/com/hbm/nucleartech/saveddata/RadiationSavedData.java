@@ -72,7 +72,7 @@ public class RadiationSavedData {
 
     public void setRadForCoord(BlockPos pos, float radiation) {
         if(true){ // if GeneralConfig.advancedRadiation
-            RadiationSystemChunksNT.setRadiationAt(worldObj, pos, radiation, radiation*10F);
+            RadiationSystemChunksNT.setRadForCoord(worldObj, pos, radiation);
 //            return;
         }
 //        ChunkPos cPos = new ChunkPos(pos);
@@ -100,9 +100,9 @@ public class RadiationSavedData {
 //        return 0F;
 //    }
 
-    public float getRadNumFromCoord(BlockPos pos) {
+    public float getRadForCoord(BlockPos pos) {
 //        if(true) { // if GeneralConfig.advancedRadiation
-            return RadiationSystemChunksNT.getRadiationAt(worldObj, pos);
+            return RadiationSystemChunksNT.getRadForCoord(worldObj, pos);
 //        }
 //        RadiationSaveStructure rad = contamination.get(new ChunkPos(pos));
 //        if(rad != null)
@@ -254,7 +254,7 @@ public class RadiationSavedData {
 
     public static void incrementRad(ServerLevel worldObj, BlockPos pos, float rad, float maxRad) {
         if(true){ // if GeneralConfig.advancedRadiation
-            RadiationSystemChunksNT.addRadiationAt(worldObj, pos, rad, maxRad);
+            RadiationSystemChunksNT.incrementRad(worldObj, pos, rad, maxRad);
 //            return;
         }
 //        RadiationSavedData data = getData(worldObj);
@@ -271,7 +271,7 @@ public class RadiationSavedData {
 
     public static void decrementRad(ServerLevel pLevel, BlockPos pos, float rad) {
         if(true) { // if GeneralConfig.advancedRadiation
-            RadiationSystemChunksNT.addRadiationAt(pLevel, pos, -rad, rad*10F);
+            RadiationSystemChunksNT.decrementRad(pLevel, pos, rad);
 //            return;
         }
 //        RadiationSavedData data = getData(pLevel);

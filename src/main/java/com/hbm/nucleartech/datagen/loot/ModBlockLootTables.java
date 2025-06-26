@@ -35,6 +35,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 block -> createOreDrop(RegisterBlocks.ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get()));
         this.add(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(),
                 block -> createOreDrop(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get()));
+
+        this.dropSelf(RegisterBlocks.RAD_RESISTANT_BLOCK.get());
     }
 
     @Override

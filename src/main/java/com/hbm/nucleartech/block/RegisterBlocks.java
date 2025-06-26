@@ -2,6 +2,7 @@ package com.hbm.nucleartech.block;
 
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.block.custom.DeconRadBlock;
+import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.hazard.HazardBlock;
 import com.hbm.nucleartech.hazard.HazardBlockItem;
 import com.hbm.nucleartech.item.RegisterItems;
@@ -67,8 +68,13 @@ public class RegisterBlocks {
                     0.0035
             ));
 
-    public static final RegistryObject<Block> RADIATION_DECONTAMINATOR = registerDeconRadBlock("radiation_decontaminator",
+    public static final RegistryObject<Block> RADIATION_DECONTAMINATOR = registerBlock("radiation_decontaminator",
             () -> new DeconRadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+    public static final RegistryObject<Block> RAD_RESISTANT_BLOCK = registerBlock("rad_resistant_block",
+            () -> new RadResistantBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(5.0f, 10.0f)
             ));
 
@@ -89,18 +95,6 @@ public class RegisterBlocks {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerHazardBlockItem(radiation, name, toReturn);
         return toReturn;
-    }
-
-    private static <T extends Block>RegistryObject<T> registerDeconRadBlock(String name, Supplier<T> block) {
-
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerDeconRadBlockItem(name, toReturn);
-        return toReturn;
-    }
-
-    private static <T extends Block>RegistryObject<Item> registerDeconRadBlockItem(String name, RegistryObject<T> block) {
-
-        return RegisterItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     private static <T extends Block>RegistryObject<Item> registerHazardBlockItem(double radiation, String name, RegistryObject<T> block) {

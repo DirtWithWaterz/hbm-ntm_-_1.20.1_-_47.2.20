@@ -1,12 +1,14 @@
 package com.hbm.nucleartech.block.custom;
 
 import com.hbm.nucleartech.HBM;
+import com.hbm.nucleartech.handler.RadiationSystemChunksNT;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,14 +19,12 @@ public class RadResistantBlock extends Block implements IRadResistantBlock {
         super(pProperties);
     }
 
-    public static final TagKey<Block> RAD_RESISTANT_BLOCKS =
-            BlockTags.create(new ResourceLocation(HBM.MOD_ID, "rad_resistant_blocks"));
 
     @Override
-    public boolean isRadResistant(ServerLevel level, BlockPos pos) {
+    public boolean isRadResistant(Level level, BlockPos pos) {
 
-        BlockState state = level.getBlockState(pos);
-        return state.is(RAD_RESISTANT_BLOCKS);
+        Block block = level.getBlockState(pos).getBlock();
+        return block instanceof IRadResistantBlock;
     }
 
     @Override
@@ -33,8 +33,19 @@ public class RadResistantBlock extends Block implements IRadResistantBlock {
         return 1;
     }
 
-    public static void register(IEventBus eventBus) {
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
 
-        eventBus.register(RAD_RESISTANT_BLOCKS);
+        System.out.println("[Debug] " + pState.getBlock().getName() + " placed at " + pPos + ", marking position for rebuild");
+        RadiationSystemChunksNT.RadiationEventHandlers.markChunkForRebuild(pLevel, pPos);
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+
+        System.out.println("[Debug] " + pState.getBlock().getName() + " removed at " + pPos + ", marking position for rebuild");
+        RadiationSystemChunksNT.RadiationEventHandlers.markChunkForRebuild(pLevel, pPos);
     }
 }

@@ -54,7 +54,6 @@ public class HBM
         RegisterParticles.register(modEventBus);
         HbmEntities.register(modEventBus);
 //        ClientSetup.init(modEventBus);
-        RadResistantBlock.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

@@ -38,6 +38,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"),
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"),
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"));
+
+        blockWithItem(RegisterBlocks.RAD_RESISTANT_BLOCK);
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {

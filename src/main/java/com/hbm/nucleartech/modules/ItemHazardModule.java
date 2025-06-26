@@ -98,8 +98,14 @@ public class ItemHazardModule {
 
         boolean reacher = false;
 
-        if(entity instanceof Player /* && !GeneralConfig.enable528 */)
-            reacher = Library.checkForHeld((Player) entity, RegisterItems.REACHER.get());
+        if(entity instanceof Player player /* && !GeneralConfig.enable528 */) {
+
+            if(player.isCreative() || player.isSpectator())
+                return;
+
+            reacher = Library.checkForHeld(player, RegisterItems.REACHER.get());
+        }
+
 
         if(this.radiation * tempMod > 0) {
             double rad = this.radiation * tempMod * mod / 20f;
@@ -107,7 +113,7 @@ public class ItemHazardModule {
             if(reacher)
                 rad = (double) Math.min(Math.sqrt(rad), rad);
 
-//            System.err.println("calling ContaminationUtil.contaminate() for " + entity.getName().getString() + " with rad value: " + rad);
+            System.err.println("calling ContaminationUtil.contaminate() for " + entity.getName().getString() + " with rad value: " + rad);
             ContaminationUtil.contaminate(entity, HazardType.RADIATION, ContaminationType.CREATIVE, (float) rad);
         }
     }

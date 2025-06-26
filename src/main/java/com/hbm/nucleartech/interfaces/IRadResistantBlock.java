@@ -1,11 +1,11 @@
 package com.hbm.nucleartech.interfaces;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 
 public interface IRadResistantBlock {
 
-    boolean isRadResistant(ServerLevel level, BlockPos pos);
+    boolean isRadResistant(Level level, BlockPos pos);
 
     int getResistance();
 }

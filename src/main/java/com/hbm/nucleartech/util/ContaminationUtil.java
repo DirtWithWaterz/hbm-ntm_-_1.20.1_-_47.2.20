@@ -2,16 +2,16 @@ package com.hbm.nucleartech.util;
 
 import com.hbm.nucleartech.damagesource.RegisterDamageSources;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
-//import com.hbm.nucleartech.network.HbmProps;
 import com.hbm.nucleartech.capability.HbmCapabilities;
+import com.hbm.nucleartech.interfaces.IRadResistantBlock;
 import com.hbm.nucleartech.render.amlfrom1710.Vec3;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -53,6 +53,7 @@ public class ContaminationUtil {
         List<Entity> entities = pLevel.getEntities(null, new AABB(x-range, y-range, z-range, x+range, y+range, z+range));
 
         for(Entity e : entities) {
+
             if(isExplosionExempt(e)) continue;
 
             Vec3 vec = Vec3.createVectorHelper(e.getX() - x, (e.getY() + e.getEyeHeight()) - y, e.getZ() - z);
@@ -64,36 +65,53 @@ public class ContaminationUtil {
 
             float res = 0;
 
-            for(int i = 1; i < len; i++){
+            boolean blockedByRadShield = false;
+
+            for (int i = 1; i < len; i++) {
 
                 int ix = (int)Math.floor(x + vec.xCoord * i);
                 int iy = (int)Math.floor(y + vec.yCoord * i);
                 int iz = (int)Math.floor(z + vec.zCoord * i);
-                res += pLevel.getBlockState(new BlockPos(ix, iy, iz)).getBlock().getExplosionResistance();
+                BlockPos stepPos = new BlockPos(ix, iy, iz);
+                Block block = pLevel.getBlockState(stepPos).getBlock();
+
+                // Check if it's a radiation-shielding block
+                if (block instanceof IRadResistantBlock radBlock && radBlock.isRadResistant(pLevel, stepPos)) {
+
+//                    System.out.println("[Debug] Found a rad resistant block in-between " + e.getName().getString() + " and " + pLevel.getBlockState(new BlockPos((int)x, (int)y, (int)z)).getBlock().getName().getString() + "; Shielding entity from radiation");
+                    blockedByRadShield = true;
+                    break; // Radiation blocked, no need to continue
+                }
+
+                res += block.getExplosionResistance();
             }
             boolean isLiving = e instanceof LivingEntity;
 
             if(res < 1)
                 res = 1;
-            if(isLiving && rad3d > 0){
-                float eRads = rad3d;
-                eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
+            if(!blockedByRadShield) {
 
-                contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
-            }
-            if(isLiving && dig3d > 0){
-                float eDig = dig3d;
-                eDig /= (float)(dmgLen * dmgLen * dmgLen);
+                if(isLiving && rad3d > 0) {
 
-                contaminate((LivingEntity) e, HazardType.DIGAMMA, ContaminationType.DIGAMMA, eDig);
+                    float eRads = rad3d;
+                    eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
+
+                    contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
+                }
+                if(isLiving && dig3d > 0) {
+
+                    float eDig = dig3d;
+                    eDig /= (float)(dmgLen * dmgLen * dmgLen);
+
+                    contaminate((LivingEntity) e, HazardType.DIGAMMA, ContaminationType.DIGAMMA, eDig);
+                }
             }
 
             if(fire3d > 0.025F) {
                 float fireDmg = fire3d;
                 fireDmg /= (float)(dmgLen * dmgLen * res * res);
                 if(fireDmg > 0.025F){
-                    if(fireDmg > 0.1F && e instanceof Player) {
-                        Player p = (Player) e;
+                    if(fireDmg > 0.1F && e instanceof Player p) {
 
                         // check if holding a marshmallow and cook it if the player is.
                     }
@@ -138,11 +156,7 @@ public class ContaminationUtil {
             return true;
         }
 
-        if(e instanceof Player && (((Player)e).isCreative() || ((Player)e).isSpectator())) {
-            return true;
-        }
-
-        return false;
+        return e instanceof Player && (((Player) e).isCreative() || ((Player) e).isSpectator());
     }
 
 

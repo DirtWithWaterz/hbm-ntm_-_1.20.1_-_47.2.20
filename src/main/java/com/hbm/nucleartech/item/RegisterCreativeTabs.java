@@ -49,6 +49,7 @@ public class RegisterCreativeTabs {
 
                         output.accept(RegisterBlocks.ORE_TITANIUM.get());
                         output.accept(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get());
+                        output.accept(RegisterBlocks.RAD_RESISTANT_BLOCK.get());
                     })
                     .build());
 

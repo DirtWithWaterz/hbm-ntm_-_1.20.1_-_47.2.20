@@ -295,7 +295,7 @@ public class RadiationSystemNT {
             updateEntityContamination(event.level, allowUpdate);
     }
 
-    private static @NotNull AABB getAabb(Level world, ChunkPos chunkPos) {
+    static @NotNull AABB getAabb(Level world, ChunkPos chunkPos) {
         int chunkStartX = chunkPos.getMinBlockX();
         int chunkStartZ = chunkPos.getMinBlockZ();
         int chunkEndX = chunkStartX + 15;
