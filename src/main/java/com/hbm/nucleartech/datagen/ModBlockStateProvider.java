@@ -39,6 +39,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"),
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"));
 
+        cubeBottomTopBlockWithItem(RegisterBlocks.WASTE_GRASS,
+                new ResourceLocation("hbm:block/waste_grass_top"),
+                new ResourceLocation("minecraft:block/dirt"),
+                new ResourceLocation("hbm:block/waste_grass_side"));
+
         blockWithItem(RegisterBlocks.RAD_RESISTANT_BLOCK);
     }
 
@@ -68,5 +73,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // Register the item model to point to the block model
         itemModels().getBuilder(name).parent(model);
+    }
+
+    private void cubeBottomTopBlockWithItem(RegistryObject<Block> blockRegistryObject, ResourceLocation top, ResourceLocation bottom, ResourceLocation side) {
+        String name = blockRegistryObject.getId().getPath();
+
+        ModelFile model = models()
+                .cubeBottomTop(name, side, bottom, top);
+
+        simpleBlockWithItem(blockRegistryObject.get(), model);
     }
 }

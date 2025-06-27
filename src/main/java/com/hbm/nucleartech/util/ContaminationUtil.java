@@ -1,5 +1,6 @@
 package com.hbm.nucleartech.util;
 
+import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.damagesource.RegisterDamageSources;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
 import com.hbm.nucleartech.capability.HbmCapabilities;
@@ -14,8 +15,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("NonAsciiCharacters")
 public class ContaminationUtil {
 
     public static enum HazardType {
@@ -65,7 +68,7 @@ public class ContaminationUtil {
 
             float res = 0;
 
-            boolean blockedByRadShield = false;
+            List<RadResistantBlock> radResistantBlocks = new ArrayList<>();
 
             for (int i = 1; i < len; i++) {
 
@@ -79,8 +82,7 @@ public class ContaminationUtil {
                 if (block instanceof IRadResistantBlock radBlock && radBlock.isRadResistant(pLevel, stepPos)) {
 
 //                    System.out.println("[Debug] Found a rad resistant block in-between " + e.getName().getString() + " and " + pLevel.getBlockState(new BlockPos((int)x, (int)y, (int)z)).getBlock().getName().getString() + "; Shielding entity from radiation");
-                    blockedByRadShield = true;
-                    break; // Radiation blocked, no need to continue
+                    radResistantBlocks.add((RadResistantBlock)radBlock);
                 }
 
                 res += block.getExplosionResistance();
@@ -89,23 +91,28 @@ public class ContaminationUtil {
 
             if(res < 1)
                 res = 1;
-            if(!blockedByRadShield) {
 
-                if(isLiving && rad3d > 0) {
+            if(isLiving && rad3d > 0) {
 
-                    float eRads = rad3d;
-                    eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
+                float eRads = rad3d;
+                eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
 
+                for(RadResistantBlock block : radResistantBlocks)
+                    eRads = eRads * (float) Math.exp(-block.μ);
+
+                if(eRads > 0.1F)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
-                }
-                if(isLiving && dig3d > 0) {
-
-                    float eDig = dig3d;
-                    eDig /= (float)(dmgLen * dmgLen * dmgLen);
-
-                    contaminate((LivingEntity) e, HazardType.DIGAMMA, ContaminationType.DIGAMMA, eDig);
-                }
+//                else
+//                    System.err.println("[Debug] Radiation being applied is too close to zero: " + eRads);
             }
+            if(isLiving && dig3d > 0) {
+
+                float eDig = dig3d;
+                eDig /= (float)(dmgLen * dmgLen * dmgLen);
+
+                contaminate((LivingEntity) e, HazardType.DIGAMMA, ContaminationType.DIGAMMA, eDig);
+            }
+
 
             if(fire3d > 0.025F) {
                 float fireDmg = fire3d;

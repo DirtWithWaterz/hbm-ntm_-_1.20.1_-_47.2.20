@@ -277,6 +277,11 @@ public class RadiationSystemNT {
 //    }
 //
 
+    private static int worldDestructionCooldown = 0;
+    private static final int TICKS_PER_SECOND = 20;
+    private static final int MIN_SECONDS_BETWEEN_EVENTS = 1;
+    private static final int MAX_SECONDS_BETWEEN_EVENTS = 5;
+
     @SubscribeEvent
     public static void onWorldUpdate(TickEvent.LevelTickEvent event) {
 //        if(GeneralConfig.enableDebugMode) {
@@ -287,7 +292,19 @@ public class RadiationSystemNT {
 
         if (allowUpdate) {
             // Make the world stinky
-            RadiationWorldHandler.handleWorldDestruction(event.level);
+            // Countdown & trigger random world radiation effects
+            if (--worldDestructionCooldown <= 0) {
+                RadiationWorldHandler.handleWorldDestruction(event.level);
+
+                // Reset cooldown: random seconds * 20 ticks/second
+                int delaySeconds = event.level.random.nextInt(
+                        MAX_SECONDS_BETWEEN_EVENTS - MIN_SECONDS_BETWEEN_EVENTS + 1
+                ) + MIN_SECONDS_BETWEEN_EVENTS;
+
+                worldDestructionCooldown = delaySeconds * TICKS_PER_SECOND;
+
+//                System.out.println("[Debug] Scheduled next world destruction in " + delaySeconds + "s");
+            }
         }
 
         // Make entities stinky

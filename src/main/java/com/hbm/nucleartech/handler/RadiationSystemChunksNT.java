@@ -328,8 +328,8 @@ public class RadiationSystemChunksNT {
                                     continue;
 
                                 RadPocket ePoc = getPocket(level, entity.getOnPos().offset(0, 1, 0));
-                                //System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation / 4 + " rads to " + entity.getName().getString());
-                                ContaminationUtil.contaminate(entity, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, ePoc.radiation / 4);
+                                //System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation / 10F + " rads to " + entity.getName().getString());
+                                ContaminationUtil.contaminate(entity, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, ePoc.radiation / 10F);
                             }
                         }
                     }
@@ -650,6 +650,7 @@ public class RadiationSystemChunksNT {
         public static void setBlockState(LevelChunkSection section, int x, int y, int z, BlockState state) {
             if (section != null) {
                 section.setBlockState(x, y, z, state);
+
             }
         }
 
@@ -831,9 +832,9 @@ public class RadiationSystemChunksNT {
      */
     public static class SubChunkRadiationStorage {
         public final ChunkRadiationStorage parentChunk; // Back-pointer to the chunk capability
-        public final int yLevel;                      // 0..23
+        public final int yLevel;                      // -64 to 319
         public RadPocket[] pockets;                    // All pockets found in this subchunk
-        public RadPocket[] pocketsByBlock;                   // Length 4096 = 16×16×16; stores pocket index or −1
+        public RadPocket[] pocketsByBlock;
 
         public SubChunkRadiationStorage(ChunkRadiationStorage parent, int yLevel, RadPocket[] pockets, RadPocket[] pocketsByBlock) {
             this.parentChunk = parent;

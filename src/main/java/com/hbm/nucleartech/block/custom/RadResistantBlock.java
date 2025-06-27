@@ -13,10 +13,21 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
 
+@SuppressWarnings("NonAsciiCharacters")
 public class RadResistantBlock extends Block implements IRadResistantBlock {
 
-    public RadResistantBlock(Properties pProperties) {
+    float μM;
+    float ρ;
+
+    public float μ;
+
+    public RadResistantBlock(Properties pProperties, float ρ, float μM) {
         super(pProperties);
+
+        this.ρ = ρ;
+        this.μM = μM;
+
+        this.μ = μM * ρ * 100F;
     }
 
 

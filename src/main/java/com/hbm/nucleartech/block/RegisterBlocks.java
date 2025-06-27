@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -73,9 +74,13 @@ public class RegisterBlocks {
                     .strength(5.0f, 10.0f)
             ));
 
+    public static final RegistryObject<Block> WASTE_GRASS = registerBlock("waste_grass",
+            () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK)));
+
     public static final RegistryObject<Block> RAD_RESISTANT_BLOCK = registerBlock("rad_resistant_block",
             () -> new RadResistantBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(5.0f, 10.0f)
+                    , 11.34f, 0.07f
             ));
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {

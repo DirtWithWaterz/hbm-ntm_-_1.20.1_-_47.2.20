@@ -34,5 +34,7 @@
   "block.hbm.ore_titanium": "Titanium Ore",
   "block.hbm.deepslate_ore_titanium": "Deepslate Titanium Ore",
 
-  "block.hbm.radiation_decontaminator": "Radiation Decontaminator"
+  "block.hbm.radiation_decontaminator": "Radiation Decontaminator",
+
+  "block.hbm.waste_grass": "Dead Grass"
 }
