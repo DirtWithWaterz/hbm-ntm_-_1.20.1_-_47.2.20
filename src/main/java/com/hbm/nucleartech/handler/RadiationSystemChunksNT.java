@@ -1,8 +1,5 @@
 package com.hbm.nucleartech.handler;
 
-import com.hbm.nucleartech.capability.HbmCapabilities;
-import com.hbm.nucleartech.capability.entity.LivingEntityCapability;
-import com.hbm.nucleartech.interfaces.IEntityCapabilityBase;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
 import com.hbm.nucleartech.util.ContaminationUtil;
 import net.minecraft.core.BlockPos;
@@ -221,21 +218,79 @@ public class RadiationSystemChunksNT {
                 count += p.connectionIndices[d.ordinal()].size();
 
             float amountPer = 0.7F / count;
-            if(count == 0 || p.radiation < 1) {
 
-                // Don't update if we have no connections or our own radiation is less than 1
-                // Prevents micro radiation bleeding
+            if(count == 0) {
+
+                for(Direction d : Direction.values())
+                    count += p.sealedConnectionIndices[d.ordinal()].size();
+
+                amountPer = 0.7F / count;
+
+//                BlockPos chunkPos = new BlockPos(
+//                        p.getSubChunkPos().getX() >> 4,
+//                        ChunkStorageCompat.getIndexFromWorldY(p.getSubChunkPos().getY()),
+//                        p.getSubChunkPos().getZ() >> 4);
+                //System.out.println("[Debug] Pocket " + p.index + " has " + count + " connections to other pockets at chunk " + chunkPos);
+
+                // This might cause leaks from sealed pockets to unsealed ones
+                // Only update other values if this one has radiation to update with
+                if(p.radiation > 0 && amountPer > 0) {
+
+                    // For each direction...
+                    for(Direction e : Direction.values()) {
+
+                        // Get the blockPos for the next sub chunk in that direction
+                        BlockPos nPos = pos.relative(e, 16);
+
+                        // If it's not loaded or it's out of bounds, do nothing
+                        if(!p.parent.parentChunk.chunk.getLevel().isLoaded(nPos) || nPos.getY() < -64 || nPos.getY() > 319)
+                            continue;
+
+                        if(p.sealedConnectionIndices[e.ordinal()].size() == 1 && p.sealedConnectionIndices[e.ordinal()].get(0) == -1) {
+
+                            // If the chunk in this direction isn't loaded, load it
+                            rebuildChunkPockets(p.parent.parentChunk.chunk.getLevel().getChunkAt(nPos), ChunkStorageCompat.getIndexFromWorldY(nPos.getY()));
+                        } else {
+
+                            // Otherwise, for every pocket this chunk is connected to in this direction, add radiation to it
+                            // Also add those pockets to the active pockets set
+                            SubChunkRadiationStorage sc2 = getSubChunkStorage(p.parent.parentChunk.chunk.getLevel(), nPos);
+                            for(int idx : p.sealedConnectionIndices[e.ordinal()]) {
+
+                                // Don't spread to sealed pockets
+                                if(!sc2.pockets[idx].isSealed()) {
+
+                                    // Only accumulated rads get updated so the system doesn't interfere with itself while working
+                                    float rad = (p.radiation * amountPer) * (1 - (p.resistance / 100));
+                                    if(rad > 0.5f) {
+
+                                        sc2.pockets[idx].accumulatedRads += rad;
+                                        addActivePocket(sc2.pockets[idx]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(amountPer != 0)
+                    p.accumulatedRads += p.radiation - ((p.radiation * 0.7f) * (1 - (p.resistance / 100)));
+
                 amountPer = 0;
             }
 
-            BlockPos chunkPos = new BlockPos(
-                    p.getSubChunkPos().getX() >> 4,
-                    ChunkStorageCompat.getIndexFromWorldY(p.getSubChunkPos().getY()),
-                    p.getSubChunkPos().getZ() >> 4);
-            //System.out.println("[Debug] Pocket " + p.index + " has " + count + " connections to other pockets at chunk " + chunkPos);
-            if (amountPer > 0) {
-                //System.out.println("[Debug] Pocket " + p.index + " will spread " + amountPer + " rads to each adjacent pocket");
-            }
+            // Don't update if our own radiation is less than 1
+            if(p.radiation < 1)
+                amountPer = 0;
+
+//            BlockPos chunkPos = new BlockPos(
+//                    p.getSubChunkPos().getX() >> 4,
+//                    ChunkStorageCompat.getIndexFromWorldY(p.getSubChunkPos().getY()),
+//                    p.getSubChunkPos().getZ() >> 4);
+//            //System.out.println("[Debug] Pocket " + p.index + " has " + count + " connections to other pockets at chunk " + chunkPos);
+//            if (amountPer > 0) {
+//                //System.out.println("[Debug] Pocket " + p.index + " will spread " + amountPer + " rads to each adjacent pocket");
+//            }
 
             // This might also cause leaks from sealed pockets to unsealed ones
             // Only update other values if this one has radiation to update with
@@ -385,10 +440,10 @@ public class RadiationSystemChunksNT {
 //                            //System.err.println("[Debug] Block is already apart of a pocket, skipping...");
                             continue;
                         }
-                        else {
-
+//                        else {
+//
 //                            //System.out.println("[Debug] Block is not apart of a pocket");
-                        }
+//                        }
 
                         Block block = blocks.get(x, y, z).getBlock();
                         BlockPos globalPos = subChunkPos.offset(x, y, z);
@@ -404,10 +459,10 @@ public class RadiationSystemChunksNT {
 
                             pockets.add(buildPocket(subChunk, chunk.getLevel(), new BlockPos(x, y, z), subChunkPos, blocks, pocketsByBlock, pockets.size()));
                         }
-                        else {
-
-                            //System.out.println("[Debug] Block " + block + " at " + globalPos + " was rad resistant; do not add pocket");
-                        }
+//                        else {
+//
+//                            //System.out.println("[Debug] Block " + block + " at " + globalPos + " was rad resistant; do not add pocket");
+//                        }
                     }
                 }
             }
@@ -432,11 +487,11 @@ public class RadiationSystemChunksNT {
         // If there's only one pocket, we don't need to waste memory by storing a whole 16x16x16 array, so just store null
         subChunk.pocketsByBlock = pockets.size() == 1 ? null : pocketsByBlock;
 
-        if (pockets.size() == 1) {
-            //System.err.println("[Debug] There was only a single pocket for subchunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
-        } else {
-            //System.out.println("[Debug] There was " + pockets.size() + " pockets for subchunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
-        }
+//        if (pockets.size() == 1) {
+//            //System.err.println("[Debug] There was only a single pocket for subchunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
+//        } else {
+//            //System.out.println("[Debug] There was " + pockets.size() + " pockets for subchunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
+//        }
 
         if(subChunk.pocketsByBlock != null)
             pocketsByBlock = null;
@@ -476,6 +531,25 @@ public class RadiationSystemChunksNT {
                     pocket.connectionIndices[facing.ordinal()].add(outPocket.index);
             }
         }
+        else {
+
+            if(!isSubChunkLoaded(chunk.getLevel(), outPos)) {
+
+                // If it's not loaded, mark it with a single -1 value. This will tell the update method that the
+                // Chunk still needs to be loaded to propagate radiation into it
+                if(!pocket.sealedConnectionIndices[facing.ordinal()].contains(-1))
+                    pocket.sealedConnectionIndices[facing.ordinal()].add(-1);
+
+            } else {
+
+                // If it is loaded, see if the pocket at that position is already connected to us. If not, add it as a connection.
+                // Setting outPocket's connection will be handled in setForYLevel
+
+                RadPocket outPocket = getPocket(chunk.getLevel(), outPos);
+                if(!pocket.sealedConnectionIndices[facing.ordinal()].contains(outPocket.index))
+                    pocket.sealedConnectionIndices[facing.ordinal()].add(outPocket.index);
+            }
+        }
     }
 
     private static final Queue<BlockPos> stack = new ArrayDeque<>(1024);
@@ -498,11 +572,11 @@ public class RadiationSystemChunksNT {
         // Create the new pocket we're going to use
         RadPocket pocket = new RadPocket(subChunk, index);
 
-        BlockPos chunkPos = new BlockPos(
-                pocket.getSubChunkPos().getX() >> 4,
-                (pocket.getSubChunkPos().getY() >> 4) - 64,
-                pocket.getSubChunkPos().getZ() >> 4
-        );
+//        BlockPos chunkPos = new BlockPos(
+//                pocket.getSubChunkPos().getX() >> 4,
+//                (pocket.getSubChunkPos().getY() >> 4) - 64,
+//                pocket.getSubChunkPos().getZ() >> 4
+//        );
         //System.out.println("[Debug] Starting build of pocket of index " + index + " for chunk at " + chunkPos + ", at local position " + start);
 
         // Make sure stack is empty
@@ -515,12 +589,17 @@ public class RadiationSystemChunksNT {
             Block block = chunk.get(pos.getX(), pos.getY(), pos.getZ()).getBlock();
 
             // If the block is radiation-resistant, or we've already flood-filled here, continue
-            if(pocketsByBlock[pos.getX()*16*16+pos.getY()*16+pos.getZ()] != null ||
-                    (block instanceof IRadResistantBlock &&
-                            ((IRadResistantBlock) block).isRadResistant((ServerLevel) level, pos.offset(subChunkWorldPos))
-                    )
-            )
+            if(pocketsByBlock[pos.getX()*16*16+pos.getY()*16+pos.getZ()] != null)
                 continue;
+
+//            if((block instanceof IRadResistantBlock &&
+//                    ((IRadResistantBlock) block).isRadResistant(level, pos.offset(subChunkWorldPos))
+//            )) {
+//
+//                System.err.println(((IRadResistantBlock) block).getResistance());
+//                pocket.resistanceMap.add(((IRadResistantBlock) block).getResistance());
+//                continue;
+//            }
 
             // Set the current position in the array to be this pocket
             pocketsByBlock[pos.getX()*16*16+pos.getY()*16+pos.getZ()] = pocket;
@@ -561,21 +640,60 @@ public class RadiationSystemChunksNT {
                                 pocket.connectionIndices[facing.ordinal()].add(outPocket.index);
                         }
                     }
+                    else {
+
+                        if(!isSubChunkLoaded(level, outPos)) {
+
+                            // If it's not loaded, mark it with a single -1 value. This will tell the update method that the
+                            // Chunk still needs to be loaded to propagate radiation into it
+                            if(!pocket.sealedConnectionIndices[facing.ordinal()].contains(-1)) {
+
+                                pocket.sealedConnectionIndices[facing.ordinal()].add(-1);
+                            }
+                        } else {
+
+                            // If it is loaded, see if the pocket at that position is already connected to us. If not, add it as a connection
+                            // Setting outPocket's connection will be handled in setForYLevel
+                            RadPocket outPocket = getPocket(level, outPos);
+                            if(!pocket.sealedConnectionIndices[facing.ordinal()].contains(outPocket.index))
+                                pocket.sealedConnectionIndices[facing.ordinal()].add(outPocket.index);
+                        }
+                    }
                     continue;
                 }
                 // Add the new position onto the stack, to be flood-fill checked later
-                if(!(block instanceof IRadResistantBlock && ((IRadResistantBlock) block).isRadResistant((ServerLevel) level, pos.offset(subChunkWorldPos))))
+                if(!(block instanceof IRadResistantBlock && ((IRadResistantBlock) block).isRadResistant((ServerLevel) level, pos.offset(subChunkWorldPos)))) {
+
+//                    System.err.println("[Debug] block is not rad resistant: " + pos.offset(subChunkWorldPos));
                     stack.add(newPos);
+                }
+                else {
+
+//                    System.err.println("[Debug] block is rad resistant: " + pos.offset(subChunkWorldPos) + " (Resistance: " + ((IRadResistantBlock) block).getResistance() + ")");
+                    pocket.resistanceMap.add(((IRadResistantBlock) block).getResistance());
+                }
             }
         }
 
-        chunkPos = new BlockPos(
-                pocket.getSubChunkPos().getX() >> 4,
-                ChunkStorageCompat.getIndexFromWorldY(pocket.getSubChunkPos().getY()),
-                pocket.getSubChunkPos().getZ() >> 4);
+//        chunkPos = new BlockPos(
+//                pocket.getSubChunkPos().getX() >> 4,
+//                ChunkStorageCompat.getIndexFromWorldY(pocket.getSubChunkPos().getY()),
+//                pocket.getSubChunkPos().getZ() >> 4);
         //System.out.println("[Debug] Finished build of pocket of index " + index + " for chunk at " + chunkPos + ", at local position " + start);
 
+        pocket.resistance = getMinimum(pocket.resistanceMap);
+
         return pocket;
+    }
+
+    static int getMinimum(List<Integer> list) {
+        if (list == null || list.isEmpty()) return 0; // or throw
+
+        int min = Integer.MAX_VALUE;
+        for (int val : list) {
+            if (val < min) min = val;
+        }
+        return min;
     }
 
     /**
@@ -786,15 +904,22 @@ public class RadiationSystemChunksNT {
         public float radiation = 0f;      // Current stored radiation value
         public float accumulatedRads = 0f;// Temporary accumulator for simultaneous spreading
 
+        public float resistance = 0f;
+
+        public final List<Integer> resistanceMap = new ArrayList<>();
+
         /** For each of the six directions, holds indices of connected pockets, or −1 if neighbor subchunk not loaded */
         @SuppressWarnings("unchecked")
         public final List<Integer>[] connectionIndices = new ArrayList[Direction.values().length];
+        @SuppressWarnings("unchecked")
+        public final List<Integer>[] sealedConnectionIndices = new ArrayList[Direction.values().length];
 
         public RadPocket(SubChunkRadiationStorage parent, int index) {
             this.parent = parent;
             this.index = index;
             for (int i = 0; i < Direction.values().length; i++) {
                 connectionIndices[i] = new ArrayList<>(1);
+                sealedConnectionIndices[i] = new ArrayList<>(1);
             }
         }
 
@@ -803,6 +928,7 @@ public class RadiationSystemChunksNT {
             for(Direction d : Direction.values()) {
 
                 connectionIndices[d.ordinal()].clear();
+                sealedConnectionIndices[d.ordinal()].clear();
             }
             removeActivePocket(this);
         }
@@ -813,6 +939,7 @@ public class RadiationSystemChunksNT {
         }
 
         /** Checks whether this pocket is fully sealed (no adjacent pockets, no unloaded connections). */
+        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
         public boolean isSealed() {
             int count = 0;
             for (Direction d : Direction.values()) {
@@ -930,6 +1057,7 @@ public class RadiationSystemChunksNT {
                     for(RadPocket p : sc.pockets) {
 
                         p.connectionIndices[d.getOpposite().ordinal()].clear();
+                        p.sealedConnectionIndices[d.getOpposite().ordinal()].clear();
                     }
                 }
             }
@@ -949,12 +1077,17 @@ public class RadiationSystemChunksNT {
                     // Clear all the neighbor's references to this sub chunk
                     for(RadPocket p : sc.pockets){
                         p.connectionIndices[e.getOpposite().ordinal()].clear();
+                        p.sealedConnectionIndices[e.getOpposite().ordinal()].clear();
                     }
                     // Sync connections to the neighbor to make it two ways
                     for(RadPocket p : pockets){
                         List<Integer> indc = p.connectionIndices[e.ordinal()];
                         for(int idx : indc){
                             sc.pockets[idx].connectionIndices[e.getOpposite().ordinal()].add(p.index);
+                        }
+                        List<Integer> indc2 = p.sealedConnectionIndices[e.ordinal()];
+                        for(int idx : indc2){
+                            sc.pockets[idx].sealedConnectionIndices[e.getOpposite().ordinal()].add(p.index);
                         }
                     }
                 }
@@ -1212,6 +1345,10 @@ public class RadiationSystemChunksNT {
                                     p.connectionIndices[d.ordinal()].stream().mapToInt(Integer::intValue).toArray()
                             );
                             pTag.put("conn_" + d.getSerializedName(), connArr);
+                            IntArrayTag sealConnArr = new IntArrayTag(
+                                    p.sealedConnectionIndices[d.ordinal()].stream().mapToInt(Integer::intValue).toArray()
+                            );
+                            pTag.put("seal_conn_" + d.getSerializedName(), sealConnArr);
                         }
 
                         pocketListNBT.add(pTag);
@@ -1258,6 +1395,10 @@ public class RadiationSystemChunksNT {
                                 int[] connArr = pTag.getIntArray("conn_" + d.getSerializedName());
                                 for (int val : connArr) {
                                     p.connectionIndices[d.ordinal()].add(val);
+                                }
+                                int[] sealConnArr = pTag.getIntArray("seal_conn_" + d.getSerializedName());
+                                for (int val : sealConnArr) {
+                                    p.sealedConnectionIndices[d.ordinal()].add(val);
                                 }
                             }
 

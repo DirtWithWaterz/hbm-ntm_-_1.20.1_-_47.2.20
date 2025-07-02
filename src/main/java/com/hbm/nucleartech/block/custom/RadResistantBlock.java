@@ -21,13 +21,17 @@ public class RadResistantBlock extends Block implements IRadResistantBlock {
 
     public float μ;
 
-    public RadResistantBlock(Properties pProperties, float ρ, float μM) {
+    public float thickness; // in meters (each pixel is 1/16th of a meter)
+
+    public RadResistantBlock(Properties pProperties, float ρ, float μM, float thickness) {
         super(pProperties);
 
         this.ρ = ρ;
         this.μM = μM;
 
         this.μ = μM * ρ * 100F;
+
+        this.thickness = thickness;
     }
 
 
@@ -41,14 +45,16 @@ public class RadResistantBlock extends Block implements IRadResistantBlock {
     @Override
     public int getResistance() {
 
-        return 1;
+        int result = Math.round(100f - ((100f * (float) Math.exp(-μ*thickness)) * 1000f));
+//        System.out.println(result);
+        return result;
     }
 
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
 
-        System.out.println("[Debug] " + pState.getBlock().getName() + " placed at " + pPos + ", marking position for rebuild");
+//        System.out.println("[Debug] " + pState.getBlock().getName() + " placed at " + pPos + ", marking position for rebuild");
         RadiationSystemChunksNT.RadiationEventHandlers.markChunkForRebuild(pLevel, pPos);
     }
 
@@ -56,7 +62,7 @@ public class RadResistantBlock extends Block implements IRadResistantBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
-        System.out.println("[Debug] " + pState.getBlock().getName() + " removed at " + pPos + ", marking position for rebuild");
+//        System.out.println("[Debug] " + pState.getBlock().getName() + " removed at " + pPos + ", marking position for rebuild");
         RadiationSystemChunksNT.RadiationEventHandlers.markChunkForRebuild(pLevel, pPos);
     }
 }

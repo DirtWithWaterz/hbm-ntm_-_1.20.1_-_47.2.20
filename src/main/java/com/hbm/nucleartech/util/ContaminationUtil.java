@@ -98,7 +98,7 @@ public class ContaminationUtil {
                 eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
 
                 for(RadResistantBlock block : radResistantBlocks)
-                    eRads = eRads * (float) Math.exp(-block.μ);
+                    eRads = (eRads * (float) Math.exp(-block.μ*block.thickness)) * 1000f;
 
                 if(eRads > 0.1F)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
