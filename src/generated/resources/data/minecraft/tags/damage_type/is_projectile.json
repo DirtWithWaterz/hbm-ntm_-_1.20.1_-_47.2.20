@@ -6,6 +6,14 @@
     "minecraft:unattributed_fireball",
     "minecraft:fireball",
     "minecraft:wither_skull",
-    "minecraft:thrown"
+    "minecraft:thrown",
+    "hbm:suicide",
+    "hbm:rubble",
+    "hbm:shrapnel",
+    "hbm:revolver_bullet",
+    "hbm:chopper_bullet",
+    "hbm:tau",
+    "hbm:cmb",
+    "hbm:sub_atomic"
   ]
 }

@@ -72,7 +72,7 @@ public class RadiationSystemNT {
 //                                        player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("hbm:radiation")))), 1000f);
                                         try {
 
-                                            player.hurt(RegisterDamageSources.RADIATION_DAMAGE, 1000f);
+                                            player.hurt(RegisterDamageSources.RADIATION, 1000f);
                                             // grant achievement "wait, what?"
                                         } catch (Exception ignored) { System.err.println("client had a packet error!"); }
                                         // Grant achievement, "Ouch, Radiation!"

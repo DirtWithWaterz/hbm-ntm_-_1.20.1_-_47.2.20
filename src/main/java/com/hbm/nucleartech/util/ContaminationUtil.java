@@ -132,9 +132,9 @@ public class ContaminationUtil {
                 blastDmg /= (float)(dmgLen * dmgLen * res);
                 if(blastDmg > 0.025F){
                     if(rad3d > 0)
-                        e.hurt(RegisterDamageSources.NUCLEAR_BLAST_DAMAGE, blastDmg);
+                        e.hurt(RegisterDamageSources.NUCLEAR_BLAST, blastDmg);
                     else
-                        e.hurt(RegisterDamageSources.BLAST_DAMAGE, blastDmg);
+                        e.hurt(RegisterDamageSources.BLAST, blastDmg);
                 }
                 net.minecraft.world.phys.Vec3 cVel = e.getDeltaMovement();
                 e.setDeltaMovement(

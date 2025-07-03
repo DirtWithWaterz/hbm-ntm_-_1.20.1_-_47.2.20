@@ -1,5 +1,34 @@
 {
   "values": [
-    "minecraft:sonic_boom"
+    "minecraft:sonic_boom",
+    "hbm:digamma",
+    "hbm:teleporter",
+    "hbm:cheater",
+    "hbm:black_hole",
+    "hbm:blender",
+    "hbm:meteorite",
+    "hbm:boxcar",
+    "hbm:boat",
+    "hbm:building",
+    "hbm:taint",
+    "hbm:ams",
+    "hbm:ams_core",
+    "hbm:broadcast",
+    "hbm:bang",
+    "hbm:pc",
+    "hbm:cloud",
+    "hbm:lead",
+    "hbm:enervation",
+    "hbm:electricity",
+    "hbm:exhaust",
+    "hbm:lunar",
+    "hbm:monoxide",
+    "hbm:asbestos",
+    "hbm:blacklung",
+    "hbm:mku",
+    "hbm:vacuum",
+    "hbm:overdose",
+    "hbm:microwave",
+    "hbm:nitan"
   ]
 }
