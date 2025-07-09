@@ -35,7 +35,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(RegisterItems.POWDER_URANIUM);
 
         simpleItem(RegisterItems.REACHER);
-
+        simpleItem(RegisterItems.GEIGER_COUNTER);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

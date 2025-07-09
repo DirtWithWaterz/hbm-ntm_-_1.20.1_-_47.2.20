@@ -32,6 +32,8 @@ public class RegisterCreativeTabs {
 
                         output.accept(RegisterItems.RAW_TITANIUM.get());
                         output.accept(RegisterItems.RAW_URANIUM.get());
+
+                        output.accept(RegisterItems.GEIGER_COUNTER.get());
                     })
                     .build());
 

@@ -1,0 +1,30 @@
+{
+  "item.tech_boop": {
+    "category": "players",
+    "sounds": [ "hbm:item/tech_boop" ]
+  },
+  "item.geiger1": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger1" ]
+  },
+  "item.geiger2": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger2" ]
+  },
+  "item.geiger3": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger3" ]
+  },
+  "item.geiger4": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger4" ]
+  },
+  "item.geiger5": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger5" ]
+  },
+  "item.geiger6": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger6" ]
+  }
+}

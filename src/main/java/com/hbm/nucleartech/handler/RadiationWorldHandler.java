@@ -17,6 +17,8 @@ public class RadiationWorldHandler {
     public static void handleWorldDestruction(Level level) {
         if (!(level instanceof ServerLevel world)) return;
 
+//        System.err.println("[Debug] Handle world destruction called");
+
         Collection<RadiationSystemChunksNT.RadPocket> active = RadiationSystemChunksNT.getActivePockets();
         if (active.isEmpty()) return;
 

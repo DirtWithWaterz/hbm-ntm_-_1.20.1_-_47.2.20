@@ -1,6 +1,7 @@
-// 1.20.1	2024-06-08T03:48:55.375255	Item Models: hbm
+// 1.20.1	2025-07-04T04:20:31.6144394	Item Models: hbm
 4cf7e7653b1aae33f78753c224f5f9bc5f290001 assets/hbm/models/item/billet_uranium.json
 717138e2327b0dfad433d85e77dddd88fd5cb7c1 assets/hbm/models/item/crystal_uranium.json
+82f65799b13016f6749a5764a551fc650429b92a assets/hbm/models/item/geiger_counter.json
 acfe492ff3721a4e8be36b8c0cd1198f5312600d assets/hbm/models/item/ingot_beryllium.json
 b10ac8224dfd993d21ad32a35c0de2f788dbbac7 assets/hbm/models/item/ingot_titanium.json
 c40effc73e3599852caad529d0ae71d882c7e588 assets/hbm/models/item/ingot_uranium.json

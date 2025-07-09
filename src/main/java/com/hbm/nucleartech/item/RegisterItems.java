@@ -2,6 +2,7 @@ package com.hbm.nucleartech.item;
 
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.hazard.HazardItem;
+import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.item.special.CustomLoreItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -50,6 +51,9 @@ public class RegisterItems {
 
     public static final RegistryObject<Item> REACHER = ITEMS.register("reacher",
             () -> new CustomLoreItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> GEIGER_COUNTER = ITEMS.register("geiger_counter",
+            () -> new GeigerCounterItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
 

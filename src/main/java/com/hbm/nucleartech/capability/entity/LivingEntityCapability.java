@@ -205,6 +205,58 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
 
                 // send player inform packet
             }
+            case RADENV -> {
+
+                float radE = radEnv + value;
+
+                radE = Mth.clamp(radE, 0, 2500F);
+
+                setValue(type, radE);
+            }
+            case RADBUF -> {
+
+                float e = radBuf + value;
+
+                e = Mth.clamp(e, 0, 2500F);
+
+                setValue(type, e);
+            }
+            case BOMB_TIMER -> {
+
+                float e = bombTimer + value;
+
+                setValue(type, e);
+            }
+            case CONTAGION -> {
+
+                float e = contagion + value;
+
+                setValue(type, e);
+            }
+            case OIL -> {
+
+                float e = oil + value;
+
+                setValue(type, e);
+            }
+            case FIRE -> {
+
+                float e = fire + value;
+
+                setValue(type, e);
+            }
+            case PHOSPHORUS -> {
+
+                float e = phosphorus + value;
+
+                setValue(type, e);
+            }
+            case BALEFIRE -> {
+
+                float e = balefire + value;
+
+                setValue(type, e);
+            }
             default -> {
 
 

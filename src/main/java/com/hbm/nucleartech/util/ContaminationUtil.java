@@ -2,11 +2,17 @@ package com.hbm.nucleartech.util;
 
 import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.damagesource.RegisterDamageSources;
+import com.hbm.nucleartech.handler.HazmatRegistry;
+import com.hbm.nucleartech.handler.RadiationSystemChunksNT;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
 import com.hbm.nucleartech.capability.HbmCapabilities;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
 import com.hbm.nucleartech.render.amlfrom1710.Vec3;
+import com.hbm.nucleartech.saveddata.RadiationSavedData;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Ocelot;
@@ -43,16 +49,16 @@ public class ContaminationUtil {
         NONE				//not preventable
     }
 
-    public static void radiate(Level level, double x, double y, double z, double range, float rad3d) {
+    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d) {
         radiate(level, x, y, z, range, rad3d, 0F, 0F, 0F, 0F);
     }
-    public static void radiate(Level level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d) {
+    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d) {
         radiate(level, x, y, z, range, rad3d, dig3d, fire3d, 0F, 0F);
     }
-    public static void radiate(Level level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d) {
+    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d) {
         radiate(level, x, y, z, range, rad3d, dig3d, fire3d, blast3d, range);
     }
-    public static void radiate(Level pLevel, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, double blastRange) {
+    public static void radiate(ServerLevel pLevel, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, double blastRange) {
         List<Entity> entities = pLevel.getEntities(null, new AABB(x-range, y-range, z-range, x+range, y+range, z+range));
 
         for(Entity e : entities) {
@@ -102,6 +108,9 @@ public class ContaminationUtil {
 
                 if(eRads > 0.1F)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
+
+                RadiationSavedData.decrementRad(pLevel, new BlockPos((int)Math.floor(x),(int)Math.floor(y),(int)Math.floor(z)), eRads / 10f);
+                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads / 10f, eRads * 10f);
 //                else
 //                    System.err.println("[Debug] Radiation being applied is too close to zero: " + eRads);
             }
@@ -212,5 +221,76 @@ public class ContaminationUtil {
                 System.out.println("there is no code accosted with the provided hazard type. Skipping call...");
                 return false;
         }
+    }
+
+    public static void printGeigerData(Player player) {
+
+        Level level = player.level();
+
+        double eRad = (double)((int)(HbmCapabilities.getData(player).getValue(Type.RADIATION) * 10)) / 10D;
+
+        double rads = (double)((int)RadiationSystemChunksNT.getRadForCoord(level, player.getOnPos().offset(0,1,0)) * 10) / 10D;
+        double env = (double)((int)HbmCapabilities.getData(player).getValue(Type.RADENV) * 10) / 10D;
+
+        double res = ((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D;
+        double resKoeff = ((int)(HazmatRegistry.getResistance(player) * 100D)) / 100D;
+
+        String chunkPrefix = getPrefixFromRad(rads);
+        String envPrefix = getPrefixFromRad(env);
+        String radPrefix = "";
+        String resPrefix = "" + ChatFormatting.WHITE;
+
+        if(eRad < 200)
+            radPrefix += ChatFormatting.GREEN;
+        else if(eRad < 400)
+            radPrefix += ChatFormatting.YELLOW;
+        else if(eRad < 600)
+            radPrefix += ChatFormatting.GOLD;
+        else if(eRad < 800)
+            radPrefix += ChatFormatting.RED;
+        else if(eRad < 1000)
+            radPrefix += ChatFormatting.DARK_RED;
+        else
+            radPrefix += ChatFormatting.DARK_GRAY;
+
+        if(resKoeff > 0)
+            resPrefix += ChatFormatting.GREEN;
+
+        player.sendSystemMessage(Component.literal("===== ☢ ").append(Component.translatable("geiger.title")).append(Component.literal(" ☢ =====")).withStyle(ChatFormatting.GOLD));
+        player.sendSystemMessage(Component.translatable("geiger.chunk_rad").append(Component.literal(" " + chunkPrefix + rads + "RAD/s")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.env_rad").append(Component.literal(" " + envPrefix + env + " RAD/s")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.player_rad").append(Component.literal(" " + radPrefix + eRad + " RAD")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.player_res").append(Component.literal(" " + resPrefix + res + "% (" + resKoeff + ")")).withStyle(ChatFormatting.YELLOW));
+    }
+
+    public static float calculateRadiationMod(LivingEntity entity) {
+
+        if(entity instanceof Player player) {
+
+            float koeff = 10.0f;
+            return (float)Math.pow(koeff, -HazmatRegistry.getResistance(player));
+        }
+
+        return 1;
+    }
+
+    public static String getPrefixFromRad(double rads) {
+
+        String chunkPrefix = "";
+
+        if(rads == 0)
+            chunkPrefix += ChatFormatting.GREEN;
+        else if(rads < 1)
+            chunkPrefix += ChatFormatting.YELLOW;
+        else if(rads < 10)
+            chunkPrefix += ChatFormatting.GOLD;
+        else if(rads < 100)
+            chunkPrefix += ChatFormatting.RED;
+        else if(rads < 1000)
+            chunkPrefix += ChatFormatting.DARK_RED;
+        else
+            chunkPrefix += ChatFormatting.DARK_GRAY;
+
+        return chunkPrefix;
     }
 }

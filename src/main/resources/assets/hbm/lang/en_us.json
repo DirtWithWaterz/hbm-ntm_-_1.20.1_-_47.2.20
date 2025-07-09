@@ -97,6 +97,14 @@
 
   "item.hbm.reacher": "Tungsten Reacher",
 
+  "item.hbm.geiger_counter": "Handheld Geiger Counter",
+
+  "geiger.chunk_rad": "Current chunk radiation:",
+  "geiger.env_rad": "Total environmental radiation:",
+  "geiger.player_rad": "Player contamination:",
+  "geiger.player_res": "Player resistance:",
+  "geiger.title": "GEIGER COUNTER",
+
   "block.hbm.block_waste": "Block of Nuclear Waste",
   "block.hbm.block_uranium": "Block of Uranium",
   "block.hbm.block_titanium": "Block of Titanium",

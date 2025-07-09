@@ -4,11 +4,13 @@ import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.entity.HbmEntities;
 import com.hbm.nucleartech.entity.client.NuclearCreeperRenderer;
+import com.hbm.nucleartech.handler.HazmatRegistry;
 import com.hbm.nucleartech.handler.RadiationSystemNT;
 import com.hbm.nucleartech.item.RegisterCreativeTabs;
 import com.hbm.nucleartech.item.RegisterItems;
 import com.hbm.nucleartech.network.HbmPacketHandler;
 import com.hbm.nucleartech.particle.RegisterParticles;
+import com.hbm.nucleartech.sound.RegisterSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,11 +27,13 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
 
+import java.io.File;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -41,7 +45,10 @@ public class HBM
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "hbm";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static File configDir;
+    public static File configHbmDir;
 
     public HBM() {
 
@@ -54,6 +61,8 @@ public class HBM
         RegisterParticles.register(modEventBus);
         HbmEntities.register(modEventBus);
 //        ClientSetup.init(modEventBus);
+
+        RegisterSounds.SOUNDS.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -85,7 +94,14 @@ public class HBM
 
     private void commonSetup(final FMLCommonSetupEvent event) {
 
+        configDir = FMLPaths.CONFIGDIR.get().toFile();
+        configHbmDir = new File(configDir.getAbsolutePath() + File.separatorChar + "hbmConfig");
+
+        if(!configHbmDir.exists())
+            configHbmDir.mkdir();
+
         HbmPacketHandler.register();
+        HazmatRegistry.registerHazmats();
     }
 
     // Add the example block item to the building blocks tab
