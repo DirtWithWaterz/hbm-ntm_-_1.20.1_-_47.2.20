@@ -191,7 +191,7 @@ public class ContaminationUtil {
         if(entity instanceof Player player) {
 
 //            System.out.println("yes. Are they creative?");
-            if(player.isCreative() && cont != ContaminationType.NONE) {
+            if((player.isCreative() || player.isSpectator()) && cont != ContaminationType.NONE) {
 
 //                if(hazard == HazardType.NEUTRON)
 //                System.err.println("player is creative! Skipping contamination call...");

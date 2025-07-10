@@ -100,8 +100,8 @@ public class ItemHazardModule {
 
         if(entity instanceof Player player /* && !GeneralConfig.enable528 */) {
 
-            if(player.isCreative() || player.isSpectator())
-                return;
+//            if(player.isCreative() || player.isSpectator())
+//                return;
 
             reacher = Library.checkForHeld(player, RegisterItems.REACHER.get());
         }

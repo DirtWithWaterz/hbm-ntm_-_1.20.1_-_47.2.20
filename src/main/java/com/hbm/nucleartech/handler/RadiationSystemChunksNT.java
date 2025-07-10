@@ -350,9 +350,6 @@ public class RadiationSystemChunksNT {
 
                             for (LivingEntity entity : entities) {
 
-                                if(entity instanceof Player player && (player.isCreative() || player.isSpectator()))
-                                    continue;
-
                                 RadPocket ePoc = getPocket(level, entity.getOnPos().offset(0, 1, 0));
                                 //System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation / 10F + " rads to " + entity.getName().getString());
                                 ContaminationUtil.contaminate(entity, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, ePoc.radiation / 10F);

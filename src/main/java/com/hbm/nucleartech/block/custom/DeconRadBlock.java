@@ -56,6 +56,7 @@ public class DeconRadBlock extends HorizontalDirectionalBlock {
 
         if(pEntity instanceof LivingEntity entity){
 
+            HbmCapabilities.getData(entity).addValue(Type.RADENV, -0.5f);
             HbmCapabilities.getData(entity).addValue(Type.RADIATION, -0.5F);
             if(entity instanceof Player)
                 HbmCapabilities.getData(entity).syncPlayerVariables(entity);
