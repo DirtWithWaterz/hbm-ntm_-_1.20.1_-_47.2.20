@@ -26,5 +26,13 @@
   "item.geiger6": {
     "category": "players",
     "sounds": [ "hbm:item/geiger6" ]
+  },
+  "item.geiger7": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger7" ]
+  },
+  "item.geiger8": {
+    "category": "players",
+    "sounds": [ "hbm:item/geiger8" ]
   }
 }
