@@ -8,6 +8,7 @@ import com.hbm.nucleartech.handler.HazmatRegistry;
 import com.hbm.nucleartech.handler.RadiationSystemNT;
 import com.hbm.nucleartech.item.RegisterCreativeTabs;
 import com.hbm.nucleartech.item.RegisterItems;
+import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.network.HbmPacketHandler;
 import com.hbm.nucleartech.particle.RegisterParticles;
 import com.hbm.nucleartech.sound.RegisterSounds;
@@ -102,6 +103,8 @@ public class HBM
 
         HbmPacketHandler.register();
         HazmatRegistry.registerHazmats();
+
+        GeigerCounterItem.initSoundMap();
     }
 
     // Add the example block item to the building blocks tab

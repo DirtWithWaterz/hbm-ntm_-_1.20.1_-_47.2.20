@@ -16,7 +16,16 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -110,28 +119,57 @@ public class RadiationSystemNT {
 
                                         if(world.random.nextInt(3) == 0) {
 
-                                            NuclearCreeperEntity nuclearCreeper = new NuclearCreeperEntity(HbmEntities.NUCLEAR_CREEPER.get(), world);
-                                            nuclearCreeper.moveTo(creeper.position());
-
-                                            nuclearCreeper.setYHeadRot(creeper.getYHeadRot());
-                                            nuclearCreeper.setYRot(creeper.getYRot());
-                                            nuclearCreeper.setXRot(creeper.getXRot());
-                                            nuclearCreeper.yHeadRot = creeper.getYHeadRot();
-                                            nuclearCreeper.yBodyRot = creeper.yBodyRot;
-
-                                            nuclearCreeper.setCustomName(creeper.getCustomName());
-                                            nuclearCreeper.setCustomNameVisible(creeper.isCustomNameVisible());
-                                            nuclearCreeper.setPersistenceRequired();
-
-                                            if(!entity.isDeadOrDying())
-                                                if(!world.isClientSide())
-                                                    world.addFreshEntity(nuclearCreeper);
-                                            entity.kill();
+                                            replace(creeper, new NuclearCreeperEntity(HbmEntities.NUCLEAR_CREEPER.get(), world), world);
                                         } else {
                                             entity.hurt(RegisterDamageSources.RADIATION, 100f);
                                         }
                                         continue;
                                     }
+                                    else if(eRad >= 500 &&
+                                            entity instanceof Cow cow &&
+                                            !(entities instanceof MushroomCow)) {
+
+                                        replace(cow, new MushroomCow(EntityType.MOOSHROOM, world), world);
+
+                                        continue;
+                                    }
+                                    else if(eRad >= 600 &&
+                                            entity instanceof Villager vill) {
+
+                                        replace(vill, new ZombieVillager(EntityType.ZOMBIE_VILLAGER, world), world);
+
+                                        continue;
+                                    }
+//                                    else if(eRad >= 700 &&
+//                                            entity instanceof Blaze blaze) {
+//
+//                                        replace(blaze, new RADBeast(HbmEntities.RAD_BEAST.get(), world), world);
+//
+//                                        continue;
+//                                    }
+                                    else if(eRad >= 800 &&
+                                            entity instanceof Horse horse) {
+
+                                        ZombieHorse zom = new ZombieHorse(EntityType.ZOMBIE_HORSE, world);
+                                        zom.setAge(horse.getAge());
+                                        zom.setTemper(horse.getTemper());
+                                        if(horse.isSaddled())
+                                            zom.equipSaddle(null);
+                                        zom.setTamed(horse.isTamed());
+                                        zom.setOwnerUUID(horse.getOwnerUUID());
+                                        zom.makeMad();
+                                        replace(horse, zom, world);
+
+                                        continue;
+                                    }
+//                                    else if(eRad >= 900 &&
+//                                            entity instanceof Duck duck) {
+//
+//                                        replace(duck, new Quackos(HbmEntities.QUACKOS, world), world);
+//
+//                                        continue;
+//                                    }
+
                                     if (eRad > 2500000)
                                         HbmCapabilities.getData(entity).setValue(Type.RADIATION, 2500000); // grant achievement "HOW"
 
@@ -216,6 +254,36 @@ public class RadiationSystemNT {
                 }
             }
         }
+    }
+
+    public static void replace(LivingEntity oldEntity, Mob newEntity, Level level) {
+
+        if(oldEntity instanceof Villager vill &&
+                newEntity instanceof ZombieVillager zom) {
+
+            zom.setVillagerData(vill.getVillagerData());
+
+            zom.setBaby(vill.isBaby());
+        }
+
+        newEntity.moveTo(oldEntity.position());
+
+        newEntity.setYHeadRot(oldEntity.getYHeadRot());
+        newEntity.setYRot(oldEntity.getYRot());
+        newEntity.setXRot(oldEntity.getXRot());
+
+        newEntity.setCustomName(oldEntity.getCustomName());
+        newEntity.setCustomNameVisible(oldEntity.isCustomNameVisible());
+        newEntity.setPersistenceRequired();
+
+        for(MobEffectInstance instance : oldEntity.getActiveEffects())
+            newEntity.addEffect(instance);
+
+        if(!oldEntity.isDeadOrDying())
+            if(!level.isClientSide())
+                level.addFreshEntity(newEntity);
+
+        oldEntity.kill();
     }
 
 //    public static void updateRadiation() {
