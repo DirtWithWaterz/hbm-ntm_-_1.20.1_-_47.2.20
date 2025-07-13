@@ -15,6 +15,7 @@ public interface IEntityCapabilityBase {
 
     enum Type {
         RADIATION,
+        NEUTRON,
         DIGAMMA,
         ASBESTOS,
         BLACKLUNG,

@@ -76,6 +76,7 @@ public class HbmCapabilities {
             LivingEntityCapability clone = ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
             if (!event.isWasDeath()) {
                 clone.setValue(Type.RADIATION, original.getValue(Type.RADIATION));
+                clone.setValue(Type.NEUTRON, original.getValue(Type.NEUTRON));
                 clone.setValue(Type.DIGAMMA, original.getValue(Type.DIGAMMA));
                 clone.setValue(Type.ASBESTOS, original.getValue(Type.ASBESTOS));
                 clone.setValue(Type.BLACKLUNG, original.getValue(Type.BLACKLUNG));
@@ -188,6 +189,7 @@ public class HbmCapabilities {
 
                     LivingEntityCapability capability = ((LivingEntityCapability) Minecraft.getInstance().player.getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
                     capability.setValue(Type.RADIATION, message.data.getValue(Type.RADIATION));
+                    capability.setValue(Type.NEUTRON, message.data.getValue(Type.NEUTRON));
                     capability.setValue(Type.DIGAMMA, message.data.getValue(Type.DIGAMMA));
                     capability.setValue(Type.ASBESTOS, message.data.getValue(Type.ASBESTOS));
                     capability.setValue(Type.BLACKLUNG, message.data.getValue(Type.BLACKLUNG));

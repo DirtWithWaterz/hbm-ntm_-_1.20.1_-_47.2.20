@@ -4,19 +4,33 @@ import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.damagesource.RegisterDamageSources;
 import com.hbm.nucleartech.handler.HazmatRegistry;
 import com.hbm.nucleartech.handler.RadiationSystemChunksNT;
+import com.hbm.nucleartech.hazard.HazardBlockItem;
+import com.hbm.nucleartech.hazard.HazardItem;
+import com.hbm.nucleartech.hazard.HazardSystem;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
 import com.hbm.nucleartech.capability.HbmCapabilities;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
+import com.hbm.nucleartech.lib.Library;
+import com.hbm.nucleartech.modules.ItemHazardModule;
 import com.hbm.nucleartech.render.amlfrom1710.Vec3;
 import com.hbm.nucleartech.saveddata.RadiationSavedData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
@@ -27,12 +41,23 @@ import java.util.List;
 @SuppressWarnings("NonAsciiCharacters")
 public class ContaminationUtil {
 
+    private static final String NTM_NEUTRON_NBT_KEY = "ntm_neutron";
+
     public static enum HazardType {
 
-        MONOXIDE,
+        ASBESTOS,
+        BLINDING,
+        COAL,
+        CONTAMINATING,
+        CRYOGENIC,
+        DIGAMMA,
+        EXPLOSIVE,
+        HOT,
+        HYDROACTIVE,
         RADIATION,
-        NEUTRON,
-        DIGAMMA
+        TOXIC,
+        UNSTABLE,
+        NEUTRON
     }
 
     public static enum ContaminationType {
@@ -45,7 +70,7 @@ public class ContaminationUtil {
         DIGAMMA,			//preventable by fau armor or stability
         DIGAMMA2,			//preventable by robes
         CREATIVE,			//preventable by creative mode, for rad calculation armor piece bonuses still apply
-        RAD_BYPASS,			//same as creaative but fill not apply radiation resistance calculation
+        RAD_BYPASS,			//same as creative but will not apply radiation resistance calculation
         NONE				//not preventable
     }
 
@@ -181,6 +206,7 @@ public class ContaminationUtil {
 
 //        System.out.println("checking for hazard type == radation?");
         if(hazard == HazardType.RADIATION) {
+
 //            System.out.println("true. adding " + amount + " to " + entity.getName().getString() + "'s Rad Env.");
             HbmCapabilities.getData(entity).addValue(Type.RADENV, amount);
             if(entity instanceof Player)
@@ -207,9 +233,22 @@ public class ContaminationUtil {
 //            System.out.println("no. Continuing to hazard application...");
         }
 
+        if((hazard == HazardType.RADIATION || hazard == HazardType.NEUTRON) && isRadImmune(entity)){
+            return false;
+        }
+
 //        System.out.println("what type of hazard is it?");
         switch (hazard) {
             case RADIATION:
+
+                if(entity instanceof Player player) {
+
+//                System.err.println("[Debug] Radiation before: " + amount + ", resistance: " + (float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D)) + "%, multiplier: " + (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f));
+
+                    amount = amount * (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f);
+
+//                System.err.println("[Debug] Radiation after: " + amount);
+                }
 
 //                System.out.println("radiation. adding " + amount + " rads to " + entity.getName().getString());
                 HbmCapabilities.getData(entity).addValue(Type.RADIATION, amount);
@@ -217,10 +256,42 @@ public class ContaminationUtil {
                     HbmCapabilities.getData(entity).syncPlayerVariables(entity);
                 return true;
 
+            case NEUTRON:
+
+                if(entity instanceof Player player) {
+
+//                    System.err.println("[Debug] Neutron before: " + amount + ", resistance: " + (float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D)) + "%, multiplier: " + (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f));
+
+                    amount = amount * (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f);
+
+//                    System.err.println("[Debug] Neutron after: " + amount);
+                }
+
+                HbmCapabilities.getData(entity).addValue(Type.RADIATION, amount);
+                HbmCapabilities.getData(entity).setValue(Type.NEUTRON, amount);
+                if(entity instanceof Player)
+                    HbmCapabilities.getData(entity).syncPlayerVariables(entity);
+                return true;
+
             default:
-                System.out.println("there is no code accosted with the provided hazard type. Skipping call...");
+//                System.out.println("there is no code accosted with the provided hazard type. Skipping call...");
                 return false;
         }
+    }
+
+    public static boolean isRadImmune(Entity e) {
+//        if(e instanceof LivingEntity && ((LivingEntity)e).hasEffect(RegisterPotions.mutation))
+//            return true;
+
+        return 	e instanceof Zombie ||
+                e instanceof Skeleton /*||
+                e instanceof Quackos*/ ||
+                e instanceof Ocelot ||
+                e instanceof MushroomCow ||
+                e instanceof ZombieHorse ||
+                e instanceof SkeletonHorse ||
+                e instanceof ArmorStand /*||
+                e instanceof IRadiationImmune || checkConfigEntityImmunity(e)*/;
     }
 
     public static void printGeigerData(Player player) {
@@ -272,6 +343,110 @@ public class ContaminationUtil {
         }
 
         return 1;
+    }
+
+    public static double getNoNeutronPlayerRads(LivingEntity entity) {
+        return (double)(HbmCapabilities.getData(entity).getValue(Type.RADENV)) * (double)(ContaminationUtil.calculateRadiationMod(entity));
+    }
+
+    public static float getPlayerNeutronRads(Player player){
+        float radBuffer = 0F;
+        for(ItemStack slotI : player.getInventory().items){
+            radBuffer = radBuffer + getNeutronRads(slotI);
+        }
+        for(ItemStack slotA : player.getInventory().armor){
+            radBuffer = radBuffer + getNeutronRads(slotA);
+        }
+        return radBuffer;
+    }
+
+    public static boolean isRadItem(ItemStack stack){
+        if(stack == null)
+            return false;
+
+        if(HazardSystem.getRawRadsFromStack(stack) > 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    public static float getNeutronRads(ItemStack stack){
+        if(stack != null && !stack.isEmpty() && !isRadItem(stack)){
+            if(stack.hasTag()){
+                CompoundTag nbt = stack.getTag();
+                if(nbt.contains(NTM_NEUTRON_NBT_KEY)){
+                    return nbt.getFloat(NTM_NEUTRON_NBT_KEY) * stack.getCount();
+                }
+            }
+        }
+        return 0F;
+    }
+
+    public static void addNeutronRadInfo(ItemStack stack, Player player, List<Component> list, TooltipFlag flagIn){
+        float activationRads = getNeutronRads(stack);
+        if(activationRads > 0) {
+            list.add(Component.literal("§a[" + I18nUtil.resolveKey("trait.radioactive") + "]"));
+            float stackRad = activationRads / stack.getCount();
+            list.add(Component.literal(" §e" + Library.roundFloat((float)ItemHazardModule.getNewValue(stackRad), 3) + ItemHazardModule.getSuffix(stackRad) + " RAD/s"));
+
+            if(stack.getCount() > 1) {
+                list.add(Component.literal(" §eStack: " + Library.roundFloat((float)ItemHazardModule.getNewValue(activationRads), 3) + ItemHazardModule.getSuffix(activationRads) + " RAD/s"));
+            }
+        }
+    }
+
+    public static void neutronActivateInventory(Player player, float rad, float decay){
+        for(ItemStack slotI : player.getInventory().items){
+
+//            System.out.println("[Debug] Attempting to activate " + slotI.getDescriptionId());
+
+            if(slotI != player.getInventory().getSelected() &&
+                    !(slotI.getItem() instanceof HazardItem) &&
+                    !(slotI.getItem() instanceof HazardBlockItem))
+                neutronActivateItem(slotI, rad, decay);
+        }
+        for(ItemStack slotA : player.getInventory().armor){
+
+//            System.out.println("[Debug] Attempting to activate " + slotA.getDescriptionId());
+
+            neutronActivateItem(slotA, rad, decay);
+        }
+    }
+
+    public static void neutronActivateItem(ItemStack stack, float rad, float decay){
+        if(stack != null && !stack.isEmpty() /*&& stack.getCount() == 1*/ && !isRadItem(stack)){
+
+//            System.out.println("[Debug] Adding NBT...");
+
+            CompoundTag nbt;
+            if(stack.hasTag()){
+                nbt = stack.getTag();
+            } else{
+                nbt = new CompoundTag();
+            }
+            float prevActivation = 0;
+            if(nbt.contains(NTM_NEUTRON_NBT_KEY)){
+                prevActivation = nbt.getFloat(NTM_NEUTRON_NBT_KEY);
+            }
+
+            if(prevActivation + rad == 0)
+                return;
+
+            float newActivation = prevActivation * decay + (rad / stack.getCount());
+            if(prevActivation * decay + rad < 0.0001F || (rad <= 0 && newActivation < 0.001F )){
+                nbt.remove(NTM_NEUTRON_NBT_KEY);
+            } else {
+                nbt.putFloat(NTM_NEUTRON_NBT_KEY, newActivation);
+            }
+            if(nbt.isEmpty()){
+                stack.setTag(null);
+            } else {
+                stack.setTag(nbt);
+            }
+
+//            System.out.println("[Debug] NBT data is: " + nbt.getFloat(NTM_NEUTRON_NBT_KEY));
+        }
     }
 
     public static String getPrefixFromRad(double rads) {

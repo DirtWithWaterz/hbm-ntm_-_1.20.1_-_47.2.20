@@ -38,7 +38,7 @@ public class HazmatRegistry {
 
         double iron = 0.0225D; // 5%
         double gold = 0.0225D; // 5%
-        double netherite = 1.0D;
+        double netherite = 1.0D; // 90%
 //        double steel = 0.045D; // 10%
 //        double titanium = 0.045D; // 10%
 //        double alloy = 0.07D; // 15%

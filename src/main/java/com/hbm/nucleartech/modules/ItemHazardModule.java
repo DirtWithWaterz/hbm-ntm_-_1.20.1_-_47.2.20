@@ -8,6 +8,7 @@ import com.hbm.nucleartech.util.ContaminationUtil.ContaminationType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
 
@@ -110,10 +113,15 @@ public class ItemHazardModule {
         if(this.radiation * tempMod > 0) {
             double rad = this.radiation * tempMod * mod / 20f;
 
+//            System.out.println("[Debug] reacher: " + reacher);
+//            System.out.println("[Debug] og rad: " + rad);
+
             if(reacher)
                 rad = (double) Math.min(Math.sqrt(rad), rad);
 
-            System.err.println("calling ContaminationUtil.contaminate() for " + entity.getName().getString() + " with rad value: " + rad);
+//            System.out.println("[Debug] new rad: " + rad);
+
+//            System.err.println("calling ContaminationUtil.contaminate() for " + entity.getName().getString() + " with rad value: " + rad);
             ContaminationUtil.contaminate(entity, HazardType.RADIATION, ContaminationType.CREATIVE, (float) rad);
         }
     }
@@ -173,6 +181,12 @@ public class ItemHazardModule {
                 item.remove(RemovalReason.KILLED);
                 item.level().explode(item, item.position().x, item.position().y, item.position().z, this.explosive, Level.ExplosionInteraction.TNT);
                 return true;
+            }
+
+            if(this.isRadioactive()) {
+
+                System.err.println("[Debug] radiating...");
+                ContaminationUtil.radiate((ServerLevel) item.level(), item.getOnPos().getX(), item.getOnPos().getY()+1, item.getOnPos().getZ(), 32, (float)this.radiation / 10f);
             }
         }
 

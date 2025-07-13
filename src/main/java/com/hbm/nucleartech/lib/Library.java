@@ -1,10 +1,15 @@
 package com.hbm.nucleartech.lib;
 
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Library {
@@ -67,5 +72,41 @@ public class Library {
     public static double roundDouble(double number, int decimal) {
 
         return (double) (Math.round(number * powersOfTen[decimal]) / (double)powersOfTen[decimal]);
+    }
+
+    public static List<ItemStack> copyItemStackList(List<ItemStack> inputs) {
+        List<ItemStack> list = new ArrayList<>();
+        inputs.forEach(stack -> {list.add(stack.copy());});
+        return list;
+    }
+
+    /**
+     * Returns true if the second compound contains all the tags and values of the first one, but it can have more. This helps with intermod compatibility
+     */
+    public static boolean tagContainsOther(CompoundTag tester, CompoundTag container){
+        if(tester == null && container == null){
+            return true;
+        } else if (tester == null) {
+            return true;
+        } else if(container == null) {
+            return false;
+        } else {
+            for(String s : tester.getAllKeys()){
+                if(!container.contains(s)){
+                    return false;
+                } else {
+                    Tag nbt1 = tester.get(s);
+                    Tag nbt2 = container.get(s);
+                    if(nbt1 instanceof CompoundTag && nbt2 instanceof CompoundTag){
+                        if(!tagContainsOther((CompoundTag) nbt1, (CompoundTag) nbt2))
+                            return false;
+                    } else {
+                        if(!nbt1.equals(nbt2))
+                            return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

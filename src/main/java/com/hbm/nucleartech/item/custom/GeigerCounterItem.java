@@ -48,6 +48,9 @@ public class GeigerCounterItem extends Item {
 
         float x = HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADENV);
 
+        if(x == 0)
+            x = HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADIATION);
+
         if(pLevel.getGameTime() % 5 == 0) {
 
 //            System.err.println("[Debug] Geiger check");

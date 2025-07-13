@@ -19,6 +19,7 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
 
     /// Values ///
     private float radiation = 0;
+    private float neutron = 0;
     private float digamma = 0;
     private int asbestos = 0;
     public static final int maxAsbestos = 60 * 60 * 20;
@@ -47,6 +48,9 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
 
             case RADIATION -> {
                 return radiation;
+            }
+            case NEUTRON -> {
+                return neutron;
             }
             case DIGAMMA -> {
                 return digamma;
@@ -100,6 +104,11 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             case RADIATION -> {
 
                 radiation = value;
+                break;
+            }
+            case NEUTRON -> {
+
+                neutron = value;
                 break;
             }
             case DIGAMMA -> {
@@ -182,6 +191,14 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
                 float rad = radiation + value;
 
                 rad = Mth.clamp(rad, 0F, 2500F);
+
+                setValue(type, rad);
+            }
+            case NEUTRON -> {
+
+                float rad = neutron + value;
+
+//                rad = Mth.clamp(rad, 0F, 2500F);
 
                 setValue(type, rad);
             }
@@ -316,6 +333,7 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
         CompoundTag props = new CompoundTag();
 
         props.putFloat("hfr_radiation", getValue(Type.RADIATION));
+        props.putFloat("hfr_neutron", getValue(Type.NEUTRON));
         props.putFloat("hfr_digamma", getValue(Type.DIGAMMA));
         props.putInt("hfr_asbestos", (int)getValue(Type.ASBESTOS));
         props.putInt("hfr_blacklung", (int)getValue(Type.BLACKLUNG));
@@ -341,6 +359,7 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
     public void readNBT(CompoundTag nbt) {
 
         setValue(Type.RADIATION, nbt.getFloat("hfr_radiation"));
+        setValue(Type.NEUTRON, nbt.getFloat("hfr_neutron"));
         setValue(Type.DIGAMMA, nbt.getFloat("hfr_digamma"));
         setValue(Type.ASBESTOS, nbt.getFloat("hfr_asbestos"));
         setValue(Type.BLACKLUNG, nbt.getFloat("hfr_blacklung"));
