@@ -128,14 +128,18 @@ public class ContaminationUtil {
                 float eRads = rad3d;
                 eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
 
-                for(RadResistantBlock block : radResistantBlocks)
+                for(RadResistantBlock block : radResistantBlocks) {
+
                     eRads = (eRads * (float) Math.exp(-block.μ*block.thickness)) * 1000f;
+//                    System.err.println("[Debug] eRads: " + eRads + ", exponent: " + (float) Math.exp(-block.μ*block.thickness));
+                }
+
 
                 if(eRads > 0.1F)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
 
-                RadiationSavedData.decrementRad(pLevel, new BlockPos((int)Math.floor(x),(int)Math.floor(y),(int)Math.floor(z)), eRads / 10f);
-                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads / 10f, eRads * 10f);
+//                RadiationSavedData.decrementRad(pLevel, new BlockPos((int)Math.floor(x),(int)Math.floor(y),(int)Math.floor(z)), eRads / 10f);
+//                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads / 10f, eRads * 10f);
 //                else
 //                    System.err.println("[Debug] Radiation being applied is too close to zero: " + eRads);
             }

@@ -73,7 +73,7 @@ public class GeigerCounterItem extends Item {
 
             if(x > 1e-5) {
 
-                System.err.println("[Debug] Rad exists, playing sound...");
+//                System.err.println("[Debug] Rad exists, playing sound...");
 
                 List<Integer> list = new ArrayList<>();
 

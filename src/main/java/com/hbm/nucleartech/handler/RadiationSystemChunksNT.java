@@ -362,6 +362,7 @@ public class RadiationSystemChunksNT {
     }
 
     private static RadPocket[] pocketsByBlock = null;
+    private static BlockPos[] blocksByPocket = null;
 
     /**
      * Divides a 16x16x16 sub chunk into pockets that are separated by radiation-resistant blocks.
@@ -390,6 +391,13 @@ public class RadiationSystemChunksNT {
 
             Arrays.fill(pocketsByBlock, null);
         }
+        if(blocksByPocket == null) {
+
+            blocksByPocket = new BlockPos[0];
+        } else {
+
+            Arrays.fill(blocksByPocket, null);
+        }
         ChunkRadiationStorage st = getChunkStorage(chunk.getLevel(), subChunkPos);
         SubChunkRadiationStorage subChunk = new SubChunkRadiationStorage(st, subChunkPos.getY(), null, null);
 
@@ -415,6 +423,15 @@ public class RadiationSystemChunksNT {
 
                         Block block = blocks.get(x, y, z).getBlock();
                         BlockPos globalPos = subChunkPos.offset(x, y, z);
+
+                        BlockPos[] old = blocksByPocket;
+
+                        blocksByPocket = new BlockPos[old.length+1];
+                        for(int i = 0; i < old.length; i++) {
+
+                            blocksByPocket[i] = old[i];
+                        }
+                        blocksByPocket[old.length] = globalPos;
 
 //                        BlockPos globalPos = subChunkPos.offset(x, y, z);
 //                        Block block = chunk.getLevel().getBlockState(globalPos).getBlock();
@@ -455,6 +472,8 @@ public class RadiationSystemChunksNT {
         // If there's only one pocket, we don't need to waste memory by storing a whole 16x16x16 array, so just store null
         subChunk.pocketsByBlock = pockets.size() == 1 ? null : pocketsByBlock;
 
+        subChunk.blocksByPocket = pockets.size() == 1 ? null : blocksByPocket;
+
 //        if (pockets.size() == 1) {
 //            //System.err.println("[Debug] There was only a single pocket for subchunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
 //        } else {
@@ -463,6 +482,8 @@ public class RadiationSystemChunksNT {
 
         if(subChunk.pocketsByBlock != null)
             pocketsByBlock = null;
+        if(subChunk.blocksByPocket != null)
+            blocksByPocket = null;
         //noinspection ToArrayCallWithZeroLengthArrayArgument
         subChunk.pockets = pockets.toArray(new RadPocket[pockets.size()]);
 
@@ -873,12 +894,48 @@ public class RadiationSystemChunksNT {
         public final int yLevel;                      // -64 to 319
         public RadPocket[] pockets;                    // All pockets found in this subchunk
         public RadPocket[] pocketsByBlock;
+        public BlockPos[] blocksByPocket;
+
+        BlockPos subChunkPos;
 
         public SubChunkRadiationStorage(ChunkRadiationStorage parent, int yLevel, RadPocket[] pockets, RadPocket[] pocketsByBlock) {
             this.parentChunk = parent;
             this.yLevel = yLevel;
             this.pocketsByBlock = pocketsByBlock;
             this.pockets = pockets;
+
+            this.subChunkPos = new BlockPos(
+                    parentChunk.chunk.getPos().x << 4,
+                    yLevel,
+                    parentChunk.chunk.getPos().z << 4);
+        }
+
+        public BlockPos getBlock(Integer pIndex) {
+
+            if(blocksByPocket == null) {
+
+                return subChunkPos;
+            } else if(blocksByPocket.length > pIndex) {
+
+                BlockPos pos = blocksByPocket[pIndex];
+                if(pos == null) {
+
+                    if(blocksByPocket[0] != null) {
+
+                        return blocksByPocket[0];
+                    } else {
+
+                        pos = subChunkPos;
+                        blocksByPocket[0] = pos;
+                        return pos;
+                    }
+                } else {
+
+                    return pos;
+                }
+            }
+
+            return subChunkPos;
         }
 
         /**
@@ -1149,14 +1206,26 @@ public class RadiationSystemChunksNT {
 
                     // Save pocketsByBlock
                     if(sc.pocketsByBlock == null)
-                        subTag.putByte("nul", (byte)0);
+                        subTag.putByte("p_nul", (byte)0);
                     else {
 
-                        subTag.putByte("nul", (byte)1);
+                        subTag.putByte("p_nul", (byte)1);
                         for(int j = 0; j < sc.pocketsByBlock.length; j++) {
 
                             RadPocket p = sc.pocketsByBlock[j];
                             subTag.putShort("pbb_" + j, arrayIndex(p, sc.pockets));
+                        }
+                    }
+                    // Save blocksByPocket
+                    if(sc.blocksByPocket == null)
+                        subTag.putByte("b_nul", (byte)0);
+                    else {
+
+                        subTag.putByte("b_nul", (byte)1);
+                        for(int j = 0; j < sc.blocksByPocket.length; j++) {
+
+                            BlockPos b = sc.getBlock(j);
+                            subTag.putLong("bbp_" + j, b.asLong());
                         }
                     }
                 }
@@ -1193,7 +1262,7 @@ public class RadiationSystemChunksNT {
                         }
 
                         // Load pocketsByBlock
-                        boolean perBlockDataExists = subTag.getByte("nul") == 1;
+                        boolean perBlockDataExists = subTag.getByte("p_nul") == 1;
                         if(perBlockDataExists) {
 
                             // If the per block data exists, read indices sequentially and set each array slot to the rad pocket at that index
@@ -1203,6 +1272,18 @@ public class RadiationSystemChunksNT {
                                 int idx = subTag.getShort("pbb_" + j);
                                 if(idx >= 0)
                                     sc.pocketsByBlock[j] = sc.pockets[idx];
+                            }
+                        }
+                        // Load blocksByPocket
+                        perBlockDataExists = subTag.getByte("b_nul") == 1;
+                        if(perBlockDataExists) {
+
+                            // If the per block data exists, read indices sequentially and set each array slot to the rad pocket at that index
+                            sc.blocksByPocket = new BlockPos[sc.pockets.length];
+                            for(int j = 0; j < sc.pockets.length ; j++) {
+
+                                BlockPos pos = BlockPos.of(subTag.getLong("bbp_" + j));
+                                sc.blocksByPocket[j] = pos;
                             }
                         }
                         subData[i] = sc;
@@ -1335,7 +1416,7 @@ public class RadiationSystemChunksNT {
                 rebuildDirty(level);
         }
 
-        static Map<Vector4i, Integer> activePositions = new HashMap<>();
+        static Map<BlockPos, Integer> activePositions = new HashMap<>();
 
         @SubscribeEvent
         public static void onWorldLoad(LevelEvent.Load event) {
@@ -1345,22 +1426,40 @@ public class RadiationSystemChunksNT {
 
                 activePositions = loadMapFromJson((ServerLevel)level, "data/hbm/rad_vectors.json");
 
-                Iterator<Map.Entry<Vector4i, Integer>> itr = activePositions.entrySet().iterator();
+                Iterator<Map.Entry<BlockPos, Integer>> itr = activePositions.entrySet().iterator();
 
                 while(itr.hasNext()) {
 
-                    Map.Entry<Vector4i, Integer> nxt = itr.next();
+                    Map.Entry<BlockPos, Integer> nxt = itr.next();
 
-                    LevelChunk chunk = ((ServerLevel) level).getChunk(nxt.getKey().x, nxt.getKey().z);
+                    LevelChunk chunk = ((ServerLevel) level).getChunkAt(nxt.getKey());
                     ChunkRadiationStorage st = getChunkStorage(chunk);
-                    SubChunkRadiationStorage sc = getSubChunkStorage(st, nxt.getKey().y, chunk);
-                    RadPocket pocket = sc.pockets[nxt.getKey().w];
+                    SubChunkRadiationStorage sc = getSubChunkStorage(st, nxt.getKey().getY(), chunk);
 
-                    pocket.radiation = Math.max(nxt.getValue(), 0);
-                    // If the amount is greater than 0, make sure to mark it as dirty so it gets updated
-                    if(nxt.getValue() > 0){
+                    rebuildChunkPockets(chunk, ChunkStorageCompat.getIndexFromWorldY(nxt.getKey().getY()));
 
-                        addActivePocket(pocket);
+                    if(sc.blocksByPocket != null) {
+
+                        for(BlockPos pos : sc.blocksByPocket) {
+
+                            if(pos == null)
+                                pos = sc.subChunkPos;
+
+                            RadPocket p = sc.getPocket(pos);
+
+                            p.radiation = nxt.getValue();
+
+                            if(p.radiation > 0)
+                                addActivePocket(p);
+                        }
+                    } else {
+
+                        RadPocket p = sc.getPocket(sc.subChunkPos);
+
+                        p.radiation = nxt.getValue();
+
+                        if(p.radiation > 0)
+                            addActivePocket(p);
                     }
                 }
             }
@@ -1379,11 +1478,7 @@ public class RadiationSystemChunksNT {
                 for(RadPocket p : activePockets) {
 
                     activePositions.put(
-                            new Vector4i(
-                                    p.parent.parentChunk.chunk.getPos().x,
-                                    p.parent.yLevel,
-                                    p.parent.parentChunk.chunk.getPos().z,
-                                    p.index),
+                            p.parent.getBlock(p.index),
                             Math.round(p.radiation)
                     );
                 }
@@ -1392,12 +1487,12 @@ public class RadiationSystemChunksNT {
             }
         }
 
-        public static void saveMapToJson(ServerLevel level, Map<Vector4i, Integer> map, String fileName) {
+        public static void saveMapToJson(ServerLevel level, Map<BlockPos, Integer> map, String fileName) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
             Map<String, Integer> jsonMap = new HashMap<>();
-            for (Map.Entry<Vector4i, Integer> entry : map.entrySet()) {
-                jsonMap.put(entry.getKey().x+":"+entry.getKey().y+":"+entry.getKey().z+":"+entry.getKey().w+":", entry.getValue());
+            for (Map.Entry<BlockPos, Integer> entry : map.entrySet()) {
+                jsonMap.put(entry.getKey().getX()+":"+entry.getKey().getY()+":"+entry.getKey().getZ()+":", entry.getValue());
             }
 
             Path path = level.getServer().getWorldPath(LevelResource.ROOT).resolve(fileName);
@@ -1416,7 +1511,7 @@ public class RadiationSystemChunksNT {
             }
         }
 
-        public static Map<Vector4i, Integer> loadMapFromJson(ServerLevel level, String fileName) {
+        public static Map<BlockPos, Integer> loadMapFromJson(ServerLevel level, String fileName) {
             Gson gson = new Gson();
             Type mapType = new TypeToken<Map<String, Integer>>() {}.getType();
 
@@ -1425,17 +1520,15 @@ public class RadiationSystemChunksNT {
 
             try (Reader reader = Files.newBufferedReader(path)) {
                 Map<String, Integer> jsonMap = gson.fromJson(reader, mapType);
-                Map<Vector4i, Integer> result = new HashMap<>();
+                Map<BlockPos, Integer> result = new HashMap<>();
                 for (Map.Entry<String, Integer> entry : jsonMap.entrySet()) {
-
-                    Vector4i vecR = new Vector4i();
 
                     String[] strA = entry.getKey().split(":");
 
-                    vecR.x = Integer.parseInt(strA[0]);
-                    vecR.y = Integer.parseInt(strA[1]);
-                    vecR.z = Integer.parseInt(strA[2]);
-                    vecR.w = Integer.parseInt(strA[3]);
+                    BlockPos vecR = new BlockPos(
+                            Integer.parseInt(strA[0]),
+                            Integer.parseInt(strA[1]),
+                            Integer.parseInt(strA[2]));
 
                     result.put(vecR, entry.getValue());
                 }
