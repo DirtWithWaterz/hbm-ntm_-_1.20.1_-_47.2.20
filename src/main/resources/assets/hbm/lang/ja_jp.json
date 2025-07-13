@@ -1,4 +1,6 @@
 {
+  "trait.radioactive": "放射性",
+
   "death.attack.radiation": "%1$sは放射線障害に冒されて死亡した",
   "death.attack.radiation.player": "%1$sは%2$sから逃げながら放射線障害で死亡した",
   "death.attack.radiation.item": "%1$sは%2$sの%3$sによって殺害された",
