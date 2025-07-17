@@ -1432,35 +1432,12 @@ public class RadiationSystemChunksNT {
 
                     Map.Entry<BlockPos, Integer> nxt = itr.next();
 
-                    LevelChunk chunk = ((ServerLevel) level).getChunkAt(nxt.getKey());
-                    ChunkRadiationStorage st = getChunkStorage(chunk);
-                    SubChunkRadiationStorage sc = getSubChunkStorage(st, nxt.getKey().getY(), chunk);
+//                    System.err.println("[Debug] Populating rad pocket starting at: " + nxt.getKey() + ", with " + nxt.getValue() + " rads");
 
+                    LevelChunk chunk = ((ServerLevel) level).getChunkAt(nxt.getKey());
                     rebuildChunkPockets(chunk, ChunkStorageCompat.getIndexFromWorldY(nxt.getKey().getY()));
 
-                    if(sc.blocksByPocket != null) {
-
-                        for(BlockPos pos : sc.blocksByPocket) {
-
-                            if(pos == null)
-                                pos = sc.subChunkPos;
-
-                            RadPocket p = sc.getPocket(pos);
-
-                            p.radiation = nxt.getValue();
-
-                            if(p.radiation > 0)
-                                addActivePocket(p);
-                        }
-                    } else {
-
-                        RadPocket p = sc.getPocket(sc.subChunkPos);
-
-                        p.radiation = nxt.getValue();
-
-                        if(p.radiation > 0)
-                            addActivePocket(p);
-                    }
+                    setRadForCoord((ServerLevel)level, nxt.getKey(), nxt.getValue());
                 }
             }
         }
@@ -1492,7 +1469,7 @@ public class RadiationSystemChunksNT {
 
             Map<String, Integer> jsonMap = new HashMap<>();
             for (Map.Entry<BlockPos, Integer> entry : map.entrySet()) {
-                jsonMap.put(entry.getKey().getX()+":"+entry.getKey().getY()+":"+entry.getKey().getZ()+":", entry.getValue());
+                jsonMap.put(entry.getKey().getX()+":"+entry.getKey().getY()+":"+entry.getKey().getZ(), entry.getValue());
             }
 
             Path path = level.getServer().getWorldPath(LevelResource.ROOT).resolve(fileName);

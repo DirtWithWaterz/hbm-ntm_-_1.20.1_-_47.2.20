@@ -254,6 +254,7 @@ public class RadiationSavedData {
 
     public static void incrementRad(ServerLevel worldObj, BlockPos pos, float rad, float maxRad) {
         if(true){ // if GeneralConfig.advancedRadiation
+//            System.out.println("[Debug] Increment Rad called with size: " + rad);
             RadiationSystemChunksNT.incrementRad(worldObj, pos, rad, maxRad);
 //            return;
         }
