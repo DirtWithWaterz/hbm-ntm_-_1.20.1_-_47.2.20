@@ -36,6 +36,11 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         simpleItem(RegisterItems.REACHER);
         simpleItem(RegisterItems.GEIGER_COUNTER);
+
+        simpleItem(RegisterItems.PLACEHOLDER);
+
+        simpleItem(RegisterItems.M65_MASK);
+        simpleItem(RegisterItems.GAS_MASK_FILTER);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

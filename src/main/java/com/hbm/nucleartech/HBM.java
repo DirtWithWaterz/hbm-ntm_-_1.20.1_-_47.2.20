@@ -12,6 +12,7 @@ import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.network.HbmPacketHandler;
 import com.hbm.nucleartech.particle.RegisterParticles;
 import com.hbm.nucleartech.sound.RegisterSounds;
+import com.hbm.nucleartech.util.ArmorUtil;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.network.FriendlyByteBuf;
@@ -33,6 +34,7 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 import java.io.File;
 import java.util.function.BiConsumer;
@@ -55,8 +57,9 @@ public class HBM
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        RegisterCreativeTabs.register(modEventBus);
+        GeckoLib.initialize();
 
+        RegisterCreativeTabs.register(modEventBus);
         RegisterItems.register(modEventBus);
         RegisterBlocks.register(modEventBus);
         RegisterParticles.register(modEventBus);
@@ -103,6 +106,7 @@ public class HBM
 
         HbmPacketHandler.register();
         HazmatRegistry.registerHazmats();
+        ArmorUtil.register();
 
         GeigerCounterItem.initSoundMap();
     }

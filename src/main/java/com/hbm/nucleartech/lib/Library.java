@@ -80,6 +80,10 @@ public class Library {
         return list;
     }
 
+    public static String getPercentage(double fraction){
+        return numberFormat.format(roundFloat((float)(fraction*100D), 2));
+    }
+
     /**
      * Returns true if the second compound contains all the tags and values of the first one, but it can have more. This helps with intermod compatibility
      */

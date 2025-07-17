@@ -33,6 +33,9 @@ public class RegisterSounds {
     public static final RegistryObject<SoundEvent> GEIGER_8 = SOUNDS.register("item.geiger8",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger8")));
 
+    public static final RegistryObject<SoundEvent> GAS_MASK_SCREW = SOUNDS.register("item.gasmaskscrew",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.gasmaskscrew")));
+
     public static void register(IEventBus bus) {
 
         SOUNDS.register(bus);

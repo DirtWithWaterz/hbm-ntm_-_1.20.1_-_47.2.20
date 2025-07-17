@@ -34,6 +34,9 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterItems.RAW_URANIUM.get());
 
                         output.accept(RegisterItems.GEIGER_COUNTER.get());
+
+                        output.accept(RegisterItems.M65_MASK.get());
+                        output.accept(RegisterItems.GAS_MASK_FILTER.get());
                     })
                     .build());
 

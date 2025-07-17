@@ -2,8 +2,10 @@ package com.hbm.nucleartech.item;
 
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.hazard.HazardItem;
+import com.hbm.nucleartech.item.custom.FilterItem;
 import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.item.special.CustomLoreItem;
+import com.hbm.nucleartech.item.custom.GasmaskItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -54,6 +56,15 @@ public class RegisterItems {
 
     public static final RegistryObject<Item> GEIGER_COUNTER = ITEMS.register("geiger_counter",
             () -> new GeigerCounterItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> PLACEHOLDER = ITEMS.register("placeholder",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> M65_MASK = ITEMS.register("m65_mask",
+            () -> new GasmaskItem(new Item.Properties(), HbmArmorMaterials.HAZMAT));
+
+    public static final RegistryObject<Item> GAS_MASK_FILTER = ITEMS.register("gas_mask_filter",
+            () -> new FilterItem(new Item.Properties(), 18000));
 
     public static void register(IEventBus eventBus) {
 

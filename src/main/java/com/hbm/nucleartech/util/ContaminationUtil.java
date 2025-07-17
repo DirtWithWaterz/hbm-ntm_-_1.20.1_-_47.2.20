@@ -34,6 +34,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class ContaminationUtil {
 
             float res = 0;
 
-            List<RadResistantBlock> radResistantBlocks = new ArrayList<>();
+            List<Vec2> radResistantBlocks = new ArrayList<>();
 
             for (int i = 1; i < len; i++) {
 
@@ -110,10 +111,10 @@ public class ContaminationUtil {
                 Block block = pLevel.getBlockState(stepPos).getBlock();
 
                 // Check if it's a radiation-shielding block
-                if (block instanceof IRadResistantBlock radBlock && radBlock.isRadResistant(pLevel, stepPos)) {
+                if (block instanceof IRadResistantBlock radBlock) {
 
-//                    System.out.println("[Debug] Found a rad resistant block in-between " + e.getName().getString() + " and " + pLevel.getBlockState(new BlockPos((int)x, (int)y, (int)z)).getBlock().getName().getString() + "; Shielding entity from radiation");
-                    radResistantBlocks.add((RadResistantBlock)radBlock);
+//                    System.out.println("[Debug] Found a rad resistant block in-between " + e.getName().getString() + " and " + pLevel.getBlockState(new BlockPos((int)x, (int)y-1, (int)z)).getBlock().getName().getString() + "; Shielding entity from radiation");
+                    radResistantBlocks.add(new Vec2(((RadResistantBlock)radBlock).μ, ((RadResistantBlock)radBlock).thickness));
                 }
 
                 res += block.getExplosionResistance();
@@ -128,18 +129,19 @@ public class ContaminationUtil {
                 float eRads = rad3d;
                 eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
 
-                for(RadResistantBlock block : radResistantBlocks) {
+                for(Vec2 vec2 : radResistantBlocks) {
 
-                    eRads = (eRads * (float) Math.exp(-block.μ*block.thickness)) * 1000f;
-//                    System.err.println("[Debug] eRads: " + eRads + ", exponent: " + (float) Math.exp(-block.μ*block.thickness));
+                    double exp = Math.exp(-vec2.x * vec2.y);
+                    eRads = (eRads * (float)exp) * 1000f;
+//                    System.err.println("[Debug] eRads: " + eRads + ", exponent: " + (float)exp);
                 }
 
 
                 if(eRads > 0.1F)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
 
-//                RadiationSavedData.decrementRad(pLevel, new BlockPos((int)Math.floor(x),(int)Math.floor(y),(int)Math.floor(z)), eRads / 10f);
-//                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads / 10f, eRads * 10f);
+                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads, eRads * 10f);
+//                RadiationSavedData.decrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads);
 //                else
 //                    System.err.println("[Debug] Radiation being applied is too close to zero: " + eRads);
             }
@@ -160,8 +162,11 @@ public class ContaminationUtil {
 
                         // check if holding a marshmallow and cook it if the player is.
                     }
-                    e.hurt(pLevel.damageSources().inFire(), fireDmg);
-                    e.setSecondsOnFire(5);
+                    if(radResistantBlocks.isEmpty()) {
+
+                        e.hurt(pLevel.damageSources().inFire(), fireDmg);
+                        e.setSecondsOnFire(5);
+                    }
                 }
             }
 
@@ -201,7 +206,8 @@ public class ContaminationUtil {
             return true;
         }
 
-        return e instanceof Player && (((Player) e).isCreative() || ((Player) e).isSpectator());
+//        return e instanceof Player && (((Player) e).isCreative() || ((Player) e).isSpectator());
+        return false;
     }
 
 

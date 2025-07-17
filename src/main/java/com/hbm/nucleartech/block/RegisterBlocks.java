@@ -80,8 +80,8 @@ public class RegisterBlocks {
     public static final RegistryObject<Block> RAD_RESISTANT_BLOCK = registerBlock("rad_resistant_block",
             () -> new RadResistantBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(5.0f, 10.0f)
-                    , 11.34f, 0.07f, 1f
-            )); // has values of lead ^^ ~100% resistance
+                    , 1f, 0.085f, 1f
+            )); // has values of lead ^^ ~100% resistance (water is 1f, 0.085f. Lead is 11.34f, 0.07f)
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
 

@@ -34,5 +34,9 @@
   "item.geiger8": {
     "category": "players",
     "sounds": [ "hbm:item/geiger8" ]
+  },
+  "item.gasmaskscrew": {
+    "category": "players",
+    "sounds": [ "hbm:item/gasmaskscrew" ]
   }
 }

@@ -1,6 +1,12 @@
 package com.hbm.nucleartech.handler;
 
+import com.hbm.nucleartech.util.ArmorRegistry;
+import com.hbm.nucleartech.util.ArmorRegistry.HazardClass;
 import com.hbm.nucleartech.util.ContaminationUtil;
+import com.hbm.nucleartech.util.I18nUtil;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -13,6 +19,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
@@ -28,20 +35,23 @@ public class ItemHandler {
         List<Component> list = event.getToolTip();
 
         /// HAZMAT INFO ///
-//        List<HazardClass> hazInfo = ArmorRegistry.hazardClasses.get(stack.getItem());
-//
-//        if(hazInfo != null) {
-//
-//            if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-//                list.add(TextFormatting.GOLD + I18nUtil.resolveKey("hazard.prot"));
-//                for(HazardClass clazz : hazInfo) {
-//                    list.add(TextFormatting.YELLOW + "  " + I18nUtil.resolveKey(clazz.lang));
-//                }
-//            } else {
-//
-//                list.add(I18nUtil.resolveKey("desc.tooltip.hold", "LSHIFT"));
-//            }
-//        }
+        List<HazardClass> hazInfo = ArmorRegistry.hazardClasses.get(stack.getItem());
+
+        if(hazInfo != null) {
+
+            long window = Minecraft.getInstance().getWindow().getWindow();
+            boolean leftShiftDown = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT);
+
+            if(leftShiftDown) {
+                list.add(Component.literal(ChatFormatting.GOLD + I18nUtil.resolveKey("hazard.prot")));
+                for(HazardClass clazz : hazInfo) {
+                    list.add(Component.literal(ChatFormatting.YELLOW + "  " + I18nUtil.resolveKey(clazz.lang)));
+                }
+            } else {
+
+                list.add(Component.literal(I18nUtil.resolveKey("desc.tooltip.hold", "LSHIFT")));
+            }
+        }
 
         /// CLADDING ///
 //        double rad = HazmatRegistry.getResistance(stack);

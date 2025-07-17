@@ -3,21 +3,19 @@ package com.hbm.nucleartech.item.special;
 import com.hbm.nucleartech.item.RegisterItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CustomLoreItem extends Item {
+public class CustomLoreArmorItem extends ArmorItem {
 
     Rarity rarity;
 
-    public CustomLoreItem(Properties pProperties) {
-        super(pProperties);
+    public CustomLoreArmorItem(ArmorMaterial material, Type type, Properties pProperties) {
+
+        super(material, type, pProperties);
     }
 
     @Override
