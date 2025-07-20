@@ -1,12 +1,11 @@
-package com.hbm.nucleartech.item.custom;
+package com.hbm.nucleartech.item.custom.base;
 
 import java.util.*;
 import java.util.function.Consumer;
 
 import com.hbm.nucleartech.interfaces.IGasMask;
+import com.hbm.nucleartech.item.RegisterItems;
 import com.hbm.nucleartech.item.special.ItemArmorMod;
-import com.hbm.nucleartech.render.armor.GasmaskRenderer;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -42,11 +41,18 @@ public class GasmaskItem extends ItemArmorMod implements IGasMask, GeoItem {
 
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-	private String tex = "hbm:textures/item/armor/m65_mask.png";
-	private String tex_mono = "hbm:textures/armor/modelm65mono.png";
+	private String tex;
+	private String tex_mono;
+	private String no_filter;
+	private String filter;
 
-	public GasmaskItem(Properties s, ArmorMaterial material) {
+	public GasmaskItem(Properties s, ArmorMaterial material, String tex, @Nullable String tex_mono, String no_filter, String filter) {
 		super(s, material, ArmorModHandler.helmet_only, true, false, false, false);
+
+		this.tex = tex;
+		this.tex_mono = tex_mono;
+		this.no_filter = no_filter;
+		this.filter = filter;
 	}
 
 	@Override
@@ -61,7 +67,7 @@ public class GasmaskItem extends ItemArmorMod implements IGasMask, GeoItem {
 //			list.add(Component.literal(ChatFormatting.GREEN + "Gas protection"));
 
 		list.add(Component.empty());
-		super.appendHoverText(stack, worldIn, list, flagIn);
+//		super.appendHoverText(stack, worldIn, list, flagIn);
 
 		ArmorUtil.addGasMaskTooltip(stack, worldIn, list, flagIn);
 
@@ -124,8 +130,11 @@ public class GasmaskItem extends ItemArmorMod implements IGasMask, GeoItem {
 //		if(this == RegisterItems.attachment_mask_mono) {
 //			return new ArrayList<HazardClass>(Arrays.asList(new HazardClass[] {HazardClass.GAS_CHLORINE, HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT, HazardClass.BACTERIA}));
 //		} else {
-			return new ArrayList<HazardClass>(Arrays.asList(new HazardClass[] {HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT}));
+		if(this.getDescriptionId().equals(RegisterItems.M65_MASK.get().getDescriptionId()))
+			return new ArrayList<>(Arrays.asList(HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT));
 //		}
+		else
+			return new ArrayList<>();
 	}
 
 	@Override
@@ -171,26 +180,6 @@ public class GasmaskItem extends ItemArmorMod implements IGasMask, GeoItem {
 	}
 
 	@Override
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-		consumer.accept(new IClientItemExtensions() {
-
-			private GeoArmorRenderer<?> renderer;
-
-			@Override
-			public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-
-				if(this.renderer == null)
-					this.renderer = new GasmaskRenderer();
-
-				this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
-
-				return this.renderer;
-			}
-		});
-	}
-
-	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 
 		controllers.add(new AnimationController<>(this, 0, state -> {
@@ -199,9 +188,9 @@ public class GasmaskItem extends ItemArmorMod implements IGasMask, GeoItem {
 			Entity entity = state.getData(DataTickets.ENTITY);
 
 			if(!(entity instanceof LivingEntity) || ArmorUtil.getGasMaskFilterRecursively(((LivingEntity)entity).getItemBySlot(EquipmentSlot.HEAD)).isEmpty())
-				state.setAnimation(RawAnimation.begin().thenLoop("animation.m65_mask.no_filter"));
+				state.setAnimation(RawAnimation.begin().thenLoop(no_filter));
 			else
-				state.setAnimation(RawAnimation.begin().thenLoop("animation.m65_mask.filter"));
+				state.setAnimation(RawAnimation.begin().thenLoop(filter));
 
 			// Play the animation if the full set is being worn, otherwise stop
 			return PlayState.CONTINUE;

@@ -1,0 +1,128 @@
+package com.hbm.nucleartech.item.custom;
+
+import com.hbm.nucleartech.item.RegisterItems;
+import com.hbm.nucleartech.item.custom.base.GasmaskItem;
+import com.hbm.nucleartech.render.armor.HazmatGreyRenderer;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.List;
+import java.util.function.Consumer;
+
+public class HazmatHeadGreyItem extends GasmaskItem {
+
+	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+	public HazmatHeadGreyItem(Properties s, ArmorMaterial material) {
+		super(
+				s,
+				material,
+				"hbm:textures/item/armor/hazmat_grey.png",
+				null,
+				"animation.hazmat_grey.no_filter",
+				"animation.hazmat_grey.filter"
+		);
+	}
+
+	@Override
+	public boolean isCompleteSet(List<ArmorItem> set) {
+
+		for(ArmorItem item : set) {
+
+			switch (item.getType()) {
+
+				case HELMET -> {
+
+					if(!item.getDefaultInstance().is(RegisterItems.HAZMAT_HELMET_GREY.get()))
+						return false;
+				}
+				case CHESTPLATE -> {
+
+					if(!item.getDefaultInstance().is(RegisterItems.HAZMAT_CHESTPLATE_GREY.get()))
+						return false;
+				}
+				case LEGGINGS -> {
+
+					if(!item.getDefaultInstance().is(RegisterItems.HAZMAT_LEGGINGS_GREY.get()))
+						return false;
+				}
+				case BOOTS -> {
+
+					if(!item.getDefaultInstance().is(RegisterItems.HAZMAT_BOOTS_GREY.get()))
+						return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	//	@Override
+//	@OnlyIn(Dist.CLIENT)
+//	public void modRender(RenderPlayerEvent.Pre event, ItemStack armor){
+//
+//		if(this.modelM65 == null) {
+//			this.modelM65 = new ModelM65();
+//		}
+//		RenderPlayer renderer = event.getRenderer();
+//		ModelBiped model = renderer.getMainModel();
+//		EntityPlayer player = event.getEntityPlayer();
+//
+//		copyRot(modelM65, model);
+//
+//		float interp = event.getPartialRenderTick();
+//		float yawWrapped = MathHelper.wrapDegrees(player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * interp + 180);
+//		float pitch = player.rotationPitch;
+//
+//		if(this == RegisterItems.attachment_mask)
+//			Minecraft.getMinecraft().renderEngine.bindTexture(tex);
+//		if(this == RegisterItems.attachment_mask_mono)
+//			Minecraft.getMinecraft().renderEngine.bindTexture(tex_mono);
+//
+//		EntityPlayer me = MainRegistry.proxy.me();
+//		boolean isMe = player == me;
+//		if(!isMe){
+//			GL11.glPushMatrix();
+//			offset(player, me, interp);
+//		}
+//		if(model.isSneak) GL11.glTranslatef(0, -0.1875F, 0);
+//		modelM65.render(player, 0F, 0F, 0, yawWrapped, pitch, 0.0625F);
+//		if(!isMe){
+//			GL11.glPopMatrix();
+//		}
+//	}
+
+	@Override
+	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+
+		consumer.accept(new IClientItemExtensions() {
+
+			private GeoArmorRenderer<?> renderer;
+
+			@Override
+			public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+
+				if(this.renderer == null)
+					this.renderer = new HazmatGreyRenderer();
+
+				this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
+
+				return this.renderer;
+			}
+		});
+	}
+
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return this.cache;
+	}
+}

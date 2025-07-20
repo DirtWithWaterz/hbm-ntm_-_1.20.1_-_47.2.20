@@ -1,8 +1,23 @@
-// 1.20.1	2025-07-17T02:32:09.027271	Item Models: hbm
+// 1.20.1	2025-07-20T04:11:33.0206239	Item Models: hbm
 4cf7e7653b1aae33f78753c224f5f9bc5f290001 assets/hbm/models/item/billet_uranium.json
 717138e2327b0dfad433d85e77dddd88fd5cb7c1 assets/hbm/models/item/crystal_uranium.json
 7f29f38ac80fcc1cf894de82a414bb8d732fc029 assets/hbm/models/item/gas_mask_filter.json
+fd94910aead41f339c985199cd59465d9a66afb1 assets/hbm/models/item/gas_mask_filter_combo.json
+db006e9e0788f96e71733c7f55ca1b9fb6f98ff2 assets/hbm/models/item/gas_mask_filter_mono.json
+37d519af203fb61f0ea13d540c28249851dbefdf assets/hbm/models/item/gas_mask_filter_radon.json
 82f65799b13016f6749a5764a551fc650429b92a assets/hbm/models/item/geiger_counter.json
+dee381047bb7477655cb3eabc4acbc281dd2aec9 assets/hbm/models/item/hazmat_boots.json
+b64233ed0fc67a1ee21adc142be911804d267c4c assets/hbm/models/item/hazmat_boots_grey.json
+888c6a57051dbf40cf5b4d75aafd3a7ea6f8f808 assets/hbm/models/item/hazmat_boots_red.json
+229ac97a2dec201785bb856658cc2a38a9ed0d0a assets/hbm/models/item/hazmat_chestplate.json
+7c8fc75318d436e43c8d1b90b12a02a39fdc7353 assets/hbm/models/item/hazmat_chestplate_grey.json
+e1a800e746a76cbe95254908ed4b556cab3dcada assets/hbm/models/item/hazmat_chestplate_red.json
+f1bdd940e28e60033179917ee849a81caf968b82 assets/hbm/models/item/hazmat_helmet.json
+f402c97594c2f89f649bda6cbb9c77ec35139a09 assets/hbm/models/item/hazmat_helmet_grey.json
+f43e353be66d308945b876d9abf5f0af2f7df907 assets/hbm/models/item/hazmat_helmet_red.json
+ae121eda749ae46efc579e38cb2264255fa18aa6 assets/hbm/models/item/hazmat_leggings.json
+b7475a7b24c338557e93d2664caaab51625320af assets/hbm/models/item/hazmat_leggings_grey.json
+34bf1230d41a74d19b76dc6dd4615182be4e1d95 assets/hbm/models/item/hazmat_leggings_red.json
 acfe492ff3721a4e8be36b8c0cd1198f5312600d assets/hbm/models/item/ingot_beryllium.json
 b10ac8224dfd993d21ad32a35c0de2f788dbbac7 assets/hbm/models/item/ingot_titanium.json
 c40effc73e3599852caad529d0ae71d882c7e588 assets/hbm/models/item/ingot_uranium.json

@@ -8,9 +8,7 @@ import com.google.gson.stream.JsonWriter;
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.item.RegisterItems;
 import com.hbm.nucleartech.util.ShadyUtil;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +17,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Objects;
 
@@ -44,9 +41,9 @@ public class HazmatRegistry {
 //        double alloy = 0.07D; // 15%
 //        double cobalt = 0.125D; // 25%
 //
-//        double hazYellow = 0.6D; // 50%
-//        double hazRed = 1.0D; // 90%
-//        double hazGray = 2D; // 99%
+        double hazYellow = 0.6D; // 50%
+        double hazRed = 1.0D; // 90%
+        double hazGray = 2D; // 99%
 //        double paa = 1.7D; // 97%
 //        double liquidator = 2.4D; // 99.6%
 //
@@ -65,20 +62,20 @@ public class HazmatRegistry {
 //        double schrab = 3D; // 99.9%
 //        double euph = 10D; // <100%
 
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_HELMET, hazYellow * helmet);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_CHESTPLATE, hazYellow * chest);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_LEGGINGS, hazYellow * legs);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_BOOTS, hazYellow * boots);
-//
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_HELMET_RED, hazRed * helmet);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_CHESTPLATE_RED, hazRed * chest);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_LEGGINGS_RED, hazRed * legs);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_BOOTS_RED, hazRed * boots);
-//
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_HELMET_GREY, hazGray * helmet);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_CHESTPLATE_GREY, hazGray * chest);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_LEGGINGS_GREY, hazGray * legs);
-//        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_BOOTS_GREY, hazGray * boots);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_HELMET.get(), hazYellow * helmet);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_CHESTPLATE.get(), hazYellow * chest);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_LEGGINGS.get(), hazYellow * legs);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_BOOTS.get(), hazYellow * boots);
+
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_HELMET_RED.get(), hazRed * helmet);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_CHESTPLATE_RED.get(), hazRed * chest);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_LEGGINGS_RED.get(), hazRed * legs);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_BOOTS_RED.get(), hazRed * boots);
+
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_HELMET_GREY.get(), hazGray * helmet);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_CHESTPLATE_GREY.get(), hazGray * chest);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_LEGGINGS_GREY.get(), hazGray * legs);
+        HazmatRegistry.registerHazmat(RegisterItems.HAZMAT_BOOTS_GREY.get(), hazGray * boots);
 //
 //        HazmatRegistry.registerHazmat(RegisterItems.LIQUIDATOR_HELMET, liquidator * helmet);
 //        HazmatRegistry.registerHazmat(RegisterItems.LIQUIDATOR_CHESTPLATE, liquidator * chest);
@@ -243,21 +240,22 @@ public class HazmatRegistry {
 
     public static double getCladding(ItemStack stack) {
 
-//        if(stack.hasTag()) {
-//            assert stack.getTag() != null;
-//            if (stack.getTag().getFloat("hfr_cladding") > 0)
-//                return stack.getTag().getFloat("hfr_cladding");
-//        }
+        if(stack.hasTag()) {
+            assert stack.getTag() != null;
+            if (stack.getTag().getFloat("hfr_cladding") > 0)
+                return stack.getTag().getFloat("hfr_cladding");
+        }
 
-//        if(ArmorModHandler.hasMods(stack)) {
-//
-//            ItemStack[] mods = ArmorModHandler.pryMods(stack);
-//            ItemStack cladding = mods[ArmorModHandler.cladding];
-//
-//            if(cladding != null && cladding.getItem() instanceof ItemModCladding) {
-//                return ((ItemModCladding)cladding.getItem()).rad;
-//            }
-//        }
+        if(ArmorModHandler.hasMods(stack)) {
+
+            ItemStack[] mods = ArmorModHandler.pryMods(stack);
+            ItemStack cladding = mods[ArmorModHandler.cladding.ordinal()];
+
+            if(cladding != null && cladding.getItem() instanceof ItemModCladding) {
+
+                return ((ItemModCladding)cladding.getItem()).rad;
+            }
+        }
 
         return 0;
     }

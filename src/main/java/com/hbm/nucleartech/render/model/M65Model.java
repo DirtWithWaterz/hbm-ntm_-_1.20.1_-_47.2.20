@@ -1,7 +1,7 @@
 package com.hbm.nucleartech.render.model;
 
 import com.hbm.nucleartech.HBM;
-import com.hbm.nucleartech.item.custom.GasmaskItem;
+import com.hbm.nucleartech.item.custom.base.GasmaskItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

@@ -36,7 +36,26 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterItems.GEIGER_COUNTER.get());
 
                         output.accept(RegisterItems.M65_MASK.get());
+
+                        output.accept(RegisterItems.GAS_MASK_FILTER_MONO.get());
                         output.accept(RegisterItems.GAS_MASK_FILTER.get());
+                        output.accept(RegisterItems.GAS_MASK_FILTER_COMBO.get());
+                        output.accept(RegisterItems.GAS_MASK_FILTER_RADON.get());
+
+                        output.accept(RegisterItems.HAZMAT_HELMET.get());
+                        output.accept(RegisterItems.HAZMAT_CHESTPLATE.get());
+                        output.accept(RegisterItems.HAZMAT_LEGGINGS.get());
+                        output.accept(RegisterItems.HAZMAT_BOOTS.get());
+
+                        output.accept(RegisterItems.HAZMAT_HELMET_RED.get());
+                        output.accept(RegisterItems.HAZMAT_CHESTPLATE_RED.get());
+                        output.accept(RegisterItems.HAZMAT_LEGGINGS_RED.get());
+                        output.accept(RegisterItems.HAZMAT_BOOTS_RED.get());
+
+                        output.accept(RegisterItems.HAZMAT_HELMET_GREY.get());
+                        output.accept(RegisterItems.HAZMAT_CHESTPLATE_GREY.get());
+                        output.accept(RegisterItems.HAZMAT_LEGGINGS_GREY.get());
+                        output.accept(RegisterItems.HAZMAT_BOOTS_GREY.get());
                     })
                     .build());
 

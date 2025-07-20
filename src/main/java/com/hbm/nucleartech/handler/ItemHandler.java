@@ -1,5 +1,6 @@
 package com.hbm.nucleartech.handler;
 
+import com.hbm.nucleartech.item.special.ItemArmorMod;
 import com.hbm.nucleartech.util.ArmorRegistry;
 import com.hbm.nucleartech.util.ArmorRegistry.HazardClass;
 import com.hbm.nucleartech.util.ContaminationUtil;
@@ -11,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -29,7 +31,9 @@ public class ItemHandler {
     @SubscribeEvent
     public static void drawTooltip(ItemTooltipEvent event) {
 
-//        System.err.println("[Debug] Tooltip event:");
+
+        long window = Minecraft.getInstance().getWindow().getWindow();
+        boolean leftShiftDown = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT);
 
         ItemStack stack = event.getItemStack();
         List<Component> list = event.getToolTip();
@@ -38,9 +42,6 @@ public class ItemHandler {
         List<HazardClass> hazInfo = ArmorRegistry.hazardClasses.get(stack.getItem());
 
         if(hazInfo != null) {
-
-            long window = Minecraft.getInstance().getWindow().getWindow();
-            boolean leftShiftDown = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT);
 
             if(leftShiftDown) {
                 list.add(Component.literal(ChatFormatting.GOLD + I18nUtil.resolveKey("hazard.prot")));
@@ -54,36 +55,36 @@ public class ItemHandler {
         }
 
         /// CLADDING ///
-//        double rad = HazmatRegistry.getResistance(stack);
+        double rad = HazmatRegistry.getResistance(stack);
 //        rad = ((int) (rad * 100)) / 100D;
-//        if(rad > 0)
-//            list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.radResistance", rad));
+        if(rad > 0)
+            list.add(Component.literal(ChatFormatting.YELLOW + I18nUtil.resolveKey("trait.rad_resistance", rad)));
 
 
         /// ARMOR MODS ///
-//        if(stack.getItem() instanceof ItemArmor && ArmorModHandler.hasMods(stack)) {
-//
-//            if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !(Minecraft.getMinecraft().currentScreen instanceof GUIArmorTable)) {
-//
-//                list.add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC +"Hold <" +
-//                        TextFormatting.YELLOW + "" + TextFormatting.ITALIC + "LSHIFT" +
-//                        TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + "> to display installed armor mods");
-//
-//            } else {
-//
-//                list.add(TextFormatting.YELLOW + "Mods:");
-//
-//                ItemStack[] mods = ArmorModHandler.pryMods(stack);
-//
-//                for(int i = 0; i < 8; i++) {
-//
-//                    if(mods[i] != null && mods[i].getItem() instanceof ItemArmorMod) {
-//
-//                        ((ItemArmorMod)mods[i].getItem()).addDesc(list, mods[i], stack);
-//                    }
-//                }
-//            }
-//        }
+        if(stack.getItem() instanceof ArmorItem && ArmorModHandler.hasMods(stack)) {
+
+            if(!leftShiftDown) {
+
+                list.add(Component.literal(ChatFormatting.DARK_GRAY + "" + ChatFormatting.ITALIC + "Hold <" +
+                        ChatFormatting.YELLOW + "" + ChatFormatting.ITALIC + "LSHIFT" +
+                        ChatFormatting.DARK_GRAY + "" + ChatFormatting.ITALIC + "> to display installed armor mods"));
+
+            } else {
+
+                list.add(Component.literal(ChatFormatting.YELLOW + "Mods:"));
+
+                ItemStack[] mods = ArmorModHandler.pryMods(stack);
+
+                for(int i = 0; i < 8; i++) {
+
+                    if(mods[i] != null && mods[i].getItem() instanceof ItemArmorMod) {
+
+                        ((ItemArmorMod)mods[i].getItem()).addDesc(list, mods[i], stack);
+                    }
+                }
+            }
+        }
 
 //        System.err.println("[Debug] Adding neutron rad info...");
 
@@ -117,10 +118,10 @@ public class ItemHandler {
 //                list.add("");
 //
 //            if(entry.entry == EnumEntryType.ADD)
-//                list.add(TextFormatting.GOLD + "Adds " + entry.value + " to the custom nuke stage " + entry.type);
+//                list.add(ChatFormatting.GOLD + "Adds " + entry.value + " to the custom nuke stage " + entry.type);
 //
 //            if(entry.entry == EnumEntryType.MULT)
-//                list.add(TextFormatting.GOLD + "Adds multiplier " + entry.value + " to the custom nuke stage " + entry.type);
+//                list.add(ChatFormatting.GOLD + "Adds multiplier " + entry.value + " to the custom nuke stage " + entry.type);
 //        }
 //
 //        if(event.getFlags().isAdvanced()) {

@@ -1,0 +1,26 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.hazmat_red.no_filter": {
+			"loop": true,
+			"bones": {
+				"filter": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.hazmat_red.filter": {
+			"loop": true,
+			"bones": {
+				"filter": {
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -40,7 +40,26 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(RegisterItems.PLACEHOLDER);
 
         simpleItem(RegisterItems.M65_MASK);
+
+        simpleItem(RegisterItems.GAS_MASK_FILTER_MONO);
         simpleItem(RegisterItems.GAS_MASK_FILTER);
+        simpleItem(RegisterItems.GAS_MASK_FILTER_COMBO);
+        simpleItem(RegisterItems.GAS_MASK_FILTER_RADON);
+
+        simpleItem(RegisterItems.HAZMAT_HELMET);
+        simpleItem(RegisterItems.HAZMAT_CHESTPLATE);
+        simpleItem(RegisterItems.HAZMAT_LEGGINGS);
+        simpleItem(RegisterItems.HAZMAT_BOOTS);
+
+        simpleItem(RegisterItems.HAZMAT_HELMET_RED);
+        simpleItem(RegisterItems.HAZMAT_CHESTPLATE_RED);
+        simpleItem(RegisterItems.HAZMAT_LEGGINGS_RED);
+        simpleItem(RegisterItems.HAZMAT_BOOTS_RED);
+
+        simpleItem(RegisterItems.HAZMAT_HELMET_GREY);
+        simpleItem(RegisterItems.HAZMAT_CHESTPLATE_GREY);
+        simpleItem(RegisterItems.HAZMAT_LEGGINGS_GREY);
+        simpleItem(RegisterItems.HAZMAT_BOOTS_GREY);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

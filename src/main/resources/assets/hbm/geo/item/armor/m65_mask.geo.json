@@ -28,98 +28,98 @@
 				{
 					"name": "maskHead",
 					"parent": "mask",
-					"pivot": [0, 24, 0],
+					"pivot": [0, 24, -0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.1, "uv": [0, 0]}
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.55, "uv": [0, 0]}
 					]
 				},
 				{
 					"name": "nose",
 					"parent": "maskHead",
-					"pivot": [0, 24, 0],
+					"pivot": [0, 24, -0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-1.5, 24.5, -5.05], "size": [3, 3, 1], "inflate": 0.1, "uv": [0, 16]}
+						{"origin": [-1.5, 24.5, -5.55], "size": [3, 3, 1], "inflate": 0.1, "uv": [0, 16]}
 					]
 				},
 				{
 					"name": "outlet",
 					"parent": "nose",
-					"pivot": [0, 24.25, 0],
+					"pivot": [0, 24.25, -0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-1, 24.85229, -5.8203], "size": [2, 2, 1], "inflate": 0.1, "pivot": [0.5, 24.5, 0], "rotation": [-27.5, 0, 0], "uv": [0, 20]}
+						{"origin": [-1, 24.85229, -6.3203], "size": [2, 2, 1], "inflate": 0.1, "pivot": [0.5, 24.5, -0.5], "rotation": [-27.5, 0, 0], "uv": [0, 20]}
 					]
 				},
 				{
 					"name": "noseSlope",
 					"parent": "outlet",
-					"pivot": [0, 0.25, 1],
+					"pivot": [0, 0.25, 0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-1.5, 26.57534, -3.37503], "size": [3, 2, 2], "inflate": 0.1, "pivot": [0, 23.25, 1], "rotation": [35, 0, 0], "uv": [8, 16]}
+						{"origin": [-1.5, 26.57534, -3.87503], "size": [3, 2, 2], "inflate": 0.1, "pivot": [0, 23.25, 0.5], "rotation": [35, 0, 0], "uv": [8, 16]}
 					]
 				},
 				{
 					"name": "iForgot",
 					"parent": "noseSlope",
-					"pivot": [0, 24.25, 1],
+					"pivot": [0, 24.25, 0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-1, 25.3253, -5.425], "size": [2, 2, 1], "inflate": 0.1, "uv": [6, 20]}
+						{"origin": [-1, 25.3253, -5.925], "size": [2, 2, 1], "inflate": 0.1, "uv": [6, 20]}
 					]
 				},
 				{
 					"name": "eye1",
 					"parent": "maskHead",
-					"pivot": [-0.5, 24, 0],
+					"pivot": [-0.5, 24, -0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [0.5, 27, -4.001], "size": [3, 3, 0], "inflate": 0.1, "uv": [0, 26]}
+						{"origin": [0.5, 27, -4.501], "size": [3, 3, 0], "inflate": 0.1, "uv": [0, 26]}
 					]
 				},
 				{
 					"name": "eye2",
 					"parent": "maskHead",
-					"pivot": [0.5, 24, 0],
+					"pivot": [0.5, 24, -0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-3.5, 27, -4.001], "size": [3, 3, 0], "inflate": 0.1, "uv": [0, 23]}
+						{"origin": [-3.5, 27, -4.501], "size": [3, 3, 0], "inflate": 0.1, "uv": [0, 23]}
 					]
 				},
 				{
 					"name": "filter",
 					"parent": "mask",
-					"pivot": [0, 23.25, 1]
+					"pivot": [0, 23.25, 0.5]
 				},
 				{
 					"name": "filter1",
 					"parent": "filter",
-					"pivot": [0, 23.13528, 0.83617],
+					"pivot": [0, 23.13528, 0.33617],
 					"rotation": [35, 0, 0],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-1.5, 25.46062, -6.53886], "size": [3, 4, 2], "inflate": 0.1, "uv": [18, 21]}
+						{"origin": [-1.5, 25.46062, -7.03886], "size": [3, 4, 2], "inflate": 0.1, "uv": [18, 21]}
 					]
 				},
 				{
 					"name": "filter2",
 					"parent": "filter",
-					"pivot": [0, 23.13528, 0.83617],
+					"pivot": [0, 23.13528, 0.33617],
 					"rotation": [35, 0, 0],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-2, 25.96062, -6.53886], "size": [4, 3, 2], "inflate": 0.1, "uv": [18, 16]}
+						{"origin": [-2, 25.96062, -7.03886], "size": [4, 3, 2], "inflate": 0.1, "uv": [18, 16]}
 					]
 				},
 				{
 					"name": "filterConnector",
 					"parent": "filter",
-					"pivot": [0, -0.75, 1],
+					"pivot": [0, -0.75, 0.5],
 					"mirror": true,
 					"cubes": [
-						{"origin": [-1, 26.46062, -4.53886], "size": [2, 2, 1], "inflate": 0.1, "pivot": [0.5, 23.13528, 0.83617], "rotation": [35, 0, 0], "uv": [6, 23]}
+						{"origin": [-1, 26.46062, -5.03886], "size": [2, 2, 1], "inflate": 0.1, "pivot": [0.5, 23.13528, 0.33617], "rotation": [35, 0, 0], "uv": [6, 23]}
 					]
 				},
 				{

@@ -1,0 +1,14 @@
+package com.hbm.nucleartech.render.armor;
+
+import com.hbm.nucleartech.HBM;
+import com.hbm.nucleartech.item.custom.HazmatHeadItem;
+import com.hbm.nucleartech.item.custom.M65Item;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
+
+public final class HazmatRenderer extends GeoArmorRenderer<HazmatHeadItem> {
+    public HazmatRenderer() {
+        super(new DefaultedItemGeoModel<>(new ResourceLocation(HBM.MOD_ID, "armor/hazmat"))); // Using DefaultedItemGeoModel like this puts our 'location' as item/armor/example armor in the assets folders.
+    }
+}

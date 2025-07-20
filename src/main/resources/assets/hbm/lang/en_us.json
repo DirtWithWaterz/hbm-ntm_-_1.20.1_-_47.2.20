@@ -1,5 +1,6 @@
 {
   "trait.radioactive": "Radioactive",
+  "trait.rad_resistance": "Radiation resistance: %s",
 
   "desc.na": "N/A",
   "desc.nofilter": "No filter installed!",
@@ -146,6 +147,21 @@
   "item.hbm.gas_mask_filter_rag": "Makeshift Gas Mask Filter",
 
   "item.hbm.m65_mask": "M65-Z Gas Mask",
+
+  "item.hbm.hazmat_helmet": "Hazmat Helmet",
+  "item.hbm.hazmat_chestplate": "Hazmat Chestplate",
+  "item.hbm.hazmat_leggings": "Hazmat Leggings",
+  "item.hbm.hazmat_boots": "Hazmat Boots",
+
+  "item.hbm.hazmat_helmet_red": "Advanced Hazmat Helmet",
+  "item.hbm.hazmat_chestplate_red": "Advanced Hazmat Chestplate",
+  "item.hbm.hazmat_leggings_red": "Advanced Hazmat Leggings",
+  "item.hbm.hazmat_boots_red": "Advanced Hazmat Boots",
+
+  "item.hbm.hazmat_helmet_grey": "High-Performance Hazmat Helmet",
+  "item.hbm.hazmat_chestplate_grey": "High-Performance Hazmat Chestplate",
+  "item.hbm.hazmat_leggings_grey": "High-Performance Hazmat Leggings",
+  "item.hbm.hazmat_boots_grey": "High-Performance Hazmat Boots",
 
   "geiger.chunk_rad": "Current chunk radiation:",
   "geiger.env_rad": "Total environmental radiation:",

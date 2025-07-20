@@ -7,10 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
@@ -83,6 +80,11 @@ public class ItemArmorMod extends CustomLoreArmorItem {
             tooltip.add(Component.literal("  " + I18nUtil.resolveKey("desc.applicableextra")));
 
 
+    }
+
+    public boolean isCompleteSet(List<ArmorItem> set) {
+
+        return false;
     }
 
     @Override

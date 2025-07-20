@@ -24,13 +24,14 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class ArmorUtil {
 
 	public static void register() {
-		ArmorRegistry.registerHazard(RegisterItems.GAS_MASK_FILTER.get(), HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA, HazardClass.NERVE_AGENT);
-//		ArmorRegistry.registerHazard(RegisterItems.gas_mask_filter_mono, HazardClass.PARTICLE_COARSE, HazardClass.GAS_MONOXIDE);
-//		ArmorRegistry.registerHazard(RegisterItems.gas_mask_filter_combo, HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA, HazardClass.GAS_MONOXIDE, HazardClass.NERVE_AGENT);
-//		ArmorRegistry.registerHazard(RegisterItems.gas_mask_filter_radon, HazardClass.RAD_GAS, HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA, HazardClass.GAS_MONOXIDE, HazardClass.NERVE_AGENT);
+		ArmorRegistry.registerHazard(RegisterItems.GAS_MASK_FILTER.get(), HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA);
+		ArmorRegistry.registerHazard(RegisterItems.GAS_MASK_FILTER_MONO.get(), HazardClass.PARTICLE_COARSE, HazardClass.GAS_MONOXIDE);
+		ArmorRegistry.registerHazard(RegisterItems.GAS_MASK_FILTER_COMBO.get(), HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA, HazardClass.GAS_MONOXIDE, HazardClass.NERVE_AGENT);
+		ArmorRegistry.registerHazard(RegisterItems.GAS_MASK_FILTER_RADON.get(), HazardClass.RAD_GAS, HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA, HazardClass.GAS_MONOXIDE, HazardClass.NERVE_AGENT);
 //		ArmorRegistry.registerHazard(RegisterItems.gas_mask_filter_rag, HazardClass.PARTICLE_COARSE);
 //		ArmorRegistry.registerHazard(RegisterItems.gas_mask_filter_piss, HazardClass.PARTICLE_COARSE, HazardClass.GAS_CHLORINE);
 //
@@ -46,9 +47,9 @@ public class ArmorUtil {
 //		ArmorRegistry.registerHazard(RegisterItems.spider_milk, HazardClass.LIGHT);
 //
 //		ArmorRegistry.registerHazard(RegisterItems.asbestos_helmet, HazardClass.SAND, HazardClass.LIGHT);
-//		ArmorRegistry.registerHazard(RegisterItems.hazmat_helmet, HazardClass.SAND);
-//		ArmorRegistry.registerHazard(RegisterItems.hazmat_helmet_red, HazardClass.SAND);
-//		ArmorRegistry.registerHazard(RegisterItems.hazmat_helmet_grey, HazardClass.SAND);
+		ArmorRegistry.registerHazard(RegisterItems.HAZMAT_HELMET.get(), HazardClass.SAND);
+		ArmorRegistry.registerHazard(RegisterItems.HAZMAT_HELMET_RED.get(), HazardClass.SAND);
+		ArmorRegistry.registerHazard(RegisterItems.HAZMAT_HELMET_GREY.get(), HazardClass.SAND);
 //		ArmorRegistry.registerHazard(RegisterItems.liquidator_helmet, HazardClass.LIGHT, HazardClass.SAND);
 //		ArmorRegistry.registerHazard(RegisterItems.hazmat_paa_helmet, HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.LIGHT, HazardClass.SAND);
 //		ArmorRegistry.registerHazard(RegisterItems.paa_helmet, HazardClass.PARTICLE_COARSE, HazardClass.PARTICLE_FINE, HazardClass.GAS_CHLORINE, HazardClass.BACTERIA, HazardClass.GAS_MONOXIDE, HazardClass.LIGHT, HazardClass.SAND);
@@ -484,13 +485,16 @@ public class ArmorUtil {
 		int max = filter.getMaxDamage();
 		
 		String append = "";
-		
+		String dur = "";
+
 		if(max > 0) {
-			append = " (" + Library.getPercentage((max - meta) / (double)max) + "%) "+(max-meta)+"/"+max;
+			append = " (" + Library.getPercentage((max - meta) / (double)max) + "%)";
+			dur = (max-meta)+"/"+max;
 		}
 		
 		List<Component> lore = new ArrayList();
-		list.add(Component.literal("  " + filter.getDisplayName().getString() + append));
+		list.add(Component.literal("  " + filter.getDisplayName().getString().replace("[", "").replace("]", "") + append));
+		list.add(Component.literal("  " + dur));
 		filter.getItem().appendHoverText(filter, world, lore, flagIn);
 		ForgeEventFactory.onItemTooltip(filter, null, lore, flagIn);
 		lore.forEach(x -> list.add(Component.literal("§e  ").append(x)));

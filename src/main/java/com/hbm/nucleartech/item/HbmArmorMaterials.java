@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public enum HbmArmorMaterials implements ArmorMaterial {
 
     HAZMAT("hazmat", 60, new int[] { 1, 4, 5, 2 }, 5,
-            SoundEvents.ARMOR_EQUIP_GENERIC, 0, 1, () -> Ingredient.of(RegisterItems.PLACEHOLDER.get()));
+            SoundEvents.ARMOR_EQUIP_GENERIC, 0, 0.1f, () -> Ingredient.of(RegisterItems.PLACEHOLDER.get()));
 
     private final String name;
     private final int durabilityMultiplier;
