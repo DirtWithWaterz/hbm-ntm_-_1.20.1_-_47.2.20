@@ -13,7 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "hbm:billet_uranium"
+      "item": "hbm:uranium_billet"
     },
     "show_toast": true,
     "title": {

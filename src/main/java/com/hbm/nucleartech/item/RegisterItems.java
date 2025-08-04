@@ -1,9 +1,11 @@
 package com.hbm.nucleartech.item;
 
 import com.hbm.nucleartech.HBM;
+import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.handler.ArmorModHandler;
 import com.hbm.nucleartech.hazard.HazardItem;
 import com.hbm.nucleartech.item.custom.*;
+import com.hbm.nucleartech.item.custom.base.StampItem;
 import com.hbm.nucleartech.item.special.CustomLoreItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
@@ -17,37 +19,37 @@ public class RegisterItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, HBM.MOD_ID);
 
-    public static final RegistryObject<Item> PLATE_IRON = ITEMS.register("plate_iron",
+    public static final RegistryObject<Item> IRON_PLATE = ITEMS.register("iron_plate",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> INGOT_BERYLLIUM = ITEMS.register("ingot_beryllium",
+    public static final RegistryObject<Item> BERYLLIUM_INGOT = ITEMS.register("beryllium_ingot",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> INGOT_TITANIUM = ITEMS.register("ingot_titanium",
+    public static final RegistryObject<Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_TITANIUM = ITEMS.register("raw_titanium",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> INGOT_URANIUM = ITEMS.register("ingot_uranium",
+    public static final RegistryObject<Item> URANIUM_INGOT = ITEMS.register("uranium_ingot",
             () -> new HazardItem(0.35, new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_URANIUM = ITEMS.register("raw_uranium",
             () -> new HazardItem(0.035, new Item.Properties()));
 
-    public static final RegistryObject<Item> POWDER_URANIUM = ITEMS.register("powder_uranium",
+    public static final RegistryObject<Item> URANIUM_POWDER = ITEMS.register("uranium_powder",
             () -> new HazardItem(1.05, new Item.Properties()));
 
-    public static final RegistryObject<Item> NUGGET_URANIUM = ITEMS.register("nugget_uranium",
+    public static final RegistryObject<Item> URANIUM_NUGGET = ITEMS.register("uranium_nugget",
             () -> new HazardItem(0.035, new Item.Properties()));
 
-    public static final RegistryObject<Item> CRYSTAL_URANIUM = ITEMS.register("crystal_uranium",
+    public static final RegistryObject<Item> URANIUM_CRYSTAL = ITEMS.register("uranium_crystal",
             () -> new HazardItem(1.75, new Item.Properties()));
 
-    public static final RegistryObject<Item> BILLET_URANIUM = ITEMS.register("billet_uranium",
+    public static final RegistryObject<Item> URANIUM_BILLET = ITEMS.register("uranium_billet",
             () -> new HazardItem(0.175, new Item.Properties()));
 
-    public static final RegistryObject<Item> PILE_ROD_URANIUM = ITEMS.register("pile_rod_uranium",
+    public static final RegistryObject<Item> URANIUM_PILE_ROD = ITEMS.register("uranium_pile_rod",
             () -> new HazardItem(0.525, new Item.Properties()));
 
 
@@ -101,6 +103,12 @@ public class RegisterItems {
             () -> new HazmatGreyItem(new Item.Properties(), HbmArmorMaterials.HAZMAT, ArmorModHandler.legs_only));
     public static final RegistryObject<Item> HAZMAT_BOOTS_GREY = ITEMS.register("hazmat_boots_grey",
             () -> new HazmatGreyItem(new Item.Properties(), HbmArmorMaterials.HAZMAT, ArmorModHandler.boots_only));
+
+    public static final RegistryObject<Item> BURNER_PRESS = ITEMS.register("burner_press",
+            () -> new BurnerPressItem(RegisterBlocks.BURNER_PRESS.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> IRON_PLATE_STAMP = ITEMS.register("iron_plate_stamp",
+            () -> new StampItem(new Item.Properties().durability(64)));
 
     public static void register(IEventBus eventBus) {
 

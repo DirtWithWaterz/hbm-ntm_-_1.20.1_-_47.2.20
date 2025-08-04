@@ -29,7 +29,7 @@ public class ModAdvancementProvider extends ForgeAdvancementProvider {
                             Items.BOOK.getDefaultInstance(),
                             Component.nullToEmpty("NTM Rewrote"),
                             Component.nullToEmpty("And so the nuclear adventure starts... again."),
-                            new ResourceLocation("hbm:textures/block/brick_concrete.png"),
+                            new ResourceLocation("hbm:textures/block/concrete_bricks.png"),
                             FrameType.TASK,
                             true, false, false
                     )
@@ -39,7 +39,7 @@ public class ModAdvancementProvider extends ForgeAdvancementProvider {
             Advancement rad_poison = Advancement.Builder.advancement()
                     .parent(root)
                     .display(
-                            RegisterItems.BILLET_URANIUM.get().getDefaultInstance(),
+                            RegisterItems.URANIUM_BILLET.get().getDefaultInstance(),
                             Component.nullToEmpty("Yay, Radiation!"),
                             Component.nullToEmpty("Suffer the effects of radiation poisoning."),
                             null,

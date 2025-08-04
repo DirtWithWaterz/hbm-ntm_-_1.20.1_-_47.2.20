@@ -1,6 +1,5 @@
-// 1.20.1	2025-07-20T04:11:33.0206239	Item Models: hbm
-4cf7e7653b1aae33f78753c224f5f9bc5f290001 assets/hbm/models/item/billet_uranium.json
-717138e2327b0dfad433d85e77dddd88fd5cb7c1 assets/hbm/models/item/crystal_uranium.json
+// 1.20.1	2025-08-03T22:20:23.0941778	Item Models: hbm
+8d20caf5e6ead72d2e1e303c9856e8151922ee7f assets/hbm/models/item/beryllium_ingot.json
 7f29f38ac80fcc1cf894de82a414bb8d732fc029 assets/hbm/models/item/gas_mask_filter.json
 fd94910aead41f339c985199cd59465d9a66afb1 assets/hbm/models/item/gas_mask_filter_combo.json
 db006e9e0788f96e71733c7f55ca1b9fb6f98ff2 assets/hbm/models/item/gas_mask_filter_mono.json
@@ -18,15 +17,17 @@ f43e353be66d308945b876d9abf5f0af2f7df907 assets/hbm/models/item/hazmat_helmet_re
 ae121eda749ae46efc579e38cb2264255fa18aa6 assets/hbm/models/item/hazmat_leggings.json
 b7475a7b24c338557e93d2664caaab51625320af assets/hbm/models/item/hazmat_leggings_grey.json
 34bf1230d41a74d19b76dc6dd4615182be4e1d95 assets/hbm/models/item/hazmat_leggings_red.json
-acfe492ff3721a4e8be36b8c0cd1198f5312600d assets/hbm/models/item/ingot_beryllium.json
-b10ac8224dfd993d21ad32a35c0de2f788dbbac7 assets/hbm/models/item/ingot_titanium.json
-c40effc73e3599852caad529d0ae71d882c7e588 assets/hbm/models/item/ingot_uranium.json
+c86cd8fc966dd652bbc591f1fc8b31687f8817d7 assets/hbm/models/item/iron_plate.json
+6997c279b30a4ce2f4a69c41eb935e5397e4f57a assets/hbm/models/item/iron_plate_stamp.json
 3db2718b760a733d82a1e69535ca192d6ee63edd assets/hbm/models/item/m65_mask.json
-39b3be4521a8e6f2fb2529093ed0cb8fdf3135ee assets/hbm/models/item/nugget_uranium.json
-b05f9edc228d4af7b4dcefc88d5302e9c3a4057f assets/hbm/models/item/pile_rod_uranium.json
 81b773380f28d7ce53b9c9a7fa045b0845298106 assets/hbm/models/item/placeholder.json
-89419948880690a686f978689ac5ceebce3d51e9 assets/hbm/models/item/plate_iron.json
-3caefddb66809253401e2b02eb05602889d4a9e0 assets/hbm/models/item/powder_uranium.json
 1df28891bf55b2db353d0fe14acdde3f23721d2b assets/hbm/models/item/raw_titanium.json
 a4b54b7c94d3eb2a7ddee0339860f5d27d3239bc assets/hbm/models/item/raw_uranium.json
 fe25280b5c6dfba43e46c5b2ae4ceaba64fc144f assets/hbm/models/item/reacher.json
+6d5fd3cd1caa4a201f3b7c03bef81b367c1f4e70 assets/hbm/models/item/titanium_ingot.json
+9cb3f633894ed6527f29960fa82a77485ea6d416 assets/hbm/models/item/uranium_billet.json
+ec0e44b74a4da68fcb9062494ad0ba609df4980c assets/hbm/models/item/uranium_crystal.json
+5464926924931b55c43769353c7bcdbd064deec6 assets/hbm/models/item/uranium_ingot.json
+47b71e73d2104926647ed2131ca386fc2af9d9e7 assets/hbm/models/item/uranium_nugget.json
+7aa8ed4e904c010bcb8a1e11144795ef0ea545e9 assets/hbm/models/item/uranium_pile_rod.json
+bbfee3e37ef6fff51cc2d34ffbd4030bef5dc912 assets/hbm/models/item/uranium_powder.json

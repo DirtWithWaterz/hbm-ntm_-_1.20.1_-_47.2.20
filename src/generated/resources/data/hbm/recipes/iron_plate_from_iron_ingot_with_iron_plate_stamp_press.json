@@ -1,0 +1,15 @@
+{
+  "type": "hbm:press",
+  "ingredients": [
+    {
+      "item": "hbm:iron_plate_stamp"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "hbm:iron_plate"
+  }
+}

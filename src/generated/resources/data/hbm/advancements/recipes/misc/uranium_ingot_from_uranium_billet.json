@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "hbm:uranium_ingot_from_uranium_billet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uranium_billet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hbm:uranium_billet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_uranium_billet",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hbm:uranium_ingot_from_uranium_billet"
+    ]
+  },
+  "sends_telemetry_event": false
+}

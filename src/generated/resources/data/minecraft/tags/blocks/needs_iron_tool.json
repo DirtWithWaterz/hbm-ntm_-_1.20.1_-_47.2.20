@@ -1,14 +1,16 @@
 {
   "values": [
-    "hbm:ore_titanium",
+    "hbm:titanium_ore",
     "#forge:ores",
-    "hbm:deepslate_ore_titanium",
+    "hbm:deepslate_titanium_ore",
     "#forge:ores",
-    "hbm:ore_uranium",
+    "hbm:burner_press",
+    "hbm:burner_press_part",
+    "hbm:uranium_ore",
     "#forge:ores",
-    "hbm:deepslate_ore_uranium",
+    "hbm:deepslate_uranium_ore",
     "#forge:ores",
-    "hbm:block_titanium",
-    "hbm:block_uranium"
+    "hbm:titanium_block",
+    "hbm:uranium_block"
   ]
 }

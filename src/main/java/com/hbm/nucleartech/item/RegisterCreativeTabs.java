@@ -16,19 +16,19 @@ public class RegisterCreativeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, HBM.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> NTM_RESOURCES_AND_PARTS = CREATIVE_TABS.register("resources_and_parts",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterItems.INGOT_URANIUM.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterItems.URANIUM_INGOT.get()))
                     .title(Component.translatable("creativetab.resources_and_parts"))
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(RegisterItems.INGOT_TITANIUM.get());
-                        output.accept(RegisterItems.INGOT_BERYLLIUM.get());
-                        output.accept(RegisterItems.INGOT_URANIUM.get());
+                        output.accept(RegisterItems.TITANIUM_INGOT.get());
+                        output.accept(RegisterItems.BERYLLIUM_INGOT.get());
+                        output.accept(RegisterItems.URANIUM_INGOT.get());
 
-                        output.accept(RegisterItems.POWDER_URANIUM.get());
-                        output.accept(RegisterItems.NUGGET_URANIUM.get());
-                        output.accept(RegisterItems.CRYSTAL_URANIUM.get());
-                        output.accept(RegisterItems.BILLET_URANIUM.get());
-                        output.accept(RegisterItems.PILE_ROD_URANIUM.get());
+                        output.accept(RegisterItems.URANIUM_POWDER.get());
+                        output.accept(RegisterItems.URANIUM_NUGGET.get());
+                        output.accept(RegisterItems.URANIUM_CRYSTAL.get());
+                        output.accept(RegisterItems.URANIUM_BILLET.get());
+                        output.accept(RegisterItems.URANIUM_PILE_ROD.get());
 
                         output.accept(RegisterItems.RAW_TITANIUM.get());
                         output.accept(RegisterItems.RAW_URANIUM.get());
@@ -56,26 +56,29 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterItems.HAZMAT_CHESTPLATE_GREY.get());
                         output.accept(RegisterItems.HAZMAT_LEGGINGS_GREY.get());
                         output.accept(RegisterItems.HAZMAT_BOOTS_GREY.get());
+
+                        output.accept(RegisterItems.IRON_PLATE_STAMP.get());
+                        output.accept(RegisterItems.IRON_PLATE.get());
                     })
                     .build());
 
     public static final RegistryObject<CreativeModeTab> NTM_BLOCKS = CREATIVE_TABS.register("ntm_blocks",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterBlocks.BLOCK_TITANIUM.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(RegisterBlocks.TITANIUM_BLOCK.get()))
                     .title(Component.translatable("creativetab.ntm_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(RegisterBlocks.BLOCK_WASTE.get());
-                        output.accept(RegisterBlocks.BLOCK_URANIUM.get());
-                        output.accept(RegisterBlocks.BLOCK_TITANIUM.get());
+                        output.accept(RegisterBlocks.WASTE_BLOCK.get());
+                        output.accept(RegisterBlocks.URANIUM_BLOCK.get());
+                        output.accept(RegisterBlocks.TITANIUM_BLOCK.get());
 
-                        output.accept(RegisterBlocks.ORE_URANIUM.get());
-                        output.accept(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get());
+                        output.accept(RegisterBlocks.URANIUM_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get());
 
-                        output.accept(RegisterBlocks.ORE_TITANIUM.get());
-                        output.accept(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get());
+                        output.accept(RegisterBlocks.TITANIUM_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get());
                         output.accept(RegisterBlocks.RAD_RESISTANT_BLOCK.get());
 
-                        output.accept(RegisterBlocks.WASTE_GRASS.get());
+                        output.accept(RegisterBlocks.DEAD_GRASS.get());
                     })
                     .build());
 
@@ -84,6 +87,7 @@ public class RegisterCreativeTabs {
                     .title(Component.translatable("creativetab.ntm_machines"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(RegisterBlocks.RADIATION_DECONTAMINATOR.get());
+                        output.accept(RegisterItems.BURNER_PRESS.get());
                     })
                     .build());
 

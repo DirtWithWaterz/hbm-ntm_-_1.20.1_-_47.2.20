@@ -3,9 +3,7 @@ package com.hbm.nucleartech.datagen.loot;
 import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.item.RegisterItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -21,24 +19,26 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
 
-        this.dropSelf(RegisterBlocks.BLOCK_WASTE.get());
-        this.dropSelf(RegisterBlocks.BLOCK_TITANIUM.get());
-        this.dropSelf(RegisterBlocks.BLOCK_URANIUM.get());
+        this.dropSelf(RegisterBlocks.WASTE_BLOCK.get());
+        this.dropSelf(RegisterBlocks.TITANIUM_BLOCK.get());
+        this.dropSelf(RegisterBlocks.URANIUM_BLOCK.get());
         this.dropSelf(RegisterBlocks.RADIATION_DECONTAMINATOR.get());
 
-        this.add(RegisterBlocks.ORE_TITANIUM.get(),
-                block -> createOreDrop(RegisterBlocks.ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));
-        this.add(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(),
-                block -> createOreDrop(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get()));
+        this.add(RegisterBlocks.TITANIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.TITANIUM_ORE.get(), RegisterItems.RAW_TITANIUM.get()));
+        this.add(RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(), RegisterItems.RAW_TITANIUM.get()));
 
-        this.add(RegisterBlocks.ORE_URANIUM.get(),
-                block -> createOreDrop(RegisterBlocks.ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get()));
-        this.add(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(),
-                block -> createOreDrop(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get()));
+        this.add(RegisterBlocks.URANIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.URANIUM_ORE.get(), RegisterItems.RAW_URANIUM.get()));
+        this.add(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(), RegisterItems.RAW_URANIUM.get()));
 
         this.dropSelf(RegisterBlocks.RAD_RESISTANT_BLOCK.get());
 
-        this.dropSelf(RegisterBlocks.WASTE_GRASS.get());
+        this.dropSelf(RegisterBlocks.DEAD_GRASS.get());
+
+        this.dropSelf(RegisterBlocks.BURNER_PRESS.get());
     }
 
     @Override

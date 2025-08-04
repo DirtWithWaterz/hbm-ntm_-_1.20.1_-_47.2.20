@@ -3,7 +3,9 @@ package com.hbm.nucleartech.handler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
+import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.util.ContaminationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -1387,6 +1389,15 @@ public class RadiationSystemChunksNT {
             dirtyChunks2.clear();
         }
 
+        public static final int FRAME_COUNT = 13;
+        public static final ResourceLocation[] FRAMES = new ResourceLocation[FRAME_COUNT];
+
+        static {
+            for (int i = 0; i < FRAME_COUNT; i++) {
+                FRAMES[i] = new ResourceLocation(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
+            }
+        }
+
         @SubscribeEvent
         public static void onUpdate(TickEvent.ServerTickEvent e) {
 
@@ -1404,8 +1415,12 @@ public class RadiationSystemChunksNT {
                     // Every second, do a full system update, which will spread around radiation and all that
                     updateRadiation();
 
-                    for(ServerLevel level : e.getServer().getAllLevels())
+                    for(ServerLevel level : e.getServer().getAllLevels()) {
+
                         updateEntities(level);
+                        if(level.random.nextInt(1000000) == 0)
+                            GeigerCounterItem.jmp = true;
+                    }
 
                     //System.out.println("rad tick event took: " + (System.nanoTime()-mil));
                 }

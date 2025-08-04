@@ -31,12 +31,12 @@ public class HBMConfiguredFeatures {
         RuleTest endstoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
         List<OreConfiguration.TargetBlockState> overworldTitaniumOres = List.of(OreConfiguration.target(stoneReplaceables,
-                        RegisterBlocks.ORE_TITANIUM.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get().defaultBlockState()));
+                        RegisterBlocks.TITANIUM_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get().defaultBlockState()));
 
         List<OreConfiguration.TargetBlockState> overworldUraniumOres = List.of(OreConfiguration.target(stoneReplaceables,
-                        RegisterBlocks.ORE_URANIUM.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_ORE_URANIUM.get().defaultBlockState()));
+                        RegisterBlocks.URANIUM_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_URANIUM_ORE.get().defaultBlockState()));
 
         register(context, OVERWORLD_ORE_TITANIUM_KEY, Feature.ORE, new OreConfiguration(overworldTitaniumOres, 8));
         register(context, OVERWORLD_ORE_URANIUM_KEY, Feature.ORE, new OreConfiguration(overworldUraniumOres, 12));

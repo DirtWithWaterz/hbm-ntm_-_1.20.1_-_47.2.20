@@ -2,6 +2,8 @@ package com.hbm.nucleartech;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.block.custom.RadResistantBlock;
+import com.hbm.nucleartech.block.entity.RegisterBlockEntities;
+import com.hbm.nucleartech.block.entity.client.BurnerPressRenderer;
 import com.hbm.nucleartech.entity.HbmEntities;
 import com.hbm.nucleartech.entity.client.NuclearCreeperRenderer;
 import com.hbm.nucleartech.handler.HazmatRegistry;
@@ -11,9 +13,14 @@ import com.hbm.nucleartech.item.RegisterItems;
 import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.network.HbmPacketHandler;
 import com.hbm.nucleartech.particle.RegisterParticles;
+import com.hbm.nucleartech.recipe.RegisterRecipes;
+import com.hbm.nucleartech.screen.BurnerPressScreen;
+import com.hbm.nucleartech.screen.RegisterMenuTypes;
 import com.hbm.nucleartech.sound.RegisterSounds;
 import com.hbm.nucleartech.util.ArmorUtil;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -65,6 +72,10 @@ public class HBM
         RegisterParticles.register(modEventBus);
         HbmEntities.register(modEventBus);
 //        ClientSetup.init(modEventBus);
+        RegisterBlockEntities.register(modEventBus);
+        RegisterMenuTypes.register(modEventBus);
+
+        RegisterRecipes.register(modEventBus);
 
         RegisterSounds.SOUNDS.register(modEventBus);
 
@@ -133,6 +144,9 @@ public class HBM
         public static void onClientSetup(FMLClientSetupEvent event) {
 
             EntityRenderers.register(HbmEntities.NUCLEAR_CREEPER.get(), NuclearCreeperRenderer::new);
+            BlockEntityRenderers.register(RegisterBlockEntities.BURNER_PRESS_ENTITY.get(), BurnerPressRenderer::new);
+
+            MenuScreens.register(RegisterMenuTypes.BURNER_PRESS_MENU.get(), BurnerPressScreen::new);
         }
     }
 }

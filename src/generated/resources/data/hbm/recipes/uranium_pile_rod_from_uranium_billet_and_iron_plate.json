@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "hbm:uranium_billet"
+    },
+    "P": {
+      "item": "hbm:iron_plate"
+    }
+  },
+  "pattern": [
+    " B ",
+    "PBP",
+    " B "
+  ],
+  "result": {
+    "item": "hbm:uranium_pile_rod"
+  },
+  "show_notification": true
+}

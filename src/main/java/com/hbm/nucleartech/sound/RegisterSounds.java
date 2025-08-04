@@ -36,6 +36,12 @@ public class RegisterSounds {
     public static final RegistryObject<SoundEvent> GAS_MASK_SCREW = SOUNDS.register("item.gasmaskscrew",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.gasmaskscrew")));
 
+    public static final RegistryObject<SoundEvent> JMP_SCR = SOUNDS.register("item.jmpscr",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.jmpscr")));
+
+    public static final RegistryObject<SoundEvent> BURNER_PRESS_STAMP = SOUNDS.register("block.press_operate",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "block.press_operate")));
+
     public static void register(IEventBus bus) {
 
         SOUNDS.register(bus);

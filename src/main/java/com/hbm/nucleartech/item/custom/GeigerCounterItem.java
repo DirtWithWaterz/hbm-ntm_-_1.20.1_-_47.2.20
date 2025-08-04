@@ -5,8 +5,11 @@ import com.hbm.nucleartech.capability.HbmCapabilities;
 import com.hbm.nucleartech.handler.RadiationSystemChunksNT;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase;
 import com.hbm.nucleartech.item.RegisterItems;
+import com.hbm.nucleartech.render.amlfrom1710.Vec3;
 import com.hbm.nucleartech.sound.RegisterSounds;
 import com.hbm.nucleartech.util.ContaminationUtil;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -33,6 +36,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.hbm.nucleartech.handler.RadiationSystemChunksNT.RadiationEventHandlers.FRAMES;
+import static com.hbm.nucleartech.handler.RadiationSystemChunksNT.RadiationEventHandlers.FRAME_COUNT;
 
 public class GeigerCounterItem extends Item {
 
@@ -143,6 +149,9 @@ public class GeigerCounterItem extends Item {
         return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
     }
 
+    public static boolean jmp = false;
+//    public static int frame = 0;
+
     @Mod.EventBusSubscriber(value = Dist.CLIENT)
     public class CustomHudOverlay {
 
@@ -152,71 +161,114 @@ public class GeigerCounterItem extends Item {
         private static float prevRadResult;
         private static float lastRadResult;
 
+        public static int ticks = 0;
+
+        public static long oldgt = 0;
+
         @SubscribeEvent
         public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
             Minecraft mc = Minecraft.getInstance();
 
-            if (mc.player == null || mc.options.hideGui) return;
+            if(mc.player != null || !mc.options.hideGui) {
 
-            // Check for your custom item (example: check for a compass)
-            boolean hasItem = false;
-            for (ItemStack stack : mc.player.getInventory().items) {
-                if (stack.getItem() == RegisterItems.GEIGER_COUNTER.get()) { // Replace with your item
-                    hasItem = true;
-                    break;
+                // Check for your custom item (example: check for a compass)
+                boolean hasItem = false;
+                for (ItemStack stack : mc.player.getInventory().items) {
+                    if (stack.getItem() == RegisterItems.GEIGER_COUNTER.get()) { // Replace with your item
+                        hasItem = true;
+                        break;
+                    }
+                }
+
+                if(hasItem) {
+
+                    GuiGraphics guiGraphics = event.getGuiGraphics();
+
+                    if (mc.player == null || mc.options.hideGui) return;
+
+                    // Simulated radiation input (replace with your actual rad data)
+                    float radInput = getAvgRad(mc.player); // Example value
+
+                    float radiation = lastRadResult - prevRadResult;
+
+                    if(System.currentTimeMillis() >= lastRadSurvey + 1000) {
+                        lastRadSurvey = System.currentTimeMillis();
+                        prevRadResult = lastRadResult;
+                        lastRadResult = radInput;
+                    }
+
+                    GuiGraphics gui = event.getGuiGraphics();
+
+                    int screenWidth = mc.getWindow().getGuiScaledWidth();
+                    int screenHeight = mc.getWindow().getGuiScaledHeight();
+
+                    int posX = 3; // Replace with configurable position if needed
+                    int posY = screenHeight - 20;
+
+                    int maxRad = 1000;
+                    int barLength = (int)(74 * Math.min(radInput / maxRad, 1.0f));
+
+                    // Render the background bar
+                    gui.blit(RAD_COUNTER, posX, posY, 0, 0, 94, 18);
+
+                    // Render the foreground bar (progress)
+                    gui.blit(RAD_COUNTER, posX + 1, posY + 1, 1, 19, barLength, 16);
+
+                    // Render the radiation indicator icon
+                    if (radiation >= 25) {
+                        gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 36, 36, 18, 18);
+                    } else if (radiation >= 10) {
+                        gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 18, 36, 18, 18);
+                    } else if (radiation >= 2.5) {
+                        gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 0, 36, 18, 18);
+                    }
+
+                    // Draw the text
+                    if (radiation > 1000) {
+                        gui.drawString(mc.font, Component.literal(">1000 RAD/s"), posX, posY - 10, 0xFF0000);
+                    } else if (radiation >= 1) {
+                        gui.drawString(mc.font, Component.literal(((int) Math.round(radiation)) + " RAD/s"), posX, posY - 10, 0xFFFF00);
+                    } else if (radiation > 0) {
+                        gui.drawString(mc.font, Component.literal("<1 RAD/s"), posX, posY - 10, 0x00FF00);
+                    }
                 }
             }
 
-            if (hasItem) {
+            if(mc.player == null) return;
+
+            if(jmp) {
+
+//                ticks ++;
+                if(mc.level.getGameTime() != oldgt) {
+
+                    BlockPos pos = mc.player.getOnPos().offset(0,1,0);
+                    if(ticks == 0) {
+
+                        System.out.println("0, playing sound");
+                        mc.level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), RegisterSounds.JMP_SCR.get(), SoundSource.PLAYERS, 1, 1, false);
+                    }
+                    ticks++;
+                    oldgt = mc.level.getGameTime();
+                }
+
 
                 GuiGraphics guiGraphics = event.getGuiGraphics();
 
-                if (mc.player == null || mc.options.hideGui) return;
-
-                // Simulated radiation input (replace with your actual rad data)
-                float radInput = getAvgRad(mc.player); // Example value
-
-                float radiation = lastRadResult - prevRadResult;
-
-                if(System.currentTimeMillis() >= lastRadSurvey + 1000) {
-                    lastRadSurvey = System.currentTimeMillis();
-                    prevRadResult = lastRadResult;
-                    lastRadResult = radInput;
-                }
-
-                GuiGraphics gui = event.getGuiGraphics();
-
                 int screenWidth = mc.getWindow().getGuiScaledWidth();
                 int screenHeight = mc.getWindow().getGuiScaledHeight();
+                int frame = (int) (ticks % FRAME_COUNT);
+//                System.out.println("jumpscare!! " + ticks);
+                ResourceLocation texture = FRAMES[frame];
 
-                int posX = 3; // Replace with configurable position if needed
-                int posY = screenHeight - 20;
+                RenderSystem.enableBlend();
+                RenderSystem.setShaderTexture(0, texture);
+                guiGraphics.blit(texture, 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
+                RenderSystem.disableBlend();
 
-                int maxRad = 1000;
-                int barLength = (int)(74 * Math.min(radInput / maxRad, 1.0f));
+                if(ticks == FRAME_COUNT) {
 
-                // Render the background bar
-                gui.blit(RAD_COUNTER, posX, posY, 0, 0, 94, 18);
-
-                // Render the foreground bar (progress)
-                gui.blit(RAD_COUNTER, posX + 1, posY + 1, 1, 19, barLength, 16);
-
-                // Render the radiation indicator icon
-                if (radiation >= 25) {
-                    gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 36, 36, 18, 18);
-                } else if (radiation >= 10) {
-                    gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 18, 36, 18, 18);
-                } else if (radiation >= 2.5) {
-                    gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 0, 36, 18, 18);
-                }
-
-                // Draw the text
-                if (radiation > 1000) {
-                    gui.drawString(mc.font, Component.literal(">1000 RAD/s"), posX, posY - 10, 0xFF0000);
-                } else if (radiation >= 1) {
-                    gui.drawString(mc.font, Component.literal(((int) Math.round(radiation)) + " RAD/s"), posX, posY - 10, 0xFFFF00);
-                } else if (radiation > 0) {
-                    gui.drawString(mc.font, Component.literal("<1 RAD/s"), posX, posY - 10, 0x00FF00);
+                    jmp = false;
+                    ticks = 0;
                 }
             }
         }

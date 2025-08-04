@@ -21,28 +21,35 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(RegisterBlocks.BLOCK_TITANIUM.get(),
-                        RegisterBlocks.ORE_TITANIUM.get(),
-                        RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(),
-                        RegisterBlocks.BLOCK_URANIUM.get(),
-                        RegisterBlocks.ORE_URANIUM.get(),
-                        RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(),
-                        RegisterBlocks.RADIATION_DECONTAMINATOR.get());
+                .add(RegisterBlocks.TITANIUM_BLOCK.get(),
+                        RegisterBlocks.TITANIUM_ORE.get(),
+                        RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(),
+                        RegisterBlocks.URANIUM_BLOCK.get(),
+                        RegisterBlocks.URANIUM_ORE.get(),
+                        RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(),
+                        RegisterBlocks.RADIATION_DECONTAMINATOR.get(),
+                        RegisterBlocks.BURNER_PRESS.get(),
+                        RegisterBlocks.BURNER_PRESS_PART.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.ORE_TITANIUM.get()).addTag(Tags.Blocks.ORES);
+                .add(RegisterBlocks.TITANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get()).addTag(Tags.Blocks.ORES);
+                .add(RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.ORE_URANIUM.get()).addTag(Tags.Blocks.ORES);
+                .add(RegisterBlocks.BURNER_PRESS.get());
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.DEEPSLATE_ORE_URANIUM.get()).addTag(Tags.Blocks.ORES);
+                .add(RegisterBlocks.BURNER_PRESS_PART.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.BLOCK_TITANIUM.get());
+                .add(RegisterBlocks.URANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
+        this.tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.BLOCK_URANIUM.get());
+                .add(RegisterBlocks.TITANIUM_BLOCK.get());
+
+        this.tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(RegisterBlocks.URANIUM_BLOCK.get());
     }
 }

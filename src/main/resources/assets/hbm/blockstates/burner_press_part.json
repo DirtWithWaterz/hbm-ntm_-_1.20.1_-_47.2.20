@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "hbm:block/burner_press_part" }
+  }
+}

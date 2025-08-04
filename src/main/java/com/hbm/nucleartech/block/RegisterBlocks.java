@@ -1,6 +1,8 @@
 package com.hbm.nucleartech.block;
 
 import com.hbm.nucleartech.HBM;
+import com.hbm.nucleartech.block.custom.BurnerPressBlock;
+import com.hbm.nucleartech.block.custom.BurnerPressPartBlock;
 import com.hbm.nucleartech.block.custom.DeconRadBlock;
 import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.hazard.HazardBlock;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,43 +29,43 @@ public class RegisterBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, HBM.MOD_ID);
 
-    public static final RegistryObject<Block> BLOCK_WASTE = registerHazardBlock(4500, "block_waste",
+    public static final RegistryObject<Block> WASTE_BLOCK = registerHazardBlock(4500, "waste_block",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(5.0f, 10.0f),
                     4500
             ));
 
-    public static final RegistryObject<Block> BLOCK_TITANIUM = registerBlock("block_titanium",
+    public static final RegistryObject<Block> TITANIUM_BLOCK = registerBlock("titanium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(5.0f, 10.0f)
             ));
 
-    public static final RegistryObject<Block> BLOCK_URANIUM = registerHazardBlock(3.5, "block_uranium",
+    public static final RegistryObject<Block> URANIUM_BLOCK = registerHazardBlock(3.5, "uranium_block",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)
                     .strength(5.0f, 10.0f),
                     3.5
             ));
 
-    public static final RegistryObject<Block> ORE_TITANIUM = registerBlock("ore_titanium",
+    public static final RegistryObject<Block> TITANIUM_ORE = registerBlock("titanium_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)
                     .strength(5.0f, 10.0f),
                     UniformInt.of(3, 6)
             ));
 
-    public static final RegistryObject<Block> DEEPSLATE_ORE_TITANIUM = registerBlock("deepslate_ore_titanium",
+    public static final RegistryObject<Block> DEEPSLATE_TITANIUM_ORE = registerBlock("deepslate_titanium_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(3, 7)
             ));
 
-    public static final RegistryObject<Block> ORE_URANIUM = registerHazardBlock(0.003, "ore_uranium",
+    public static final RegistryObject<Block> URANIUM_ORE = registerHazardBlock(0.003, "uranium_ore",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_ORE)
                     .strength(5.0f, 10.0f),
                     UniformInt.of(2, 4),
                     0.003
             ));
 
-    public static final RegistryObject<Block> DEEPSLATE_ORE_URANIUM = registerHazardBlock(0.0035, "deepslate_ore_uranium",
+    public static final RegistryObject<Block> DEEPSLATE_URANIUM_ORE = registerHazardBlock(0.0035, "deepslate_uranium_ore",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_DIAMOND_ORE)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
@@ -74,8 +77,21 @@ public class RegisterBlocks {
                     .strength(5.0f, 10.0f)
             ));
 
-    public static final RegistryObject<Block> WASTE_GRASS = registerBlock("waste_grass",
+    public static final RegistryObject<Block> DEAD_GRASS = registerBlock("dead_grass",
             () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK)));
+
+    public static final RegistryObject<Block> BURNER_PRESS = BLOCKS.register("burner_press",
+            () -> new BurnerPressBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .noOcclusion()
+                    .strength(5.0f, 10.0f)));
+
+    public static final RegistryObject<Block> BURNER_PRESS_PART = registerBlock("burner_press_part",
+            () -> new BurnerPressPartBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .mapColor(MapColor.NONE)                // No color
+                    .noOcclusion()                          // No visual occlusion
+                    .strength(5.0f, 10.0f)
+                    .noLootTable()                          // Don't drop anything))
+            ));
 
     public static final RegistryObject<Block> RAD_RESISTANT_BLOCK = registerBlock("rad_resistant_block",
             () -> new RadResistantBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)

@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "hbm:ore_uranium"
+          "Name": "hbm:uranium_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
@@ -15,7 +15,7 @@
       },
       {
         "state": {
-          "Name": "hbm:deepslate_ore_uranium"
+          "Name": "hbm:deepslate_uranium_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

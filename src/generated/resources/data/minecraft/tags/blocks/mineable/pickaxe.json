@@ -1,11 +1,13 @@
 {
   "values": [
-    "hbm:block_titanium",
-    "hbm:ore_titanium",
-    "hbm:deepslate_ore_titanium",
-    "hbm:block_uranium",
-    "hbm:ore_uranium",
-    "hbm:deepslate_ore_uranium",
-    "hbm:radiation_decontaminator"
+    "hbm:titanium_block",
+    "hbm:titanium_ore",
+    "hbm:deepslate_titanium_ore",
+    "hbm:uranium_block",
+    "hbm:uranium_ore",
+    "hbm:deepslate_uranium_ore",
+    "hbm:radiation_decontaminator",
+    "hbm:burner_press",
+    "hbm:burner_press_part"
   ]
 }

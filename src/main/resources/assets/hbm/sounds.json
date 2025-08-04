@@ -38,5 +38,13 @@
   "item.gasmaskscrew": {
     "category": "players",
     "sounds": [ "hbm:item/gasmaskscrew" ]
+  },
+  "item.jmpscr": {
+    "category": "players",
+    "sounds": [ "hbm:item/jmpscr" ]
+  },
+  "block.press_operate": {
+    "category": "blocks",
+    "sounds": [ "hbm:block/pressoperate" ]
   }
 }

@@ -1,3 +1,3 @@
-// 1.20.1	2025-05-15T17:44:36.2205923	Tags for minecraft:block mod id hbm
-9cbb3a7cdf6f025454253f5edc734546bfc65761 data/minecraft/tags/blocks/mineable/pickaxe.json
-e7d54b379f75c1569d835a3270757c61d09d62f1 data/minecraft/tags/blocks/needs_iron_tool.json
+// 1.20.1	2025-08-03T22:20:23.0981665	Tags for minecraft:block mod id hbm
+78617c528abb6d00b396d439894d0927abb25cf9 data/minecraft/tags/blocks/mineable/pickaxe.json
+2a15e220fb525b69d674c84db85dd02c007e47df data/minecraft/tags/blocks/needs_iron_tool.json

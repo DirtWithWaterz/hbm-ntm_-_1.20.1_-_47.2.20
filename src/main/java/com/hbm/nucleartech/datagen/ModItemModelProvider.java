@@ -19,20 +19,20 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
 
-        simpleItem(RegisterItems.PLATE_IRON);
+        simpleItem(RegisterItems.IRON_PLATE);
 
-        simpleItem(RegisterItems.INGOT_URANIUM);
-        simpleItem(RegisterItems.INGOT_BERYLLIUM);
-        simpleItem(RegisterItems.INGOT_TITANIUM);
+        simpleItem(RegisterItems.URANIUM_INGOT);
+        simpleItem(RegisterItems.BERYLLIUM_INGOT);
+        simpleItem(RegisterItems.TITANIUM_INGOT);
 
         simpleItem(RegisterItems.RAW_TITANIUM);
         simpleItem(RegisterItems.RAW_URANIUM);
 
-        simpleItem(RegisterItems.PILE_ROD_URANIUM);
-        simpleItem(RegisterItems.BILLET_URANIUM);
-        simpleItem(RegisterItems.CRYSTAL_URANIUM);
-        simpleItem(RegisterItems.NUGGET_URANIUM);
-        simpleItem(RegisterItems.POWDER_URANIUM);
+        simpleItem(RegisterItems.URANIUM_PILE_ROD);
+        simpleItem(RegisterItems.URANIUM_BILLET);
+        simpleItem(RegisterItems.URANIUM_CRYSTAL);
+        simpleItem(RegisterItems.URANIUM_NUGGET);
+        simpleItem(RegisterItems.URANIUM_POWDER);
 
         simpleItem(RegisterItems.REACHER);
         simpleItem(RegisterItems.GEIGER_COUNTER);
@@ -60,6 +60,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(RegisterItems.HAZMAT_CHESTPLATE_GREY);
         simpleItem(RegisterItems.HAZMAT_LEGGINGS_GREY);
         simpleItem(RegisterItems.HAZMAT_BOOTS_GREY);
+
+        simpleItem(RegisterItems.IRON_PLATE_STAMP);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

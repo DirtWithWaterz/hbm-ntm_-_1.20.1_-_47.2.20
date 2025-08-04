@@ -20,17 +20,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
 
-        blockWithItem(RegisterBlocks.BLOCK_WASTE);
+        blockWithItem(RegisterBlocks.WASTE_BLOCK);
 
-        blockWithItem(RegisterBlocks.BLOCK_TITANIUM);
+        blockWithItem(RegisterBlocks.TITANIUM_BLOCK);
 
-        blockWithItem(RegisterBlocks.BLOCK_URANIUM);
+        blockWithItem(RegisterBlocks.URANIUM_BLOCK);
 
-        blockWithItem(RegisterBlocks.ORE_TITANIUM);
-        blockWithItem(RegisterBlocks.DEEPSLATE_ORE_TITANIUM);
+        blockWithItem(RegisterBlocks.TITANIUM_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_TITANIUM_ORE);
 
-        blockWithItem(RegisterBlocks.ORE_URANIUM);
-        blockWithItem(RegisterBlocks.DEEPSLATE_ORE_URANIUM);
+        blockWithItem(RegisterBlocks.URANIUM_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_URANIUM_ORE);
 
         blockWithItem(RegisterBlocks.RADIATION_DECONTAMINATOR,
                 new ResourceLocation("hbm:block/radiation_decontaminator_top"),
@@ -39,10 +39,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"),
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"));
 
-        cubeBottomTopBlockWithItem(RegisterBlocks.WASTE_GRASS,
-                new ResourceLocation("hbm:block/waste_grass_top"),
+        cubeBottomTopBlockWithItem(RegisterBlocks.DEAD_GRASS,
+                new ResourceLocation("hbm:block/dead_grass_top"),
                 new ResourceLocation("minecraft:block/dirt"),
-                new ResourceLocation("hbm:block/waste_grass_side"));
+                new ResourceLocation("hbm:block/dead_grass_side"));
 
         blockWithItem(RegisterBlocks.RAD_RESISTANT_BLOCK);
     }

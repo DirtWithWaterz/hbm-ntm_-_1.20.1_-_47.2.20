@@ -1,10 +1,15 @@
 package com.hbm.nucleartech.datagen;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.item.RegisterItems;
+import com.hbm.nucleartech.recipe.RegisterRecipes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -17,8 +22,8 @@ import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
-    private static final List<ItemLike> TITANIUM_SMELTABLES = List.of(RegisterBlocks.ORE_TITANIUM.get(), RegisterBlocks.DEEPSLATE_ORE_TITANIUM.get(), RegisterItems.RAW_TITANIUM.get());
-    private static final List<ItemLike> URANIUM_SMELTABLES = List.of(RegisterBlocks.ORE_URANIUM.get(), RegisterBlocks.DEEPSLATE_ORE_URANIUM.get(), RegisterItems.RAW_URANIUM.get(), RegisterItems.CRYSTAL_URANIUM.get());
+    private static final List<ItemLike> TITANIUM_SMELTABLES = List.of(RegisterBlocks.TITANIUM_ORE.get(), RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(), RegisterItems.RAW_TITANIUM.get());
+    private static final List<ItemLike> URANIUM_SMELTABLES = List.of(RegisterBlocks.URANIUM_ORE.get(), RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(), RegisterItems.RAW_URANIUM.get(), RegisterItems.URANIUM_CRYSTAL.get());
 
     public ModRecipeProvider(PackOutput pOutput) {
         super(pOutput);
@@ -27,75 +32,77 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
 
-        oreSmelting(consumer, TITANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.INGOT_TITANIUM.get(), 0.7f, 200, "ingot_titanium");
-        oreBlasting(consumer, TITANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.INGOT_TITANIUM.get(), 0.7f, 100, "ingot_titanium");
+        oreSmelting(consumer, TITANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.TITANIUM_INGOT.get(), 0.7f, 200, "ingot_titanium");
+        oreBlasting(consumer, TITANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.TITANIUM_INGOT.get(), 0.7f, 100, "ingot_titanium");
 
-        oreSmelting(consumer, URANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.INGOT_URANIUM.get(), 1.0f, 200, "ingot_uranium");
-        oreBlasting(consumer, URANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.INGOT_URANIUM.get(), 1.0f, 100, "ingot_uranium");
+        oreSmelting(consumer, URANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.URANIUM_INGOT.get(), 1.0f, 200, "ingot_uranium");
+        oreBlasting(consumer, URANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.URANIUM_INGOT.get(), 1.0f, 100, "ingot_uranium");
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.BLOCK_TITANIUM.get())
+        platePressing(consumer, Items.IRON_INGOT, RegisterItems.IRON_PLATE.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.TITANIUM_BLOCK.get())
                 .pattern("TTT")
                 .pattern("TTT")
                 .pattern("TTT")
-                .define('T', RegisterItems.INGOT_TITANIUM.get())
-                .unlockedBy(getHasName(RegisterItems.INGOT_TITANIUM.get()), has(RegisterItems.INGOT_TITANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterBlocks.BLOCK_TITANIUM.get()) + "_from_" + getItemName(RegisterItems.INGOT_TITANIUM.get()));
+                .define('T', RegisterItems.TITANIUM_INGOT.get())
+                .unlockedBy(getHasName(RegisterItems.TITANIUM_INGOT.get()), has(RegisterItems.TITANIUM_INGOT.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterBlocks.TITANIUM_BLOCK.get()) + "_from_" + getItemName(RegisterItems.TITANIUM_INGOT.get()));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.BLOCK_URANIUM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.URANIUM_BLOCK.get())
                 .pattern("UUU")
                 .pattern("UUU")
                 .pattern("UUU")
-                .define('U', RegisterItems.INGOT_URANIUM.get())
-                .unlockedBy(getHasName(RegisterItems.INGOT_URANIUM.get()), has(RegisterItems.INGOT_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterBlocks.BLOCK_URANIUM.get()) + "_from_" + getItemName(RegisterItems.INGOT_URANIUM.get()));
+                .define('U', RegisterItems.URANIUM_INGOT.get())
+                .unlockedBy(getHasName(RegisterItems.URANIUM_INGOT.get()), has(RegisterItems.URANIUM_INGOT.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterBlocks.URANIUM_BLOCK.get()) + "_from_" + getItemName(RegisterItems.URANIUM_INGOT.get()));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.INGOT_URANIUM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.URANIUM_INGOT.get())
                 .pattern("NNN")
                 .pattern("NNN")
                 .pattern("NNN")
-                .define('N', RegisterItems.NUGGET_URANIUM.get())
-                .unlockedBy(getHasName(RegisterItems.INGOT_URANIUM.get()), has(RegisterItems.INGOT_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.INGOT_URANIUM.get()) + "_from_" + getItemName(RegisterItems.NUGGET_URANIUM.get()));
+                .define('N', RegisterItems.URANIUM_NUGGET.get())
+                .unlockedBy(getHasName(RegisterItems.URANIUM_INGOT.get()), has(RegisterItems.URANIUM_INGOT.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_INGOT.get()) + "_from_" + getItemName(RegisterItems.URANIUM_NUGGET.get()));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.PILE_ROD_URANIUM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.URANIUM_PILE_ROD.get())
                 .pattern(" B ")
                 .pattern("PBP")
                 .pattern(" B ")
-                .define('B', RegisterItems.BILLET_URANIUM.get())
-                .define('P', RegisterItems.PLATE_IRON.get())
-                .unlockedBy(getHasName(RegisterItems.INGOT_URANIUM.get()), has(RegisterItems.INGOT_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.PILE_ROD_URANIUM.get()) + "_from_" + getItemName(RegisterItems.BILLET_URANIUM.get()) + "_and_" + getItemName(RegisterItems.PLATE_IRON.get()));
+                .define('B', RegisterItems.URANIUM_BILLET.get())
+                .define('P', RegisterItems.IRON_PLATE.get())
+                .unlockedBy(getHasName(RegisterItems.URANIUM_INGOT.get()), has(RegisterItems.URANIUM_INGOT.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_PILE_ROD.get()) + "_from_" + getItemName(RegisterItems.URANIUM_BILLET.get()) + "_and_" + getItemName(RegisterItems.IRON_PLATE.get()));
 
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.INGOT_TITANIUM.get(), 9)
-                .requires(RegisterBlocks.BLOCK_TITANIUM.get())
-                .unlockedBy(getHasName(RegisterBlocks.BLOCK_TITANIUM.get()), has(RegisterBlocks.BLOCK_TITANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.INGOT_TITANIUM.get()) + "_from_" + getItemName(RegisterBlocks.BLOCK_TITANIUM.get()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.TITANIUM_INGOT.get(), 9)
+                .requires(RegisterBlocks.TITANIUM_BLOCK.get())
+                .unlockedBy(getHasName(RegisterBlocks.TITANIUM_BLOCK.get()), has(RegisterBlocks.TITANIUM_BLOCK.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.TITANIUM_INGOT.get()) + "_from_" + getItemName(RegisterBlocks.TITANIUM_BLOCK.get()));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.INGOT_URANIUM.get(), 9)
-                .requires(RegisterBlocks.BLOCK_URANIUM.get())
-                .unlockedBy(getHasName(RegisterBlocks.BLOCK_URANIUM.get()), has(RegisterBlocks.BLOCK_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.INGOT_URANIUM.get()) + "_from_" + getItemName(RegisterBlocks.BLOCK_URANIUM.get()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.URANIUM_INGOT.get(), 9)
+                .requires(RegisterBlocks.URANIUM_BLOCK.get())
+                .unlockedBy(getHasName(RegisterBlocks.URANIUM_BLOCK.get()), has(RegisterBlocks.URANIUM_BLOCK.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_INGOT.get()) + "_from_" + getItemName(RegisterBlocks.URANIUM_BLOCK.get()));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.NUGGET_URANIUM.get(), 9)
-                .requires(RegisterItems.INGOT_URANIUM.get())
-                .unlockedBy(getHasName(RegisterItems.INGOT_URANIUM.get()), has(RegisterItems.INGOT_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.NUGGET_URANIUM.get()) + "_from_" + getItemName(RegisterItems.INGOT_URANIUM.get()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.URANIUM_NUGGET.get(), 9)
+                .requires(RegisterItems.URANIUM_INGOT.get())
+                .unlockedBy(getHasName(RegisterItems.URANIUM_INGOT.get()), has(RegisterItems.URANIUM_INGOT.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_NUGGET.get()) + "_from_" + getItemName(RegisterItems.URANIUM_INGOT.get()));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.BILLET_URANIUM.get(), 3)
-                .requires(RegisterItems.INGOT_URANIUM.get(), 2)
-                .unlockedBy(getHasName(RegisterItems.INGOT_URANIUM.get()), has(RegisterItems.INGOT_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.BILLET_URANIUM.get()) + "_from_" + getItemName(RegisterItems.INGOT_URANIUM.get()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.URANIUM_BILLET.get(), 3)
+                .requires(RegisterItems.URANIUM_INGOT.get(), 2)
+                .unlockedBy(getHasName(RegisterItems.URANIUM_INGOT.get()), has(RegisterItems.URANIUM_INGOT.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_BILLET.get()) + "_from_" + getItemName(RegisterItems.URANIUM_INGOT.get()));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.INGOT_URANIUM.get(), 2)
-                .requires(RegisterItems.BILLET_URANIUM.get(), 3)
-                .unlockedBy(getHasName(RegisterItems.BILLET_URANIUM.get()), has(RegisterItems.BILLET_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.INGOT_URANIUM.get()) + "_from_" + getItemName(RegisterItems.BILLET_URANIUM.get()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.URANIUM_INGOT.get(), 2)
+                .requires(RegisterItems.URANIUM_BILLET.get(), 3)
+                .unlockedBy(getHasName(RegisterItems.URANIUM_BILLET.get()), has(RegisterItems.URANIUM_BILLET.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_INGOT.get()) + "_from_" + getItemName(RegisterItems.URANIUM_BILLET.get()));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.NUGGET_URANIUM.get(), 6)
-                .requires(RegisterItems.BILLET_URANIUM.get())
-                .unlockedBy(getHasName(RegisterItems.BILLET_URANIUM.get()), has(RegisterItems.BILLET_URANIUM.get()))
-                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.NUGGET_URANIUM.get()) + "_from_" + getItemName(RegisterItems.BILLET_URANIUM.get()));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.URANIUM_NUGGET.get(), 6)
+                .requires(RegisterItems.URANIUM_BILLET.get())
+                .unlockedBy(getHasName(RegisterItems.URANIUM_BILLET.get()), has(RegisterItems.URANIUM_BILLET.get()))
+                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_NUGGET.get()) + "_from_" + getItemName(RegisterItems.URANIUM_BILLET.get()));
     }
 
     protected static void oreSmelting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {
@@ -114,5 +121,63 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             SimpleCookingRecipeBuilder.generic(Ingredient.of(new ItemLike[]{itemlike}), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike)).save(pFinishedRecipeConsumer, HBM.MOD_ID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
         }
 
+    }
+
+    protected static void platePressing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pInput, ItemLike pResult) {
+
+        for(ItemLike item : ModItemTagGenerator.SharedTagLists.PLATE_STAMPS) {
+
+            pFinishedRecipeConsumer.accept(
+                    new BurnerPressRecipeBuilder(
+                            pInput,
+                            item,
+                            pResult
+                    )
+            );
+        }
+
+    }
+
+    public record BurnerPressRecipeBuilder(ItemLike input, ItemLike stamp, ItemLike result) implements FinishedRecipe {
+
+        @Override
+        public void serializeRecipeData(JsonObject json) {
+
+            json.addProperty("type", "hbm:press");
+            ItemLike[] ingredients = new ItemLike[]{stamp, input};
+
+            JsonArray jsonIngredients = new JsonArray();
+
+            for(int i = 0; i < 2; i++)
+                jsonIngredients.add(Ingredient.of(ingredients[i]).toJson());
+
+            json.add("ingredients", jsonIngredients);
+
+            JsonObject jsonResult = new JsonObject();
+            jsonResult.addProperty("count", 1);
+            jsonResult.addProperty("item", "hbm:" + getItemName(result));
+
+            json.add("result", jsonResult);
+        }
+
+        @Override
+        public ResourceLocation getId() {
+            return new ResourceLocation(HBM.MOD_ID, getItemName(result) + "_from_" + getItemName(input) + "_with_" + getItemName(stamp) + "_press");
+        }
+
+        @Override
+        public RecipeSerializer<?> getType() {
+            return RegisterRecipes.PRESS.get();
+        }
+
+        @Override
+        public JsonObject serializeAdvancement() {
+            return null; // no advancement
+        }
+
+        @Override
+        public ResourceLocation getAdvancementId() {
+            return null;
+        }
     }
 }

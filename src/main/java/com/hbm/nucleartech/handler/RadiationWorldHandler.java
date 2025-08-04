@@ -54,7 +54,7 @@ public class RadiationWorldHandler {
                     if(block.getBlock() == Blocks.GRASS_BLOCK) {
 
                         BlockPos worldPos = subChunkWorldPos.offset(x, y, z);
-                        level.setBlock(worldPos, RegisterBlocks.WASTE_GRASS.get().defaultBlockState(), 18);
+                        level.setBlock(worldPos, RegisterBlocks.DEAD_GRASS.get().defaultBlockState(), 18);
                     }
                 }
             }

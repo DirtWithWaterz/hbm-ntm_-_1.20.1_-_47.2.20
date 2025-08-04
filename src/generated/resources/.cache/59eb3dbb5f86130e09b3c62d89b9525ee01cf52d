@@ -1,11 +1,12 @@
-// 1.20.1	2025-06-27T04:09:34.9564854	Loot Tables
-3d521f4c59d579d087ed1a59fbca3b6dccdb62e6 data/hbm/loot_tables/blocks/block_titanium.json
-41d404e3afd6f6cd6e7b9c858b1c78a9d2735d03 data/hbm/loot_tables/blocks/block_uranium.json
-b9bdaa6f1a86398dd4c8b1d91f31b836d1d7d9ff data/hbm/loot_tables/blocks/block_waste.json
-9939c61b0f5beba9fb487771cacbcad48f494101 data/hbm/loot_tables/blocks/deepslate_ore_titanium.json
-74b84b088e69c3a5c326f1b4b12eb3a1620642eb data/hbm/loot_tables/blocks/deepslate_ore_uranium.json
-8810e0a6c84d56016d93aa02c401c902a67a6118 data/hbm/loot_tables/blocks/ore_titanium.json
-2f39a34c4cdec543a02cba133be5bd3c517d8e7f data/hbm/loot_tables/blocks/ore_uranium.json
+// 1.20.1	2025-08-03T22:20:23.1001615	Loot Tables
+a080171c2e47231cc7b7bd6bce2a72077ad764e1 data/hbm/loot_tables/blocks/burner_press.json
+2eecc087c37c45f1aafaee113ade4024039203f9 data/hbm/loot_tables/blocks/dead_grass.json
+86206ccbda865d3fd4b8955013dc34d731297622 data/hbm/loot_tables/blocks/deepslate_titanium_ore.json
+3f81072f14d42a8a22544512637cc03d453f8a39 data/hbm/loot_tables/blocks/deepslate_uranium_ore.json
 50b4016bebb47522034aba2a88c0c6effdc28ea8 data/hbm/loot_tables/blocks/radiation_decontaminator.json
 9c26fcb514a95ccc01ceebf4e76e9c6631369f17 data/hbm/loot_tables/blocks/rad_resistant_block.json
-e664de585feb643faa5c6dc34c0bc4517c5437d9 data/hbm/loot_tables/blocks/waste_grass.json
+23036813070a5ca74ca7d9a9fc0dab0bd6fdd2b9 data/hbm/loot_tables/blocks/titanium_block.json
+0f656cbb679f0488535029c34b6ba5fbd18b39cc data/hbm/loot_tables/blocks/titanium_ore.json
+89c63ff2d547933afe84617aeb488ff79584b331 data/hbm/loot_tables/blocks/uranium_block.json
+f4251342f7a620efd88b6a18b09a482b0f0160e6 data/hbm/loot_tables/blocks/uranium_ore.json
+0e93239197097566dd3d8c0f2c0f69aa6a014406 data/hbm/loot_tables/blocks/waste_block.json

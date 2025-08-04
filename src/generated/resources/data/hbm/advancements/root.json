@@ -6,7 +6,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "hbm:textures/block/brick_concrete.png",
+    "background": "hbm:textures/block/concrete_bricks.png",
     "description": {
       "text": "And so the nuclear adventure starts... again."
     },
