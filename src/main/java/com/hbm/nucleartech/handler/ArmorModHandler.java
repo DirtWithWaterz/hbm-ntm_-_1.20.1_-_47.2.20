@@ -89,7 +89,7 @@ public class ArmorModHandler {
 		CompoundTag modNbt = new CompoundTag();
 		mod.save(modNbt);
 
-		// Slot index comes from your ItemArmorMod.type
+		// Slot index comes from ItemArmorMod.type
 		int slot = ((ItemArmorMod) mod.getItem()).type.getSlot().getIndex();
 		mods.put(MOD_SLOT_KEY + slot, modNbt);
 	}

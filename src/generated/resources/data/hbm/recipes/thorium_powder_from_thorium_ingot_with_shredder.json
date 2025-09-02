@@ -1,0 +1,18 @@
+{
+  "type": "hbm:shredder",
+  "ingredient": {
+    "item": "hbm:thorium_ingot"
+  },
+  "power_consumption": "20.83",
+  "results": [
+    {
+      "item": "hbm:thorium_powder",
+      "metadata": {
+        "chance": 100,
+        "max_amount": 1,
+        "min_amount": 1
+      }
+    }
+  ],
+  "ticks": 80
+}

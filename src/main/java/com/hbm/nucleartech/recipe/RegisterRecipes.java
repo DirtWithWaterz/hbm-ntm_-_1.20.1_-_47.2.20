@@ -15,6 +15,9 @@ public class RegisterRecipes {
     public static final RegistryObject<RecipeSerializer<PressRecipe>> PRESS =
             RECIPE_SERIALIZERS.register("press", () -> PressRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<ShredderRecipe>> SHREDDER =
+            RECIPE_SERIALIZERS.register("shredder", () -> ShredderRecipe.Serializer.INSTANCE);
+
     public static void register(IEventBus eventBus) {
 
         RECIPE_SERIALIZERS.register(eventBus);

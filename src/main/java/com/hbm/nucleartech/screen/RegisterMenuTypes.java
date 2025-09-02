@@ -18,6 +18,9 @@ public class RegisterMenuTypes {
     public static final RegistryObject<MenuType<BurnerPressMenu>> BURNER_PRESS_MENU =
             registerMenuType("burner_press_menu", BurnerPressMenu::new);
 
+    public static final RegistryObject<MenuType<ShredderMenu>> SHREDDER_MENU =
+            registerMenuType("shredder_menu", ShredderMenu::new);
+
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
 
         return MENUS.register(name, () -> IForgeMenuType.create(factory));

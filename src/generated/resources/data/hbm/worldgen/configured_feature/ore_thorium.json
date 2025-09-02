@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 20,
+    "targets": [
+      {
+        "state": {
+          "Name": "hbm:red_thorium_ore"
+        },
+        "target": {
+          "block": "minecraft:red_terracotta",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "hbm:orange_thorium_ore"
+        },
+        "target": {
+          "block": "minecraft:orange_terracotta",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "hbm:yellow_thorium_ore"
+        },
+        "target": {
+          "block": "minecraft:yellow_terracotta",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "hbm:white_thorium_ore"
+        },
+        "target": {
+          "block": "minecraft:white_terracotta",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "hbm:light_gray_thorium_ore"
+        },
+        "target": {
+          "block": "minecraft:light_gray_terracotta",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "hbm:brown_thorium_ore"
+        },
+        "target": {
+          "block": "minecraft:brown_terracotta",
+          "predicate_type": "minecraft:block_match"
+        }
+      }
+    ]
+  }
+}

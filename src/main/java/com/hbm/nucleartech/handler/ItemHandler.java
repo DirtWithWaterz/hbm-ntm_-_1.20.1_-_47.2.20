@@ -1,5 +1,8 @@
 package com.hbm.nucleartech.handler;
 
+import com.hbm.nucleartech.item.RegisterItems;
+import com.hbm.nucleartech.item.custom.BatteryItem;
+import com.hbm.nucleartech.item.custom.SelfChargingBatteryItem;
 import com.hbm.nucleartech.item.special.ItemArmorMod;
 import com.hbm.nucleartech.util.ArmorRegistry;
 import com.hbm.nucleartech.util.ArmorRegistry.HazardClass;
@@ -134,6 +137,22 @@ public class ItemHandler {
 //                }
 //            }
 //        }
+
+        /// BATTERY INFO ///
+        if(stack.getItem() instanceof BatteryItem) {
+
+            list.add(Component.literal(ChatFormatting.GRAY + "Energy stored: " + BatteryItem.formatWattHoursStored(stack) + "/" + BatteryItem.formatMaxWattHoursStored(stack)));
+            list.add(Component.literal(ChatFormatting.GRAY + "Charge rate: " + BatteryItem.formatWattsCharge(stack)));
+            list.add(Component.literal(ChatFormatting.GRAY + "Discharge rate: " + BatteryItem.formatWattsDischarge(stack)));
+        }
+        if(stack.getItem() instanceof SelfChargingBatteryItem sc) {
+
+            if(stack.getItem().equals(RegisterItems.INFINITE_FUSION_CORE.get()) ||
+            stack.getItem().equals(RegisterItems.CREATIVE_BATTERY.get()))
+                list.add(Component.literal(ChatFormatting.YELLOW + "Discharge rate: ∞W"));
+            else
+                list.add(Component.literal(ChatFormatting.YELLOW + "Discharge rate: " + sc.formatWattsDischarge()));
+        }
     }
 
     @SubscribeEvent

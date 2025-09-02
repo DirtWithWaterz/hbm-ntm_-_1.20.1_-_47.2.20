@@ -32,6 +32,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.URANIUM_ORE);
         blockWithItem(RegisterBlocks.DEEPSLATE_URANIUM_ORE);
 
+        blockWithItem(RegisterBlocks.RED_THORIUM_ORE);
+        blockWithItem(RegisterBlocks.ORANGE_THORIUM_ORE);
+        blockWithItem(RegisterBlocks.YELLOW_THORIUM_ORE);
+        blockWithItem(RegisterBlocks.WHITE_THORIUM_ORE);
+        blockWithItem(RegisterBlocks.LIGHT_GRAY_THORIUM_ORE);
+        blockWithItem(RegisterBlocks.BROWN_THORIUM_ORE);
+
         blockWithItem(RegisterBlocks.RADIATION_DECONTAMINATOR,
                 new ResourceLocation("hbm:block/radiation_decontaminator_top"),
                 new ResourceLocation("hbm:block/radiation_decontaminator_side"),

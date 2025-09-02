@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_badlands",
+  "features": "hbm:ore_thorium_placed",
+  "step": "underground_ores"
+}

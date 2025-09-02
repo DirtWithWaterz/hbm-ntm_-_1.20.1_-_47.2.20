@@ -19,6 +19,7 @@ public class HBMPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> ORE_TITANIUM_PLACED_KEY = registerKey("ore_titanium_placed");
     public static final ResourceKey<PlacedFeature> ORE_URANIUM_PLACED_KEY = registerKey("ore_uranium_placed");
+    public static final ResourceKey<PlacedFeature> ORE_THORIUM_PLACED_KEY = registerKey("ore_thorium_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
 
@@ -31,6 +32,10 @@ public class HBMPlacedFeatures {
         register(context, ORE_URANIUM_PLACED_KEY, configuredFeatures.getOrThrow(HBMConfiguredFeatures.OVERWORLD_ORE_URANIUM_KEY),
                 HBMOrePlacement.commonOrePlacement(9,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(34))));
+
+        register(context, ORE_THORIUM_PLACED_KEY, configuredFeatures.getOrThrow(HBMConfiguredFeatures.OVERWORLD_ORE_THORIUM_KEY),
+                HBMOrePlacement.commonOrePlacement(16,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(200))));
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {

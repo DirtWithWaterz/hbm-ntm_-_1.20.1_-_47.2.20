@@ -3,7 +3,9 @@ package com.hbm.nucleartech;
 import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.block.entity.RegisterBlockEntities;
+import com.hbm.nucleartech.block.entity.ShredderEntity;
 import com.hbm.nucleartech.block.entity.client.BurnerPressRenderer;
+import com.hbm.nucleartech.block.entity.client.ShredderRenderer;
 import com.hbm.nucleartech.entity.HbmEntities;
 import com.hbm.nucleartech.entity.client.NuclearCreeperRenderer;
 import com.hbm.nucleartech.handler.HazmatRegistry;
@@ -16,6 +18,7 @@ import com.hbm.nucleartech.particle.RegisterParticles;
 import com.hbm.nucleartech.recipe.RegisterRecipes;
 import com.hbm.nucleartech.screen.BurnerPressScreen;
 import com.hbm.nucleartech.screen.RegisterMenuTypes;
+import com.hbm.nucleartech.screen.ShredderScreen;
 import com.hbm.nucleartech.sound.RegisterSounds;
 import com.hbm.nucleartech.util.ArmorUtil;
 import com.mojang.logging.LogUtils;
@@ -24,6 +27,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -145,8 +150,17 @@ public class HBM
 
             EntityRenderers.register(HbmEntities.NUCLEAR_CREEPER.get(), NuclearCreeperRenderer::new);
             BlockEntityRenderers.register(RegisterBlockEntities.BURNER_PRESS_ENTITY.get(), BurnerPressRenderer::new);
+            BlockEntityRenderers.register(RegisterBlockEntities.SHREDDER_ENTITY.get(), ShredderRenderer::new);
 
             MenuScreens.register(RegisterMenuTypes.BURNER_PRESS_MENU.get(), BurnerPressScreen::new);
+            MenuScreens.register(RegisterMenuTypes.SHREDDER_MENU.get(), ShredderScreen::new);
         }
+    }
+
+    private static final RandomSource RANDOM = RandomSource.create();
+
+    public static int random(int min, int max) {
+
+        return RANDOM.nextInt(max - min + 1) + min;
     }
 }

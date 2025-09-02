@@ -8,6 +8,12 @@
     "hbm:deepslate_uranium_ore",
     "hbm:radiation_decontaminator",
     "hbm:burner_press",
-    "hbm:burner_press_part"
+    "hbm:burner_press_part",
+    "hbm:red_thorium_ore",
+    "hbm:orange_thorium_ore",
+    "hbm:yellow_thorium_ore",
+    "hbm:white_thorium_ore",
+    "hbm:light_gray_thorium_ore",
+    "hbm:brown_thorium_ore"
   ]
 }

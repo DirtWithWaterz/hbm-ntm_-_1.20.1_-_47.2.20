@@ -1,7 +1,8 @@
 package com.hbm.nucleartech.network;
 
-import com.hbm.nucleartech.HBM; // Replace with your actual mod class
+import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.network.packet.ClientboundBurnerPressPacket;
+import com.hbm.nucleartech.network.packet.ClientboundShredderPacket;
 import com.hbm.nucleartech.network.packet.ClientboundSpawnDeconParticlePacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
@@ -34,6 +35,12 @@ public class HbmPacketHandler {
                 ClientboundBurnerPressPacket::encode,
                 ClientboundBurnerPressPacket::decode,
                 ClientboundBurnerPressPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        INSTANCE.registerMessage(packetId++,
+                ClientboundShredderPacket.class,
+                ClientboundShredderPacket::encode,
+                ClientboundShredderPacket::decode,
+                ClientboundShredderPacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 }

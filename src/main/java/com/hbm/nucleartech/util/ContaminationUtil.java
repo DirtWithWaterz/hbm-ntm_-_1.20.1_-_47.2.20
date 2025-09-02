@@ -338,7 +338,7 @@ public class ContaminationUtil {
             resPrefix += ChatFormatting.GREEN;
 
         player.sendSystemMessage(Component.literal("===== ☢ ").append(Component.translatable("geiger.title")).append(Component.literal(" ☢ =====")).withStyle(ChatFormatting.GOLD));
-        player.sendSystemMessage(Component.translatable("geiger.chunk_rad").append(Component.literal(" " + chunkPrefix + rads + "RAD/s")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.chunk_rad").append(Component.literal(" " + chunkPrefix + rads + " RAD/s")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.env_rad").append(Component.literal(" " + envPrefix + env + " RAD/s")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.player_rad").append(Component.literal(" " + radPrefix + eRad + " RAD")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.player_res").append(Component.literal(" " + resPrefix + res + "% (" + resKoeff + ")")).withStyle(ChatFormatting.YELLOW));

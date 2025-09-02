@@ -5,11 +5,9 @@ import com.hbm.nucleartech.capability.HbmCapabilities;
 import com.hbm.nucleartech.handler.RadiationSystemChunksNT;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase;
 import com.hbm.nucleartech.item.RegisterItems;
-import com.hbm.nucleartech.render.amlfrom1710.Vec3;
 import com.hbm.nucleartech.sound.RegisterSounds;
 import com.hbm.nucleartech.util.ContaminationUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -24,11 +22,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -158,23 +154,21 @@ public class GeigerCounterItem extends Item {
         private static final ResourceLocation RAD_COUNTER = new ResourceLocation(HBM.MOD_ID, "textures/misc/overlay_misc.png");
 
         private static long lastRadSurvey;
-        private static float prevRadResult;
-        private static float lastRadResult;
 
         public static int ticks = 0;
 
         public static long oldgt = 0;
+        public static float radiation = 0;
 
         @SubscribeEvent
         public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
             Minecraft mc = Minecraft.getInstance();
 
-            if(mc.player != null || !mc.options.hideGui) {
+            if(mc.player != null && !mc.options.hideGui) {
 
-                // Check for your custom item (example: check for a compass)
                 boolean hasItem = false;
                 for (ItemStack stack : mc.player.getInventory().items) {
-                    if (stack.getItem() == RegisterItems.GEIGER_COUNTER.get()) { // Replace with your item
+                    if (stack.getItem() == RegisterItems.GEIGER_COUNTER.get()) {
                         hasItem = true;
                         break;
                     }
@@ -182,31 +176,26 @@ public class GeigerCounterItem extends Item {
 
                 if(hasItem) {
 
-                    GuiGraphics guiGraphics = event.getGuiGraphics();
+                    GuiGraphics gui = event.getGuiGraphics();
 
                     if (mc.player == null || mc.options.hideGui) return;
 
-                    // Simulated radiation input (replace with your actual rad data)
-                    float radInput = getAvgRad(mc.player); // Example value
 
-                    float radiation = lastRadResult - prevRadResult;
+//                    System.out.println("[Geiger] average radiation: " + radInput + ", new radiation: " + radiation + ", prev: " + prevRadResult + ", last: " + lastRadResult);
 
                     if(System.currentTimeMillis() >= lastRadSurvey + 1000) {
                         lastRadSurvey = System.currentTimeMillis();
-                        prevRadResult = lastRadResult;
-                        lastRadResult = radInput;
+                        radiation = getAvgRad(mc.player);
                     }
 
-                    GuiGraphics gui = event.getGuiGraphics();
-
-                    int screenWidth = mc.getWindow().getGuiScaledWidth();
+//                    int screenWidth = mc.getWindow().getGuiScaledWidth();
                     int screenHeight = mc.getWindow().getGuiScaledHeight();
 
-                    int posX = 3; // Replace with configurable position if needed
+                    int posX = 3;
                     int posY = screenHeight - 20;
 
                     int maxRad = 1000;
-                    int barLength = (int)(74 * Math.min(radInput / maxRad, 1.0f));
+                    int barLength = (int)(74 * Math.min(radiation / maxRad, 1.0f));
 
                     // Render the background bar
                     gui.blit(RAD_COUNTER, posX, posY, 0, 0, 94, 18);
@@ -216,20 +205,30 @@ public class GeigerCounterItem extends Item {
 
                     // Render the radiation indicator icon
                     if (radiation >= 25) {
+//                        System.out.println("[Graphics 0] gui.blit rad indicator with rads: " + radiation);
                         gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 36, 36, 18, 18);
                     } else if (radiation >= 10) {
+//                        System.out.println("[Graphics 0] gui.blit rad indicator with rads: " + radiation);
                         gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 18, 36, 18, 18);
                     } else if (radiation >= 2.5) {
+//                        System.out.println("[Graphics 0] gui.blit rad indicator with rads: " + radiation);
                         gui.blit(RAD_COUNTER, posX + 94 + 2, posY, 0, 36, 18, 18);
+                    } else {
+//                        System.err.println("[Graphics 0] no gui.blit rad indicator with rads: " + radiation);
                     }
 
                     // Draw the text
                     if (radiation > 1000) {
+//                        System.out.println("[Graphics 1] gui.blit rad counter with rads: " + radiation);
                         gui.drawString(mc.font, Component.literal(">1000 RAD/s"), posX, posY - 10, 0xFF0000);
                     } else if (radiation >= 1) {
+//                        System.out.println("[Graphics 1] gui.blit rad counter with rads: " + radiation);
                         gui.drawString(mc.font, Component.literal(((int) Math.round(radiation)) + " RAD/s"), posX, posY - 10, 0xFFFF00);
                     } else if (radiation > 0) {
+//                        System.out.println("[Graphics 1] gui.blit rad counter with rads: " + radiation);
                         gui.drawString(mc.font, Component.literal("<1 RAD/s"), posX, posY - 10, 0x00FF00);
+                    } else {
+//                        System.err.println("[Graphics 1] no gui.blit rad counter with rads: " + radiation);
                     }
                 }
             }

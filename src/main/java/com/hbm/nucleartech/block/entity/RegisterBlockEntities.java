@@ -18,6 +18,11 @@ public class RegisterBlockEntities {
                     BlockEntityType.Builder.of(BurnerPressEntity::new,
                             RegisterBlocks.BURNER_PRESS.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ShredderEntity>> SHREDDER_ENTITY =
+            BLOCK_ENTITIES.register("shredder_entity", () ->
+                    BlockEntityType.Builder.of(ShredderEntity::new,
+                            RegisterBlocks.SHREDDER.get()).build(null));
+
     public static void register(IEventBus eventBus) {
 
         BLOCK_ENTITIES.register(eventBus);

@@ -34,11 +34,26 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(),
                 block -> createOreDrop(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(), RegisterItems.RAW_URANIUM.get()));
 
+        this.add(RegisterBlocks.RED_THORIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.RED_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
+        this.add(RegisterBlocks.ORANGE_THORIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.ORANGE_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
+        this.add(RegisterBlocks.YELLOW_THORIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.YELLOW_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
+        this.add(RegisterBlocks.WHITE_THORIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.WHITE_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
+        this.add(RegisterBlocks.LIGHT_GRAY_THORIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.LIGHT_GRAY_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
+        this.add(RegisterBlocks.BROWN_THORIUM_ORE.get(),
+                block -> createOreDrop(RegisterBlocks.BROWN_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
+
         this.dropSelf(RegisterBlocks.RAD_RESISTANT_BLOCK.get());
 
         this.dropSelf(RegisterBlocks.DEAD_GRASS.get());
 
         this.dropSelf(RegisterBlocks.BURNER_PRESS.get());
+
+        this.dropSelf(RegisterBlocks.SHREDDER.get());
     }
 
     @Override

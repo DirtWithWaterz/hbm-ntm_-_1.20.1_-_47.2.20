@@ -16,6 +16,7 @@ public class HBMBiomeModifiers {
 
     public static final ResourceKey<BiomeModifier> ADD_ORE_TITANIUM = registerKey("add_ore_titanium");
     public static final ResourceKey<BiomeModifier> ADD_ORE_URANIUM = registerKey("add_ore_uranium");
+    public static final ResourceKey<BiomeModifier> ADD_ORE_THORIUM = registerKey("add_ore_thorium");
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
 
@@ -31,6 +32,12 @@ public class HBMBiomeModifiers {
         context.register(ADD_ORE_URANIUM, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatures.getOrThrow(HBMPlacedFeatures.ORE_URANIUM_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_ORE_THORIUM, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_BADLANDS),
+                HolderSet.direct(placedFeatures.getOrThrow(HBMPlacedFeatures.ORE_THORIUM_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
     }

@@ -20,7 +20,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
 
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(RegisterBlocks.TITANIUM_BLOCK.get(),
                         RegisterBlocks.TITANIUM_ORE.get(),
                         RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(),
@@ -29,27 +29,42 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(),
                         RegisterBlocks.RADIATION_DECONTAMINATOR.get(),
                         RegisterBlocks.BURNER_PRESS.get(),
-                        RegisterBlocks.BURNER_PRESS_PART.get());
+                        RegisterBlocks.BURNER_PRESS_PART.get(),
+                        RegisterBlocks.RED_THORIUM_ORE.get(),
+                        RegisterBlocks.ORANGE_THORIUM_ORE.get(),
+                        RegisterBlocks.YELLOW_THORIUM_ORE.get(),
+                        RegisterBlocks.WHITE_THORIUM_ORE.get(),
+                        RegisterBlocks.LIGHT_GRAY_THORIUM_ORE.get(),
+                        RegisterBlocks.BROWN_THORIUM_ORE.get());
 
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.TITANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
+        tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(RegisterBlocks.TITANIUM_ORE.get(),
+                        RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(),
+                        RegisterBlocks.BURNER_PRESS.get(),
+                        RegisterBlocks.BURNER_PRESS_PART.get(),
+                        RegisterBlocks.TITANIUM_BLOCK.get(),
+                        RegisterBlocks.BROWN_THORIUM_ORE.get(),
+                        RegisterBlocks.LIGHT_GRAY_THORIUM_ORE.get(),
+                        RegisterBlocks.WHITE_THORIUM_ORE.get(),
+                        RegisterBlocks.YELLOW_THORIUM_ORE.get(),
+                        RegisterBlocks.ORANGE_THORIUM_ORE.get(),
+                        RegisterBlocks.RED_THORIUM_ORE.get());
 
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.BURNER_PRESS.get());
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.BURNER_PRESS_PART.get());
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(RegisterBlocks.URANIUM_ORE.get(),
+                        RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(),
+                        RegisterBlocks.URANIUM_BLOCK.get());
 
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.URANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.DEEPSLATE_URANIUM_ORE.get()).addTag(Tags.Blocks.ORES);
-
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.TITANIUM_BLOCK.get());
-
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(RegisterBlocks.URANIUM_BLOCK.get());
+        tag(Tags.Blocks.ORES)
+                .add(RegisterBlocks.TITANIUM_ORE.get(),
+                        RegisterBlocks.DEEPSLATE_TITANIUM_ORE.get(),
+                        RegisterBlocks.URANIUM_ORE.get(),
+                        RegisterBlocks.DEEPSLATE_URANIUM_ORE.get(),
+                        RegisterBlocks.RED_THORIUM_ORE.get(),
+                        RegisterBlocks.ORANGE_THORIUM_ORE.get(),
+                        RegisterBlocks.YELLOW_THORIUM_ORE.get(),
+                        RegisterBlocks.WHITE_THORIUM_ORE.get(),
+                        RegisterBlocks.LIGHT_GRAY_THORIUM_ORE.get(),
+                        RegisterBlocks.BROWN_THORIUM_ORE.get());
     }
 }

@@ -12,8 +12,6 @@ public class RegisterTags {
 
     public static class Blocks {
 
-
-
         private static TagKey<Block> tag(String name) {
 
             return BlockTags.create(new ResourceLocation(HBM.MOD_ID, name));
@@ -23,6 +21,7 @@ public class RegisterTags {
     public static class Items {
 
         public static final TagKey<Item> PLATE_STAMPS = tag("plate_stamps");
+        public static final TagKey<Item> SHREDDER_BLADES = tag("shredder_blades");
 
         private static TagKey<Item> tag(String name) {
 

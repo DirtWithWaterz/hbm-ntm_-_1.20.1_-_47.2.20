@@ -6,16 +6,23 @@ import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.item.RegisterItems;
 import com.hbm.nucleartech.recipe.RegisterRecipes;
+import com.hbm.nucleartech.util.FloatingLong;
+import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.core.NonNullList;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -39,6 +46,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         oreBlasting(consumer, URANIUM_SMELTABLES, RecipeCategory.MISC, RegisterItems.URANIUM_INGOT.get(), 1.0f, 100, "ingot_uranium");
 
         platePressing(consumer, Items.IRON_INGOT, RegisterItems.IRON_PLATE.get());
+
+        List<Pair<ItemLike, MetaData>> results;
+
+        results = List.of(
+                Pair.of(RegisterItems.RAW_THORIUM.get(), new MetaData(1, 1, 100)),
+                Pair.of(Items.CLAY_BALL, new MetaData(0, 2, 100)),
+                Pair.of(Items.GOLD_NUGGET, new MetaData(1, 1, 5)),
+                Pair.of(RegisterItems.THORIUM_POWDER.get(), new MetaData(1, 1, 2))
+        );
+        itemShredding(consumer, RegisterItems.THORIUM_SHALE.get(), results, FloatingLong.create(1.39E1), 60);
+
+        results = List.of(
+                Pair.of(RegisterItems.THORIUM_POWDER.get(), new MetaData(1, 1, 100))
+        );
+        itemShredding(consumer, RegisterItems.THORIUM_INGOT.get(), results, FloatingLong.create(2.083E1), 80);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.TITANIUM_BLOCK.get())
                 .pattern("TTT")
@@ -105,6 +127,48 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_NUGGET.get()) + "_from_" + getItemName(RegisterItems.URANIUM_BILLET.get()));
     }
 
+    public static class MetaData {
+
+        protected final int minCount;
+        protected final int maxCount;
+        protected final int chance;
+
+        public MetaData(int minCount, int maxCount, int chance) {
+
+            this.minCount = minCount;
+            this.maxCount = maxCount;
+            this.chance = chance;
+        }
+
+        public int getMinCount() {
+            return minCount;
+        }
+
+        public int getMaxCount() {
+            return maxCount;
+        }
+
+        public int getChance() {
+            return chance;
+        }
+    }
+
+    private static String getItemId(Item item) {
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
+        if (id == null) {
+            throw new IllegalStateException("Item not registered: " + item);
+        }
+        return id.toString(); // full "namespace:path"
+    }
+
+    private static String getItemPath(Item item) {
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
+        if (id == null) {
+            throw new IllegalStateException("Item not registered: " + item);
+        }
+        return id.getPath(); // just "path"
+    }
+
     protected static void oreSmelting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {
         oreCooking(pFinishedRecipeConsumer, RecipeSerializer.SMELTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTIme, pGroup, "_from_smelting");
     }
@@ -123,22 +187,97 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     }
 
+    protected static void itemShredding(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pInput, List<Pair<ItemLike, MetaData>> pResults, FloatingLong pPowerConsumption, int pTicks) {
+
+//        System.err.println(pResults.toString());
+
+        pFinishedRecipeConsumer.accept(
+                new ShredderRecipeBuilder(
+                        pInput,
+                        pResults,
+                        pPowerConsumption,
+                        pTicks
+                )
+        );
+    }
+
+    public record ShredderRecipeBuilder(ItemLike input, List<Pair<ItemLike, MetaData>> results, FloatingLong powerConsumption, int ticks) implements FinishedRecipe {
+
+        @Override
+        public void serializeRecipeData(JsonObject json) {
+            // Type of recipe
+            json.addProperty("type", "hbm:shredder");
+
+            // Serialize ingredient
+            json.add("ingredient", Ingredient.of(input).toJson()); // Ingredient has a built-in toJson() method
+
+            // Serialize results as an array
+            JsonArray resultsArray = new JsonArray();
+            for (Pair<ItemLike, MetaData> stack : results) { // assuming resultItems is a List<ItemLike>
+
+                System.err.println(getItemName(stack.left().asItem()));
+
+                JsonObject jsonResult = new JsonObject();
+                jsonResult.addProperty("item", getItemId(stack.left().asItem()));
+
+//                ======= Meta Data =======
+
+                JsonObject metaData = new JsonObject();
+
+                metaData.addProperty("min_amount", stack.right().getMinCount());
+                metaData.addProperty("max_amount", stack.right().getMaxCount());
+                metaData.addProperty("chance", stack.right().getChance());
+
+//                =========================
+
+                jsonResult.add("metadata", metaData);
+
+                resultsArray.add(jsonResult);
+            }
+
+            json.add("results", resultsArray);
+
+            json.addProperty("power_consumption", powerConsumption.toString());
+
+            json.addProperty("ticks", ticks);
+        }
+
+        @Override
+        public ResourceLocation getId() {
+            return new ResourceLocation(HBM.MOD_ID, getItemName(results.get(0).left().asItem()) + "_from_" + getItemName(input) + "_with_shredder");
+        }
+
+        @Override
+        public RecipeSerializer<?> getType() {
+            return RegisterRecipes.SHREDDER.get();
+        }
+
+        @Override
+        public JsonObject serializeAdvancement() {
+            return null; // no advancement
+        }
+
+        @Override
+        public ResourceLocation getAdvancementId() {
+            return null;
+        }
+    }
+
     protected static void platePressing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pInput, ItemLike pResult) {
 
         for(ItemLike item : ModItemTagGenerator.SharedTagLists.PLATE_STAMPS) {
 
             pFinishedRecipeConsumer.accept(
-                    new BurnerPressRecipeBuilder(
+                    new PressRecipeBuilder(
                             pInput,
                             item,
                             pResult
                     )
             );
         }
-
     }
 
-    public record BurnerPressRecipeBuilder(ItemLike input, ItemLike stamp, ItemLike result) implements FinishedRecipe {
+    public record PressRecipeBuilder(ItemLike input, ItemLike stamp, ItemLike result) implements FinishedRecipe {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
@@ -155,7 +294,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
             JsonObject jsonResult = new JsonObject();
             jsonResult.addProperty("count", 1);
-            jsonResult.addProperty("item", "hbm:" + getItemName(result));
+            jsonResult.addProperty("item", getItemId(result.asItem()));
 
             json.add("result", jsonResult);
         }

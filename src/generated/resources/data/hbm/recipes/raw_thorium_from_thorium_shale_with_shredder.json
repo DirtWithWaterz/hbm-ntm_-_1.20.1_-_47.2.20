@@ -1,0 +1,42 @@
+{
+  "type": "hbm:shredder",
+  "ingredient": {
+    "item": "hbm:thorium_shale"
+  },
+  "power_consumption": "13.9",
+  "results": [
+    {
+      "item": "hbm:raw_thorium",
+      "metadata": {
+        "chance": 100,
+        "max_amount": 1,
+        "min_amount": 1
+      }
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "metadata": {
+        "chance": 100,
+        "max_amount": 2,
+        "min_amount": 0
+      }
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "metadata": {
+        "chance": 5,
+        "max_amount": 1,
+        "min_amount": 1
+      }
+    },
+    {
+      "item": "hbm:thorium_powder",
+      "metadata": {
+        "chance": 2,
+        "max_amount": 1,
+        "min_amount": 1
+      }
+    }
+  ],
+  "ticks": 60
+}

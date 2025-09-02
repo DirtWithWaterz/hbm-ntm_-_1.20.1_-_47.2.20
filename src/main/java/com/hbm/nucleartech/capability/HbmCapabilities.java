@@ -3,6 +3,7 @@ package com.hbm.nucleartech.capability;
 import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.capability.entity.LivingEntityCapability;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
+import com.hbm.nucleartech.interfaces.IWattHourStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -29,6 +30,11 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HbmCapabilities {
+
+    public static final Capability<LivingEntityCapability> LIVING_ENTITY_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<IWattHourStorage> WATT_HOUR_STORAGE = CapabilityManager.get(new CapabilityToken<>() {});
+
+
 
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event) {
@@ -93,7 +99,6 @@ public class HbmCapabilities {
         }
     }
 
-    public static final Capability<LivingEntityCapability> LIVING_ENTITY_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
     @Mod.EventBusSubscriber
     public static class LivingEntityCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {

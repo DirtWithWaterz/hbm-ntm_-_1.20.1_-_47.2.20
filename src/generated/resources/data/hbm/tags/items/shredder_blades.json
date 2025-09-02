@@ -1,0 +1,13 @@
+{
+  "values": [
+    "hbm:aluminum_blade",
+    "hbm:gold_blade",
+    "hbm:iron_blade",
+    "hbm:steel_blade",
+    "hbm:titanium_blade",
+    "hbm:advanced_blade",
+    "hbm:cmb_blade",
+    "hbm:schrabidium_blade",
+    "hbm:desh_blade"
+  ]
+}

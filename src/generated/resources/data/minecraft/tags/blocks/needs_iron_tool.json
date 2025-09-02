@@ -1,16 +1,15 @@
 {
   "values": [
     "hbm:titanium_ore",
-    "#forge:ores",
     "hbm:deepslate_titanium_ore",
-    "#forge:ores",
     "hbm:burner_press",
     "hbm:burner_press_part",
-    "hbm:uranium_ore",
-    "#forge:ores",
-    "hbm:deepslate_uranium_ore",
-    "#forge:ores",
     "hbm:titanium_block",
-    "hbm:uranium_block"
+    "hbm:brown_thorium_ore",
+    "hbm:light_gray_thorium_ore",
+    "hbm:white_thorium_ore",
+    "hbm:yellow_thorium_ore",
+    "hbm:orange_thorium_ore",
+    "hbm:red_thorium_ore"
   ]
 }

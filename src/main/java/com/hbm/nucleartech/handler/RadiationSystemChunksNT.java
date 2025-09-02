@@ -1493,7 +1493,7 @@ public class RadiationSystemChunksNT {
                 Files.createDirectories(path.getParent());
 
                 if(activePositions.isEmpty())
-                    Files.delete(path);
+                    Files.deleteIfExists(path);
 
                 try (Writer writer = Files.newBufferedWriter(path)) {
                     gson.toJson(jsonMap, writer);

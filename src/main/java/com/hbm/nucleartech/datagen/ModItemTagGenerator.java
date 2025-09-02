@@ -25,11 +25,24 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 
         tag(RegisterTags.Items.PLATE_STAMPS)
                 .add(SharedTagLists.PLATE_STAMPS.toArray(new Item[0]));
+        tag(RegisterTags.Items.SHREDDER_BLADES)
+                .add(SharedTagLists.SHREDDER_BLADES.toArray(new Item[0]));
     }
 
     public static class SharedTagLists {
         public static final List<Item> PLATE_STAMPS = List.of(
                 RegisterItems.IRON_PLATE_STAMP.get()
+        );
+        public static final List<Item> SHREDDER_BLADES = List.of(
+                RegisterItems.ALUMINUM_BLADE.get(),
+                RegisterItems.GOLD_BLADE.get(),
+                RegisterItems.IRON_BLADE.get(),
+                RegisterItems.STEEL_BLADE.get(),
+                RegisterItems.TITANIUM_BLADE.get(),
+                RegisterItems.ADVANCED_BLADE.get(),
+                RegisterItems.CMB_BLADE.get(),
+                RegisterItems.SCHRABIDIUM_BLADE.get(),
+                RegisterItems.DESH_BLADE.get()
         );
     }
 }

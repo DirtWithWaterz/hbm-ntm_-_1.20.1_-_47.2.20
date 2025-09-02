@@ -32,7 +32,7 @@ public class BurnerPressItemModel extends GeoModel<BurnerPressItem> {
 
         float degToRad = (float)(Math.PI / 180.0);
 
-        CoreGeoBone root = getAnimationProcessor().getBone("root"); // change name to your root bone name (often "root")
+        CoreGeoBone root = getAnimationProcessor().getBone("root");
 
         if (root != null) {
 
@@ -46,6 +46,7 @@ public class BurnerPressItemModel extends GeoModel<BurnerPressItem> {
                 root.setScaleZ(0.3f);
 
                 root.setPosY(-6.5f);
+                root.setPosZ(0);
 
                 root.setRotX(39.2315f * degToRad);
                 root.setRotY(-37.7612f * degToRad);
@@ -57,7 +58,8 @@ public class BurnerPressItemModel extends GeoModel<BurnerPressItem> {
                 root.setScaleY(0.3f);
                 root.setScaleZ(0.3f);
 
-                root.setPosY(-6.5f);
+                root.setPosY(-6f);
+                root.setPosZ(0);
 
                 root.setRotX(0 * degToRad);
                 root.setRotY(-45 * degToRad);
@@ -65,23 +67,25 @@ public class BurnerPressItemModel extends GeoModel<BurnerPressItem> {
             }
             else if(context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
 
-                root.setScaleX(0.15f);
-                root.setScaleY(0.15f);
-                root.setScaleZ(0.15f);
+                root.setScaleX(0.375f);
+                root.setScaleY(0.375f);
+                root.setScaleZ(0.375f);
 
-                root.setPosY(-1f);
+                root.setPosY(1.75f);
+                root.setPosZ(-3f);
 
-                root.setRotX(0 * degToRad);
-                root.setRotY(-45 * degToRad);
-                root.setRotZ(0 * degToRad);
+                root.setRotX(79.2714f * degToRad);
+                root.setRotY(10.5453f * degToRad);
+                root.setRotZ(44.007f * degToRad);
             }
             else if(context == ItemDisplayContext.GROUND) {
 
-                root.setScaleX(0.15f);
-                root.setScaleY(0.15f);
-                root.setScaleZ(0.15f);
+                root.setScaleX(0.25f);
+                root.setScaleY(0.25f);
+                root.setScaleZ(0.25f);
 
-                root.setPosY(0f);
+                root.setPosY(-2f);
+                root.setPosZ(0);
 
                 root.setRotX(0 * degToRad);
                 root.setRotY(0 * degToRad);

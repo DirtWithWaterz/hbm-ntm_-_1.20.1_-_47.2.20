@@ -1,0 +1,14 @@
+{
+  "values": [
+    "hbm:titanium_ore",
+    "hbm:deepslate_titanium_ore",
+    "hbm:uranium_ore",
+    "hbm:deepslate_uranium_ore",
+    "hbm:red_thorium_ore",
+    "hbm:orange_thorium_ore",
+    "hbm:yellow_thorium_ore",
+    "hbm:white_thorium_ore",
+    "hbm:light_gray_thorium_ore",
+    "hbm:brown_thorium_ore"
+  ]
+}

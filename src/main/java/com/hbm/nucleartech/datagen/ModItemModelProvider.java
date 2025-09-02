@@ -34,6 +34,87 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(RegisterItems.URANIUM_NUGGET);
         simpleItem(RegisterItems.URANIUM_POWDER);
 
+        simpleItem(RegisterItems.THORIUM_SHALE);
+        simpleItem(RegisterItems.RAW_THORIUM);
+        simpleItem(RegisterItems.THORIUM_INGOT);
+        simpleItem(RegisterItems.THORIUM_POWDER);
+
+        simpleItem(RegisterItems.ALUMINUM_BLADE);
+        simpleItem(RegisterItems.GOLD_BLADE);
+        simpleItem(RegisterItems.IRON_BLADE);
+        simpleItem(RegisterItems.STEEL_BLADE);
+        simpleItem(RegisterItems.TITANIUM_BLADE);
+        simpleItem(RegisterItems.ADVANCED_BLADE);
+        simpleItem(RegisterItems.CMB_BLADE);
+        simpleItem(RegisterItems.SCHRABIDIUM_BLADE);
+        simpleItem(RegisterItems.DESH_BLADE);
+
+        simpleItem(RegisterItems.GENERIC_BATTERY);
+        simpleItem(RegisterItems.ADVANCED_4_CELL);
+        simpleItem(RegisterItems.ADVANCED_12_CELL);
+        simpleItem(RegisterItems.ADVANCED_CELL);
+        simpleItem(RegisterItems.ADVANCED_BATTERY);
+        simpleItem(RegisterItems.AMERICIUM_SC_BATTERY);
+        simpleItem(RegisterItems.CREATIVE_BATTERY);
+        simpleItem(RegisterItems.GOLD_SC_BATTERY);
+        simpleItem(RegisterItems.LEAD_SC_BATTERY);
+        simpleItem(RegisterItems.LITHIUM_3_CELL);
+        simpleItem(RegisterItems.LITHIUM_6_CELL);
+        simpleItem(RegisterItems.LITHIUM_BATTERY);
+        simpleItem(RegisterItems.LITHIUM_CELL);
+        simpleItem(RegisterItems.PLUTONIUM_SC_BATTERY);
+        simpleItem(RegisterItems.POLONIUM_SC_BATTERY);
+        simpleItem(RegisterItems.POTATO_BATTERY);
+        simpleItem(RegisterItems.REDSTONE_6_CELL);
+        simpleItem(RegisterItems.REDSTONE_24_CELL);
+        simpleItem(RegisterItems.REDSTONE_CELL);
+        simpleItem(RegisterItems.SCHRABIDIUM_2_CELL);
+        simpleItem(RegisterItems.SCHRABIDIUM_4_CELL);
+        simpleItem(RegisterItems.SCHRABIDIUM_CELL);
+        simpleItem(RegisterItems.SCHRABIDIUM_BATTERY);
+        simpleItem(RegisterItems.SPARK_6_CELL);
+        simpleItem(RegisterItems.SPARK_BATTERY);
+        simpleItem(RegisterItems.SPARK_CAR_BATTERY);
+        simpleItem(RegisterItems.SPARK_100_CELL);
+        simpleItem(RegisterItems.TECHNETIUM_SC_BATTERY);
+        simpleItem(RegisterItems.TRIXITE_BATTERY);
+        simpleItem(RegisterItems.URANIUM_SC_BATTERY);
+        simpleItem(RegisterItems.SPARK_1000_CELL);
+        simpleItem(RegisterItems.SPARK_2500_CELL);
+        simpleItem(RegisterItems.SPARK_10000_CELL);
+        simpleItem(RegisterItems.SPARK_POWER_CELL);
+        simpleItem(RegisterItems.ELECTRONIUM_CUBE);
+        simpleItem(RegisterItems.POTATOS_BATTERY);
+        simpleItem(RegisterItems.INFINITE_FUSION_CORE);
+        simpleItem(RegisterItems.MAKESHIFT_ENERGY_CORE);
+
+        simpleItem(RegisterItems.GENERIC_BATTERY_EMPTY);
+        simpleItem(RegisterItems.ADVANCED_4_CELL_EMPTY);
+        simpleItem(RegisterItems.ADVANCED_12_CELL_EMPTY);
+        simpleItem(RegisterItems.ADVANCED_CELL_EMPTY);
+        simpleItem(RegisterItems.ADVANCED_BATTERY_EMPTY);
+        simpleItem(RegisterItems.LITHIUM_3_CELL_EMPTY);
+        simpleItem(RegisterItems.LITHIUM_6_CELL_EMPTY);
+        simpleItem(RegisterItems.LITHIUM_BATTERY_EMPTY);
+        simpleItem(RegisterItems.LITHIUM_CELL_EMPTY);
+        simpleItem(RegisterItems.REDSTONE_6_CELL_EMPTY);
+        simpleItem(RegisterItems.REDSTONE_24_CELL_EMPTY);
+        simpleItem(RegisterItems.REDSTONE_CELL_EMPTY);
+        simpleItem(RegisterItems.SCHRABIDIUM_2_CELL_EMPTY);
+        simpleItem(RegisterItems.SCHRABIDIUM_4_CELL_EMPTY);
+        simpleItem(RegisterItems.SCHRABIDIUM_CELL_EMPTY);
+        simpleItem(RegisterItems.SCHRABIDIUM_BATTERY_EMPTY);
+        simpleItem(RegisterItems.SPARK_6_CELL_EMPTY);
+        simpleItem(RegisterItems.SPARK_BATTERY_EMPTY);
+        simpleItem(RegisterItems.SPARK_CAR_BATTERY_EMPTY);
+        simpleItem(RegisterItems.SPARK_100_CELL_EMPTY);
+        simpleItem(RegisterItems.TRIXITE_BATTERY_EMPTY);
+        simpleItem(RegisterItems.SPARK_1000_CELL_EMPTY);
+        simpleItem(RegisterItems.SPARK_2500_CELL_EMPTY);
+        simpleItem(RegisterItems.SPARK_10000_CELL_EMPTY);
+        simpleItem(RegisterItems.SPARK_POWER_CELL_EMPTY);
+        simpleItem(RegisterItems.ELECTRONIUM_CUBE_EMPTY);
+
         simpleItem(RegisterItems.REACHER);
         simpleItem(RegisterItems.GEIGER_COUNTER);
 
@@ -68,6 +149,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
-                new ResourceLocation(HBM.MOD_ID, "item/" + item.getId().getPath()));
+                new ResourceLocation(HBM.MOD_ID, "item/" + item.getId().getPath().replace("_empty", "")));
     }
 }

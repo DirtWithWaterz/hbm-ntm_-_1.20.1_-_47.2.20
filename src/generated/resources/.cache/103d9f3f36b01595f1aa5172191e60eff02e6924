@@ -1,7 +1,10 @@
-// 1.20.1	2025-08-03T22:20:23.1011587	Registries
+// 1.20.1	2025-08-08T22:35:57.3129893	Registries
+65a62a70583120345da897b4bde556df552f6b16 data/hbm/forge/biome_modifier/add_ore_thorium.json
 6812423d9cd8883108b96ff7afb91befb6eb996f data/hbm/forge/biome_modifier/add_ore_titanium.json
 df3a95cb51d484cc99341021fa019d400757f048 data/hbm/forge/biome_modifier/add_ore_uranium.json
+3915d4a5bdfcfa8e2168b631ab8e35b3345d1b1d data/hbm/worldgen/configured_feature/ore_thorium.json
 65d661f5bf619f4c3457209b0ee2b820b309b618 data/hbm/worldgen/configured_feature/ore_titanium.json
 9e295f5e8a1bd7a6f423ee4e33b8f045f5ffe7d7 data/hbm/worldgen/configured_feature/ore_uranium.json
+e16217c28171bf0fb44aa34ef61afc09285edb5f data/hbm/worldgen/placed_feature/ore_thorium_placed.json
 a87404509b6a8e2f6d049baab4244236c45f0428 data/hbm/worldgen/placed_feature/ore_titanium_placed.json
 63d59ecf7530756636e4cfc660ddaee0165ef331 data/hbm/worldgen/placed_feature/ore_uranium_placed.json
