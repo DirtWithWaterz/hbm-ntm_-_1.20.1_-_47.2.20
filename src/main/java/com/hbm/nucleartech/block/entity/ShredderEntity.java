@@ -14,6 +14,7 @@ import com.hbm.nucleartech.network.HbmPacketHandler;
 import com.hbm.nucleartech.network.packet.ClientboundShredderPacket;
 import com.hbm.nucleartech.recipe.ShredderRecipe;
 import com.hbm.nucleartech.screen.ShredderMenu;
+import com.hbm.nucleartech.sound.RegisterSounds;
 import com.hbm.nucleartech.util.FloatingLong;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.BlockPos;
@@ -133,6 +134,7 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
 
     protected final ContainerData data;
     public int progress = 0;
+    public int soundProgress = 0;
 
     public int maxProgress = 60; // default, overridden by hasItems() scan
     public FloatingLong currentPowerConsumption = FloatingLong.ZERO; // default
@@ -327,6 +329,13 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
 
 //            System.out.println("Progressing");
 
+            if(!hasProgressFinished() && progress == 0) {
+
+                soundProgress = 0;
+                level.playSound(null, worldPosition, RegisterSounds.SHREDDER_OPERATE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+
+            increaseSoundProgress();
             increaseProgress();
 
             consumeEnergy();
@@ -344,7 +353,7 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
         }
         else {
 
-            shred = false;
+            increaseSoundProgress();
             resetProgress(true);
         }
 
@@ -362,6 +371,16 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
         setChanged(pLevel, pPos, pState);
 
 //        System.out.println("\n=====================================================\n");
+    }
+
+    private void increaseSoundProgress() {
+
+        soundProgress++;
+        if(soundProgress >= 120) {
+
+            shred = false;
+            soundProgress = 0;
+        }
     }
 
     private void updateScaledEnergyProgress() {
@@ -385,19 +404,19 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
         left.hurt(1, level.random, null);
         right.hurt(1, level.random, null);
 
-        if(left.getDamageValue() >= left.getMaxDamage()) {
+        if(left.getDamageValue() >= left.getMaxDamage() && !left.getItem().equals(RegisterItems.DESH_BLADE.get())) {
 
 //            itemHandler.setStackInSlot(LEFT_BLADE_SLOT, ItemStack.EMPTY);
             level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
-        if(right.getDamageValue() >= right.getMaxDamage()) {
+        if(right.getDamageValue() >= right.getMaxDamage() && !right.getItem().equals(RegisterItems.DESH_BLADE.get())) {
 
 //            itemHandler.setStackInSlot(RIGHT_BLADE_SLOT, ItemStack.EMPTY);
             level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
 
-        leftDur = left.getDamageValue();
-        rightDur = right.getDamageValue();
+        leftDur = left.getItem().equals(RegisterItems.DESH_BLADE.get()) ? -2 : left.getDamageValue();
+        rightDur = right.getItem().equals(RegisterItems.DESH_BLADE.get()) ? -2 : right.getDamageValue();
     }
 
     private boolean hasBlades() {
@@ -407,6 +426,9 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
 
         boolean leftBladeExists = (leftStack.getItem() instanceof BladeItem);
         boolean rightBladeExists = (rightStack.getItem() instanceof BladeItem);
+
+        boolean leftIsDesh = leftBladeExists && leftStack.getItem().equals(RegisterItems.DESH_BLADE.get());
+        boolean rightIsDesh = rightBladeExists && rightStack.getItem().equals(RegisterItems.DESH_BLADE.get());
 
         boolean leftBladeIsBroken = false;
         boolean rightBladeIsBroken = false;
@@ -435,7 +457,10 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
             rightMaxDur = 0;
         }
 
-        boolean result = (leftBladeExists && !leftBladeIsBroken) && (rightBladeExists && !rightBladeIsBroken);
+        leftDur = leftIsDesh ? -2 : leftDur;
+        rightDur = rightIsDesh ? -2 : rightDur;
+
+        boolean result = (leftBladeExists && (!leftBladeIsBroken || leftIsDesh)) && (rightBladeExists && (!rightBladeIsBroken || rightIsDesh));
 
 //        System.err.println("[Has Blades] leftDur: " + leftDur + ", leftMaxDur: " + leftMaxDur + ", rightDur: " + rightDur + ", rightMaxDur: " + rightMaxDur + ", leftBladeExists: " + leftBladeExists + ", leftBladeIsBroken: " + leftBladeIsBroken + ", rightBladeExists: " + rightBladeExists + ", rightBladeIsBroken: " + rightBladeIsBroken + ", result: " + result);
 
@@ -775,8 +800,8 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
 
             FloatingLong actuallyDrained = drainEnergy(stack, actuallyInserted, false);
 
-//            System.err.println("consumePower: canExtract=" + canExtractAmount + " wouldAccept=" + wouldAccept +
-//                    " inserted=" + actuallyInserted + " drained=" + actuallyDrained + " storedEnergy=" + getEnergy());
+            System.err.println("consumePower: canExtract=" + canExtractAmount + " wouldAccept=" + wouldAccept +
+                    " inserted=" + actuallyInserted + " drained=" + actuallyDrained + " storedEnergy=" + getEnergy());
         }
         else if(isEnergyItem(stack)) {
 
@@ -797,9 +822,9 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
 
             FloatingLong actuallyDrainedFE = drainEnergy(stack, wouldDrainFE, false);
 
-//            System.err.println("consumePower: canExtractFE=" + canExtractAmountFE + " canExtractWh=" + canExtractAmountWh
-//                    + " wouldAcceptWh=" + wouldAcceptWh + " insertedWh=" + actuallyInsertedWh + " insertedFE=" + actuallyInsertedFE
-//                    + " wouldDrainFE=" + wouldDrainFE + " drainedFE=" + actuallyDrainedFE + " storedEnergyWh=" + getEnergy());
+            System.err.println("consumePower: canExtractFE=" + canExtractAmountFE + " canExtractWh=" + canExtractAmountWh
+                    + " wouldAcceptWh=" + wouldAcceptWh + " insertedWh=" + actuallyInsertedWh + " insertedFE=" + actuallyInsertedFE
+                    + " wouldDrainFE=" + wouldDrainFE + " drainedFE=" + actuallyDrainedFE + " storedEnergyWh=" + getEnergy());
         }
 
         updatePowerSlot();

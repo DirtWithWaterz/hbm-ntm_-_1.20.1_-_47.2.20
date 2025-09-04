@@ -120,6 +120,8 @@ public class FloatingLong extends Number implements Comparable<FloatingLong> {
         this.exp = expPart != null ? Long.parseLong(expPart) : 0L;
 
         this.type = this.exp != 0L ? Type.exponential : this.dec.longValue() != 0L ? Type.fractional : Type.integral;
+
+        this.not = (this.not.charAt(0) == '-' && this.not.charAt(1) == '0' ? "-" : "") + this.num + "." + this.dec.toString() + "E" + this.exp;
     }
 
     /**
@@ -139,6 +141,8 @@ public class FloatingLong extends Number implements Comparable<FloatingLong> {
         this.not = sb.toString();
 
         this.type = this.exp != 0L ? Type.exponential : this.dec.longValue() != 0L ? Type.fractional : Type.integral;
+
+        this.not = (this.not.charAt(0) == '-' && this.not.charAt(1) == '0' ? "-" : "") + this.num + "." + this.dec.toString() + "E" + this.exp;
     }
 
     public FloatingLong copy() {
@@ -160,7 +164,7 @@ public class FloatingLong extends Number implements Comparable<FloatingLong> {
         if(input.isEmpty())
             input = "0";
 
-        return new FloatingLong(input).convertIfFits();
+        return new FloatingLong(input.replaceAll(",", "").toUpperCase()).convertIfFits();
     }
     public static FloatingLong create(long integer, LeadingLong decimal, long exponent) {
 
@@ -173,7 +177,7 @@ public class FloatingLong extends Number implements Comparable<FloatingLong> {
     }
     public static FloatingLong create(float input) {
         // BigDecimal.valueOf preserves full double value and gives a plain string if you want:
-        return new FloatingLong(BigDecimal.valueOf(input).toPlainString()).convertIfFits();
+        return new FloatingLong(BigDecimal.valueOf(input).toString().replaceAll(",", "").toUpperCase()).convertIfFits();
     }
     public static FloatingLong create(int input) {
 
@@ -181,7 +185,7 @@ public class FloatingLong extends Number implements Comparable<FloatingLong> {
     }
     public static FloatingLong create(double input) {
         // BigDecimal.valueOf preserves full double value and gives a plain string if you want:
-        return new FloatingLong(BigDecimal.valueOf(input).toPlainString()).convertIfFits();
+        return new FloatingLong(BigDecimal.valueOf(input).toString().replaceAll(",", "").toUpperCase()).convertIfFits();
     }
 
     /** Simple accessor for the canonical string form. */
@@ -971,7 +975,7 @@ public class FloatingLong extends Number implements Comparable<FloatingLong> {
         BigDecimal b = other.toBigDecimal();
 
         // Choose precision large enough to avoid truncation artifacts (adjust if needed)
-        final int PREC = 18;
+        final int PREC = 4;
         MathContext mc = new MathContext(PREC, RoundingMode.HALF_UP);
 
         BigDecimal prod = a.multiply(b, mc);

@@ -91,7 +91,7 @@ public class RegisterItems {
             () -> new BladeItem(new Item.Properties().durability(4096), 8));
 
     public static final RegistryObject<Item> DESH_BLADE = ITEMS.register("desh_blade",
-            () -> new BladeItem(new Item.Properties(), 9));
+            () -> new BladeItem(new Item.Properties().stacksTo(1), 9));
 
 //    ====================================== CELLS ======================================
 

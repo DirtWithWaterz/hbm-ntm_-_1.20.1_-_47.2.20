@@ -73,7 +73,7 @@ public class ItemBatteryProvider implements ICapabilityProvider, INBTSerializabl
 
             @Override
             public void setWattageStored(FloatingLong set) {
-                storage.setWattageStored(set);
+//                storage.setWattageStored(set);
             }
 
             @Override

@@ -1,7 +1,6 @@
 package com.hbm.nucleartech.sound;
 
 import com.hbm.nucleartech.HBM;
-import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -39,8 +38,11 @@ public class RegisterSounds {
     public static final RegistryObject<SoundEvent> JMP_SCR = SOUNDS.register("item.jmpscr",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.jmpscr")));
 
-    public static final RegistryObject<SoundEvent> BURNER_PRESS_STAMP = SOUNDS.register("block.press_operate",
+    public static final RegistryObject<SoundEvent> PRESS_OPERATE = SOUNDS.register("block.press_operate",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "block.press_operate")));
+
+    public static final RegistryObject<SoundEvent> SHREDDER_OPERATE = SOUNDS.register("block.shredder_operate",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "block.shredder_operate")));
 
     public static void register(IEventBus bus) {
 

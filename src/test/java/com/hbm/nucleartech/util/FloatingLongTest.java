@@ -21,9 +21,9 @@ class FloatingLongEdgeCasesTest {
         FloatingLong b = FloatingLong.create("123");
         FloatingLong c = FloatingLong.create("-9876543210");
 
-        assertEquals("0", a.toString());
-        assertEquals("123", b.toString());
-        assertEquals("-9876543210", c.toString());
+        assertEquals("0.0E0", a.toString());
+        assertEquals("123.0E0", b.toString());
+        assertEquals("-9876543210.0E0", c.toString());
     }
 
     @Test
@@ -237,7 +237,7 @@ class FloatingLongEdgeCasesTest {
 
         assertEquals(0, initialCapacity.compareTo(FloatingLong.create(890)));
 
-//        assertEquals(2000, FloatingLong.create(1.388888888888888888888888888888888888888889).multiply(1440));
+        assertEquals(FloatingLong.create(711.111111111111111111).toString(), FloatingLong.create(639.999999999999999999).add(FloatingLong.create(71.111111111111111111)).toString(), "result: " + FloatingLong.create(639.999999999999999999).add(FloatingLong.create(71.111111111111111111)).toString());
 
         assertEquals(0, FloatingLong.create(2000).divide(WATT_HOUR_TO_FE).multiply(WATT_HOUR_TO_FE).compareTo(FloatingLong.create(2000)), "result: " + FloatingLong.create(2000).divide(WATT_HOUR_TO_FE).multiply(WATT_HOUR_TO_FE));
     }

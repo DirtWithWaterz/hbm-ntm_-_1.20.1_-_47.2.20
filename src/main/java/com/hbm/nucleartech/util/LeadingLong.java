@@ -22,8 +22,11 @@ public final class LeadingLong extends Number implements Comparable<LeadingLong>
     public LeadingLong(long value) {
 
         if (value < 0) throw new IllegalArgumentException("value must be >= 0");
-        this.digits = Long.toString(value);
-        this.value = value;
+        String digits = Long.toString(value);
+        if(digits.length() > 4)
+            digits = digits.substring(0, 4);
+        this.digits = digits;
+        this.value = Long.parseLong(this.digits);
         this.length = this.digits.length();
     }
 
@@ -43,20 +46,20 @@ public final class LeadingLong extends Number implements Comparable<LeadingLong>
 
             throw new IllegalArgumentException("digits must contain only numeric characters (0-9)");
         }
-        if(digits.length() > 19)
-            digits = digits.substring(0, 18);
+        if(digits.length() > 4)
+            digits = digits.substring(0, 4);
         this.digits = digits;
         // parse numeric value (will be 0 for "000", etc.)
         try {
 
-            this.value = Long.parseLong(digits);
+            this.value = Long.parseLong(this.digits);
         } catch (NumberFormatException e) {
 
             // If digits are longer than Long can hold, you can switch to BigInteger here.
 
             throw new IllegalArgumentException("digit string too large to parse to long; use smaller groups or adapt code", e);
         }
-        this.length = digits.length();
+        this.length = this.digits.length();
     }
 
     /**

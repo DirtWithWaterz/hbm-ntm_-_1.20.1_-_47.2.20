@@ -369,7 +369,7 @@ public class BurnerPressEntity extends BlockEntity implements GeoBlockEntity, Me
 
                 stamped = true;
                 lockInputSlot(false);
-                getLevel().playSound(null, worldPosition, RegisterSounds.BURNER_PRESS_STAMP.get(), SoundSource.BLOCKS, 1, 1);
+                getLevel().playSound(null, worldPosition, RegisterSounds.PRESS_OPERATE.get(), SoundSource.BLOCKS, 1, 1);
                 craftItem();
                 damageStamp(pPos);
                 lockInputSlot(hasRecipe() && hasHeat() && hasUsableStamp());

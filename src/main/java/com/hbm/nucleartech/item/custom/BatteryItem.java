@@ -111,15 +111,15 @@ public class BatteryItem extends EnergyItem {
         return ((BatteryItem) stack.getItem()).capacity;
     }
 
-    public static FloatingLong setEnergy(ItemStack stack, FloatingLong amount) {
-
-        FloatingLong capped = WattHourStorage.Min(amount, getMaxEnergyStored(stack));
-        stack.getCapability(HbmCapabilities.WATT_HOUR_STORAGE).ifPresent(cap -> {
-            cap.setWattageStored(capped); // you need to add setWattageStored to the IWattHourStorage impl (or expose it)
-        });
-
-        return capped;
-    }
+//    public static FloatingLong setEnergy(ItemStack stack, FloatingLong amount) {
+//
+//        FloatingLong capped = WattHourStorage.Min(amount, getMaxEnergyStored(stack));
+//        stack.getCapability(HbmCapabilities.WATT_HOUR_STORAGE).ifPresent(cap -> {
+//            cap.setWattageStored(capped); // you need to add setWattageStored to the IWattHourStorage impl (or expose it)
+//        });
+//
+//        return capped;
+//    }
 
     public static FloatingLong addEnergy(ItemStack stack, FloatingLong amount, boolean simulate) {
 

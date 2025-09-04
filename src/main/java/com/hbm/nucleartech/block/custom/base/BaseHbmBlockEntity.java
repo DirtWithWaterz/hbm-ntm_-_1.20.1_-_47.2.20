@@ -29,8 +29,10 @@ public class BaseHbmBlockEntity extends BlockEntity {
     private final WattHourStorage wattHourHandler;
 
     private final LazyOptional<IWattHourStorage> lazyWattInternal;
+    private final LazyOptional<IWattHourStorage> lazyWattExternal;
 
     private final LazyOptional<IEnergyStorage> lazyFEInternal;
+    private final LazyOptional<IEnergyStorage> lazyFEExternal;
 
     public BaseHbmBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, FloatingLong energyCapacity,
                               FloatingLong maxReceive, FloatingLong maxExtract, FloatingLong initialStorage) {
@@ -44,8 +46,10 @@ public class BaseHbmBlockEntity extends BlockEntity {
         );
 
         this.lazyWattInternal = LazyOptional.of(() -> createWattSideWrapper(true, true));
+        this.lazyWattExternal = LazyOptional.of(() -> createWattSideWrapper(true, false));
 
         this.lazyFEInternal = LazyOptional.of(() -> createFESideWrapper(true, true));
+        this.lazyFEExternal = LazyOptional.of(() -> createFESideWrapper(true, false));
     }
 
     private IWattHourStorage createWattSideWrapper(final boolean allowReceive, final boolean allowExtract) {
@@ -215,7 +219,7 @@ public class BaseHbmBlockEntity extends BlockEntity {
 
             return switch(Objects.requireNonNull(side)) {
 
-                case DOWN, EAST, WEST -> lazyWattInternal.cast();
+                case DOWN, EAST, WEST -> lazyWattExternal.cast();
                 default   -> super.getCapability(cap, side);
             };
         }
@@ -226,7 +230,7 @@ public class BaseHbmBlockEntity extends BlockEntity {
 
             return switch(Objects.requireNonNull(side)) {
 
-                case DOWN, EAST, WEST -> lazyFEInternal.cast();
+                case DOWN, EAST, WEST -> lazyFEExternal.cast();
                 default   -> super.getCapability(cap, side);
             };
         }
@@ -240,6 +244,8 @@ public class BaseHbmBlockEntity extends BlockEntity {
         super.setRemoved();
         lazyWattInternal.invalidate();
         lazyFEInternal.invalidate();
+        lazyWattExternal.invalidate();
+        lazyFEExternal.invalidate();
     }
 
     @Override
@@ -248,6 +254,8 @@ public class BaseHbmBlockEntity extends BlockEntity {
         super.invalidateCaps();
         lazyWattInternal.invalidate();
         lazyFEInternal.invalidate();
+        lazyWattExternal.invalidate();
+        lazyFEExternal.invalidate();
     }
 
     public String formatWattHoursStored() {

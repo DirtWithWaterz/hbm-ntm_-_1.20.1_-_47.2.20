@@ -66,7 +66,7 @@ public class ShredderScreen extends AbstractContainerScreen<ShredderMenu> {
             uOffset = 196;
             vOffset = 19;
         }
-        else if(durability[0] >= 0) {
+        else if(durability[0] >= 0 || durability[0] == -2) {
 
             // white
             uOffset = 196;
@@ -99,7 +99,7 @@ public class ShredderScreen extends AbstractContainerScreen<ShredderMenu> {
             uOffset = 178;
             vOffset = 19;
         }
-        else if(durability[0] >= 0) {
+        else if(durability[0] >= 0 || durability[0] == -2) {
 
             // white
             uOffset = 178;

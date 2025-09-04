@@ -277,6 +277,9 @@
   "item.hbm.technetium_sc_battery": "Self-Charging Technetium-99 Battery",
   "item.hbm.uranium_sc_battery": "Self-Charging Uranium-238 Battery",
 
+  "item.hbm.electronium_cube": "Electronium Cube",
+  "item.hbm.electronium_cube_empty": "Electronium Cube",
+
   "block.hbm.red_thorium_ore": "Red Thorium Ore",
   "block.hbm.orange_thorium_ore": "Orange Thorium Ore",
   "block.hbm.yellow_thorium_ore": "Yellow Thorium Ore",
