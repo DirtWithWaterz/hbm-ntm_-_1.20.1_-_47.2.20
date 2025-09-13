@@ -1,14 +1,21 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
-        }
-        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url "https://repo.spongepowered.org/repository/maven-public/" }
     }
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
+rootProject.name = "hbm-ntm-${minecraft_version}-${minecraft_sdk}"
+
+def substituteLocal(final directoryName, final libraryName) {
+    final def path = new File("../${directoryName}")
+    if (path.exists()) {
+        println("Found local [${directoryName}] project, substituting...")
+        includeBuild(path) {
+            dependencySubstitution {
+                substitute module(libraryName) using project(':')
+            }
+        }
+    }
 }
