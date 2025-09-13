@@ -1,0 +1,48 @@
+#file: noinspection UndefinedAction,UndefinedParamsPresent
+name: publish
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        java: [ 17 ]
+        os: [ ubuntu-22.04 ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Set release type to 'release'
+        run: |
+          echo "RELEASE_TYPE=release" >> $GITHUB_ENV
+        if: github.event.release.prerelease == false
+      - name: Set release type to 'alpha'
+        run: |
+          echo "RELEASE_TYPE=alpha" >> $GITHUB_ENV
+        if: github.event.release.prerelease == true
+
+      - uses: actions/checkout@v4
+      
+      - name: Fix Permissions
+        run: chmod +x gradlew
+      
+      - name: Publish to Curseforge & Modrinth
+        run: ./gradlew -Psemver='${{ github.event.release.tag_name }}' build
+        env:
+          # MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          # CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+          RELEASE_TYPE: ${{ env.RELEASE_TYPE }}
+          CHANGELOG: ${{ github.event.release.body }}
+
+      - name: Add Artifacts to Github Release
+        uses: alexellis/upload-assets@0.4.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          asset_paths: '["./build/libs/*.jar"]'
