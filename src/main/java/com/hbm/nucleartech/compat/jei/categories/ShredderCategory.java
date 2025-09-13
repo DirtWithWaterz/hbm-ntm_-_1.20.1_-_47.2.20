@@ -72,6 +72,19 @@ public class ShredderCategory implements IRecipeCategory<ShredderRecipe> {
         this.energyStatic = helper.createDrawable(TEXTURE, 36, 86, 16, 52);
     }
 
+    @Override
+    public String toString() {
+        return "ShredderCategory{" +
+                "background=" + background +
+                ", icon=" + icon +
+                ", helper=" + helper +
+                ", shredStatic=" + shredStatic +
+                ", energyStatic=" + energyStatic +
+                ", animatedCache=" + animatedCache +
+                ", energyCache=" + energyCache +
+                '}';
+    }
+
     // figure out why you can't get the power bar and progress bar to function on a per-recipe basis.
 
     @Override

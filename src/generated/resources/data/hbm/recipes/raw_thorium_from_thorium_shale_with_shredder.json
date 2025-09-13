@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "hbm:thorium_shale"
   },
-  "power_consumption": "13.9",
+  "power_consumption": "13.9E0",
   "results": [
     {
       "item": "hbm:raw_thorium",

@@ -77,7 +77,10 @@ public class RadiationSystemNT {
 
                                 if(e instanceof LivingEntity entity) {
 
+                                    ContaminationUtil.setEntityENV(entity, world);
+
                                     if (entity instanceof ServerPlayer player) {
+
 
                                         double receivedRadiation = ContaminationUtil.getNoNeutronPlayerRads(player)*0.00004D-(0.00004D * 20); //RadiationConfig.neutronActivationThreshold (20Rad/s default)
 
@@ -99,7 +102,7 @@ public class RadiationSystemNT {
 
                                             HbmCapabilities.getData(player).setValue(Type.NEUTRON, 0);
                                         }
-                                        if(receivedRadiation > 0.00005F) {
+                                        if(receivedRadiation > 0.0012f) {
 
 //                                            System.out.println("[Debug] Received radiation is greater than minimum value, neutron activating players inventory...");
 
@@ -415,8 +418,8 @@ public class RadiationSystemNT {
 
     private static int worldDestructionCooldown = 0;
     private static final int TICKS_PER_SECOND = 20;
-    private static final int MIN_SECONDS_BETWEEN_EVENTS = 1;
-    private static final int MAX_SECONDS_BETWEEN_EVENTS = 5;
+    private static final int MIN_SECONDS_BETWEEN_EVENTS = 0;
+    private static final int MAX_SECONDS_BETWEEN_EVENTS = 4;
 
     @SubscribeEvent
     public static void onWorldUpdate(TickEvent.LevelTickEvent event) {

@@ -67,7 +67,7 @@ public class GeigerCounterItem extends Item {
 
 //        System.out.println("[Debug] Server side");
 
-        float x = getAvgRad((LivingEntity) pEntity);
+        float x = getRad((LivingEntity) pEntity);
 
         if(pLevel.getGameTime() % 5 == 0) {
 
@@ -127,10 +127,10 @@ public class GeigerCounterItem extends Item {
         return (int)Math.ceil(RadiationSystemChunksNT.getRadForCoord(level, new BlockPos(x,y,z)));
     }
 
-    public static float getAvgRad(LivingEntity pEntity) {
+    public static float getRad(LivingEntity pEntity) {
 
-        return (HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADENV) +
-                HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADIATION)) / 2f;
+        return HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADENV)
+                + HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.NEUTRON);
     }
 
     @Override
@@ -160,6 +160,8 @@ public class GeigerCounterItem extends Item {
         public static long oldgt = 0;
         public static float radiation = 0;
 
+        public static float radPS = 0;
+
         @SubscribeEvent
         public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Post event) {
             Minecraft mc = Minecraft.getInstance();
@@ -185,7 +187,8 @@ public class GeigerCounterItem extends Item {
 
                     if(System.currentTimeMillis() >= lastRadSurvey + 1000) {
                         lastRadSurvey = System.currentTimeMillis();
-                        radiation = getAvgRad(mc.player);
+                        radPS = getRad(mc.player);
+                        radiation = HbmCapabilities.getData(mc.player).getValue(IEntityCapabilityBase.Type.RADIATION);
                     }
 
 //                    int screenWidth = mc.getWindow().getGuiScaledWidth();
@@ -218,13 +221,13 @@ public class GeigerCounterItem extends Item {
                     }
 
                     // Draw the text
-                    if (radiation > 1000) {
+                    if (radPS > 1000) {
 //                        System.out.println("[Graphics 1] gui.blit rad counter with rads: " + radiation);
                         gui.drawString(mc.font, Component.literal(">1000 RAD/s"), posX, posY - 10, 0xFF0000);
-                    } else if (radiation >= 1) {
+                    } else if (radPS >= 1) {
 //                        System.out.println("[Graphics 1] gui.blit rad counter with rads: " + radiation);
-                        gui.drawString(mc.font, Component.literal(((int) Math.round(radiation)) + " RAD/s"), posX, posY - 10, 0xFFFF00);
-                    } else if (radiation > 0) {
+                        gui.drawString(mc.font, Component.literal(((int) Math.round(radPS)) + " RAD/s"), posX, posY - 10, 0xFFFF00);
+                    } else if (radPS > 0) {
 //                        System.out.println("[Graphics 1] gui.blit rad counter with rads: " + radiation);
                         gui.drawString(mc.font, Component.literal("<1 RAD/s"), posX, posY - 10, 0x00FF00);
                     } else {

@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-15T20:40:30.6305784	Loot Tables
+// 1.20.1	2025-09-08T16:43:01.6766052	Loot Tables
 e218923cd4b8edef8dec22e7442831bec2c208c3 data/hbm/loot_tables/blocks/brown_thorium_ore.json
 a080171c2e47231cc7b7bd6bce2a72077ad764e1 data/hbm/loot_tables/blocks/burner_press.json
 2eecc087c37c45f1aafaee113ade4024039203f9 data/hbm/loot_tables/blocks/dead_grass.json
@@ -10,6 +10,7 @@ a080171c2e47231cc7b7bd6bce2a72077ad764e1 data/hbm/loot_tables/blocks/burner_pres
 9c26fcb514a95ccc01ceebf4e76e9c6631369f17 data/hbm/loot_tables/blocks/rad_resistant_block.json
 3a9811e388c50dd800162d899eed8f8d353bca33 data/hbm/loot_tables/blocks/red_thorium_ore.json
 0edab738447b3c7a948aa5685bb9cfbb003b2b0d data/hbm/loot_tables/blocks/shredder.json
+fe31ac6f465851f26c35d023eaa8304bdebde7ed data/hbm/loot_tables/blocks/tank.json
 23036813070a5ca74ca7d9a9fc0dab0bd6fdd2b9 data/hbm/loot_tables/blocks/titanium_block.json
 0f656cbb679f0488535029c34b6ba5fbd18b39cc data/hbm/loot_tables/blocks/titanium_ore.json
 89c63ff2d547933afe84617aeb488ff79584b331 data/hbm/loot_tables/blocks/uranium_block.json

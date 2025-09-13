@@ -47,6 +47,15 @@ public class PressCategory implements IRecipeCategory<PressRecipe> {
     }
 
     @Override
+    public String toString() {
+        return "PressCategory{" +
+                "background=" + background +
+                ", icon=" + icon +
+                ", stampAnim=" + stampAnim +
+                '}';
+    }
+
+    @Override
     public void draw(PressRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 
         stampAnim.draw(guiGraphics, 80-XO, 35-YO);

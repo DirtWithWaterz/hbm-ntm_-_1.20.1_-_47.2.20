@@ -58,14 +58,14 @@ public class DeconRadBlock extends HorizontalDirectionalBlock {
 
         if(pEntity instanceof LivingEntity entity) {
 
-            HbmCapabilities.getData(entity).addValue(Type.RADENV, -0.5f);
+//            HbmCapabilities.getData(entity).addValue(Type.RADENV, -0.5f);
             HbmCapabilities.getData(entity).addValue(Type.RADIATION, -0.5F);
-            HbmCapabilities.getData(entity).addValue(Type.NEUTRON, -0.5f);
+//            HbmCapabilities.getData(entity).addValue(Type.NEUTRON, -0.5f);
 
             if(entity instanceof Player player) {
 
                 ContaminationUtil.neutronActivateInventory(player, -0.5f, 1f);
-                HbmCapabilities.getData(entity).syncPlayerVariables(entity);
+                HbmCapabilities.getData(entity).syncLivingVariables(entity);
             }
 //            System.err.println("Total " + entity.getName().getString() + String.valueOf(entity.getId()) + " Rads: " + HbmCapabilities.getData(entity).getValue(Type.RADIATION));
         }

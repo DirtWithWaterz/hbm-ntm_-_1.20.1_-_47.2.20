@@ -56,7 +56,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -376,7 +376,7 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
     private void increaseSoundProgress() {
 
         soundProgress++;
-        if(soundProgress >= 120) {
+        if(soundProgress > 120) {
 
             shred = false;
             soundProgress = 0;
@@ -573,67 +573,69 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
     }
 
     private boolean hasItems() {
-        // We'll compute the maximum ticks & power across all input recipes
+
+        // ------------- constants & accumulators -------------
+        final int DEFAULT_TICKS = 120;
+        final FloatingLong DEFAULT_POWER = FloatingLong.create(1.0E0);
+
         int maxTicksFound = 0;
         FloatingLong maxPowerFound = FloatingLong.ZERO;
 
-        // iterate every input slot
+        // Quick list of non-empty input slots so we iterate consistent data twice
+        List<Integer> nonEmptyInputs = new ArrayList<>(INPUT_SLOT.length);
         for (int slot : INPUT_SLOT) {
-            ItemStack input = this.itemHandler.getStackInSlot(slot);
-            if (input.isEmpty()) continue;
+            if (!this.itemHandler.getStackInSlot(slot).isEmpty()) nonEmptyInputs.add(slot);
+        }
 
+        // ------------ PASS 1: gather maxima across all inputs ------------
+        for (int slot : nonEmptyInputs) {
+            Optional<ShredderRecipe> recipeOpt = getRecipe(slot);
+            if (recipeOpt.isPresent()) {
+                ShredderRecipe recipe = recipeOpt.get();
+                maxTicksFound = Math.max(maxTicksFound, recipe.getTicks());
+                maxPowerFound = WattHourStorage.Max(maxPowerFound, recipe.getPowerConsumption());
+            }
+        }
+
+        // ensure sane defaults (unlike me :3)
+        if (maxTicksFound == 0) maxTicksFound = DEFAULT_TICKS;
+        if (maxPowerFound.compareTo(FloatingLong.ZERO) <= 0) maxPowerFound = DEFAULT_POWER;
+
+        // ------------ PASS 2: check whether any input is shippable (fits) ------------
+        boolean foundAnyFit = false;
+        final int outSlots = OUTPUT_SLOT.length;
+
+        // Prebuild output slot state used during each per-input simulation (we rebuild per input)
+        for (int slot : nonEmptyInputs) {
+//            ItemStack input = this.itemHandler.getStackInSlot(slot);
             Optional<ShredderRecipe> recipeOpt = getRecipe(slot);
 
-            // Build the list of expected outputs for this input:
             NonNullList<Pair<Item, MetaData>> results;
             if (recipeOpt.isPresent()) {
                 results = recipeOpt.get().getResults();
-                // update global max ticks + power (based on recipe)
-                ShredderRecipe recipe = recipeOpt.get();
-                maxTicksFound = Math.max(maxTicksFound, recipe.getTicks());
-                // assume getPowerConsumption() returns energy for full operation;
-                // we'll take the largest such value and later convert to per-tick if desired.
-                maxPowerFound = WattHourStorage.Max(maxPowerFound, recipe.getPowerConsumption());
             } else {
-                // fallback to waste (100% chance, min=1, max=1)
                 results = NonNullList.withSize(1, Pair.of(RegisterItems.PLACEHOLDER.get(), new MetaData(1, 1, 100)));
             }
 
-            // Prepare the *effective* output list for this recipe:
-            // ignore entries with chance < 100 or minCount <= 0.
-            // We'll take worst-case counts (maxCount) for space checks.
-            class Wanted {
-                final Item item;
-                final int count;
-                Wanted(Item item, int count) { this.item = item; this.count = count; }
-            }
-            java.util.ArrayList<Wanted> wanted = new java.util.ArrayList<>();
+            // Build wanted list (ignore chance < 100 and minCount <= 0)
+            Map<Item, Integer> wantedCounts = new HashMap<>();
             for (Pair<Item, MetaData> r : results) {
                 MetaData md = r.right();
                 if (md == null) continue;
-                if (md.getChance() < 100) continue; // ignore chance < 100
-                if (md.getMinCount() <= 0) continue; // ignore minCount == 0
-                int want = md.getMaxCount(); // worst-case space need
+                if (md.getChance() < 100) continue;
+                if (md.getMinCount() <= 0) continue;
+                int want = md.getMaxCount();
                 if (want <= 0) continue;
-                wanted.add(new Wanted(r.left(), want));
+                wantedCounts.merge(r.left(), want, Integer::sum); // coalesce duplicates
             }
 
-            // If after filtering there are no deterministic outputs that require space,
-            // then this input is considered shippable (it produces nothing that must be
-            // reserved), so return true and still update ticks/power.
-            if (wanted.isEmpty()) {
-                // record found maxima
-                if (maxTicksFound > 0) this.maxProgress = maxTicksFound;
-                this.currentPowerConsumption = maxPowerFound;
-                return true;
+            // If nothing deterministic to reserve, input is shippable
+            if (wantedCounts.isEmpty()) {
+                foundAnyFit = true;
+                break; // we can stop early for fit test (maxima already computed)
             }
 
-            // Simulate insertion into outputs (greedy): for each output item,
-            // try to put its required count into existing same-item stacks first,
-            // then into empty slots. If all wanted items fit, we return true.
-
-            // Build arrays of current output slot item and available space
-            final int outSlots = OUTPUT_SLOT.length;
+            // Rebuild output-slot simulation state for this input
             Item[] slotItem = new Item[outSlots];
             int[] slotFree = new int[outSlots];
             for (int i = 0; i < outSlots; i++) {
@@ -641,7 +643,7 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
                 ItemStack s = this.itemHandler.getStackInSlot(outIdx);
                 if (s.isEmpty()) {
                     slotItem[i] = null;
-                    slotFree[i] = s.getMaxStackSize(); // full empty capacity
+                    slotFree[i] = 0; // empty slot; capacity depends on item to insert
                 } else {
                     slotItem[i] = s.getItem();
                     slotFree[i] = s.getMaxStackSize() - s.getCount();
@@ -649,25 +651,27 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
             }
 
             boolean allFit = true;
-            // For each wanted item, try to place it into the simulated output slots
-            for (Wanted w : wanted) {
-                int remain = w.count;
+            // Try to fit each wanted item into the simulated output slots
+            for (Map.Entry<Item, Integer> e : wantedCounts.entrySet()) {
+                Item wantItem = e.getKey();
+                int remain = e.getValue();
 
-                // 1) Merge into slots that already have the same item
+                // 1) merge into existing stacks that match (uses Item equality; if you need NBT, change this!!)
                 for (int i = 0; i < outSlots && remain > 0; i++) {
-                    if (slotItem[i] != null && slotItem[i].equals(w.item)) {
+                    if (slotItem[i] != null && slotItem[i].equals(wantItem)) {
                         int used = Math.min(slotFree[i], remain);
                         slotFree[i] -= used;
                         remain -= used;
                     }
                 }
-                // 2) Use empty slots
+
+                // 2) use empty slots — capacity is the target item's max stack size
+                int wantMax = new ItemStack(wantItem).getMaxStackSize();
                 for (int i = 0; i < outSlots && remain > 0; i++) {
                     if (slotItem[i] == null) {
-                        int used = Math.min(slotFree[i], remain);
-                        // mark this slot as now holding that item
-                        slotItem[i] = w.item;
-                        slotFree[i] -= used;
+                        int used = Math.min(wantMax, remain);
+                        slotItem[i] = wantItem;
+                        slotFree[i] = wantMax - used;
                         remain -= used;
                     }
                 }
@@ -679,19 +683,17 @@ public class ShredderEntity extends BaseHbmBlockEntity implements GeoBlockEntity
             }
 
             if (allFit) {
-                // Save the maxima we discovered across recipes
-                if (maxTicksFound > 0) this.maxProgress = maxTicksFound;
-                this.currentPowerConsumption = maxPowerFound;
-                return true;
+                foundAnyFit = true;
+                break; // stop as soon as we find one shippable input
             }
-            // else loop to next input
+            // otherwise, continue to next input
         }
 
-        // if none matched, set max ticks/power from those we found (even if no space)
-        if (maxTicksFound > 0) this.maxProgress = maxTicksFound;
+        // finally, store maxima computed in pass 1 and return whether any fit
+        this.maxProgress = maxTicksFound;
         this.currentPowerConsumption = maxPowerFound;
 
-        return false;
+        return foundAnyFit;
     }
 
     private Optional<ShredderRecipe> getRecipe(int slot) {

@@ -1,12 +1,13 @@
 package com.hbm.nucleartech.capability.entity;
 
 import com.hbm.nucleartech.HBM;
-import com.hbm.nucleartech.capability.HbmCapabilities.PlayerCapabilitiesSyncMessage;
+import com.hbm.nucleartech.capability.HbmCapabilities.LivingCapabilitiesSyncMessage;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -35,10 +36,10 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
     private int balefire = 0;
     private List<ContaminationEffect> contamination = new ArrayList<>();
 
-    public void syncPlayerVariables(Entity entity) {
+    public void syncLivingVariables(Entity entity) {
 
         if(entity instanceof ServerPlayer serverPlayer)
-            HBM.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerCapabilitiesSyncMessage(this));
+            HBM.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new LivingCapabilitiesSyncMessage(this));
     }
 
     @Override

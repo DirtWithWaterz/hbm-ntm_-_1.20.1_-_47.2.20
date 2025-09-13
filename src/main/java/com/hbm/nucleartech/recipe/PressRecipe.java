@@ -40,6 +40,15 @@ public class PressRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public String toString() {
+        return "PressRecipe{" +
+                "ingredients=" + ingredients +
+                ", result=" + result +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
     public @NotNull ItemStack assemble(@NotNull SimpleContainer pContainer, @NotNull RegistryAccess pRegistryAccess) {
         return result.copy();
     }

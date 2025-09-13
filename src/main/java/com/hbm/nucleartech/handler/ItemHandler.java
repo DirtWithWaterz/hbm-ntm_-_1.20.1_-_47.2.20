@@ -183,7 +183,7 @@ public class ItemHandler {
                     if(neutronRads == 0)
                         continue;
 
-                    ContaminationUtil.radiate((ServerLevel) level, i.getOnPos().getX()+0.5, i.getOnPos().getY()+1, i.getOnPos().getZ()+0.5, 5, neutronRads);
+                    ContaminationUtil.radiate((ServerLevel) level, i.getOnPos().getX()+0.5, i.getOnPos().getY()+1, i.getOnPos().getZ()+0.5, 5, (float)(neutronRads*0.00004D-(0.00004D*20)));
                 }
             }
         }

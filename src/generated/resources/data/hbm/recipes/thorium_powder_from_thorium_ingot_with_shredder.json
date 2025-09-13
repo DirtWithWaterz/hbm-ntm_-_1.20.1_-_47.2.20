@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "hbm:thorium_ingot"
   },
-  "power_consumption": "20.83",
+  "power_consumption": "20.83E0",
   "results": [
     {
       "item": "hbm:thorium_powder",

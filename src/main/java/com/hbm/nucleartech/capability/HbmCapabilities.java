@@ -40,10 +40,10 @@ public class HbmCapabilities {
     public static void init(FMLCommonSetupEvent event) {
 
         HBM.addNetworkMessage(
-                PlayerCapabilitiesSyncMessage.class,
-                PlayerCapabilitiesSyncMessage::buffer,
-                PlayerCapabilitiesSyncMessage::new,
-                PlayerCapabilitiesSyncMessage::handler
+                LivingCapabilitiesSyncMessage.class,
+                LivingCapabilitiesSyncMessage::buffer,
+                LivingCapabilitiesSyncMessage::new,
+                LivingCapabilitiesSyncMessage::handler
         );
     }
 
@@ -60,19 +60,19 @@ public class HbmCapabilities {
         public static void onPlayerLoggedInSyncPlayerCapability(PlayerEvent.PlayerLoggedInEvent event) {
 
             if(!event.getEntity().level().isClientSide())
-                ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncPlayerVariables(event.getEntity());
+                ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncLivingVariables(event.getEntity());
         }
 
         @SubscribeEvent
         public static void onPlayerRespawnedSyncPlayerCapability(PlayerEvent.PlayerRespawnEvent event) {
             if (!event.getEntity().level().isClientSide())
-                ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncPlayerVariables(event.getEntity());
+                ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncLivingVariables(event.getEntity());
         }
 
         @SubscribeEvent
         public static void onPlayerChangedDimensionSyncPlayerCapability(PlayerEvent.PlayerChangedDimensionEvent event) {
             if (!event.getEntity().level().isClientSide())
-                ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncPlayerVariables(event.getEntity());
+                ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncLivingVariables(event.getEntity());
         }
 
         @SubscribeEvent
@@ -164,27 +164,27 @@ public class HbmCapabilities {
         }
     }
 
-    public static class PlayerCapabilitiesSyncMessage {
+    public static class LivingCapabilitiesSyncMessage {
 
         private final LivingEntityCapability data;
 
-        public PlayerCapabilitiesSyncMessage(FriendlyByteBuf buffer) {
+        public LivingCapabilitiesSyncMessage(FriendlyByteBuf buffer) {
 
             this.data = new LivingEntityCapability();
             this.data.readNBT(buffer.readNbt());
         }
 
-        public PlayerCapabilitiesSyncMessage(LivingEntityCapability data) {
+        public LivingCapabilitiesSyncMessage(LivingEntityCapability data) {
 
             this.data = data;
         }
 
-        public static void buffer(PlayerCapabilitiesSyncMessage message, FriendlyByteBuf buffer) {
+        public static void buffer(LivingCapabilitiesSyncMessage message, FriendlyByteBuf buffer) {
 
             buffer.writeNbt(message.data.writeNBT());
         }
 
-        public static void handler(PlayerCapabilitiesSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+        public static void handler(LivingCapabilitiesSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 
             NetworkEvent.Context context = contextSupplier.get();
 

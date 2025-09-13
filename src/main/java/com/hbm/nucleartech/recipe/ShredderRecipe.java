@@ -46,6 +46,17 @@ public class ShredderRecipe implements Recipe<SimpleContainer> {
         return ingredient.test(pContainer.getItem(0));
     }
 
+    @Override
+    public String toString() {
+        return "ShredderRecipe{" +
+                "ingredient=" + ingredient +
+                ", results=" + results +
+                ", ticks=" + ticks +
+                ", powerConsumption=" + powerConsumption +
+                ", id=" + id +
+                '}';
+    }
+
     /**
      * For "crafting table" logic. Here we just return the first output.
      */

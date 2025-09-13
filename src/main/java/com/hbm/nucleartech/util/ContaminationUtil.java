@@ -9,6 +9,7 @@ import com.hbm.nucleartech.hazard.HazardItem;
 import com.hbm.nucleartech.hazard.HazardSystem;
 import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
 import com.hbm.nucleartech.capability.HbmCapabilities;
+import com.hbm.nucleartech.interfaces.IItemHazard;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
 import com.hbm.nucleartech.lib.Library;
 import com.hbm.nucleartech.modules.ItemHazardModule;
@@ -19,6 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Ocelot;
@@ -38,6 +40,8 @@ import net.minecraft.world.phys.Vec2;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.hbm.nucleartech.handler.RadiationSystemChunksNT.getPocket;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class ContaminationUtil {
@@ -116,13 +120,15 @@ public class ContaminationUtil {
 //                    System.out.println("[Debug] Found a rad resistant block in-between " + e.getName().getString() + " and " + pLevel.getBlockState(new BlockPos((int)x, (int)y-1, (int)z)).getBlock().getName().getString() + "; Shielding entity from radiation");
                     radResistantBlocks.add(new Vec2(((RadResistantBlock)radBlock).μ, ((RadResistantBlock)radBlock).thickness));
                 }
-
-                res += block.getExplosionResistance();
+                else
+                    res += block.getExplosionResistance();
             }
             boolean isLiving = e instanceof LivingEntity;
 
             if(res < 1)
                 res = 1;
+
+            RadiationSavedData.incrementRad(pLevel, vec.addVector(0,1,0).toBlockPos(), rad3d, rad3d * 10f);
 
             if(isLiving && rad3d > 0) {
 
@@ -210,18 +216,30 @@ public class ContaminationUtil {
         return false;
     }
 
+    public static void setEntityENV(LivingEntity entity, Level level) {
 
+        double env = 0;
+
+        if(entity instanceof ServerPlayer player) {
+
+            for(ItemStack stack : player.getInventory().items) {
+
+                if(stack.getItem() instanceof IItemHazard hazardItem) {
+
+                    if(hazardItem.getModule().isRadioactive())
+                        env = env + hazardItem.getModule().radiation * (double)stack.getCount();
+                }
+            }
+        }
+        RadiationSystemChunksNT.RadPocket ePoc = getPocket(level, entity.getOnPos().offset(0, 1, 0));
+
+        env = env + (double)ePoc.radiation;
+
+        HbmCapabilities.getData(entity).setValue(Type.RADENV, (float)env);
+        HbmCapabilities.getData(entity).syncLivingVariables(entity);
+    }
 
     public static boolean contaminate(LivingEntity entity, HazardType hazard, ContaminationType cont, float amount) {
-
-//        System.out.println("checking for hazard type == radation?");
-        if(hazard == HazardType.RADIATION) {
-
-//            System.out.println("true. adding " + amount + " to " + entity.getName().getString() + "'s Rad Env.");
-            HbmCapabilities.getData(entity).addValue(Type.RADENV, amount);
-            if(entity instanceof Player)
-                HbmCapabilities.getData(entity).syncPlayerVariables(entity);
-        }
 
 //        System.out.println("is " + entity.getName().getString() + " a player?");
         if(entity instanceof Player player) {
@@ -263,7 +281,7 @@ public class ContaminationUtil {
 //                System.out.println("radiation. adding " + amount + " rads to " + entity.getName().getString());
                 HbmCapabilities.getData(entity).addValue(Type.RADIATION, amount);
                 if(entity instanceof Player)
-                    HbmCapabilities.getData(entity).syncPlayerVariables(entity);
+                    HbmCapabilities.getData(entity).syncLivingVariables(entity);
                 return true;
 
             case NEUTRON:
@@ -278,9 +296,9 @@ public class ContaminationUtil {
                 }
 
                 HbmCapabilities.getData(entity).addValue(Type.RADIATION, amount);
-                HbmCapabilities.getData(entity).setValue(Type.NEUTRON, amount);
+//                HbmCapabilities.getData(entity).setValue(Type.NEUTRON, amount);
                 if(entity instanceof Player)
-                    HbmCapabilities.getData(entity).syncPlayerVariables(entity);
+                    HbmCapabilities.getData(entity).syncLivingVariables(entity);
                 return true;
 
             default:
@@ -308,28 +326,30 @@ public class ContaminationUtil {
 
         Level level = player.level();
 
-        double eRad = (double)((int)(HbmCapabilities.getData(player).getValue(Type.RADIATION) * 10)) / 10D;
+        double playerContamination = (double)((HbmCapabilities.getData(player).getValue(Type.RADIATION) * 10)) / 10D;
 
-        double rads = (double)((int)RadiationSystemChunksNT.getRadForCoord(level, player.getOnPos().offset(0,1,0)) * 10) / 10D;
-        double env = (double)((int)HbmCapabilities.getData(player).getValue(Type.RADENV) * 10) / 10D;
+        double chunkRads = (double)(RadiationSystemChunksNT.getRadForCoord(level, player.getOnPos().offset(0,1,0)) * 10) / 10D;
+        double environmentalRads = (double)(HbmCapabilities.getData(player).getValue(Type.RADENV) * 10) / 10D;
+
+        double neutronRads = (double)(HbmCapabilities.getData(player).getValue(Type.NEUTRON) * 10) / 10D;
 
         double res = ((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D;
         double resKoeff = ((int)(HazmatRegistry.getResistance(player) * 100D)) / 100D;
 
-        String chunkPrefix = getPrefixFromRad(rads);
-        String envPrefix = getPrefixFromRad(env);
+        String chunkPrefix = getPrefixFromRad(chunkRads);
+        String envPrefix = getPrefixFromRad(environmentalRads);
         String radPrefix = "";
         String resPrefix = "" + ChatFormatting.WHITE;
 
-        if(eRad < 200)
+        if(playerContamination < 200)
             radPrefix += ChatFormatting.GREEN;
-        else if(eRad < 400)
+        else if(playerContamination < 400)
             radPrefix += ChatFormatting.YELLOW;
-        else if(eRad < 600)
+        else if(playerContamination < 600)
             radPrefix += ChatFormatting.GOLD;
-        else if(eRad < 800)
+        else if(playerContamination < 800)
             radPrefix += ChatFormatting.RED;
-        else if(eRad < 1000)
+        else if(playerContamination < 1000)
             radPrefix += ChatFormatting.DARK_RED;
         else
             radPrefix += ChatFormatting.DARK_GRAY;
@@ -338,9 +358,9 @@ public class ContaminationUtil {
             resPrefix += ChatFormatting.GREEN;
 
         player.sendSystemMessage(Component.literal("===== ☢ ").append(Component.translatable("geiger.title")).append(Component.literal(" ☢ =====")).withStyle(ChatFormatting.GOLD));
-        player.sendSystemMessage(Component.translatable("geiger.chunk_rad").append(Component.literal(" " + chunkPrefix + rads + " RAD/s")).withStyle(ChatFormatting.YELLOW));
-        player.sendSystemMessage(Component.translatable("geiger.env_rad").append(Component.literal(" " + envPrefix + env + " RAD/s")).withStyle(ChatFormatting.YELLOW));
-        player.sendSystemMessage(Component.translatable("geiger.player_rad").append(Component.literal(" " + radPrefix + eRad + " RAD")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.chunk_rad").append(Component.literal(" " + chunkPrefix + String.format("%.1f", chunkRads) + " RAD/s")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.env_rad").append(Component.literal(" " + envPrefix + String.format("%.1f", environmentalRads + neutronRads) + " RAD/s")).withStyle(ChatFormatting.YELLOW));
+        player.sendSystemMessage(Component.translatable("geiger.player_rad").append(Component.literal(" " + radPrefix + String.format("%.1f", playerContamination) + " RAD")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.player_res").append(Component.literal(" " + resPrefix + res + "% (" + resKoeff + ")")).withStyle(ChatFormatting.YELLOW));
     }
 
@@ -367,6 +387,8 @@ public class ContaminationUtil {
         for(ItemStack slotA : player.getInventory().armor){
             radBuffer = radBuffer + getNeutronRads(slotA);
         }
+        HbmCapabilities.getData(player).setValue(Type.NEUTRON, radBuffer);
+        HbmCapabilities.getData(player).syncLivingVariables(player);
         return radBuffer;
     }
 
