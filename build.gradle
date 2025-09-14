@@ -20,12 +20,8 @@ plugins {
 //    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
 }
 
-version = mod_version
-group = mod_group_id
-
-base {
-    archivesName = mod_id
-}
+version = System.getenv('RELEASE_TYPE') == "release" ? "${semver}" : "${semver}"
+group = "com.hbm.nucleartech"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -48,22 +44,22 @@ minecraft {
         }
 
         client {
-            property 'forge.enabledGameTestNamespaces', mod_id
+            property 'forge.enabledGameTestNamespaces', "hbm"
         }
 
         server {
-            property 'forge.enabledGameTestNamespaces', mod_id
+            property 'forge.enabledGameTestNamespaces', "hbm"
             args '--nogui'
         }
 
         gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
+            property 'forge.enabledGameTestNamespaces', "hbm"
         }
 
         data {
             workingDirectory project.file('run-data')
 
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', "hbm", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
     }
 }
@@ -101,21 +97,6 @@ dependencies {
     compileOnly fg.deobf("maven.modrinth:mekanism:${mekanism_version}")
     runtimeOnly fg.deobf("maven.modrinth:mekanism:${mekanism_version}")
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
-}
-
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
-            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors: mod_authors, mod_description: mod_description,
-    ]
-    inputs.properties replaceProperties
-
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
-    }
 }
 
 test {
@@ -167,7 +148,7 @@ curseforge {
         addGameVersion getCurseforgeSDKValue(minecraft_sdk)
         addGameVersion minecraft_version
         addGameVersion "Java 17"
-        mainArtifact "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}-all.jar"
+        mainArtifact "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}.jar"
         relations {
 //            requiredDependency "architectury-api"
 //            requiredDependency "markdownmanual"
@@ -182,7 +163,7 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_project_id
     versionType = System.getenv('RELEASE_TYPE') ?: "alpha"
-    uploadFile = "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}-all.jar"
+    uploadFile = "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}.jar"
     gameVersions = [minecraft_version]
     loaders = [minecraft_sdk]
     changelog = System.getenv("CHANGELOG") ?: "Changelog not available."

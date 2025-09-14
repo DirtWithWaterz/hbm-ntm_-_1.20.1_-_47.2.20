@@ -33,10 +33,10 @@ jobs:
         run: chmod +x gradlew
       
       - name: Publish to Curseforge & Modrinth
-        run: ./gradlew -Psemver='${{ github.event.release.tag_name }}' build
+        run: ./gradlew -Psemver='${{ github.event.release.tag_name }}' publish
         env:
-          # MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-          # CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
           RELEASE_TYPE: ${{ env.RELEASE_TYPE }}
           CHANGELOG: ${{ github.event.release.body }}
 
