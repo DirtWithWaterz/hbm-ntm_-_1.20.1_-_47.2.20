@@ -167,7 +167,7 @@ curseforge {
         addGameVersion getCurseforgeSDKValue(minecraft_sdk)
         addGameVersion minecraft_version
         addGameVersion "Java 17"
-        mainArtifact "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}.jar"
+        mainArtifact "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}-all.jar"
         relations {
 //            requiredDependency "architectury-api"
 //            requiredDependency "markdownmanual"
@@ -182,7 +182,7 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = modrinth_project_id
     versionType = System.getenv('RELEASE_TYPE') ?: "alpha"
-    uploadFile = "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}.jar"
+    uploadFile = "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}-all.jar"
     gameVersions = [minecraft_version]
     loaders = [minecraft_sdk]
     changelog = System.getenv("CHANGELOG") ?: "Changelog not available."
