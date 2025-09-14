@@ -142,8 +142,8 @@ tasks.named('publish').configure {
 }
 
 publish {
-//    dependsOn(tasks.modrinth)
-//    dependsOn(tasks.curseforge)
+    dependsOn(tasks.modrinth)
+    dependsOn(tasks.curseforge)
 }
 
 static def getCurseforgeSDKValue(minecraft_sdk) {
@@ -156,40 +156,44 @@ static def getCurseforgeSDKValue(minecraft_sdk) {
     }
 }
 
-//curseforge {
-//    apiKey = System.getenv("CURSEFORGE_API_KEY") ?: ""
-//
-//    project {
-//        id = curse_project_id
-//        releaseType = System.getenv('RELEASE_TYPE') ?: "alpha"
-//        changelogType = 'markdown'
-//        changelog = System.getenv("CHANGELOG") ?: "Changelog not available."
-//        addGameVersion getCurseforgeSDKValue(minecraft_sdk)
-//        addGameVersion minecraft_version
-//        addGameVersion "Java 17"
-//        mainArtifact "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}-all.jar"
-//        relations {
-////            requiredDependency "architectury-api"
-////            requiredDependency "markdownmanual"
-////            requiredDependency "oc2r"
-//        }
-//    }
-//}
-//
-//modrinth {
-//    token = System.getenv("MODRINTH_TOKEN")
-//    projectId = modrinth_project_id
-//    versionType = System.getenv('RELEASE_TYPE') ?: "alpha"
-//    uploadFile = "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}-all.jar"
-//    gameVersions = [minecraft_version]
-//    loaders = [minecraft_sdk]
-//    changelog = System.getenv("CHANGELOG") ?: "Changelog not available."
-//    dependencies {
-////        required.project "architectury-api"
-////        required.project "markdownmanual"
-////        required.project "oc2r"
-//    }
-//}
+curseforge {
+    apiKey = System.getenv("CURSEFORGE_API_KEY") ?: ""
+
+    project {
+        id = curse_project_id
+        releaseType = System.getenv('RELEASE_TYPE') ?: "alpha"
+        changelogType = 'markdown'
+        changelog = System.getenv("CHANGELOG") ?: "Changelog not available."
+        addGameVersion getCurseforgeSDKValue(minecraft_sdk)
+        addGameVersion minecraft_version
+        addGameVersion "Java 17"
+        mainArtifact "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}.jar"
+        relations {
+//            requiredDependency "architectury-api"
+//            requiredDependency "markdownmanual"
+//            requiredDependency "oc2r"
+            requiredDependency "geckolib"
+            optionalDependency "jei"
+        }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinth_project_id
+    versionType = System.getenv('RELEASE_TYPE') ?: "alpha"
+    uploadFile = "build/libs/hbm-ntm-${minecraft_version}-${minecraft_sdk}-${version}.jar"
+    gameVersions = [minecraft_version]
+    loaders = [minecraft_sdk]
+    changelog = System.getenv("CHANGELOG") ?: "Changelog not available."
+    dependencies {
+//        required.project "architectury-api"
+//        required.project "markdownmanual"
+//        required.project "oc2r"
+        required.project "geckolib"
+        optional.project "jei"
+    }
+}
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
