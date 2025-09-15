@@ -4,7 +4,7 @@ license="GNU General Public License V3.0"
 
 [[mods]] #mandatory
 modId="hbm" #mandatory
-version="${file.jarVersion}" #mandatory
+version="1.8.21-alpha" #mandatory
 displayName="HBM's Nuclear Tech - Rewrite Edition" #mandatory
 authors="Mudz, TheRealM18, Alcater, Drillgon200, TheOriginalGolem, HBMMods/The Bobcat" #optional
 description='''
