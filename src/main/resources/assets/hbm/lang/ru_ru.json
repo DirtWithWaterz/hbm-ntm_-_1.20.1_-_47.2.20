@@ -1,5 +1,5 @@
 {
-  "trait.radioactive": "Радиоактиный",
+ "trait.radioactive": "Радиоактивный",
   "trait.rad_resistance": "Защита от радиации: %s",
 
   "desc.na": "Н/Д",
@@ -23,7 +23,7 @@
   "hazard.radGas": "Радиоактивных газов",
   "hazard.sand": "Раздражителей глаз",
 
-  "desc.applicable": "Применимо к:",
+   "desc.applicable": "Применимо к:",
   "desc.applicableall": "Всему",
   "desc.applicableb": "Ботинкам",
   "desc.applicableb1": "Ботинкам",
@@ -117,34 +117,35 @@
   "death.attack.physical.player": "%1$s словил шальную пулю от %2$s",
 
   "creativetab.resources_and_parts": "NTM Ресурсы и запчасти",
+  "creativetab.machine_items_and_fuel": "NTM оборудование и топливо",
   "creativetab.ntm_blocks": "NTM Блоки",
   "creativetab.ntm_machines": "NTM Механизмы",
 
-  "item.hbm.uranium_ingot": "Слиток урана",
-  "item.hbm.beryllium_ingot": "Слиток бериллия",
-  "item.hbm.titanium_ingot": "Слиток титана",
+  "item.hbm.uranium_ingot": "Урановый слиток",
+  "item.hbm.beryllium_ingot": "Бериллиевый слиток",
+  "item.hbm.titanium_ingot": "Титановый слиток",
 
-  "item.hbm.raw_uranium": "Сырой уран",
-  "item.hbm.raw_titanium": "Сырой титан",
+  "item.hbm.raw_uranium": "Природный уран",
+  "item.hbm.raw_titanium": "Титановая руда",
 
   "item.hbm.uranium_powder": "Урановый порошок",
-  "item.hbm.uranium_nugget": "Самородок урана",
-  "item.hbm.uranium_crystal": "Кристализированный уран",
-  "item.hbm.uranium_billet": "Пеллета урана",
+  "item.hbm.uranium_nugget": "Урановый самородок",
+  "item.hbm.uranium_crystal": "Кристаллизованый уран",
+  "item.hbm.uranium_billet": "Урановая пеллета",
   "item.hbm.uranium_pile_rod": "Урановый стержень чикагской поленницы",
 
   "item.hbm.iron_plate": "Железная пластина",
 
-  "item.hbm.reacher": "Вольфрамовые щипцы",
+  "item.hbm.reacher": "Вольфрамовые держалки",
 
   "item.hbm.geiger_counter": "Ручной счётчик гейгера",
 
   "item.hbm.gas_mask_filter": "Фильтр противогаза",
   "item.hbm.gas_mask_filter_combo": "Комбинированный фильтр противогаза",
   "item.hbm.gas_mask_filter_mono": "Каталитический фильтр противогаза",
-  "item.hbm.gas_mask_filter_piss": "Улучшенный самодельный фильтр для противогаза",
-  "item.hbm.gas_mask_filter_radon": "Омега-фильтр для противогаза",
-  "item.hbm.gas_mask_filter_rag": "Самодельный фильтр для противогаза",
+  "item.hbm.gas_mask_filter_piss": "Продвинутый самодельный фильтр противогаза",
+  "item.hbm.gas_mask_filter_radon": "Омега фильтр противогаза",
+  "item.hbm.gas_mask_filter_rag": "Самодельный фильтр противогаза",
 
   "item.hbm.m65_mask": "Противогаз M65-Z",
 
@@ -169,22 +170,128 @@
   "geiger.player_res": "Защита игрока от радиации:",
   "geiger.title": "СЧЁТЧИК ГЕЙГЕРА",
 
-  "block.hbm.waste_block": "Блок ядерных отходов",
-  "block.hbm.uranium_block": "Блок урана",
-  "block.hbm.titanium_block": "Блок титана",
+  "block.hbm.waste_block": "Блок ядерный отходов",
+  "block.hbm.uranium_block": "Урановый блок",
+  "block.hbm.titanium_block": "Титановый блок",
 
   "block.hbm.uranium_ore": "Урановая руда",
-  "block.hbm.deepslate_uranium_ore": "Глубинная урановая руда",
+  "block.hbm.deepslate_uranium_ore": "Глубинносланцевая урановая руда",
 
   "block.hbm.titanium_ore": "Титановая руда",
-  "block.hbm.deepslate_titanium_ore": "Глубинная титановая руда",
+  "block.hbm.deepslate_titanium_ore": "Глубинносланцевая титановая руда",
 
-  "block.hbm.radiation_decontaminator": "Обеззораживатель",
+  "block.hbm.radiation_decontaminator": "обеззараживатель",
 
   "block.hbm.press": "Пресс",
-  "block.hbm.burner_press": "Паровой пресс",
+  "block.hbm.burner_press": "Твердотопливный пресс",
 
-  "item.hbm.iron_plate_stamp": "Железный штамп пластины",
+  "item.hbm.thorium_shale": "Ториевый сланец",
+  "item.hbm.thorium_ingot": "Ториевый слиток",
+  "item.hbm.thorium_powder": "Ториевый порошок",
+  "item.hbm.raw_thorium": "Ториевая руда",
+
+  "item.hbm.aluminum_blade": "Алюминиевое лезвие",
+  "item.hbm.gold_blade": "Золотое лезвие",
+  "item.hbm.iron_blade": "Железное лезвие",
+  "item.hbm.steel_blade": "Стальное лезвие",
+  "item.hbm.titanium_blade": "Титановое лезвие",
+  "item.hbm.advanced_blade": "Усовершенствованное лезвие",
+  "item.hbm.cmb_blade": "Лезвие из СМВ стали",
+  "item.hbm.schrabidium_blade": "Шрабидиевое лезвие",
+  "item.hbm.desh_blade": "Деш лезвие",
+
+  "item.hbm.schrabidium_4_cell": "Счетверённая Шрабидиевая Энергоячейка",
+  "item.hbm.schrabidium_2_cell": "Сдвоенная Шрабидиевая Энергоячейка",
+  "item.hbm.schrabidium_cell": "Шрабидиевая Энергоячейка",
+  "item.hbm.schrabidium_4_cell_empty": "Счетверённая Шрабидиевая Энергоячейка",
+  "item.hbm.schrabidium_2_cell_empty": "Сдвоенная Шрабидиевая Энергоячейка",
+  "item.hbm.schrabidium_cell_empty": "Шрабидиевая Энергоячейка",
+
+  "item.hbm.lithium_6_cell": "Шестерённая Литиево-Ионная Энергоячейка",
+  "item.hbm.lithium_3_cell": "Тройная Литиево-Ионная Энергоячейка",
+  "item.hbm.lithium_cell": "Литиево-Ионная Энергоячейка",
+  "item.hbm.lithium_6_cell_empty": "Шестерённая Литиево-Ионная Энергоячейка",
+  "item.hbm.lithium_3_cell_empty": "Тройная Литиево-Ионная Энергоячейка",
+  "item.hbm.lithium_cell_empty": "Литиево-Ионная Энергоячейка",
+
+  "item.hbm.advanced_12_cell": "Двенадцатерённая Продвинутая Энергоячейка",
+  "item.hbm.advanced_4_cell": "Счетверённая Продвинутая Энергоячейка",
+  "item.hbm.advanced_cell": "Продвинутая Энергоячейка",
+  "item.hbm.advanced_12_cell_empty": "Двенадцатерённая Продвинутая Энергоячейка",
+  "item.hbm.advanced_4_cell_empty": "Счетверённая Продвинутая Энергоячейка",
+  "item.hbm.advanced_cell_empty": "Advanced Продвинутая Энергоячейка",
+
+  "item.hbm.redstone_24_cell": "Двенадцатерённая Редстоуновая Ячейка",
+  "item.hbm.redstone_6_cell": "Шестерённая Редстоуновая Ячейка",
+  "item.hbm.redstone_cell": "Редстоуновая Ячейка",
+  "item.hbm.redstone_24_cell_empty": "Двенадцатерённая Редстоуновая Ячейка",
+  "item.hbm.redstone_6_cell_empty": "Шестерённая Редстоуновая Ячейка",
+  "item.hbm.redstone_cell_empty": "Редстоуновая Ячейка",
+
+  "item.hbm.spark_battery": "Спарк Батарея",
+  "item.hbm.spark_car_battery": "Спарк автомобильный Аккумулятор",
+  "item.hbm.spark_6_cell": "Спарк Энергоячейка",
+  "item.hbm.spark_100_cell": "Спарк-Магический массив хранения энергии",
+  "item.hbm.spark_1000_cell": "Спарк-Магическая масс-энергетическая пустота",
+  "item.hbm.spark_2500_cell": "Спарк-Магическое море Дирака",
+  "item.hbm.spark_10000_cell": "Устойчивый пространственно-временной спарк-кристалл",
+  "item.hbm.spark_power_cell": "Абсурдный физический спарк-блок накопления энергии",
+  "item.hbm.spark_battery_empty": "Спарк Батарея",
+  "item.hbm.spark_car_battery_empty": "Спарк автомобильный Аккумулятор",
+  "item.hbm.spark_6_cell_empty": "Спарк Энергоячейка",
+  "item.hbm.spark_100_cell_empty": "Спарк-Магический массив хранения энергии",
+  "item.hbm.spark_1000_cell_empty": "Спарк-Магическая масс-энергетическая пустота",
+  "item.hbm.spark_2500_cell_empty": "Спарк-Магическое море Дирака",
+  "item.hbm.spark_10000_cell_empty": "Устойчивый пространственно-временной спарк-кристалл",
+  "item.hbm.spark_power_cell_empty": "Абсурдный физический спарк-блок накопления энергии",
+
+  "item.hbm.trixite_battery": "Безымянная спарк-батарея",
+  "item.hbm.trixite_battery_empty": "Безымянная спарк-батарея",
+
+  "item.hbm.infinite_fusion_core": "Бесконечный ядерный блок",
+  "item.hbm.makeshift_energy_core": "§eСамодельный ядерный блок",
+  "item.hbm.potato_battery": "Картофельная батарейка",
+  "item.hbm.potatos_battery": "КартошкОС",
+  "item.hbm.generic_battery": "Батарейка",
+  "item.hbm.advanced_battery": "Продвинутая батарейка",
+  "item.hbm.lithium_battery": "Литиевая энергоячейка",
+  "item.hbm.creative_battery": "Бесконечная батарейка",
+  "item.hbm.schrabidium_battery": "§bШрабидиевая батарейка",
+  "item.hbm.electronium_battery": "Электрониевая батарейка",
+  "item.hbm.infinite_fusion_core_empty": "Бесконечный ядерный блок",
+  "item.hbm.makeshift_energy_core_empty": "§eСамодельный ядерный блок",
+  "item.hbm.potato_battery_empty": "Картофельная батарейка",
+  "item.hbm.potatos_battery_empty": "КартошкОС",
+  "item.hbm.generic_battery_empty": "Батарейка",
+  "item.hbm.advanced_battery_empty": "Продвинутая батарейка",
+  "item.hbm.lithium_battery_empty": "Литиевая батарейка",
+  "item.hbm.creative_battery_empty": "Бесконечная батарейка",
+  "item.hbm.schrabidium_battery_empty": "§bШрабидиевая батарейка",
+  "item.hbm.electronium_battery_empty": "Электрониевая батарейка",
+
+  "item.hbm.americium_sc_battery": "Самозарядающая Батарейка с Америцием-241",
+  "item.hbm.gold_sc_battery": "Самозарядающая Батарейка с Золотом-198",
+  "item.hbm.lead_sc_battery": "Самозарядающая Батарейка с Свинцом-209",
+  "item.hbm.plutonium_sc_battery": "Самозарядающая Батарейка с Плутонием-238",
+  "item.hbm.polonium_sc_battery": "Самозарядающая Батарейка с Полонием-210",
+  "item.hbm.technetium_sc_battery": "Самозарядающая Батарейка с Технецием-99",
+  "item.hbm.uranium_sc_battery": "Самозарядающая Батарейка с Ураном-238",
+
+  "item.hbm.electronium_cube": "Куб электрония",
+  "item.hbm.electronium_cube_empty": "Куб Электрония",
+
+  "block.hbm.red_thorium_ore": "Красная Ториевая Туда",
+  "block.hbm.orange_thorium_ore": "Оранжевая Ториевая Руда",
+  "block.hbm.yellow_thorium_ore": "Жёлтая Ториевая Руда",
+  "block.hbm.white_thorium_ore": "Белая Ториевая Руда",
+  "block.hbm.light_gray_thorium_ore": "Светло-Серая Ториевая Руда",
+  "block.hbm.brown_thorium_ore": "Коричневая Ториевая Руда",
+
+  "block.hbm.shredder": "Измельчитель",
+
+  "ui.hbm.power_draw": "Потребление Энергии: %s",
+
+  "item.hbm.iron_plate_stamp": "Железный Штамп Пластины",
 
   "block.hbm.dead_grass": "Мёртвая трава"
 }
