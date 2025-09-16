@@ -160,7 +160,7 @@
   "item.hbm.hazmat_boots_red": "Продвинутые антирадиационные ботинки",
 
   "item.hbm.hazmat_helmet_grey": "Высокоэффективный антирадиационный шлем",
-  "item.hbm.hazmat_chestplate_grey": "Высокоэффективный антирадиационный шлем",
+  "item.hbm.hazmat_chestplate_grey": "Высокоэффективный антирадиационный нагрудник",
   "item.hbm.hazmat_leggings_grey": "Высокоэффективные антирадиационные поножи",
   "item.hbm.hazmat_boots_grey": "Высокоэффективные антирадиационные ботинки",
 
@@ -180,7 +180,7 @@
   "block.hbm.titanium_ore": "Титановая руда",
   "block.hbm.deepslate_titanium_ore": "Глубинносланцевая титановая руда",
 
-  "block.hbm.radiation_decontaminator": "обеззараживатель",
+  "block.hbm.radiation_decontaminator": "Дезактиватор",
 
   "block.hbm.press": "Пресс",
   "block.hbm.burner_press": "Твердотопливный пресс",
@@ -269,13 +269,13 @@
   "item.hbm.schrabidium_battery_empty": "§bШрабидиевая батарейка",
   "item.hbm.electronium_battery_empty": "Электрониевая батарейка",
 
-  "item.hbm.americium_sc_battery": "Самозарядающая Батарейка с Америцием-241",
-  "item.hbm.gold_sc_battery": "Самозарядающая Батарейка с Золотом-198",
-  "item.hbm.lead_sc_battery": "Самозарядающая Батарейка с Свинцом-209",
-  "item.hbm.plutonium_sc_battery": "Самозарядающая Батарейка с Плутонием-238",
-  "item.hbm.polonium_sc_battery": "Самозарядающая Батарейка с Полонием-210",
-  "item.hbm.technetium_sc_battery": "Самозарядающая Батарейка с Технецием-99",
-  "item.hbm.uranium_sc_battery": "Самозарядающая Батарейка с Ураном-238",
+  "item.hbm.americium_sc_battery": "Самозарядная Батарейка с Америцием-241",
+  "item.hbm.gold_sc_battery": "Самозарядная Батарейка с Золотом-198",
+  "item.hbm.lead_sc_battery": "Самозарядная Батарейка с Свинцом-209",
+  "item.hbm.plutonium_sc_battery": "Самозарядная Батарейка с Плутонием-238",
+  "item.hbm.polonium_sc_battery": "Самозарядная Батарейка с Полонием-210",
+  "item.hbm.technetium_sc_battery": "Самозарядная Батарейка с Технецием-99",
+  "item.hbm.uranium_sc_battery": "Самозарядная Батарейка с Ураном-238",
 
   "item.hbm.electronium_cube": "Куб электрония",
   "item.hbm.electronium_cube_empty": "Куб Электрония",
