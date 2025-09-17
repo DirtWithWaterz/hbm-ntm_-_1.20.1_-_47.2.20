@@ -13,17 +13,17 @@ public class BurnerPressItemModel extends GeoModel<BurnerPressItem> {
 
     @Override
     public ResourceLocation getModelResource(BurnerPressItem animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "geo/item/burner_press.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "geo/item/burner_press.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(BurnerPressItem animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "textures/block/burner_press.png");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/block/burner_press.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(BurnerPressItem animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "animations/item/burner_press.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "animations/item/burner_press.animation.json");
     }
 
     @Override

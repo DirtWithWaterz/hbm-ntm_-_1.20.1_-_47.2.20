@@ -355,7 +355,7 @@ public class RadiationSystemChunksNT {
                             for (LivingEntity entity : entities) {
 
                                 RadPocket ePoc = getPocket(level, entity.getOnPos().offset(0, 1, 0));
-                                System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation + " rads to " + entity.getName().getString());
+//                                System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation + " rads to " + entity.getName().getString());
                                 ContaminationUtil.contaminate(entity, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, ePoc.radiation);
                             }
                         }
@@ -1362,7 +1362,7 @@ public class RadiationSystemChunksNT {
 
 //        private static final Set<LevelChunk> chunksWithRebuildRequests = Collections.synchronizedSet(new HashSet<>());
 
-        private static final ResourceLocation RADIATION_CAP_KEY = new ResourceLocation("hbm", "chunk_radiation");
+        private static final ResourceLocation RADIATION_CAP_KEY = ResourceLocation.fromNamespaceAndPath("hbm", "chunk_radiation");
 
         @SubscribeEvent
         public static void attachChunkRadiation(AttachCapabilitiesEvent<LevelChunk> event) {
@@ -1494,7 +1494,7 @@ public class RadiationSystemChunksNT {
 
         static {
             for (int i = 0; i < FRAME_COUNT; i++) {
-                FRAMES[i] = new ResourceLocation(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
+                FRAMES[i] = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
             }
         }
 

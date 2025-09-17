@@ -342,7 +342,7 @@ public class HazmatRegistry {
                 try {
 
                     String name = object.get("item").getAsString();
-                    Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(name));
+                    Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(name));
                     double resistance = object.get("resistance").getAsDouble();
 
                     if(item != null)

@@ -40,16 +40,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.BROWN_THORIUM_ORE);
 
         blockWithItem(RegisterBlocks.RADIATION_DECONTAMINATOR,
-                new ResourceLocation("hbm:block/radiation_decontaminator_top"),
-                new ResourceLocation("hbm:block/radiation_decontaminator_side"),
-                new ResourceLocation("hbm:block/radiation_decontaminator_side"),
-                new ResourceLocation("hbm:block/radiation_decontaminator_side"),
-                new ResourceLocation("hbm:block/radiation_decontaminator_side"));
+                ResourceLocation.tryParse("hbm:block/radiation_decontaminator_top"),
+                ResourceLocation.tryParse("hbm:block/radiation_decontaminator_side"),
+                ResourceLocation.tryParse("hbm:block/radiation_decontaminator_side"),
+                ResourceLocation.tryParse("hbm:block/radiation_decontaminator_side"),
+                ResourceLocation.tryParse("hbm:block/radiation_decontaminator_side"));
 
         cubeBottomTopBlockWithItem(RegisterBlocks.DEAD_GRASS,
-                new ResourceLocation("hbm:block/dead_grass_top"),
-                new ResourceLocation("minecraft:block/dirt"),
-                new ResourceLocation("hbm:block/dead_grass_side"));
+                ResourceLocation.tryParse("hbm:block/dead_grass_top"),
+                ResourceLocation.tryParse("minecraft:block/dirt"),
+                ResourceLocation.tryParse("hbm:block/dead_grass_side"));
 
         blockWithItem(RegisterBlocks.RAD_RESISTANT_BLOCK);
     }

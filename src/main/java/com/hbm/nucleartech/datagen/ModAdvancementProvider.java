@@ -29,7 +29,7 @@ public class ModAdvancementProvider extends ForgeAdvancementProvider {
                             Items.BOOK.getDefaultInstance(),
                             Component.nullToEmpty("NTM Rewrote"),
                             Component.nullToEmpty("And so the nuclear adventure starts... again."),
-                            new ResourceLocation("hbm:textures/block/concrete_bricks.png"),
+                            ResourceLocation.tryParse("hbm:textures/block/concrete_bricks.png"),
                             FrameType.TASK,
                             true, false, false
                     )

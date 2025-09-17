@@ -148,7 +148,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
 
         return withExistingParent(item.getId().getPath(),
-                new ResourceLocation("item/generated")).texture("layer0",
-                new ResourceLocation(HBM.MOD_ID, "item/" + item.getId().getPath().replace("_empty", "")));
+                ResourceLocation.tryParse("item/generated")).texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item/" + item.getId().getPath().replace("_empty", "")));
     }
 }

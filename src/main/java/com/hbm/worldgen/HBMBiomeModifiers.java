@@ -44,6 +44,6 @@ public class HBMBiomeModifiers {
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {
 
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(HBM.MOD_ID, name));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, name));
     }
 }

@@ -178,7 +178,7 @@ public class RadiationSystemNT {
 
                                     if (eRad >= 1000) {
 
-    //                                        player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("hbm:radiation")))), 1000f);
+    //                                        player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("hbm:radiation")))), 1000f);
                                         try {
 
                                             entity.hurt(RegisterDamageSources.RADIATION, 1000f);

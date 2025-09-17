@@ -9,6 +9,6 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public final class HazmatRenderer extends GeoArmorRenderer<HazmatHeadItem> {
     public HazmatRenderer() {
-        super(new DefaultedItemGeoModel<>(new ResourceLocation(HBM.MOD_ID, "armor/hazmat"))); // Using DefaultedItemGeoModel like this puts our 'location' as item/armor/example armor in the assets folders.
+        super(new DefaultedItemGeoModel<>(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "armor/hazmat"))); // Using DefaultedItemGeoModel like this puts our 'location' as item/armor/example armor in the assets folders.
     }
 }

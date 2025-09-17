@@ -100,7 +100,7 @@ public class AdvancementManager {
     }
 
     private static void preload(MinecraftServer server, String path) {
-        ResourceLocation id = new ResourceLocation("hbm", path);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("hbm", path);
         Advancement advancement = server.getAdvancements().getAdvancement(id);
         if (advancement != null) {
             CUSTOM_ADVANCEMENTS.put(id, advancement);
@@ -114,7 +114,7 @@ public class AdvancementManager {
      * Triggers the advancement for the player by unlocking all remaining criteria.
      */
     public static void grant(ServerPlayer player, String path) {
-        ResourceLocation id = new ResourceLocation("hbm", path);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("hbm", path);
         Advancement advancement = CUSTOM_ADVANCEMENTS.get(id);
 
         if (advancement == null) {
@@ -134,7 +134,7 @@ public class AdvancementManager {
      * Optionally expose this to check advancement state.
      */
     public static boolean hasAdvancement(ServerPlayer player, String path) {
-        ResourceLocation id = new ResourceLocation("hbm", path);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("hbm", path);
         Advancement advancement = CUSTOM_ADVANCEMENTS.get(id);
         if (advancement == null) return false;
 

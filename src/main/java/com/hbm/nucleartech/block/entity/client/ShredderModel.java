@@ -9,16 +9,16 @@ public class ShredderModel extends GeoModel<ShredderEntity> {
 
     @Override
     public ResourceLocation getModelResource(ShredderEntity animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "geo/block/shredder.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "geo/block/shredder.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(ShredderEntity animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "textures/block/shredder.png");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/block/shredder.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(ShredderEntity animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "animations/block/shredder.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "animations/block/shredder.animation.json");
     }
 }

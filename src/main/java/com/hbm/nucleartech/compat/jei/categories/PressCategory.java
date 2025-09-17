@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class PressCategory implements IRecipeCategory<PressRecipe> {
 
-    public static final ResourceLocation UID = new ResourceLocation(HBM.MOD_ID, "press");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(HBM.MOD_ID,
+    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "press");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID,
             "textures/gui/burner_press_gui.png");
 
     public static final RecipeType<PressRecipe> BURNER_PRESS_TYPE =

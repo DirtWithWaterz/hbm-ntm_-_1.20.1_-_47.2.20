@@ -14,35 +14,35 @@ public class RegisterSounds {
             DeferredRegister.create(Registries.SOUND_EVENT, HBM.MOD_ID);
 
     public static final RegistryObject<SoundEvent> TECH_BOOP = SOUNDS.register("item.tech_boop",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.tech_boop")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.tech_boop")));
     public static final RegistryObject<SoundEvent> GEIGER_1 = SOUNDS.register("item.geiger1",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger1")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger1")));
     public static final RegistryObject<SoundEvent> GEIGER_2 = SOUNDS.register("item.geiger2",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger2")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger2")));
     public static final RegistryObject<SoundEvent> GEIGER_3 = SOUNDS.register("item.geiger3",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger3")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger3")));
     public static final RegistryObject<SoundEvent> GEIGER_4 = SOUNDS.register("item.geiger4",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger4")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger4")));
     public static final RegistryObject<SoundEvent> GEIGER_5 = SOUNDS.register("item.geiger5",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger5")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger5")));
     public static final RegistryObject<SoundEvent> GEIGER_6 = SOUNDS.register("item.geiger6",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger6")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger6")));
     public static final RegistryObject<SoundEvent> GEIGER_7 = SOUNDS.register("item.geiger7",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger7")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger7")));
     public static final RegistryObject<SoundEvent> GEIGER_8 = SOUNDS.register("item.geiger8",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.geiger8")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.geiger8")));
 
     public static final RegistryObject<SoundEvent> GAS_MASK_SCREW = SOUNDS.register("item.gasmaskscrew",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.gasmaskscrew")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.gasmaskscrew")));
 
     public static final RegistryObject<SoundEvent> JMP_SCR = SOUNDS.register("item.jmpscr",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "item.jmpscr")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "item.jmpscr")));
 
     public static final RegistryObject<SoundEvent> PRESS_OPERATE = SOUNDS.register("block.press_operate",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "block.press_operate")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "block.press_operate")));
 
     public static final RegistryObject<SoundEvent> SHREDDER_OPERATE = SOUNDS.register("block.shredder_operate",
-            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(HBM.MOD_ID, "block.shredder_operate")));
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "block.shredder_operate")));
 
     public static void register(IEventBus bus) {
 

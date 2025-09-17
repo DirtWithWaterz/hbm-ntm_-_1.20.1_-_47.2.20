@@ -107,13 +107,13 @@ public class HbmCapabilities {
         public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
             if(event.getObject() instanceof Mob)
-                event.addCapability(new ResourceLocation(HBM.MOD_ID, "living_entity_capability"), new LivingEntityCapabilityProvider());
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "living_entity_capability"), new LivingEntityCapabilityProvider());
         }
 
         private final LivingEntityCapability capability = new LivingEntityCapability();
 
 
-        public static final ResourceLocation ID = new ResourceLocation(HBM.MOD_ID, "living_entity_capability");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "living_entity_capability");
 
         @Override
         public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -141,7 +141,7 @@ public class HbmCapabilities {
         public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
             if(event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
-                event.addCapability(new ResourceLocation(HBM.MOD_ID, "player_entity_capability"), new PlayerEntityCapabilityProvider());
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "player_entity_capability"), new PlayerEntityCapabilityProvider());
         }
 
         private final LivingEntityCapability capability = new LivingEntityCapability();

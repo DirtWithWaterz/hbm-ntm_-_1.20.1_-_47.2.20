@@ -151,7 +151,7 @@ public class GeigerCounterItem extends Item {
     @Mod.EventBusSubscriber(value = Dist.CLIENT)
     public class CustomHudOverlay {
 
-        private static final ResourceLocation RAD_COUNTER = new ResourceLocation(HBM.MOD_ID, "textures/misc/overlay_misc.png");
+        private static final ResourceLocation RAD_COUNTER = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/misc/overlay_misc.png");
 
         private static long lastRadSurvey;
 
