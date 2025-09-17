@@ -17,12 +17,16 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class RegisterBlocks {
 
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, HBM.MOD_ID);
+
+    public static final List<RegistryObject<? extends Block>> HAZARD_BLOCKS = new ArrayList<>();
 
     public static final RegistryObject<Block> WASTE_BLOCK = registerHazardBlock(4500, "waste_block",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
@@ -156,6 +160,9 @@ public class RegisterBlocks {
 
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerHazardBlockItem(radiation, name, toReturn);
+
+        HAZARD_BLOCKS.add(toReturn);
+
         return toReturn;
     }
 

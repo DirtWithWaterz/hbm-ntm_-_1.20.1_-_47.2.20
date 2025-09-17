@@ -15,15 +15,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.ticks.TickPriority;
-
-import java.util.Random;
 
 public class HazardBlock extends DropExperienceBlock implements IItemHazard {
 
@@ -164,12 +159,17 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
         return beaconable;
     }
 
+    public void onGenerated(ServerLevel level, BlockPos worldPosition) {
+
+        level.scheduleTick(worldPosition, this.toBlock(), this.tickRate(level), TickPriority.HIGH);
+    }
+
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         super.tick(pState, pLevel, pPos, pRandom);
 
         if(this.rad3d > 0){
-            ContaminationUtil.radiate(pLevel, pPos.getX()+0.5, pPos.getY()+0.5, pPos.getZ()+0.5, 32, (float)this.rad3d, 0, this.module.fire * 5000, 0, 0);
+            ContaminationUtil.radiate(pLevel, pPos.getX()+0.5, pPos.getY()+0.5, pPos.getZ()+0.5, 32, (float)this.rad3d, 0, this.module.fire * 5000, 0, 0, pPos);
             pLevel.scheduleTick(pPos, this.toBlock(), this.tickRate(pLevel), TickPriority.HIGH);
         }
         if(this.radIn > 0){

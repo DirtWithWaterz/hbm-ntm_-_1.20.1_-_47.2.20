@@ -186,7 +186,7 @@ public class ItemHazardModule {
             if(this.isRadioactive()) {
 
 //                System.err.println("[Debug] radiating...");
-                ContaminationUtil.radiate((ServerLevel) item.level(), item.getOnPos().getX(), item.getOnPos().getY()+1, item.getOnPos().getZ(), 32, (float)(this.radiation*0.00004D-(0.00004D*20)));
+                ContaminationUtil.radiate((ServerLevel) item.level(), item.getOnPos().getX(), item.getOnPos().getY()+1, item.getOnPos().getZ(), 32, (float)(this.radiation*0.00004D-(0.00004D*20)), item.getOnPos().offset(0, 1, 0));
             }
         }
 
