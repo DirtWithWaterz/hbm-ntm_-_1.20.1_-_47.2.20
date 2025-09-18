@@ -132,7 +132,12 @@ public class RadiationSystemNT {
 
                                             replace(creeper, new NuclearCreeperEntity(HbmEntities.NUCLEAR_CREEPER.get(), world), world);
                                         } else {
-                                            entity.hurt(RegisterDamageSources.RADIATION, 100f);
+                                            try {
+
+                                                if(entity != null)
+                                                    entity.hurt(RegisterDamageSources.RADIATION, 100f);
+                                                // grant achievement "wait, what?"
+                                            } catch (Exception ignored) { System.err.println("client had a packet error!"); }
                                         }
                                         continue;
                                     }
@@ -370,7 +375,7 @@ public class RadiationSystemNT {
             if(!level.isClientSide())
                 level.addFreshEntity(newEntity);
 
-        oldEntity.kill();
+        oldEntity.discard();
     }
 
 //    public static void updateRadiation() {
