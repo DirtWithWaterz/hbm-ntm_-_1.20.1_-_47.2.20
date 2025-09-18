@@ -676,7 +676,7 @@ public class RegisterBlocks {
             ));
 
 
-    public static final RegistryObject<Block> JUNGLE_BRICK = registerHazardBlock(0.0035, "jungle_brick",
+    public static final RegistryObject<Block> JUNGLE_BRICK = registerHazardBlock(0.0035, "brick_jungle",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
@@ -684,7 +684,7 @@ public class RegisterBlocks {
             ));
 
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_CIRCLE = registerHazardBlock(0.0035, "jungle_brick_circle",
+    public static final RegistryObject<Block> JUNGLE_BRICK_CIRCLE = registerHazardBlock(0.0035, "brick_jungle_circle",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
@@ -692,7 +692,7 @@ public class RegisterBlocks {
             ));
 
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_CRACKED = registerHazardBlock(0.0035, "jungle_brick_cracked",
+    public static final RegistryObject<Block> JUNGLE_BRICK_CRACKED = registerHazardBlock(0.0035, "brick_jungle_cracked",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
@@ -700,7 +700,7 @@ public class RegisterBlocks {
             ));
 
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_FRAGILE = registerHazardBlock(0.0035, "jungle_brick_fragile",
+    public static final RegistryObject<Block> JUNGLE_BRICK_FRAGILE = registerHazardBlock(0.0035, "brick_jungle_fragile",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
@@ -708,7 +708,7 @@ public class RegisterBlocks {
             ));
 
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_0 = registerHazardBlock(0.0035, "jungle_brick_glyph_0",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_0 = registerHazardBlock(0.0035, "brick_jungle_glyph_0",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
@@ -716,105 +716,105 @@ public class RegisterBlocks {
             ));
 
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_1 = registerHazardBlock(0.0035, "jungle_brick_glyph_1",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_1 = registerHazardBlock(0.0035, "brick_jungle_glyph_1",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_2 = registerHazardBlock(0.0035, "jungle_brick_glyph_2",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_2 = registerHazardBlock(0.0035, "brick_jungle_glyph_2",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_3 = registerHazardBlock(0.0035, "jungle_brick_glyph_3",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_3 = registerHazardBlock(0.0035, "brick_jungle_glyph_3",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_4 = registerHazardBlock(0.0035, "jungle_brick_glyph_4",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_4 = registerHazardBlock(0.0035, "brick_jungle_glyph_4",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_5 = registerHazardBlock(0.0035, "jungle_brick_glyph_5",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_5 = registerHazardBlock(0.0035, "brick_jungle_glyph_5",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_6 = registerHazardBlock(0.0035, "jungle_brick_glyph_6",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_6 = registerHazardBlock(0.0035, "brick_jungle_glyph_6",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_7 = registerHazardBlock(0.0035, "jungle_brick_glyph_7",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_7 = registerHazardBlock(0.0035, "brick_jungle_glyph_7",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_8 = registerHazardBlock(0.0035, "jungle_brick_glyph_8",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_8 = registerHazardBlock(0.0035, "brick_jungle_glyph_8",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_9 = registerHazardBlock(0.0035, "jungle_brick_glyph_9",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_9 = registerHazardBlock(0.0035, "brick_jungle_glyph_9",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_10 = registerHazardBlock(0.0035, "jungle_brick_glyph_10",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_10 = registerHazardBlock(0.0035, "brick_jungle_glyph_10",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_11 = registerHazardBlock(0.0035, "jungle_brick_glyph_11",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_11 = registerHazardBlock(0.0035, "brick_jungle_glyph_11",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_12 = registerHazardBlock(0.0035, "jungle_brick_glyph_12",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_12 = registerHazardBlock(0.0035, "brick_jungle_glyph_12",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_13 = registerHazardBlock(0.0035, "jungle_brick_glyph_13",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_13 = registerHazardBlock(0.0035, "brick_jungle_glyph_13",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_14 = registerHazardBlock(0.0035, "jungle_brick_glyph_14",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_14 = registerHazardBlock(0.0035, "brick_jungle_glyph_14",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_15 = registerHazardBlock(0.0035, "jungle_brick_glyph_15",
+    public static final RegistryObject<Block> JUNGLE_BRICK_GLYPH_15 = registerHazardBlock(0.0035, "brick_jungle_glyph_15",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),
