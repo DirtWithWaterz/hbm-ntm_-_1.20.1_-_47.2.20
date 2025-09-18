@@ -132,7 +132,11 @@ public class RadiationSystemNT {
 
                                             replace(creeper, new NuclearCreeperEntity(HbmEntities.NUCLEAR_CREEPER.get(), world), world);
                                         } else {
-                                            entity.hurt(RegisterDamageSources.RADIATION, 100f);
+                                            try {
+
+                                                entity.hurt(RegisterDamageSources.RADIATION, 100f);
+                                                // grant achievement "wait, what?"
+                                            } catch (Exception ignored) { System.err.println("client had a packet error!"); }
                                         }
                                         continue;
                                     }
