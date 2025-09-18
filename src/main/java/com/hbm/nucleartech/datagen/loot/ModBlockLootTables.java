@@ -109,6 +109,79 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(RegisterBlocks.DEEPSLATE_COLTAN_ORE.get(),
                 block -> createOreDrop(RegisterBlocks.DEEPSLATE_COLTAN_ORE.get(), RegisterItems.RAW_COLTAN.get()));
 
+        this.add(RegisterBlocks.SULFUR_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.SULFUR_STORAGE_BLOCK.get(), RegisterItems.RAW_SULFUR.get()));
+        this.add(RegisterBlocks.RAW_SULFUR_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_SULFUR_STORAGE_BLOCK.get(), RegisterItems.RAW_SULFUR.get()));
+
+        this.add(RegisterBlocks.NITER_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.NITER_STORAGE_BLOCK.get(), RegisterItems.RAW_NITER.get()));
+        this.add(RegisterBlocks.RAW_NITER_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_NITER_STORAGE_BLOCK.get(), RegisterItems.RAW_NITER.get()));
+
+        this.add(RegisterBlocks.TUNGSTEN_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.TUNGSTEN_STORAGE_BLOCK.get(), RegisterItems.RAW_TUNGSTEN.get()));
+        this.add(RegisterBlocks.RAW_TUNGSTEN_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_TUNGSTEN_STORAGE_BLOCK.get(), RegisterItems.RAW_TUNGSTEN.get()));
+
+        this.add(RegisterBlocks.ALUMINIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.ALUMINIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_ALUMINIUM.get()));
+        this.add(RegisterBlocks.RAW_ALUMINIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_ALUMINIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_ALUMINIUM.get()));
+
+        this.add(RegisterBlocks.FLUORITE_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.FLUORITE_STORAGE_BLOCK.get(), RegisterItems.RAW_FLUORITE.get()));
+        this.add(RegisterBlocks.RAW_FLUORITE_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_FLUORITE_STORAGE_BLOCK.get(), RegisterItems.RAW_FLUORITE.get()));
+
+        this.add(RegisterBlocks.BERYLLIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.BERYLLIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_BERYLLIUM.get()));
+        this.add(RegisterBlocks.RAW_BERYLLIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_BERYLLIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_BERYLLIUM.get()));
+
+        this.add(RegisterBlocks.LEAD_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.LEAD_STORAGE_BLOCK.get(), RegisterItems.RAW_LEAD.get()));
+        this.add(RegisterBlocks.RAW_LEAD_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_LEAD_STORAGE_BLOCK.get(), RegisterItems.RAW_LEAD.get()));
+
+        this.add(RegisterBlocks.LIGNITE_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.LIGNITE_STORAGE_BLOCK.get(), RegisterItems.RAW_LIGNITE.get()));
+        this.add(RegisterBlocks.RAW_LIGNITE_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_LIGNITE_STORAGE_BLOCK.get(), RegisterItems.RAW_LIGNITE.get()));
+
+        this.add(RegisterBlocks.ASBESTOS_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.ASBESTOS_STORAGE_BLOCK.get(), RegisterItems.RAW_ASBESTOS.get()));
+        this.add(RegisterBlocks.RAW_ASBESTOS_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_ASBESTOS_STORAGE_BLOCK.get(), RegisterItems.RAW_ASBESTOS.get()));
+
+        this.add(RegisterBlocks.SCHRABIDIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.SCHRABIDIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_SCHRABIDIUM.get()));
+        this.add(RegisterBlocks.RAW_SCHRABIDIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_SCHRABIDIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_SCHRABIDIUM.get()));
+
+        this.add(RegisterBlocks.AUSTRALIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.AUSTRALIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_AUSTRALIUM.get()));
+        this.add(RegisterBlocks.RAW_AUSTRALIUM_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_AUSTRALIUM_STORAGE_BLOCK.get(), RegisterItems.RAW_AUSTRALIUM.get()));
+
+        this.add(RegisterBlocks.RAW_RARE_EARTH_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_RARE_EARTH_STORAGE_BLOCK.get(), RegisterItems.RAW_RARE_EARTH.get()));
+
+        this.add(RegisterBlocks.COBALT_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.COBALT_STORAGE_BLOCK.get(), RegisterItems.RAW_COBALT.get()));
+        this.add(RegisterBlocks.RAW_COBALT_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_COBALT_STORAGE_BLOCK.get(), RegisterItems.RAW_COBALT.get()));
+
+        this.add(RegisterBlocks.CINNABAR_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.CINNABAR_STORAGE_BLOCK.get(), RegisterItems.RAW_CINNABAR.get()));
+        this.add(RegisterBlocks.RAW_CINNABAR_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_CINNABAR_STORAGE_BLOCK.get(), RegisterItems.RAW_CINNABAR.get()));
+
+        this.add(RegisterBlocks.COLTAN_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.COLTAN_STORAGE_BLOCK.get(), RegisterItems.RAW_COLTAN.get()));
+        this.add(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK.get(),
+                block -> createOreDrop(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK.get(), RegisterItems.RAW_COLTAN.get()));
+
         this.add(RegisterBlocks.RED_THORIUM_ORE.get(),
                 block -> createOreDrop(RegisterBlocks.RED_THORIUM_ORE.get(), RegisterItems.THORIUM_SHALE.get()));
         this.add(RegisterBlocks.ORANGE_THORIUM_ORE.get(),

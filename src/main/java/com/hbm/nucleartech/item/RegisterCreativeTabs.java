@@ -234,6 +234,36 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterBlocks.DEEPSLATE_CINNABAR_ORE.get());
                         output.accept(RegisterBlocks.COLTAN_ORE.get());
                         output.accept(RegisterBlocks.DEEPSLATE_COLTAN_ORE.get());
+
+                        output.accept(RegisterBlocks.SULFUR_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_SULFUR_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.NITER_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_NITER_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.TUNGSTEN_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_TUNGSTEN_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.ALUMINIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_ALUMINIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.FLUORITE_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_FLUORITE_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.BERYLLIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_BERYLLIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.LEAD_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_LEAD_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.LIGNITE_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_LIGNITE_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.ASBESTOS_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_ASBESTOS_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.SCHRABIDIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_SCHRABIDIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.AUSTRALIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_AUSTRALIUM_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_RARE_EARTH_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.COBALT_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_COBALT_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.CINNABAR_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_CINNABAR_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.COLTAN_STORAGE_BLOCK.get());
+                        output.accept(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK.get());
                     })
                     .build());
 

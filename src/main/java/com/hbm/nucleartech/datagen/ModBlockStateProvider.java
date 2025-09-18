@@ -77,6 +77,50 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.COLTAN_ORE);
         blockWithItem(RegisterBlocks.DEEPSLATE_COLTAN_ORE);
 
+        blockWithItem(RegisterBlocks.SULFUR_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_SULFUR_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.NITER_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_NITER_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.TUNGSTEN_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_TUNGSTEN_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.ALUMINIUM_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_ALUMINIUM_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.FLUORITE_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_FLUORITE_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.BERYLLIUM_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_BERYLLIUM_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.LEAD_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_LEAD_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.LIGNITE_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_LIGNITE_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.ASBESTOS_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_ASBESTOS_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.SCHRABIDIUM_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_SCHRABIDIUM_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.AUSTRALIUM_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_AUSTRALIUM_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.RAW_RARE_EARTH_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.COBALT_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_COBALT_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.CINNABAR_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_CINNABAR_STORAGE_BLOCK);
+
+        blockWithItem(RegisterBlocks.COLTAN_STORAGE_BLOCK);
+        blockWithItem(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK);
+
         blockWithItem(RegisterBlocks.RED_THORIUM_ORE);
         blockWithItem(RegisterBlocks.ORANGE_THORIUM_ORE);
         blockWithItem(RegisterBlocks.YELLOW_THORIUM_ORE);

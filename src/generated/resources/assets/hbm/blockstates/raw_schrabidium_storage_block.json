@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "hbm:block/raw_schrabidium_storage_block"
+    }
+  }
+}

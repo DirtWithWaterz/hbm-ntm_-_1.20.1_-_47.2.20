@@ -357,6 +357,210 @@ public class RegisterBlocks {
                     UniformInt.of(2, 5),
                     0.0035
             ));
+
+
+    public static final RegistryObject<Block> SULFUR_STORAGE_BLOCK = registerHazardBlock(0.003, "sulfur_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_SULFUR_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_sulfur_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> NITER_STORAGE_BLOCK = registerHazardBlock(0.003, "niter_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_NITER_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_niter_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> TUNGSTEN_STORAGE_BLOCK = registerHazardBlock(0.003, "tungsten_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_TUNGSTEN_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_tungsten_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> ALUMINIUM_STORAGE_BLOCK = registerHazardBlock(0.003, "aluminum_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_ALUMINIUM_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_aluminum_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> FLUORITE_STORAGE_BLOCK = registerHazardBlock(0.003, "fluorite_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_FLUORITE_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_fluorite_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> BERYLLIUM_STORAGE_BLOCK = registerHazardBlock(0.003, "beryllium_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_BERYLLIUM_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_beryllium_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> LEAD_STORAGE_BLOCK = registerHazardBlock(0.003, "lead_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_LEAD_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_lead_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> LIGNITE_STORAGE_BLOCK = registerHazardBlock(0.003, "lignite_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_LIGNITE_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_lignite_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> ASBESTOS_STORAGE_BLOCK = registerHazardBlock(0.003, "asbestos_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_ASBESTOS_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_asbestos_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> SCHRABIDIUM_STORAGE_BLOCK = registerHazardBlock(0.003, "schrabidium_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_SCHRABIDIUM_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_schrabidium_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> AUSTRALIUM_STORAGE_BLOCK = registerHazardBlock(0.003, "australium_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_AUSTRALIUM_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_australium_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_RARE_EARTH_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_rare_earth_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> COBALT_STORAGE_BLOCK = registerHazardBlock(0.003, "cobalt_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_COBALT_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_cobalt_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> CINNABAR_STORAGE_BLOCK = registerHazardBlock(0.003, "cinnabar_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_CINNABAR_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_cinnabar_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> COLTAN_STORAGE_BLOCK = registerHazardBlock(0.003, "coltan_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 4.0f),
+                    UniformInt.of(2, 4),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RAW_COLTAN_STORAGE_BLOCK = registerHazardBlock(0.0035, "raw_coltan_storage_block",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
 
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

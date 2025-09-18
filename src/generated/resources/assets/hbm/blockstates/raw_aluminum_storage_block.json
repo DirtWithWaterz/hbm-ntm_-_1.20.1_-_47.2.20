@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "hbm:block/raw_aluminum_storage_block"
+    }
+  }
+}

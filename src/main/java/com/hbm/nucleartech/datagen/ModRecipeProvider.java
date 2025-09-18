@@ -125,6 +125,23 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(RegisterItems.URANIUM_BILLET.get())
                 .unlockedBy(getHasName(RegisterItems.URANIUM_BILLET.get()), has(RegisterItems.URANIUM_BILLET.get()))
                 .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.URANIUM_NUGGET.get()) + "_from_" + getItemName(RegisterItems.URANIUM_BILLET.get()));
+
+        /*
+        New stuff
+         */
+//
+//        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.TITANIUM_BLOCK.get())
+//                .pattern("TTT")
+//                .pattern("TTT")
+//                .pattern("TTT")
+//                .define('T', RegisterItems.TITANIUM_INGOT.get())
+//                .unlockedBy(getHasName(RegisterItems.TITANIUM_INGOT.get()), has(RegisterItems.TITANIUM_INGOT.get()))
+//                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterBlocks.TITANIUM_BLOCK.get()) + "_from_" + getItemName(RegisterItems.TITANIUM_INGOT.get()));
+//
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegisterItems.TITANIUM_INGOT.get(), 9)
+//                .requires(RegisterBlocks.TITANIUM_BLOCK.get())
+//                .unlockedBy(getHasName(RegisterBlocks.TITANIUM_BLOCK.get()), has(RegisterBlocks.TITANIUM_BLOCK.get()))
+//                .save(consumer, HBM.MOD_ID + ":" + getItemName(RegisterItems.TITANIUM_INGOT.get()) + "_from_" + getItemName(RegisterBlocks.TITANIUM_BLOCK.get()));
     }
 
     public static class MetaData {
