@@ -24,9 +24,38 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(RegisterItems.URANIUM_INGOT);
         simpleItem(RegisterItems.BERYLLIUM_INGOT);
         simpleItem(RegisterItems.TITANIUM_INGOT);
+        simpleItem(RegisterItems.SULFUR_INGOT);
+        simpleItem(RegisterItems.NITER_INGOT);
+        simpleItem(RegisterItems.TUNGSTEN_INGOT);
+        simpleItem(RegisterItems.ALUMINIUM_INGOT);
+        simpleItem(RegisterItems.FLUORITE_INGOT);
+        simpleItem(RegisterItems.LEAD_INGOT);
+        simpleItem(RegisterItems.LIGNITE_INGOT);
+        simpleItem(RegisterItems.ASBESTOS_INGOT);
+        simpleItem(RegisterItems.SCHRABIDIUM_INGOT);
+        simpleItem(RegisterItems.AUSTRALIUM_INGOT);
+        simpleItem(RegisterItems.RARE_EARTH_INGOT);
+        simpleItem(RegisterItems.COBALT_INGOT);
+        simpleItem(RegisterItems.CINNABAR_INGOT);
+        simpleItem(RegisterItems.COLTAN_INGOT);
 
         simpleItem(RegisterItems.RAW_TITANIUM);
         simpleItem(RegisterItems.RAW_URANIUM);
+        simpleItem(RegisterItems.RAW_SULFUR);
+        simpleItem(RegisterItems.RAW_NITER);
+        simpleItem(RegisterItems.RAW_TUNGSTEN);
+        simpleItem(RegisterItems.RAW_ALUMINIUM);
+        simpleItem(RegisterItems.RAW_FLUORITE);
+        simpleItem(RegisterItems.RAW_BERYLLIUM);
+        simpleItem(RegisterItems.RAW_LEAD);
+        simpleItem(RegisterItems.RAW_LIGNITE);
+        simpleItem(RegisterItems.RAW_ASBESTOS);
+        simpleItem(RegisterItems.RAW_SCHRABIDIUM);
+        simpleItem(RegisterItems.RAW_AUSTRALIUM);
+        simpleItem(RegisterItems.RAW_RARE_EARTH);
+        simpleItem(RegisterItems.RAW_COBALT);
+        simpleItem(RegisterItems.RAW_CINNABAR);
+        simpleItem(RegisterItems.RAW_COLTAN);
 
         simpleItem(RegisterItems.URANIUM_PILE_ROD);
         simpleItem(RegisterItems.URANIUM_BILLET);
