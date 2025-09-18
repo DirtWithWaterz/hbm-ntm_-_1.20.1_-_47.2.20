@@ -30,6 +30,20 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterItems.TITANIUM_INGOT.get());
                         output.accept(RegisterItems.BERYLLIUM_INGOT.get());
                         output.accept(RegisterItems.URANIUM_INGOT.get());
+                        output.accept(RegisterItems.SULFUR_INGOT.get());
+                        output.accept(RegisterItems.NITER_INGOT.get());
+                        output.accept(RegisterItems.TUNGSTEN_INGOT.get());
+                        output.accept(RegisterItems.ALUMINIUM_INGOT.get());
+                        output.accept(RegisterItems.FLUORITE_INGOT.get());
+                        output.accept(RegisterItems.LEAD_INGOT.get());
+                        output.accept(RegisterItems.LIGNITE_INGOT.get());
+                        output.accept(RegisterItems.ASBESTOS_INGOT.get());
+                        output.accept(RegisterItems.SCHRABIDIUM_INGOT.get());
+                        output.accept(RegisterItems.AUSTRALIUM_INGOT.get());
+                        output.accept(RegisterItems.RARE_EARTH_INGOT.get());
+                        output.accept(RegisterItems.COBALT_INGOT.get());
+                        output.accept(RegisterItems.CINNABAR_INGOT.get());
+                        output.accept(RegisterItems.COLTAN_INGOT.get());
 
                         output.accept(RegisterItems.URANIUM_POWDER.get());
                         output.accept(RegisterItems.URANIUM_NUGGET.get());
@@ -40,6 +54,21 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterItems.RAW_TITANIUM.get());
                         output.accept(RegisterItems.RAW_URANIUM.get());
                         output.accept(RegisterItems.RAW_THORIUM.get());
+                        output.accept(RegisterItems.RAW_SULFUR.get());
+                        output.accept(RegisterItems.RAW_NITER.get());
+                        output.accept(RegisterItems.RAW_TUNGSTEN.get());
+                        output.accept(RegisterItems.RAW_ALUMINIUM.get());
+                        output.accept(RegisterItems.RAW_FLUORITE.get());
+                        output.accept(RegisterItems.RAW_BERYLLIUM.get());
+                        output.accept(RegisterItems.RAW_LEAD.get());
+                        output.accept(RegisterItems.RAW_LIGNITE.get());
+                        output.accept(RegisterItems.RAW_ASBESTOS.get());
+                        output.accept(RegisterItems.RAW_SCHRABIDIUM.get());
+                        output.accept(RegisterItems.RAW_AUSTRALIUM.get());
+                        output.accept(RegisterItems.RAW_RARE_EARTH.get());
+                        output.accept(RegisterItems.RAW_COBALT.get());
+                        output.accept(RegisterItems.RAW_CINNABAR.get());
+                        output.accept(RegisterItems.RAW_COLTAN.get());
 
                         output.accept(RegisterItems.THORIUM_SHALE.get());
                         output.accept(RegisterItems.THORIUM_INGOT.get());

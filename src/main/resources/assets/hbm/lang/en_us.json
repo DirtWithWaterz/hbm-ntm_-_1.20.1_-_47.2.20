@@ -127,7 +127,7 @@
   "item.hbm.sulfur_ingot": "Sulfur Ingot",
   "item.hbm.niter_ingot": "Niter Ingot",
   "item.hbm.tungsten_ingot": "Tungsten Ingot",
-  "item.hbm.aluminium_ingot": "Aluminium Ingot",
+  "item.hbm.aluminum_ingot": "Aluminium Ingot",
   "item.hbm.fluorite_ingot": "Fluorite Ingot",
   "item.hbm.lead_ingot": "Lead Ingot",
   "item.hbm.lignite_ingot": "Lignite Ingot",
@@ -144,7 +144,7 @@
   "item.hbm.raw_sulfur": "Raw Sulfur",
   "item.hbm.raw_niter": "Raw Niter",
   "item.hbm.raw_tungsten": "Raw Tungsten",
-  "item.hbm.raw_aluminium": "Raw Aluminium",
+  "item.hbm.raw_aluminum": "Raw Aluminium",
   "item.hbm.raw_fluorite": "Raw Fluorite",
   "item.hbm.raw_beryllium": "Raw Beryllium",
   "item.hbm.raw_lead": "Raw Lead",
@@ -218,8 +218,8 @@
   "block.hbm.tungsten_ore": "Tungsten Ore",
   "block.hbm.deepslate_tungsten_ore": "Deepslate Tungsten Ore",
 
-  "block.hbm.aluminium_ore": "Aluminium Ore",
-  "block.hbm.deepslate_aluminium_ore": "Deepslate Aluminium Ore",
+  "block.hbm.aluminum_ore": "Aluminium Ore",
+  "block.hbm.deepslate_aluminum_ore": "Deepslate Aluminium Ore",
 
   "block.hbm.fluorite_ore": "Fluorite Ore",
   "block.hbm.deepslate_fluorite_ore": "Deepslate Fluorite Ore",
