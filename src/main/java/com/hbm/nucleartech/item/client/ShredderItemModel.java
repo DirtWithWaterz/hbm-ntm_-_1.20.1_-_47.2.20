@@ -14,17 +14,17 @@ public class ShredderItemModel extends GeoModel<ShredderItem> {
 
     @Override
     public ResourceLocation getModelResource(ShredderItem animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "geo/item/shredder.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "geo/item/shredder.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(ShredderItem animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "textures/block/shredder.png");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/block/shredder.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(ShredderItem animatable) {
-        return new ResourceLocation(HBM.MOD_ID, "animations/item/shredder.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "animations/item/shredder.animation.json");
     }
     //// the last thing you have to do before you can update for the public to 1.6.6 <3 (actually you should figure out the better energy too (whoops))
     @Override

@@ -10,16 +10,16 @@ public class HazmatRedModel extends GeoModel<HazmatHeadRedItem> {
 
     @Override
     public ResourceLocation getModelResource(HazmatHeadRedItem item) {
-        return new ResourceLocation(HBM.MOD_ID, "geo/item/armor/hazmat_red.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "geo/item/armor/hazmat_red.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(HazmatHeadRedItem item) {
-        return new ResourceLocation(HBM.MOD_ID, "textures/item/armor/hazmat_red.png");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/item/armor/hazmat_red.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(HazmatHeadRedItem item) {
-        return new ResourceLocation(HBM.MOD_ID, "animations/item/armor/hazmat_red.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "animations/item/armor/hazmat_red.animation.json");
     }
 }

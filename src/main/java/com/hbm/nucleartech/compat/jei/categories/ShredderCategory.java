@@ -39,8 +39,8 @@ import static com.hbm.nucleartech.capability.energy.WattHourStorage.translateWat
 
 public class ShredderCategory implements IRecipeCategory<ShredderRecipe> {
 
-    public static final ResourceLocation UID = new ResourceLocation(HBM.MOD_ID, "shredder");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(HBM.MOD_ID,
+    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "shredder");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID,
             "textures/gui/shredder_nei_gui.png");
 
     public static final RecipeType<ShredderRecipe> SHREDDER_TYPE =

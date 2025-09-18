@@ -19,7 +19,7 @@ import java.util.Objects;
 public class ShredderScreen extends AbstractContainerScreen<ShredderMenu> {
 
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(HBM.MOD_ID, "textures/gui/shredder_gui.png");
+            ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/gui/shredder_gui.png");
 
     public ShredderScreen(ShredderMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

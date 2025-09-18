@@ -124,9 +124,38 @@
   "item.hbm.uranium_ingot": "Uranium Ingot",
   "item.hbm.beryllium_ingot": "Beryllium Ingot",
   "item.hbm.titanium_ingot": "Titanium Ingot",
+  "item.hbm.sulfur_ingot": "Sulfur Ingot",
+  "item.hbm.niter_ingot": "Niter Ingot",
+  "item.hbm.tungsten_ingot": "Tungsten Ingot",
+  "item.hbm.aluminum_ingot": "Aluminium Ingot",
+  "item.hbm.fluorite_ingot": "Fluorite Ingot",
+  "item.hbm.lead_ingot": "Lead Ingot",
+  "item.hbm.lignite_ingot": "Lignite Ingot",
+  "item.hbm.asbestos_ingot": "Asbestos Ingot",
+  "item.hbm.schrabidium_ingot": "Schrabidium Ingot",
+  "item.hbm.australium_ingot": "Australium Ingot",
+  "item.hbm.rare_earth_ingot": "Rare Earth Ingot",
+  "item.hbm.cobalt_ingot": "Cobalt Ingot",
+  "item.hbm.cinnabar_ingot": "Cinnabar Ingot",
+  "item.hbm.coltan_ingot": "Coltan Ingot",
 
   "item.hbm.raw_uranium": "Raw Uranium",
   "item.hbm.raw_titanium": "Raw Titanium",
+  "item.hbm.raw_sulfur": "Raw Sulfur",
+  "item.hbm.raw_niter": "Raw Niter",
+  "item.hbm.raw_tungsten": "Raw Tungsten",
+  "item.hbm.raw_aluminum": "Raw Aluminium",
+  "item.hbm.raw_fluorite": "Raw Fluorite",
+  "item.hbm.raw_beryllium": "Raw Beryllium",
+  "item.hbm.raw_lead": "Raw Lead",
+  "item.hbm.raw_lignite": "Raw Lignite",
+  "item.hbm.raw_asbestos": "Raw Asbestos",
+  "item.hbm.raw_schrabidium": "Raw Schrabidium",
+  "item.hbm.raw_australium": "Raw Australium",
+  "item.hbm.raw_rare_earth": "Raw Rare Earth",
+  "item.hbm.raw_cobalt": "Raw Cobalt",
+  "item.hbm.raw_cinnabar": "Raw Cinnabar",
+  "item.hbm.raw_coltan": "Raw Coltan",
 
   "item.hbm.uranium_powder": "Uranium Powder",
   "item.hbm.uranium_nugget": "Uranium Nugget",
@@ -179,6 +208,51 @@
 
   "block.hbm.titanium_ore": "Titanium Ore",
   "block.hbm.deepslate_titanium_ore": "Deepslate Titanium Ore",
+
+  "block.hbm.sulfur_ore": "Sulfur Ore",
+  "block.hbm.deepslate_sulfur_ore": "Deepslate Sulfur Ore",
+
+  "block.hbm.niter_ore": "Niter Ore",
+  "block.hbm.deepslate_niter_ore": "Deepslate Niter Ore",
+
+  "block.hbm.tungsten_ore": "Tungsten Ore",
+  "block.hbm.deepslate_tungsten_ore": "Deepslate Tungsten Ore",
+
+  "block.hbm.aluminum_ore": "Aluminium Ore",
+  "block.hbm.deepslate_aluminum_ore": "Deepslate Aluminium Ore",
+
+  "block.hbm.fluorite_ore": "Fluorite Ore",
+  "block.hbm.deepslate_fluorite_ore": "Deepslate Fluorite Ore",
+
+  "block.hbm.beryllium_ore": "Beryllium Ore",
+  "block.hbm.deepslate_beryllium_ore": "Deepslate Beryllium Ore",
+
+  "block.hbm.lead_ore": "Lead Ore",
+  "block.hbm.deepslate_lead_ore": "Deepslate Lead Ore",
+
+  "block.hbm.lignite_ore": "Lignite Ore",
+  "block.hbm.deepslate_lignite_ore": "Deepslate Lignite Ore",
+
+  "block.hbm.asbestos_ore": "Asbestos Ore",
+  "block.hbm.deepslate_asbestos_ore": "Deepslate Asbestos Ore",
+
+  "block.hbm.schrabidium_ore": "Schrabidium Ore",
+  "block.hbm.deepslate_schrabidium_ore": "Deepslate Schrabidium Ore",
+
+  "block.hbm.australium_ore": "Australium Ore",
+  "block.hbm.deepslate_australium_ore": "Deepslate Australium Ore",
+
+  "block.hbm.rare_earth_ore": "Rare Earth Ore",
+  "block.hbm.deepslate_rare_earth_ore": "Deepslate Rare Earth Ore",
+
+  "block.hbm.cobalt_ore": "Cobalt Ore",
+  "block.hbm.deepslate_cobalt_ore": "Deepslate Cobalt Ore",
+
+  "block.hbm.cinnabar_ore": "Cinnabar Ore",
+  "block.hbm.deepslate_cinnabar_ore": "Deepslate Cinnabar Ore",
+
+  "block.hbm.coltan_ore": "Coltan Ore",
+  "block.hbm.deepslate_coltan_ore": "Deepslate Coltan Ore",
 
   "block.hbm.radiation_decontaminator": "Radiation Decontaminator",
 

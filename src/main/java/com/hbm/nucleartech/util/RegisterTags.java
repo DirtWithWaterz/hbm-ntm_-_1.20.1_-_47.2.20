@@ -14,7 +14,7 @@ public class RegisterTags {
 
         private static TagKey<Block> tag(String name) {
 
-            return BlockTags.create(new ResourceLocation(HBM.MOD_ID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, name));
         }
     }
 
@@ -25,7 +25,7 @@ public class RegisterTags {
 
         private static TagKey<Item> tag(String name) {
 
-            return ItemTags.create(new ResourceLocation(HBM.MOD_ID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, name));
         }
     }
 }

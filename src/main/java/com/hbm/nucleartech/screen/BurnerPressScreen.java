@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class BurnerPressScreen extends AbstractContainerScreen<BurnerPressMenu> {
 
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(HBM.MOD_ID, "textures/gui/burner_press_gui.png");
+            ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/gui/burner_press_gui.png");
 
     public BurnerPressScreen(BurnerPressMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

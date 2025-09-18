@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.hbm.nucleartech.HBM;
+import com.hbm.nucleartech.hazard.HazardBlock;
 import com.hbm.nucleartech.interfaces.IRadResistantBlock;
 import com.hbm.nucleartech.item.custom.GeigerCounterItem;
 import com.hbm.nucleartech.util.ContaminationUtil;
+import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -353,8 +355,8 @@ public class RadiationSystemChunksNT {
                             for (LivingEntity entity : entities) {
 
                                 RadPocket ePoc = getPocket(level, entity.getOnPos().offset(0, 1, 0));
-                                //System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation / 10F + " rads to " + entity.getName().getString());
-                                ContaminationUtil.contaminate(entity, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, ePoc.radiation / 10F);
+//                                System.out.println("[Debug] Got pocket " + ePoc + " at " + entity.getOnPos().offset(0, 1, 0) + " and adding " + ePoc.radiation + " rads to " + entity.getName().getString());
+                                ContaminationUtil.contaminate(entity, ContaminationUtil.HazardType.RADIATION, ContaminationUtil.ContaminationType.CREATIVE, ePoc.radiation);
                             }
                         }
                     }
@@ -376,7 +378,7 @@ public class RadiationSystemChunksNT {
 
         BlockPos subChunkPos = new BlockPos(
                 chunk.getPos().x << 4,
-                (yIndex << 4) - 64,
+                ChunkStorageCompat.getWorldYFromIndex(yIndex),
                 chunk.getPos().z << 4);
 
         //System.out.println("[Debug] Starting rebuild of chunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
@@ -490,7 +492,7 @@ public class RadiationSystemChunksNT {
         subChunk.pockets = pockets.toArray(new RadPocket[pockets.size()]);
 
         // Finally, put the newly built sub chunk into the chunk
-        st.instance.setForYLevel((yIndex << 4) - 64, subChunk);
+        st.instance.setForYLevel(ChunkStorageCompat.getWorldYFromIndex(yIndex), subChunk);
 
         //System.out.println("[Debug] Finished rebuild of chunk at " + new BlockPos(chunk.getPos().x, yIndex, chunk.getPos().z));
 
@@ -715,6 +717,19 @@ public class RadiationSystemChunksNT {
 //            //System.err.println("[Debug] getting index for y: " + y + " = " + ((y + 64) >> 4));
             return (y + 64) >> 4;
         }
+
+        /**
+         * Converts a section index (0 to 23) to its corresponding world Y value (-64 to 319).
+         *
+         * @param idx Section index (0–23)
+         * @return World Y coordinate, or -64/319 if out of bounds
+         */
+        public static int getWorldYFromIndex(int idx) {
+            if (idx < 0) return -64;
+            else if (idx > 23) return 319;
+
+            return (idx << 4) - 64;
+        }
     }
 
     /**
@@ -746,7 +761,7 @@ public class RadiationSystemChunksNT {
 
     public static void incrementRad(ServerLevel level, BlockPos pos, float amount, float max) {
 
-        if(pos.getY() < 0 || pos.getY() > 255 || !level.isLoaded(pos))
+        if(pos.getY() < -64 || pos.getY() > 319 || !level.isLoaded(pos))
             return;
 
         RadPocket p = getPocket(level, pos);
@@ -756,14 +771,14 @@ public class RadiationSystemChunksNT {
         }
         // Mark this pocket as active so it gets updated
         if(amount > 0) {
-
+//            System.out.println(p.radiation);
             addActivePocket(p);
         }
     }
 
     public static void decrementRad(ServerLevel level, BlockPos pos, float amount) {
 
-        if(pos.getY() < 0 || pos.getY() > 255 || !level.isLoaded(pos))
+        if(pos.getY() < -64 || pos.getY() > 319 || !level.isLoaded(pos))
             return;
 
         RadPocket p = getPocket(level, pos);
@@ -820,6 +835,10 @@ public class RadiationSystemChunksNT {
         SubChunkRadiationStorage getForYLevel(int y);
 
         void setForYLevel(int y, SubChunkRadiationStorage sc);
+
+        void setInitialized();
+
+        boolean wasInitialized();
 
         void unload();
 
@@ -1091,6 +1110,8 @@ public class RadiationSystemChunksNT {
 //            private final Set<RadPocket> activePockets = new HashSet<>();
             private ChunkRadiationStorage parent;
 
+            private boolean wasInitialized = false;
+
             @Override
             public ChunkRadiationStorage getParent() {
 
@@ -1143,6 +1164,17 @@ public class RadiationSystemChunksNT {
                 if(sc != null)
                     sc.add(chunk.getLevel(), getWorldPos(y));
                 subData[index] = sc;
+            }
+
+            @Override
+            public void setInitialized() {
+
+                wasInitialized = true;
+            }
+
+            @Override
+            public boolean wasInitialized() {
+                return wasInitialized;
             }
 
             /**
@@ -1231,6 +1263,7 @@ public class RadiationSystemChunksNT {
                         }
                     }
                 }
+                root.putBoolean("was_initialized", wasInitialized);
                 return root;
             }
 
@@ -1242,7 +1275,7 @@ public class RadiationSystemChunksNT {
 
                         CompoundTag subTag = nbt.getCompound(key);
 
-                        SubChunkRadiationStorage sc = new SubChunkRadiationStorage(ChunkRadiationStorage.this, (i << 4) - 64, null, null);
+                        SubChunkRadiationStorage sc = new SubChunkRadiationStorage(ChunkRadiationStorage.this, ChunkStorageCompat.getWorldYFromIndex(i), null, null);
 
                         // Load RadPockets
                         ListTag pocketListNBT = subTag.getList("pockets", Tag.TAG_COMPOUND);
@@ -1294,6 +1327,7 @@ public class RadiationSystemChunksNT {
                         subData[i] = null;
                     }
                 }
+                wasInitialized = nbt.contains("was_initialized") && nbt.getBoolean("was_initialized");
             }
         }
 
@@ -1328,7 +1362,7 @@ public class RadiationSystemChunksNT {
 
 //        private static final Set<LevelChunk> chunksWithRebuildRequests = Collections.synchronizedSet(new HashSet<>());
 
-        private static final ResourceLocation RADIATION_CAP_KEY = new ResourceLocation("hbm", "chunk_radiation");
+        private static final ResourceLocation RADIATION_CAP_KEY = ResourceLocation.fromNamespaceAndPath("hbm", "chunk_radiation");
 
         @SubscribeEvent
         public static void attachChunkRadiation(AttachCapabilitiesEvent<LevelChunk> event) {
@@ -1345,6 +1379,72 @@ public class RadiationSystemChunksNT {
 
             // When the chunk is unloaded, also unload it from our radiation data if it exists
             ((LevelChunk) e.getChunk()).getCapability(CHUNK_RAD_CAPABILITY).ifPresent(IChunkRadiation::unload);
+        }
+
+//        private static final LongSet processedChunks = new it.unimi.dsi.fastutil.longs.LongOpenHashSet();
+//
+//        private static long chunkKey(LevelChunk chunk) {
+//            // chunk.getPos().x and z are ints; pack into a long
+//            ChunkPos pos = chunk.getPos();
+//            return (((long) pos.x) << 32) | (pos.z & 0xFFFFFFFFL);
+//        }
+
+        @SubscribeEvent
+        public static void onChunkLoad(ChunkEvent.Load e) {
+
+            if(e.getLevel().isClientSide())
+                return;
+
+            LevelChunk chunk = (LevelChunk)e.getChunk();
+
+//            long key = chunkKey(chunk);
+
+//            if(processedChunks.contains(key))
+//                return;
+
+            if(getChunkStorage(chunk).instance.wasInitialized()) {
+
+//                System.out.println("[Debug] chunk already initialized: " + chunk.getPos().toString());
+                return;
+            }
+//            else
+//                System.err.println("[Debug] chunk not initialized: " + chunk.getPos().toString());
+
+            BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
+
+            int baseX = chunk.getPos().getMinBlockX();
+            int baseZ = chunk.getPos().getMinBlockZ();
+
+            LevelChunkSection[] sections = chunk.getSections();
+            for(int i = 0; i < sections.length; i++) {
+
+                LevelChunkSection section = sections[i];
+
+                if(section == null || section.hasOnlyAir()) continue;
+
+                int sectionBaseY = (i << 4) -64;
+
+                for(int lx = 0; lx < 16; lx++) {
+
+                    int wx = baseX + lx;
+                    for(int ly = 0; ly < 16; ly++) {
+
+                        int wy = sectionBaseY + ly;
+                        for(int lz = 0; lz < 16; lz++) {
+
+                            int wz = baseZ + lz;
+
+                            if(section.getBlockState(lx, ly, lz).getBlock() instanceof HazardBlock hb) {
+
+                                mPos.set(wx, wy, wz);
+                                hb.onGenerated((ServerLevel)e.getLevel(), mPos);
+                            }
+                        }
+                    }
+                }
+            }
+//            processedChunks.add(key);
+            getChunkStorage(chunk).instance.setInitialized();
         }
 
         static boolean iteratingDirty;
@@ -1394,7 +1494,7 @@ public class RadiationSystemChunksNT {
 
         static {
             for (int i = 0; i < FRAME_COUNT; i++) {
-                FRAMES[i] = new ResourceLocation(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
+                FRAMES[i] = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
             }
         }
 

@@ -4,6 +4,7 @@ import com.hbm.nucleartech.block.custom.RadResistantBlock;
 import com.hbm.nucleartech.damagesource.RegisterDamageSources;
 import com.hbm.nucleartech.handler.HazmatRegistry;
 import com.hbm.nucleartech.handler.RadiationSystemChunksNT;
+import com.hbm.nucleartech.hazard.HazardBlock;
 import com.hbm.nucleartech.hazard.HazardBlockItem;
 import com.hbm.nucleartech.hazard.HazardItem;
 import com.hbm.nucleartech.hazard.HazardSystem;
@@ -17,6 +18,7 @@ import com.hbm.nucleartech.render.amlfrom1710.Vec3;
 import com.hbm.nucleartech.saveddata.RadiationSavedData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -35,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 
@@ -79,17 +82,38 @@ public class ContaminationUtil {
         NONE				//not preventable
     }
 
-    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d) {
-        radiate(level, x, y, z, range, rad3d, 0F, 0F, 0F, 0F);
+    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, BlockPos worldPosition) {
+        radiate(level, x, y, z, range, rad3d, 0F, 0F, 0F, 0F, worldPosition);
     }
-    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d) {
-        radiate(level, x, y, z, range, rad3d, dig3d, fire3d, 0F, 0F);
+    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, BlockPos worldPosition) {
+        radiate(level, x, y, z, range, rad3d, dig3d, fire3d, 0F, 0F, worldPosition);
     }
-    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d) {
-        radiate(level, x, y, z, range, rad3d, dig3d, fire3d, blast3d, range);
+    public static void radiate(ServerLevel level, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, BlockPos worldPosition) {
+        radiate(level, x, y, z, range, rad3d, dig3d, fire3d, blast3d, range, worldPosition);
     }
-    public static void radiate(ServerLevel pLevel, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, double blastRange) {
+    public static void radiate(ServerLevel pLevel, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, double blastRange, BlockPos worldPosition) {
         List<Entity> entities = pLevel.getEntities(null, new AABB(x-range, y-range, z-range, x+range, y+range, z+range));
+
+//        System.err.println("radiating");
+
+        List<RadiationSystemChunksNT.RadPocket> pockets = new ArrayList<>();
+
+        for(Direction d : Direction.values()) {
+
+            BlockPos relative = worldPosition.relative(d);
+            BlockState state = pLevel.getBlockState(relative);
+
+            RadiationSystemChunksNT.RadPocket decidedPocket = RadiationSystemChunksNT.getPocket(pLevel, relative);
+
+            if(state.isAir() && !pockets.contains(decidedPocket)) {
+
+                RadiationSavedData.incrementRad(pLevel, relative, rad3d, rad3d * 10f);
+
+//                System.out.println("incrementing radiation at " + relative.toString());
+
+                pockets.add(decidedPocket);
+            }
+        }
 
         for(Entity e : entities) {
 
@@ -128,8 +152,6 @@ public class ContaminationUtil {
             if(res < 1)
                 res = 1;
 
-            RadiationSavedData.incrementRad(pLevel, vec.addVector(0,1,0).toBlockPos(), rad3d, rad3d * 10f);
-
             if(isLiving && rad3d > 0) {
 
                 float eRads = rad3d;
@@ -141,12 +163,20 @@ public class ContaminationUtil {
                     eRads = (eRads * (float)exp) * 1000f;
 //                    System.err.println("[Debug] eRads: " + eRads + ", exponent: " + (float)exp);
                 }
-
-
-                if(eRads > 0.1F)
+//                if(pLevel.getBlockState(worldPosition).getBlock() instanceof HazardBlock && e instanceof Player)
+//                    System.err.println("[Hazard Block] contaminating: original=" + rad3d + ", new=" + eRads);
+                if(eRads > 0.0001f)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
 
-                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads, eRads * 10f);
+                BlockPos dPos = e.getOnPos().offset(0,1,0);
+
+                RadiationSystemChunksNT.RadPocket decidedPocket = RadiationSystemChunksNT.getPocket(pLevel, dPos);
+
+                if(!pockets.contains(decidedPocket)) {
+
+                    RadiationSavedData.incrementRad(pLevel, dPos, eRads, eRads * 10f);
+                    pockets.add(decidedPocket);
+                }
 //                RadiationSavedData.decrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads);
 //                else
 //                    System.err.println("[Debug] Radiation being applied is too close to zero: " + eRads);
@@ -273,7 +303,7 @@ public class ContaminationUtil {
 
 //                System.err.println("[Debug] Radiation before: " + amount + ", resistance: " + (float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D)) + "%, multiplier: " + (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f));
 
-                    amount = amount * (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f);
+                amount = amount * (1-(float)((((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D))/100f);
 
 //                System.err.println("[Debug] Radiation after: " + amount);
                 }

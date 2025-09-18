@@ -65,8 +65,13 @@ public class HbmCapabilities {
 
         @SubscribeEvent
         public static void onPlayerRespawnedSyncPlayerCapability(PlayerEvent.PlayerRespawnEvent event) {
-            if (!event.getEntity().level().isClientSide())
+            if (!event.getEntity().level().isClientSide()) {
+
                 ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncLivingVariables(event.getEntity());
+                LivingEntityCapability e = ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
+
+                e.setValue(Type.OLD_MAX_HEALTH, 20);
+            }
         }
 
         @SubscribeEvent
@@ -81,6 +86,10 @@ public class HbmCapabilities {
             LivingEntityCapability original = ((LivingEntityCapability) event.getOriginal().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
             LivingEntityCapability clone = ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
             if (!event.isWasDeath()) {
+                clone.setValue(Type.OLD_MAX_HEALTH, original.getValue(Type.OLD_MAX_HEALTH));
+                clone.setValue(Type.OLD_ROUNDED_DAMAGE, original.getValue(Type.OLD_ROUNDED_DAMAGE));
+                clone.setValue(Type.PERMANENT_CONTAMINATION, original.getValue(Type.PERMANENT_CONTAMINATION));
+                clone.setValue(Type.INTERNAL_DAMAGE, original.getValue(Type.INTERNAL_DAMAGE));
                 clone.setValue(Type.RADIATION, original.getValue(Type.RADIATION));
                 clone.setValue(Type.NEUTRON, original.getValue(Type.NEUTRON));
                 clone.setValue(Type.DIGAMMA, original.getValue(Type.DIGAMMA));
@@ -107,13 +116,13 @@ public class HbmCapabilities {
         public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
             if(event.getObject() instanceof Mob)
-                event.addCapability(new ResourceLocation(HBM.MOD_ID, "living_entity_capability"), new LivingEntityCapabilityProvider());
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "living_entity_capability"), new LivingEntityCapabilityProvider());
         }
 
         private final LivingEntityCapability capability = new LivingEntityCapability();
 
 
-        public static final ResourceLocation ID = new ResourceLocation(HBM.MOD_ID, "living_entity_capability");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "living_entity_capability");
 
         @Override
         public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -141,7 +150,7 @@ public class HbmCapabilities {
         public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
             if(event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
-                event.addCapability(new ResourceLocation(HBM.MOD_ID, "player_entity_capability"), new PlayerEntityCapabilityProvider());
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "player_entity_capability"), new PlayerEntityCapabilityProvider());
         }
 
         private final LivingEntityCapability capability = new LivingEntityCapability();
@@ -193,6 +202,10 @@ public class HbmCapabilities {
                 if(!context.getDirection().getReceptionSide().isServer()) {
 
                     LivingEntityCapability capability = ((LivingEntityCapability) Minecraft.getInstance().player.getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
+                    capability.setValue(Type.OLD_MAX_HEALTH, message.data.getValue(Type.OLD_MAX_HEALTH));
+                    capability.setValue(Type.OLD_ROUNDED_DAMAGE, message.data.getValue(Type.OLD_ROUNDED_DAMAGE));
+                    capability.setValue(Type.PERMANENT_CONTAMINATION, message.data.getValue(Type.PERMANENT_CONTAMINATION));
+                    capability.setValue(Type.INTERNAL_DAMAGE, message.data.getValue(Type.INTERNAL_DAMAGE));
                     capability.setValue(Type.RADIATION, message.data.getValue(Type.RADIATION));
                     capability.setValue(Type.NEUTRON, message.data.getValue(Type.NEUTRON));
                     capability.setValue(Type.DIGAMMA, message.data.getValue(Type.DIGAMMA));

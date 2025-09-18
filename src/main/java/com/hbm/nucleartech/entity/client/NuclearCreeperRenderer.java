@@ -34,7 +34,7 @@ public class NuclearCreeperRenderer extends MobRenderer<NuclearCreeperEntity, Cr
 
     @Override
     public ResourceLocation getTextureLocation(NuclearCreeperEntity pEntity) {
-        return new ResourceLocation(HBM.MOD_ID, "textures/entity/nuclear_creeper.png");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/entity/nuclear_creeper.png");
     }
 
     @Override

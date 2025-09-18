@@ -6,14 +6,18 @@ import java.util.List;
 
 public interface IEntityCapabilityBase {
 
-    float getValue(Type type);
+    double getValue(Type type);
     List<ContaminationEffect> getValue();
-    void setValue(Type type, float value);
+    void setValue(Type type, double value);
     void setValue(List<ContaminationEffect> contamination);
-    void addValue(Type type, float value);
+    void addValue(Type type, double value);
     void addValue(ContaminationEffect contaminationEffect);
 
     enum Type {
+        OLD_MAX_HEALTH,
+        OLD_ROUNDED_DAMAGE,
+        PERMANENT_CONTAMINATION,
+        INTERNAL_DAMAGE,
         RADIATION,
         NEUTRON,
         DIGAMMA,

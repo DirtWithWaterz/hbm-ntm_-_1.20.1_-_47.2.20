@@ -93,6 +93,93 @@ public class RegisterItems {
     public static final RegistryObject<Item> DESH_BLADE = ITEMS.register("desh_blade",
             () -> new BladeItem(new Item.Properties().stacksTo(1), 9));
 
+    public static final RegistryObject<Item> SULFUR_INGOT = ITEMS.register("sulfur_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_SULFUR = ITEMS.register("raw_sulfur",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> NITER_INGOT = ITEMS.register("niter_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_NITER = ITEMS.register("raw_niter",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> TUNGSTEN_INGOT = ITEMS.register("tungsten_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_TUNGSTEN = ITEMS.register("raw_tungsten",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ALUMINIUM_INGOT = ITEMS.register("aluminum_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_ALUMINIUM = ITEMS.register("raw_aluminum",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> FLUORITE_INGOT = ITEMS.register("fluorite_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_FLUORITE = ITEMS.register("raw_fluorite",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_BERYLLIUM = ITEMS.register("raw_beryllium",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LIGNITE_INGOT = ITEMS.register("lignite_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_LIGNITE = ITEMS.register("raw_lignite",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ASBESTOS_INGOT = ITEMS.register("asbestos_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_ASBESTOS = ITEMS.register("raw_asbestos",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> SCHRABIDIUM_INGOT = ITEMS.register("schrabidium_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_SCHRABIDIUM = ITEMS.register("raw_schrabidium",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> AUSTRALIUM_INGOT = ITEMS.register("australium_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_AUSTRALIUM = ITEMS.register("raw_australium",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RARE_EARTH_INGOT = ITEMS.register("rare_earth_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_RARE_EARTH = ITEMS.register("raw_rare_earth",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> COBALT_INGOT = ITEMS.register("cobalt_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> CINNABAR_INGOT = ITEMS.register("cinnabar_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_CINNABAR = ITEMS.register("raw_cinnabar",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> COLTAN_INGOT = ITEMS.register("coltan_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_COLTAN = ITEMS.register("raw_coltan",
+            () -> new Item(new Item.Properties()));
+
 //    ====================================== CELLS ======================================
 
     public static final RegistryObject<Item> SCHRABIDIUM_4_CELL_EMPTY = ITEMS.register("schrabidium_4_cell_empty",

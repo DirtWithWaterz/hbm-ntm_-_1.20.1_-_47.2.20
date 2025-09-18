@@ -10,16 +10,16 @@ public class M65Model extends GeoModel<GasmaskItem> {
 
     @Override
     public ResourceLocation getModelResource(GasmaskItem gasmaskItem) {
-        return new ResourceLocation(HBM.MOD_ID, "geo/item/armor/m65_mask.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "geo/item/armor/m65_mask.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(GasmaskItem gasmaskItem) {
-        return new ResourceLocation(HBM.MOD_ID, "textures/item/armor/m65_mask.png");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/item/armor/m65_mask.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(GasmaskItem gasmaskItem) {
-        return new ResourceLocation(HBM.MOD_ID, "animations/item/armor/m65_mask.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "animations/item/armor/m65_mask.animation.json");
     }
 }

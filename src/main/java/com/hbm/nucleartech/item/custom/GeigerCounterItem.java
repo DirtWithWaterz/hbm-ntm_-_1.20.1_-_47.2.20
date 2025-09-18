@@ -129,8 +129,8 @@ public class GeigerCounterItem extends Item {
 
     public static float getRad(LivingEntity pEntity) {
 
-        return HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADENV)
-                + HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.NEUTRON);
+        return (float)(HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.RADENV)
+                + HbmCapabilities.getData(pEntity).getValue(IEntityCapabilityBase.Type.NEUTRON));
     }
 
     @Override
@@ -151,7 +151,7 @@ public class GeigerCounterItem extends Item {
     @Mod.EventBusSubscriber(value = Dist.CLIENT)
     public class CustomHudOverlay {
 
-        private static final ResourceLocation RAD_COUNTER = new ResourceLocation(HBM.MOD_ID, "textures/misc/overlay_misc.png");
+        private static final ResourceLocation RAD_COUNTER = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/misc/overlay_misc.png");
 
         private static long lastRadSurvey;
 
@@ -188,7 +188,7 @@ public class GeigerCounterItem extends Item {
                     if(System.currentTimeMillis() >= lastRadSurvey + 1000) {
                         lastRadSurvey = System.currentTimeMillis();
                         radPS = getRad(mc.player);
-                        radiation = HbmCapabilities.getData(mc.player).getValue(IEntityCapabilityBase.Type.RADIATION);
+                        radiation = (float)HbmCapabilities.getData(mc.player).getValue(IEntityCapabilityBase.Type.RADIATION);
                     }
 
 //                    int screenWidth = mc.getWindow().getGuiScaledWidth();

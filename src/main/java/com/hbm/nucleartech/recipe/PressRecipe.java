@@ -92,7 +92,7 @@ public class PressRecipe implements Recipe<SimpleContainer> {
     public static class Serializer implements RecipeSerializer<PressRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(HBM.MOD_ID, "press");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "press");
 
         @Override
         public PressRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
