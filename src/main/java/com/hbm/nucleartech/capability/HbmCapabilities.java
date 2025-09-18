@@ -65,8 +65,13 @@ public class HbmCapabilities {
 
         @SubscribeEvent
         public static void onPlayerRespawnedSyncPlayerCapability(PlayerEvent.PlayerRespawnEvent event) {
-            if (!event.getEntity().level().isClientSide())
+            if (!event.getEntity().level().isClientSide()) {
+
                 ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability())).syncLivingVariables(event.getEntity());
+                LivingEntityCapability e = ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
+
+                e.setValue(Type.OLD_MAX_HEALTH, 20);
+            }
         }
 
         @SubscribeEvent

@@ -60,7 +60,7 @@ public class RadiationSystemNT {
     }
 
     /**
-     * @deprecated "When implementing max health related changes, update entity capability: Type.OLD_MAX_HEALTH. (20 + whatever modifications) p.s. this makes the mod incompatible with other mods that add max health, add compatibilities later"
+     * @deprecated "When implementing max health related changes, update entity capability: Type.OLD_MAX_HEALTH. (20 + whatever modifications) p.s. this makes the mod incompatible with other mods that add max health, add compatibilities later. Other data that must be updated later is in onPlayerRespawnedSyncPlayerCapability() in HbmCapabilities.java"
      */
     @Deprecated(forRemoval = true, since = "1.8.21")
     private static void updateEntityContamination(Level world, boolean updateData) {
@@ -283,7 +283,7 @@ public class RadiationSystemNT {
 
                                     int roundedDam = (int)Math.round(internal_dam);
 
-                                    boolean maxHealthChanged;
+//                                    boolean maxHealthChanged;
 
                                     if (hp != null) {
 
@@ -317,15 +317,22 @@ public class RadiationSystemNT {
                                             HbmCapabilities.getData(entity).setValue(Type.OLD_ROUNDED_DAMAGE, roundedDam);
                                             HbmCapabilities.getData(entity).syncLivingVariables(entity);
 
-                                            maxHealthChanged = true;
+//                                            maxHealthChanged = true;
 
-                                            if(entity instanceof ServerPlayer)
-                                                System.out.println("\n================================================================================"
-                                                        + "\ncontamination = " + eRad + ", permanent contamination = " + perm_con + ", internal damage = " + internal_dam
-                                                        + "\nrounded internal damage = " + roundedDam + ", old rounded internal damage = " + oldRoundedDam + ", max health changed = " + maxHealthChanged
-                                                        + "\ncurrent max health = " + currMax + ", new max health = " + newMax + ", entity.getHealth() = " + entity.getHealth()
-                                                        + "\n================================================================================");
+//                                            if(entity instanceof ServerPlayer)
+//                                                System.out.println("\n================================================================================"
+//                                                        + "\ncontamination = " + eRad + ", permanent contamination = " + perm_con + ", internal damage = " + internal_dam
+//                                                        + "\nrounded internal damage = " + roundedDam + ", old rounded internal damage = " + oldRoundedDam + ", max health changed = " + maxHealthChanged
+//                                                        + "\ncurrent max health = " + currMax + ", new max health = " + newMax + ", entity.getHealth() = " + entity.getHealth() + ", og max health = " + ogMax
+//                                                        + "\n================================================================================");
                                         }
+
+//                                        if(entity instanceof ServerPlayer)
+//                                            System.out.println("\n================================================================================"
+//                                                    + "\ncontamination = " + eRad + ", permanent contamination = " + perm_con + ", internal damage = " + internal_dam
+//                                                    + "\nrounded internal damage = " + roundedDam + ", old rounded internal damage = " + oldRoundedDam
+//                                                    + "\nentity.getHealth() = " + entity.getHealth()
+//                                                    + "\n================================================================================");
                                     }
                                 }
                             }

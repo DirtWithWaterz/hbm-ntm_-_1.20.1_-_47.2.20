@@ -129,17 +129,17 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             }
             case PERMANENT_CONTAMINATION -> {
 
-                permanentContamination = value;
+                permanentContamination = Mth.clamp(value, 0, Double.MAX_VALUE);
                 break;
             }
             case INTERNAL_DAMAGE -> {
 
-                internalDamage = value;
+                internalDamage = Mth.clamp(value, 0, Double.MAX_VALUE);
                 break;
             }
             case RADIATION -> {
 
-                radiation = (float)value;
+                radiation = (float)Mth.clamp(value, 0, Double.MAX_VALUE);
                 break;
             }
             case NEUTRON -> {
