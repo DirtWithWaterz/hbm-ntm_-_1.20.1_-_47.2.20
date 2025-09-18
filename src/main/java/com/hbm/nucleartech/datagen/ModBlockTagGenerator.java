@@ -94,7 +94,23 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.YELLOW_THORIUM_ORE.get(),
                         RegisterBlocks.WHITE_THORIUM_ORE.get(),
                         RegisterBlocks.LIGHT_GRAY_THORIUM_ORE.get(),
-                        RegisterBlocks.BROWN_THORIUM_ORE.get());
+                        RegisterBlocks.BROWN_THORIUM_ORE.get(),
+                        RegisterBlocks.BLACK_CONCRETE.get(),
+                        RegisterBlocks.BLUE_CONCRETE.get(),
+                        RegisterBlocks.BROWN_CONCRETE.get(),
+                        RegisterBlocks.CYAN_CONCRETE.get(),
+                        RegisterBlocks.GRAY_CONCRETE.get(),
+                        RegisterBlocks.GREEN_CONCRETE.get(),
+                        RegisterBlocks.LIGHT_BLUE_CONCRETE.get(),
+                        RegisterBlocks.LIGHT_GRAY_CONCRETE.get(),
+                        RegisterBlocks.LIME_CONCRETE.get(),
+                        RegisterBlocks.MAGENTA_CONCRETE.get(),
+                        RegisterBlocks.ORANGE_CONCRETE.get(),
+                        RegisterBlocks.PINK_CONCRETE.get(),
+                        RegisterBlocks.PURPLE_CONCRETE.get(),
+                        RegisterBlocks.RED_CONCRETE.get(),
+                        RegisterBlocks.WHITE_CONCRETE.get(),
+                        RegisterBlocks.YELLOW_CONCRETE.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(RegisterBlocks.TITANIUM_ORE.get(),
@@ -137,7 +153,22 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.WHITE_THORIUM_ORE.get(),
                         RegisterBlocks.YELLOW_THORIUM_ORE.get(),
                         RegisterBlocks.ORANGE_THORIUM_ORE.get(),
-                        RegisterBlocks.RED_THORIUM_ORE.get());
+                        RegisterBlocks.RED_THORIUM_ORE.get(),
+                        RegisterBlocks.BLACK_CONCRETE.get(),
+                        RegisterBlocks.BLUE_CONCRETE.get(),
+                        RegisterBlocks.BROWN_CONCRETE.get(),
+                        RegisterBlocks.CYAN_CONCRETE.get(),
+                        RegisterBlocks.GRAY_CONCRETE.get(),
+                        RegisterBlocks.GREEN_CONCRETE.get(),
+                        RegisterBlocks.LIGHT_BLUE_CONCRETE.get(),
+                        RegisterBlocks.LIME_CONCRETE.get(),
+                        RegisterBlocks.MAGENTA_CONCRETE.get(),
+                        RegisterBlocks.ORANGE_CONCRETE.get(),
+                        RegisterBlocks.PINK_CONCRETE.get(),
+                        RegisterBlocks.PURPLE_CONCRETE.get(),
+                        RegisterBlocks.RED_CONCRETE.get(),
+                        RegisterBlocks.WHITE_CONCRETE.get(),
+                        RegisterBlocks.YELLOW_CONCRETE.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(RegisterBlocks.URANIUM_ORE.get(),

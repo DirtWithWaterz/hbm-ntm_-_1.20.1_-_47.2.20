@@ -561,6 +561,119 @@ public class RegisterBlocks {
                     UniformInt.of(2, 5),
                     0.0035
             ));
+
+
+    public static final RegistryObject<Block> CYAN_CONCRETE = registerHazardBlock(0.0035, "cyan_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> GRAY_CONCRETE = registerHazardBlock(0.0035, "gray_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> GREEN_CONCRETE = registerHazardBlock(0.0035, "green_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE = registerHazardBlock(0.0035, "light_blue_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE = registerHazardBlock(0.0035, "light_gray_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> LIME_CONCRETE = registerHazardBlock(0.0035, "lime_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> MAGENTA_CONCRETE = registerHazardBlock(0.0035, "magenta_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> ORANGE_CONCRETE = registerHazardBlock(0.0035, "orange_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> PINK_CONCRETE = registerHazardBlock(0.0035, "pink_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> PURPLE_CONCRETE = registerHazardBlock(0.0035, "purple_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> RED_CONCRETE = registerHazardBlock(0.0035, "red_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> WHITE_CONCRETE = registerHazardBlock(0.0035, "white_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> YELLOW_CONCRETE = registerHazardBlock(0.0035, "yellow_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> BLACK_CONCRETE = registerHazardBlock(0.0035, "black_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> BLUE_CONCRETE = registerHazardBlock(0.0035, "blue_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
+
+    public static final RegistryObject<Block> BROWN_CONCRETE = registerHazardBlock(0.0035, "brown_concrete",
+            () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(8.0f, 15.0f),
+                    UniformInt.of(2, 5),
+                    0.0035
+            ));
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
 
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

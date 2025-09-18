@@ -264,6 +264,23 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterBlocks.RAW_CINNABAR_STORAGE_BLOCK.get());
                         output.accept(RegisterBlocks.COLTAN_STORAGE_BLOCK.get());
                         output.accept(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK.get());
+
+                        output.accept(RegisterBlocks.BLACK_CONCRETE.get());
+                        output.accept(RegisterBlocks.BLUE_CONCRETE.get());
+                        output.accept(RegisterBlocks.BROWN_CONCRETE.get());
+                        output.accept(RegisterBlocks.CYAN_CONCRETE.get());
+                        output.accept(RegisterBlocks.GRAY_CONCRETE.get());
+                        output.accept(RegisterBlocks.GREEN_CONCRETE.get());
+                        output.accept(RegisterBlocks.LIGHT_BLUE_CONCRETE.get());
+                        output.accept(RegisterBlocks.LIGHT_GRAY_CONCRETE.get());
+                        output.accept(RegisterBlocks.LIME_CONCRETE.get());
+                        output.accept(RegisterBlocks.MAGENTA_CONCRETE.get());
+                        output.accept(RegisterBlocks.ORANGE_CONCRETE.get());
+                        output.accept(RegisterBlocks.PINK_CONCRETE.get());
+                        output.accept(RegisterBlocks.PURPLE_CONCRETE.get());
+                        output.accept(RegisterBlocks.RED_CONCRETE.get());
+                        output.accept(RegisterBlocks.WHITE_CONCRETE.get());
+                        output.accept(RegisterBlocks.YELLOW_CONCRETE.get());
                     })
                     .build());
 

@@ -121,6 +121,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.COLTAN_STORAGE_BLOCK);
         blockWithItem(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK);
 
+
+        blockWithItem(RegisterBlocks.BLACK_CONCRETE);
+        blockWithItem(RegisterBlocks.BLUE_CONCRETE);
+        blockWithItem(RegisterBlocks.BROWN_CONCRETE);
+        blockWithItem(RegisterBlocks.CYAN_CONCRETE);
+        blockWithItem(RegisterBlocks.GRAY_CONCRETE);
+        blockWithItem(RegisterBlocks.GREEN_CONCRETE);
+        blockWithItem(RegisterBlocks.LIGHT_BLUE_CONCRETE);
+        blockWithItem(RegisterBlocks.LIGHT_GRAY_CONCRETE);
+        blockWithItem(RegisterBlocks.LIME_CONCRETE);
+        blockWithItem(RegisterBlocks.MAGENTA_CONCRETE);
+        blockWithItem(RegisterBlocks.ORANGE_CONCRETE);
+        blockWithItem(RegisterBlocks.PINK_CONCRETE);
+        blockWithItem(RegisterBlocks.PURPLE_CONCRETE);
+        blockWithItem(RegisterBlocks.RED_CONCRETE);
+        blockWithItem(RegisterBlocks.WHITE_CONCRETE);
+        blockWithItem(RegisterBlocks.YELLOW_CONCRETE);
+
+
         blockWithItem(RegisterBlocks.RED_THORIUM_ORE);
         blockWithItem(RegisterBlocks.ORANGE_THORIUM_ORE);
         blockWithItem(RegisterBlocks.YELLOW_THORIUM_ORE);

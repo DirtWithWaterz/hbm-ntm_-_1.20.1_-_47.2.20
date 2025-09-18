@@ -73,6 +73,22 @@
     "hbm:yellow_thorium_ore",
     "hbm:white_thorium_ore",
     "hbm:light_gray_thorium_ore",
-    "hbm:brown_thorium_ore"
+    "hbm:brown_thorium_ore",
+    "hbm:black_concrete",
+    "hbm:blue_concrete",
+    "hbm:brown_concrete",
+    "hbm:cyan_concrete",
+    "hbm:gray_concrete",
+    "hbm:green_concrete",
+    "hbm:light_blue_concrete",
+    "hbm:light_gray_concrete",
+    "hbm:lime_concrete",
+    "hbm:magenta_concrete",
+    "hbm:orange_concrete",
+    "hbm:pink_concrete",
+    "hbm:purple_concrete",
+    "hbm:red_concrete",
+    "hbm:white_concrete",
+    "hbm:yellow_concrete"
   ]
 }
