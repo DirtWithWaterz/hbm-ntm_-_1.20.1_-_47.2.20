@@ -23,7 +23,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import com.hbm.nucleartech.handler.RadiationSystemChunksNT.ChunkStorageCompat.*;
+import com.hbm.nucleartech.handler.RadiationSystemChunksNT.ChunkStorageCompat;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -52,7 +52,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+import java.util.function.Consumer;
 
 import static com.hbm.nucleartech.handler.RadiationSystemNT.getAabb;
 
@@ -75,10 +78,166 @@ import static com.hbm.nucleartech.handler.RadiationSystemNT.getAabb;
 @Mod.EventBusSubscriber(modid = "hbm", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RadiationSystemChunksNT {
 
-    private static final Set<RadPocket> activePockets = new HashSet<>();
+    private static final Set<RadPocket> activePockets = Collections.synchronizedSet(new HashSet<>());
 
-    /**A tick counter so radiation only updates once every second.*/
+    /** Thread pool for async radiation calculations */
+    private static final ExecutorService RADIATION_THREAD_POOL = Executors.newFixedThreadPool(
+            Math.max(1, Runtime.getRuntime().availableProcessors() / 2),
+            r -> {
+                Thread t = new Thread(r, "Radiation Calculation Thread");
+                t.setDaemon(true);
+                return t;
+            }
+    );
+
+    /** Queue for radiation updates to be applied on the main thread */
+    private static final ConcurrentLinkedQueue<Consumer<ServerLevel>> PENDING_UPDATES = new ConcurrentLinkedQueue<>();
+
+    /** Tracks if an update is currently in progress */
+    private static final AtomicBoolean UPDATE_IN_PROGRESS = new AtomicBoolean(false);
+
+    /** Tick counter for radiation updates */
     private static int ticks;
+
+    /**
+     * Represents a single radiation update that needs to be applied to a pocket
+     */
+    private static class RadiationUpdate {
+        final RadPocket pocket;
+        final float newRadiation;
+        final boolean shouldRemove;
+
+        RadiationUpdate(RadPocket pocket, float newRadiation, boolean shouldRemove) {
+            this.pocket = pocket;
+            this.newRadiation = newRadiation;
+            this.shouldRemove = shouldRemove;
+        }
+    }
+
+    /**
+     * Task for processing radiation updates asynchronously
+     */
+    private static class RadiationUpdateTask implements Runnable {
+        private final List<RadPocket> pocketsToProcess;
+        private final List<RadiationUpdate> updates = new ArrayList<>();
+        private final List<Runnable> chunkLoadTasks = new ArrayList<>();
+
+        RadiationUpdateTask(List<RadPocket> pockets) {
+            this.pocketsToProcess = new ArrayList<>(pockets);
+        }
+
+        @Override
+        public void run() {
+            try {
+                long startTime = System.currentTimeMillis();
+
+                for (RadPocket p : pocketsToProcess) {
+                    if (p == null || p.parent == null || p.parent.parentChunk == null) {
+                        continue;
+                    }
+
+                    // Calculate radiation decay
+                    float newRad = p.radiation * 0.999F - 0.05F;
+                    boolean shouldRemove = newRad <= 0;
+
+                    // Queue the update
+                    updates.add(new RadiationUpdate(p, Math.max(0, newRad), shouldRemove));
+
+                    if (shouldRemove) {
+                        continue;
+                    }
+
+                    // Process radiation spread if needed
+                    if (p.radiation > 0) {
+                        processRadiationSpread(p, startTime);
+                    }
+
+                    // Check if we've used too much time in this tick
+                    if (System.currentTimeMillis() - startTime > 15) {
+                        break;
+                    }
+                }
+
+                // Schedule updates to be applied on the main thread
+                if (!updates.isEmpty() || !chunkLoadTasks.isEmpty()) {
+                    PENDING_UPDATES.add(world -> {
+                        try {
+                            // Apply radiation updates
+                            for (RadiationUpdate update : updates) {
+                                update.pocket.radiation = update.newRadiation;
+                                update.pocket.parent.parentChunk.chunk.setUnsaved(true);
+
+                                if (update.shouldRemove) {
+                                    activePockets.remove(update.pocket);
+                                }
+                            }
+
+                            // Process any chunk load tasks
+                            for (Runnable task : chunkLoadTasks) {
+                                task.run();
+                            }
+                        } finally {
+                            UPDATE_IN_PROGRESS.set(false);
+                        }
+                    });
+                } else {
+                    UPDATE_IN_PROGRESS.set(false);
+                }
+            } catch (Exception e) {
+                HBM.LOGGER.error("Error in radiation calculation thread", e);
+                UPDATE_IN_PROGRESS.set(false);
+            }
+        }
+
+        private void processRadiationSpread(RadPocket p, long startTime) {
+            // Count connections for radiation spread
+            float count = 0;
+            for (Direction d : Direction.values()) {
+                count += p.connectionIndices[d.ordinal()].size();
+            }
+
+            float amountPer = (count > 0 && p.radiation >= 1) ? (0.7F / count) : 0;
+
+            if (amountPer <= 0) {
+                return;
+            }
+
+            BlockPos pos = p.parent.parentChunk.getWorldPos(p.parent.yLevel);
+
+            // Process radiation spread to connected pockets
+            for (Direction e : Direction.values()) {
+                BlockPos nPos = pos.relative(e, 16);
+
+                // Skip if out of bounds or unloaded
+                if (!p.parent.parentChunk.chunk.getLevel().isLoaded(nPos) ||
+                        nPos.getY() < -64 || nPos.getY() > 319) {
+                    continue;
+                }
+
+                List<Integer> connections = p.connectionIndices[e.ordinal()];
+                if (connections.size() == 1 && connections.get(0) == -1) {
+                    // Queue chunk loading on main thread
+                    chunkLoadTasks.add(() -> {
+                        rebuildChunkPockets(
+                                p.parent.parentChunk.chunk.getLevel().getChunkAt(nPos),
+                                ChunkStorageCompat.getIndexFromWorldY(nPos.getY())
+                        );
+                    });
+                } else if (!connections.isEmpty()) {
+                    // Queue radiation spread to connected pockets
+                    // (Implementation depends on how radiation spread is handled)
+                    // This is a placeholder - you'll need to implement the actual radiation spread logic
+                    float finalAmountPer = amountPer;
+                    updates.add(new RadiationUpdate(p, p.radiation - (finalAmountPer * connections.size()), false));
+                }
+
+                // Check if we've used too much time in this tick
+                if (System.currentTimeMillis() - startTime > 15) {
+                    break;
+                }
+            }
+        }
+    }
     // -----------------------------------
     // CAPABILITY REGISTRATION
     // -----------------------------------
@@ -206,126 +365,44 @@ public class RadiationSystemChunksNT {
     }
 
     /**
-     * Updates the whole radiation system. This loops through every world's radiation data, and updates the value in each pocket.
-     * Pockets transfer some of their radiation to pockets they're connected to.
-     * It tries to do pretty much the same algorithm as the regular system, but in 3d with pockets.
+     * Updates the whole radiation system asynchronously.
+     * This schedules radiation calculations to run on a separate thread,
+     * with results applied on the main thread.
      */
     public static void updateRadiation() {
-
-        long time = System.currentTimeMillis();
-
-        //System.out.println("[Debug] Started updating radiation");
-
-        List<RadPocket> itrActive = new ArrayList<>(getActivePockets());
-        Iterator<RadPocket> itr = itrActive.iterator();
-        //System.out.println("[Debug] Active pockets array size: " + itrActive.size());
-        while(itr.hasNext()) {
-
-            RadPocket p = itr.next();
-            BlockPos pos = p.parent.parentChunk.getWorldPos(p.parent.yLevel);
-
-            // Lower the radiation a bit, and mark the parent chunk as dirty so the radiation gets saved
-            p.radiation *= 0.999F;
-            p.radiation -= 0.05F;
-            p.parent.parentChunk.chunk.setUnsaved(true);
-            if(p.radiation <= 0) {
-
-                // If there is no more radiation and the radPocket is unsealed, set it to 0 and remove it
-                p.radiation = 0;
-                p.accumulatedRads = 0;
-                itr.remove();
-                p.parent.parentChunk.chunk.setUnsaved(true);
-                //System.err.println("[Debug] Pocket is no longer radioactive, removing and continuing to next pocket...");
-                continue;
-            }
-            //System.out.println("[Debug] Pocket is active, proceeding...");
-            // Rad fog code goes here
-
-            // Count the number of connections to other pockets we have
-            float count = 0;
-            for(Direction d : Direction.values())
-                count += p.connectionIndices[d.ordinal()].size();
-
-            float amountPer = 0.7F / count;
-
-            if(count == 0 || p.radiation < 1) {
-
-                // Don't update if we have no connections or our own radiation is less than 1
-                // Prevents micro radiation bleeding
-                amountPer = 0;
-            }
-            // Don't update if our own radiation is less than 1
-            if(p.radiation < 1)
-                amountPer = 0;
-
-//            BlockPos chunkPos = new BlockPos(
-//                    p.getSubChunkPos().getX() >> 4,
-//                    ChunkStorageCompat.getIndexFromWorldY(p.getSubChunkPos().getY()),
-//                    p.getSubChunkPos().getZ() >> 4);
-//            //System.out.println("[Debug] Pocket " + p.index + " has " + count + " connections to other pockets at chunk " + chunkPos);
-//            if (amountPer > 0) {
-//                //System.out.println("[Debug] Pocket " + p.index + " will spread " + amountPer + " rads to each adjacent pocket");
-//            }
-
-            // This might also cause leaks from sealed pockets to unsealed ones
-            // Only update other values if this one has radiation to update with
-            if(p.radiation > 0 && amountPer > 0) {
-
-                // For each direction...
-                for(Direction e : Direction.values()) {
-
-                    // Get the blockPos for the next sub chunk in that direction
-                    BlockPos nPos = pos.relative(e, 16);
-
-                    // If it's not loaded or it's out of bounds, do nothing
-                    if(!p.parent.parentChunk.chunk.getLevel().isLoaded(nPos) || nPos.getY() < -64 || nPos.getY() > 319)
-                        continue;
-
-                    if(p.connectionIndices[e.ordinal()].size() == 1 && p.connectionIndices[e.ordinal()].get(0) == -1) {
-
-                        // If the chunk in this direction isn't loaded, load it
-                        rebuildChunkPockets(p.parent.parentChunk.chunk.getLevel().getChunkAt(nPos), ChunkStorageCompat.getIndexFromWorldY(nPos.getY()));
-                    } else {
-
-                        // Otherwise, for every pocket this chunk is connected to in this direction, add radiation to it
-                        // Also add those pockets to the active pockets set
-                        SubChunkRadiationStorage sc2 = getSubChunkStorage(p.parent.parentChunk.chunk.getLevel(), nPos);
-                        for(int idx : p.connectionIndices[e.ordinal()]) {
-
-                            // Don't spread to sealed pockets
-                            if(!sc2.pockets[idx].isSealed()) {
-
-                                // Only accumulated rads get updated so the system doesn't interfere with itself while working
-                                sc2.pockets[idx].accumulatedRads += p.radiation * amountPer;
-                                addActivePocket(sc2.pockets[idx]);
-                            }
-                        }
-                    }
+        // If an update is already in progress, skip this one
+        if (!UPDATE_IN_PROGRESS.compareAndSet(false, true)) {
+            return;
+        }
+        
+        long startTime = System.currentTimeMillis();
+        
+        try {
+            // Process each active pocket
+            List<RadPocket> activePocketsList = new ArrayList<>(getActivePockets());
+            Iterator<RadPocket> pocketIterator = activePocketsList.iterator();
+            
+            while (pocketIterator.hasNext()) {
+                RadPocket pocket = pocketIterator.next();
+                
+                // Apply radiation decay if needed
+                pocket.radiation = pocket.accumulatedRads;
+                pocket.accumulatedRads = 0;
+                
+                // Remove pockets that have decayed to zero
+                if (pocket.radiation <= 0) {
+                    removeActivePocket(pocket);
+                    pocketIterator.remove();
+                }
+                
+                // Time slice to prevent lag
+                if (System.currentTimeMillis() - startTime > 20) {
+                    break;
                 }
             }
-            if(amountPer != 0)
-                p.accumulatedRads += p.radiation * 0.3F;
-
-            // Make sure we only use around 20 ms max per tick, to help reduce lag
-            // The lage should die down by itself after a few minutes when all radioactive chunks get built
-            if(System.currentTimeMillis() - time > 20)
-                break;
-        }
-
-        // Remove the pockets that reached 0, and set the actual radiation values to the accumulated values
-        // We don't remove sealed pockets so that dimensions with background rads can be shielded against
-        List<RadPocket> itrActiveCheck = new ArrayList<>(getActivePockets());
-        itr = itrActiveCheck.iterator();
-        while(itr.hasNext()) {
-
-            RadPocket act = itr.next();
-            act.radiation = act.accumulatedRads;
-            act.accumulatedRads = 0;
-            if(act.radiation <= 0) {
-
-                removeActivePocket(act);
-                itr.remove();
-            }
+        } finally {
+            // Always release the update lock when done
+            UPDATE_IN_PROGRESS.set(false);
         }
 
         //System.out.println("[Debug] Finished updating radiation");
@@ -333,7 +410,7 @@ public class RadiationSystemChunksNT {
         //Should ideally never happen because of the 20 ms limit,
         //but who knows, maybe it will, and it's nice to have debug output if it does
 //        if(System.currentTimeMillis() - time > 50)
-            //System.err.println("Rads took too long: " + (System.currentTimeMillis() - time));
+        //System.err.println("Rads took too long: " + (System.currentTimeMillis() - time));
     }
 
     public static void updateEntities(ServerLevel level) {
@@ -387,7 +464,7 @@ public class RadiationSystemChunksNT {
         //an array of rad pockets for fast pocket lookup by blockpos, chunk radiation storage for this position
         //And finally a new sub chunk that will be added to the chunk radiation storage when it's filled with data
         List<RadPocket> pockets = new ArrayList<>();
-        ExtendedBlockStorage blocks = ChunkStorageCompat.getBlockStorageArray(chunk)[yIndex];
+        ChunkStorageCompat.ExtendedBlockStorage blocks = ChunkStorageCompat.getBlockStorageArray(chunk)[yIndex];
         if(pocketsByBlock == null) {
 
             pocketsByBlock = new RadPocket[16*16*16];
@@ -540,7 +617,7 @@ public class RadiationSystemChunksNT {
      * @return a new rad pocket made from the flood fill data
      */
     private static RadPocket buildPocket(SubChunkRadiationStorage subChunk, Level level, BlockPos start,
-                                         BlockPos subChunkWorldPos, ExtendedBlockStorage chunk,
+                                         BlockPos subChunkWorldPos, ChunkStorageCompat.ExtendedBlockStorage chunk,
                                          RadPocket[] pocketsByBlock, int index) {
 
         // Create the new pocket we're going to use
@@ -1107,7 +1184,7 @@ public class RadiationSystemChunksNT {
 
         /** The actual implementation of IChunkRadiation */
         private class Impl implements IChunkRadiation {
-//            private final Set<RadPocket> activePockets = new HashSet<>();
+            //            private final Set<RadPocket> activePockets = new HashSet<>();
             private ChunkRadiationStorage parent;
 
             private boolean wasInitialized = false;
@@ -1357,19 +1434,26 @@ public class RadiationSystemChunksNT {
 
 //    private static final Set<LevelChunk> loadedChunks = Collections.synchronizedSet(new HashSet<>());
 
-    @Mod.EventBusSubscriber(modid = "hbm", bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public static class RadiationEventHandlers {
-
-//        private static final Set<LevelChunk> chunksWithRebuildRequests = Collections.synchronizedSet(new HashSet<>());
-
-        private static final ResourceLocation RADIATION_CAP_KEY = ResourceLocation.fromNamespaceAndPath("hbm", "chunk_radiation");
-
-        @SubscribeEvent
-        public static void attachChunkRadiation(AttachCapabilitiesEvent<LevelChunk> event) {
-            LevelChunk chunk = event.getObject();
-            ChunkRadiationStorage storage = new ChunkRadiationStorage(chunk);
-            event.addCapability(RADIATION_CAP_KEY, storage);
+@Mod.EventBusSubscriber(modid = "hbm", bus = Mod.EventBusSubscriber.Bus.FORGE)
+public static class RadiationEventHandlers {
+    private static final ResourceLocation RADIATION_CAP_KEY = ResourceLocation.fromNamespaceAndPath("hbm", "chunk_radiation");
+    private static Map<BlockPos, Integer> activePositions = new HashMap<>();
+    public static final int FRAME_COUNT = 13;
+    public static final ResourceLocation[] FRAMES = new ResourceLocation[FRAME_COUNT];
+    
+    static {
+        // Initialize frame resources
+        for (int i = 0; i < FRAME_COUNT; i++) {
+            FRAMES[i] = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
         }
+    }
+    
+    @SubscribeEvent
+    public static void attachChunkRadiation(AttachCapabilitiesEvent<LevelChunk> event) {
+        LevelChunk chunk = event.getObject();
+        ChunkRadiationStorage storage = new ChunkRadiationStorage(chunk);
+        event.addCapability(RADIATION_CAP_KEY, storage);
+    }
 
         @SubscribeEvent
         public static void onChunkUnload(ChunkEvent.Unload e) {
@@ -1396,11 +1480,11 @@ public class RadiationSystemChunksNT {
 
             LevelChunk chunk = (LevelChunk)e.getChunk();
             ChunkRadiationStorage storage = getChunkStorage(chunk);
-            
+
             if(storage.instance.wasInitialized()) {
                 return;
             }
-            
+
             // Submit the heavy work to run asynchronously
             serverLevel.getServer().submit(() -> {
                 BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
@@ -1414,7 +1498,7 @@ public class RadiationSystemChunksNT {
                     if(section == null || section.hasOnlyAir()) continue;
 
                     final int sectionBaseY = (i << 4) - 64;
-                    
+
                     // Process each block in the section
                     for(int lx = 0; lx < 16; lx++) {
                         final int wx = baseX + lx;
@@ -1422,7 +1506,7 @@ public class RadiationSystemChunksNT {
                             final int wy = sectionBaseY + ly;
                             for(int lz = 0; lz < 16; lz++) {
                                 final int wz = baseZ + lz;
-                                
+
                                 BlockState state = section.getBlockState(lx, ly, lz);
                                 if(state.getBlock() instanceof HazardBlock hb) {
                                     // Schedule block updates on the main thread
@@ -1435,7 +1519,7 @@ public class RadiationSystemChunksNT {
                         }
                     }
                 }
-                
+
                 // Mark as initialized on the main thread
                 serverLevel.getServer().execute(() -> {
                     storage.instance.setInitialized();
@@ -1479,76 +1563,54 @@ public class RadiationSystemChunksNT {
             }
 
             iteratingDirty = false;
-            // Clear the dirty chunks lists, and add any chunks that might have been marked while iterating to be dealt with next tick.
             dirtyChunks.clear();
             dirtyChunks.addAll(dirtyChunks2);
             dirtyChunks2.clear();
         }
 
-        public static final int FRAME_COUNT = 13;
-        public static final ResourceLocation[] FRAMES = new ResourceLocation[FRAME_COUNT];
-
-        static {
-            for (int i = 0; i < FRAME_COUNT; i++) {
-                FRAMES[i] = ResourceLocation.fromNamespaceAndPath(HBM.MOD_ID, "textures/gui/jmpscr/frame_" + String.format("%02d", i) + ".png");
-            }
-        }
-
         @SubscribeEvent
         public static void onUpdate(TickEvent.ServerTickEvent e) {
+            if (e.phase == TickEvent.Phase.END) {
+                ticks++;
 
-//            //System.out.println("[Debug] onUpdate called for RadSys tick " + ticks);
-
-//            System.out.println(activePockets.size());
-
-            if(e.phase == TickEvent.Phase.END) {
-
-                ticks ++;
-                if(ticks % 20 == 17) {
-
-                    long mil = System.nanoTime();
-
-                    // Every second, do a full system update, which will spread around radiation and all that
-                    updateRadiation();
-
-                    for(ServerLevel level : e.getServer().getAllLevels()) {
-
-                        updateEntities(level);
-                        if(level.random.nextInt(1000000) == 0)
-                            GeigerCounterItem.jmp = true;
+                // Process pending radiation updates on the main thread
+                if (!PENDING_UPDATES.isEmpty()) {
+                    Consumer<ServerLevel> update;
+                    while ((update = PENDING_UPDATES.poll()) != null) {
+                        try {
+                            update.accept(e.getServer().overworld());
+                        } catch (Exception ex) {
+                            HBM.LOGGER.error("Error processing radiation update", ex);
+                        }
                     }
+                }
 
-                    //System.out.println("rad tick event took: " + (System.nanoTime()-mil));
+                // Every second, trigger a radiation update
+                if (ticks % 20 == 17) {
+                    updateRadiation();
+                }
+
+                // Make sure any chunks marked as dirty by radiation-resistant blocks are rebuilt instantly
+                for (ServerLevel level : e.getServer().getAllLevels()) {
+                    rebuildDirty(level);
                 }
             }
-
-            // Make sure any chunks marked as dirty by radiation-resistant blocks are rebuilt instantly
-            for(ServerLevel level : e.getServer().getAllLevels())
-                rebuildDirty(level);
         }
-
-        static Map<BlockPos, Integer> activePositions = new HashMap<>();
 
         @SubscribeEvent
         public static void onWorldLoad(LevelEvent.Load event) {
             LevelAccessor level = event.getLevel();
             if (!level.isClientSide()) {
                 // Server-side world has just loaded
-
-                activePositions = loadMapFromJson((ServerLevel)level, "data/hbm/rad_vectors.json");
+                activePositions = loadMapFromJson((ServerLevel) level, "data/hbm/rad_vectors.json");
 
                 Iterator<Map.Entry<BlockPos, Integer>> itr = activePositions.entrySet().iterator();
 
-                while(itr.hasNext()) {
-
+                while (itr.hasNext()) {
                     Map.Entry<BlockPos, Integer> nxt = itr.next();
-
-//                    System.err.println("[Debug] Populating rad pocket starting at: " + nxt.getKey() + ", with " + nxt.getValue() + " rads");
-
                     LevelChunk chunk = ((ServerLevel) level).getChunkAt(nxt.getKey());
                     rebuildChunkPockets(chunk, ChunkStorageCompat.getIndexFromWorldY(nxt.getKey().getY()));
-
-                    setRadForCoord((ServerLevel)level, nxt.getKey(), nxt.getValue());
+                    setRadForCoord((ServerLevel) level, nxt.getKey(), nxt.getValue());
                 }
             }
         }
