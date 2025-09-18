@@ -174,6 +174,37 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterBlocks.BROWN_THORIUM_ORE.get());
 
                         output.accept(RegisterBlocks.DEAD_GRASS.get());
+
+                        output.accept(RegisterBlocks.SULFUR_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_SULFUR_ORE.get());
+                        output.accept(RegisterBlocks.NITER_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_NITER_ORE.get());
+                        output.accept(RegisterBlocks.TUNGSTEN_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_TUNGSTEN_ORE.get());
+                        output.accept(RegisterBlocks.ALUMINIUM_BEARING_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_ALUMINIUM_BEARING_ORE.get());
+                        output.accept(RegisterBlocks.FLUORITE_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_FLUORITE_ORE.get());
+                        output.accept(RegisterBlocks.BERYLLIUM_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_BERYLLIUM_ORE.get());
+                        output.accept(RegisterBlocks.LEAD_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_LEAD_ORE.get());
+                        output.accept(RegisterBlocks.LIGNITE_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_LIGNITE_ORE.get());
+                        output.accept(RegisterBlocks.ASBESTOS_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_ASBESTOS_ORE.get());
+                        output.accept(RegisterBlocks.SCHRABIDIUM_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_SCHRABIDIUM_ORE.get());
+                        output.accept(RegisterBlocks.AUSTRALIUM_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_AUSTRALIUM_ORE.get());
+                        output.accept(RegisterBlocks.RARE_EARTH_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_RARE_EARTH_ORE.get());
+                        output.accept(RegisterBlocks.COBALT_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_COBALT_ORE.get());
+                        output.accept(RegisterBlocks.CINNABAR_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_CINNABAR_ORE.get());
+                        output.accept(RegisterBlocks.COLTAN_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_COLTAN_ORE.get());
                     })
                     .build());
 

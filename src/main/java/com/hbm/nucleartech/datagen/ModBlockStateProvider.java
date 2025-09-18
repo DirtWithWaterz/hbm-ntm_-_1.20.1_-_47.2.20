@@ -32,6 +32,51 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.URANIUM_ORE);
         blockWithItem(RegisterBlocks.DEEPSLATE_URANIUM_ORE);
 
+        blockWithItem(RegisterBlocks.SULFUR_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_SULFUR_ORE);
+
+        blockWithItem(RegisterBlocks.NITER_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_NITER_ORE);
+
+        blockWithItem(RegisterBlocks.TUNGSTEN_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_TUNGSTEN_ORE);
+
+        blockWithItem(RegisterBlocks.ALUMINIUM_BEARING_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_ALUMINIUM_BEARING_ORE);
+
+        blockWithItem(RegisterBlocks.FLUORITE_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_FLUORITE_ORE);
+
+        blockWithItem(RegisterBlocks.BERYLLIUM_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_BERYLLIUM_ORE);
+
+        blockWithItem(RegisterBlocks.LEAD_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_LEAD_ORE);
+
+        blockWithItem(RegisterBlocks.LIGNITE_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_LIGNITE_ORE);
+
+        blockWithItem(RegisterBlocks.ASBESTOS_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_ASBESTOS_ORE);
+
+        blockWithItem(RegisterBlocks.SCHRABIDIUM_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_SCHRABIDIUM_ORE);
+
+        blockWithItem(RegisterBlocks.AUSTRALIUM_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_AUSTRALIUM_ORE);
+
+        blockWithItem(RegisterBlocks.RARE_EARTH_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_RARE_EARTH_ORE);
+
+        blockWithItem(RegisterBlocks.COBALT_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_COBALT_ORE);
+
+        blockWithItem(RegisterBlocks.CINNABAR_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_CINNABAR_ORE);
+
+        blockWithItem(RegisterBlocks.COLTAN_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_COLTAN_ORE);
+
         blockWithItem(RegisterBlocks.RED_THORIUM_ORE);
         blockWithItem(RegisterBlocks.ORANGE_THORIUM_ORE);
         blockWithItem(RegisterBlocks.YELLOW_THORIUM_ORE);
