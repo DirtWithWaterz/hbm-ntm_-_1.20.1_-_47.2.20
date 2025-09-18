@@ -350,6 +350,9 @@ public class RadiationSystemNT {
 
     public static void replace(LivingEntity oldEntity, Mob newEntity, Level level) {
 
+        if(level.isClientSide)
+            return;
+
         if(oldEntity instanceof Villager vill &&
                 newEntity instanceof ZombieVillager zom) {
 
