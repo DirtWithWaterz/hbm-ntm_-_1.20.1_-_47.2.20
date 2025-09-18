@@ -160,7 +160,7 @@
   "item.hbm.hazmat_boots_red": "Продвинутые антирадиационные ботинки",
 
   "item.hbm.hazmat_helmet_grey": "Высокоэффективный антирадиационный шлем",
-  "item.hbm.hazmat_chestplate_grey": "Высокоэффективный антирадиационный шлем",
+  "item.hbm.hazmat_chestplate_grey": "Высокоэффективный антирадиационный нагрудник",
   "item.hbm.hazmat_leggings_grey": "Высокоэффективные антирадиационные поножи",
   "item.hbm.hazmat_boots_grey": "Высокоэффективные антирадиационные ботинки",
 
@@ -180,7 +180,7 @@
   "block.hbm.titanium_ore": "Титановая руда",
   "block.hbm.deepslate_titanium_ore": "Глубинносланцевая титановая руда",
 
-  "block.hbm.radiation_decontaminator": "обеззараживатель",
+  "block.hbm.radiation_decontaminator": "Дезактиватор",
 
   "block.hbm.press": "Пресс",
   "block.hbm.burner_press": "Твердотопливный пресс",
