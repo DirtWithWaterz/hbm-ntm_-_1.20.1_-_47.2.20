@@ -169,12 +169,12 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
         super.tick(pState, pLevel, pPos, pRandom);
 
         if(this.rad3d > 0){
-            ContaminationUtil.radiate(pLevel, pPos.getX()+0.5, pPos.getY()+0.5, pPos.getZ()+0.5, 32, (float)this.rad3d, 0, this.module.fire * 5000, 0, 0, pPos);
+            ContaminationUtil.radiate(pLevel, pPos.getX()+0.5, pPos.getY()+0.5, pPos.getZ()+0.5, 32, (float)this.rad3d * 0.75f, 0, this.module.fire * 5000, 0, 0, pPos);
             pLevel.scheduleTick(pPos, this.toBlock(), this.tickRate(pLevel), TickPriority.HIGH);
         }
-        if(this.radIn > 0){
-            RadiationSavedData.incrementRad(pLevel, pPos, (float)radIn, (float)radIn*10F);
-        }
+//        if(this.radIn > 0){
+//            RadiationSavedData.incrementRad(pLevel, pPos, (float)radIn, (float)radIn*10F);
+//        }
     }
 
     public int tickRate(Level level){

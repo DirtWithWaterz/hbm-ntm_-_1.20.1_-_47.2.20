@@ -81,6 +81,10 @@ public class HbmCapabilities {
             LivingEntityCapability original = ((LivingEntityCapability) event.getOriginal().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
             LivingEntityCapability clone = ((LivingEntityCapability) event.getEntity().getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
             if (!event.isWasDeath()) {
+                clone.setValue(Type.OLD_MAX_HEALTH, original.getValue(Type.OLD_MAX_HEALTH));
+                clone.setValue(Type.OLD_ROUNDED_DAMAGE, original.getValue(Type.OLD_ROUNDED_DAMAGE));
+                clone.setValue(Type.PERMANENT_CONTAMINATION, original.getValue(Type.PERMANENT_CONTAMINATION));
+                clone.setValue(Type.INTERNAL_DAMAGE, original.getValue(Type.INTERNAL_DAMAGE));
                 clone.setValue(Type.RADIATION, original.getValue(Type.RADIATION));
                 clone.setValue(Type.NEUTRON, original.getValue(Type.NEUTRON));
                 clone.setValue(Type.DIGAMMA, original.getValue(Type.DIGAMMA));
@@ -193,6 +197,10 @@ public class HbmCapabilities {
                 if(!context.getDirection().getReceptionSide().isServer()) {
 
                     LivingEntityCapability capability = ((LivingEntityCapability) Minecraft.getInstance().player.getCapability(LIVING_ENTITY_CAPABILITY, null).orElse(new LivingEntityCapability()));
+                    capability.setValue(Type.OLD_MAX_HEALTH, message.data.getValue(Type.OLD_MAX_HEALTH));
+                    capability.setValue(Type.OLD_ROUNDED_DAMAGE, message.data.getValue(Type.OLD_ROUNDED_DAMAGE));
+                    capability.setValue(Type.PERMANENT_CONTAMINATION, message.data.getValue(Type.PERMANENT_CONTAMINATION));
+                    capability.setValue(Type.INTERNAL_DAMAGE, message.data.getValue(Type.INTERNAL_DAMAGE));
                     capability.setValue(Type.RADIATION, message.data.getValue(Type.RADIATION));
                     capability.setValue(Type.NEUTRON, message.data.getValue(Type.NEUTRON));
                     capability.setValue(Type.DIGAMMA, message.data.getValue(Type.DIGAMMA));

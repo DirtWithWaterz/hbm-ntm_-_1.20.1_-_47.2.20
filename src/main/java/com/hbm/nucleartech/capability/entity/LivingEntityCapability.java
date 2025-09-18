@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -19,6 +18,10 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
     public static final UUID digamma_UUID = UUID.fromString("2a3d8aec-5ab9-4218-9b8b-ca812bdf378b");
 
     /// Values ///
+    private float oldMaxHealth = 20;
+    private int oldRoundedDamage = -1;
+    private double internalDamage = 0;
+    private double permanentContamination = 0;
     private float radiation = 0;
     private float neutron = 0;
     private float digamma = 0;
@@ -43,10 +46,22 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
     }
 
     @Override
-    public float getValue(Type type) {
+    public double getValue(Type type) {
 
         switch(type) {
 
+            case OLD_MAX_HEALTH -> {
+                return oldMaxHealth;
+            }
+            case OLD_ROUNDED_DAMAGE -> {
+                return oldRoundedDamage;
+            }
+            case PERMANENT_CONTAMINATION -> {
+                return permanentContamination;
+            }
+            case INTERNAL_DAMAGE -> {
+                return internalDamage;
+            }
             case RADIATION -> {
                 return radiation;
             }
@@ -98,23 +113,43 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
     }
 
     @Override
-    public void setValue(Type type, float value) {
+    public void setValue(Type type, double value) {
 
         switch(type) {
 
+            case OLD_MAX_HEALTH -> {
+
+                oldMaxHealth = (float)value;
+                break;
+            }
+            case OLD_ROUNDED_DAMAGE -> {
+
+                oldRoundedDamage = (int)value;
+                break;
+            }
+            case PERMANENT_CONTAMINATION -> {
+
+                permanentContamination = value;
+                break;
+            }
+            case INTERNAL_DAMAGE -> {
+
+                internalDamage = value;
+                break;
+            }
             case RADIATION -> {
 
-                radiation = value;
+                radiation = (float)value;
                 break;
             }
             case NEUTRON -> {
 
-                neutron = value;
+                neutron = (float)value;
                 break;
             }
             case DIGAMMA -> {
 
-                digamma = value;
+                digamma = (float)value;
                 break;
             }
             case ASBESTOS -> {
@@ -129,12 +164,12 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             }
             case RADENV -> {
 
-                radEnv = value;
+                radEnv = (float)value;
                 break;
             }
             case RADBUF -> {
 
-                radBuf = value;
+                radBuf = (float)value;
                 break;
             }
             case BOMB_TIMER -> {
@@ -183,21 +218,49 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
     }
 
     @Override
-    public void addValue(Type type, float value) {
+    public void addValue(Type type, double value) {
 
         switch(type) {
 
+            case OLD_MAX_HEALTH -> {
+
+                float hp = oldMaxHealth + (float)value;
+
+                setValue(type, hp);
+            }
+            case OLD_ROUNDED_DAMAGE -> {
+
+                int val = oldRoundedDamage + (int)value;
+
+                setValue(type, val);
+            }
+            case PERMANENT_CONTAMINATION -> {
+
+                double perm = permanentContamination + value;
+
+                perm = Mth.clamp(perm, 0f, 1000f);
+
+                setValue(type, perm);
+            }
+            case INTERNAL_DAMAGE -> {
+
+                double dam = internalDamage + value;
+
+                dam = Mth.clamp(dam, 0f, 100f);
+
+                setValue(type, dam);
+            }
             case RADIATION -> {
 
-                float rad = radiation + value;
+                float rad = radiation + (float)value;
 
-                rad = Mth.clamp(rad, 0F, 2500F);
+//                rad = Mth.clamp(rad, 0F, 2500F);
 
                 setValue(type, rad);
             }
             case NEUTRON -> {
 
-                float rad = neutron + value;
+                float rad = neutron + (float)value;
 
 //                rad = Mth.clamp(rad, 0F, 2500F);
 
@@ -205,7 +268,7 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             }
             case DIGAMMA -> {
 
-                float dRad = digamma + value;
+                float dRad = digamma + (float)value;
 
                 dRad = Mth.clamp(dRad, 0, 10);
 
@@ -225,7 +288,7 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             }
             case RADENV -> {
 
-                float radE = radEnv + value;
+                float radE = radEnv + (float)value;
 
                 radE = Mth.clamp(radE, 0, 2500F);
 
@@ -233,7 +296,7 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             }
             case RADBUF -> {
 
-                float e = radBuf + value;
+                float e = radBuf + (float)value;
 
                 e = Mth.clamp(e, 0, 2500F);
 
@@ -241,37 +304,37 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
             }
             case BOMB_TIMER -> {
 
-                float e = bombTimer + value;
+                float e = bombTimer + (float)value;
 
                 setValue(type, e);
             }
             case CONTAGION -> {
 
-                float e = contagion + value;
+                float e = contagion + (float)value;
 
                 setValue(type, e);
             }
             case OIL -> {
 
-                float e = oil + value;
+                float e = oil + (float)value;
 
                 setValue(type, e);
             }
             case FIRE -> {
 
-                float e = fire + value;
+                float e = fire + (float)value;
 
                 setValue(type, e);
             }
             case PHOSPHORUS -> {
 
-                float e = phosphorus + value;
+                float e = phosphorus + (float)value;
 
                 setValue(type, e);
             }
             case BALEFIRE -> {
 
-                float e = balefire + value;
+                float e = balefire + (float)value;
 
                 setValue(type, e);
             }
@@ -333,13 +396,17 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
 
         CompoundTag props = new CompoundTag();
 
-        props.putFloat("hfr_radiation", getValue(Type.RADIATION));
-        props.putFloat("hfr_neutron", getValue(Type.NEUTRON));
-        props.putFloat("hfr_digamma", getValue(Type.DIGAMMA));
+        props.putFloat("hfr_old_max_health", (float)getValue(Type.OLD_MAX_HEALTH));
+        props.putFloat("hfr_old_rounded_damage", (float)getValue(Type.OLD_ROUNDED_DAMAGE));
+        props.putDouble("hfr_internal_damage", getValue(Type.INTERNAL_DAMAGE));
+        props.putDouble("hfr_permanent_contamination", getValue(Type.PERMANENT_CONTAMINATION));
+        props.putFloat("hfr_radiation", (float)getValue(Type.RADIATION));
+        props.putFloat("hfr_neutron", (float)getValue(Type.NEUTRON));
+        props.putFloat("hfr_digamma", (float)getValue(Type.DIGAMMA));
         props.putInt("hfr_asbestos", (int)getValue(Type.ASBESTOS));
         props.putInt("hfr_blacklung", (int)getValue(Type.BLACKLUNG));
-        props.putFloat("hfr_radenv", getValue(Type.RADENV));
-        props.putFloat("hfr_radbuf", getValue(Type.RADBUF));
+        props.putFloat("hfr_radenv", (float)getValue(Type.RADENV));
+        props.putFloat("hfr_radbuf", (float)getValue(Type.RADBUF));
         props.putInt("hfr_bomb", (int)getValue(Type.BOMB_TIMER));
         props.putInt("hfr_contagion", (int)getValue(Type.CONTAGION));
         props.putInt("hfr_oil", (int)getValue(Type.OIL));
@@ -359,6 +426,10 @@ public class LivingEntityCapability implements IEntityCapabilityBase {
 
     public void readNBT(CompoundTag nbt) {
 
+        setValue(Type.OLD_MAX_HEALTH, nbt.getFloat("hfr_old_max_health"));
+        setValue(Type.OLD_ROUNDED_DAMAGE, nbt.getFloat("hfr_old_rounded_damage"));
+        setValue(Type.INTERNAL_DAMAGE, nbt.getDouble("hfr_internal_damage"));
+        setValue(Type.PERMANENT_CONTAMINATION, nbt.getDouble("hfr_permanent_contamination"));
         setValue(Type.RADIATION, nbt.getFloat("hfr_radiation"));
         setValue(Type.NEUTRON, nbt.getFloat("hfr_neutron"));
         setValue(Type.DIGAMMA, nbt.getFloat("hfr_digamma"));

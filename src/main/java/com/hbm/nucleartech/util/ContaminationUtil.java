@@ -168,7 +168,15 @@ public class ContaminationUtil {
                 if(eRads > 0.0001f)
                     contaminate((LivingEntity) e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
 
-                RadiationSavedData.incrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads, eRads * 10f);
+                BlockPos dPos = e.getOnPos().offset(0,1,0);
+
+                RadiationSystemChunksNT.RadPocket decidedPocket = RadiationSystemChunksNT.getPocket(pLevel, dPos);
+
+                if(!pockets.contains(decidedPocket)) {
+
+                    RadiationSavedData.incrementRad(pLevel, dPos, eRads, eRads * 10f);
+                    pockets.add(decidedPocket);
+                }
 //                RadiationSavedData.decrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads);
 //                else
 //                    System.err.println("[Debug] Radiation being applied is too close to zero: " + eRads);

@@ -11,12 +11,15 @@ import com.hbm.nucleartech.interfaces.IEntityCapabilityBase.Type;
 import com.hbm.nucleartech.util.ContaminationUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -37,6 +40,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLWarning;
 import java.util.*;
 
 import static com.hbm.nucleartech.util.ContaminationUtil.getPlayerNeutronRads;
@@ -55,6 +59,10 @@ public class RadiationSystemNT {
 
     }
 
+    /**
+     * @deprecated "When implementing max health related changes, update entity capability: Type.OLD_MAX_HEALTH. (20 + whatever modifications) p.s. this makes the mod incompatible with other mods that add max health, add compatibilities later"
+     */
+    @Deprecated(forRemoval = true, since = "1.8.21")
     private static void updateEntityContamination(Level world, boolean updateData) {
 
 //        System.err.println("updating contamination");
@@ -173,21 +181,31 @@ public class RadiationSystemNT {
 //                                        continue;
 //                                    }
 
-                                    if (eRad > 2500000)
-                                        HbmCapabilities.getData(entity).setValue(Type.RADIATION, 2500000); // grant achievement "HOW"
+                                    HbmCapabilities.getData(entity).addValue(Type.PERMANENT_CONTAMINATION, (float)(eRad/1000000f));
+                                    HbmCapabilities.getData(entity).syncLivingVariables(entity);
 
-                                    if (eRad >= 1000) {
+                                    if (eRad > 1000000)
+                                        HbmCapabilities.getData(entity).setValue(Type.RADIATION, 1000000); // grant achievement "HOW"
 
-    //                                        player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("hbm:radiation")))), 1000f);
+                                    double perm_con = HbmCapabilities.getData(entity).getValue(Type.PERMANENT_CONTAMINATION);
+
+                                    HbmCapabilities.getData(entity).addValue(Type.INTERNAL_DAMAGE, perm_con/200000f);
+                                    HbmCapabilities.getData(entity).syncLivingVariables(entity);
+
+                                    double internal_dam = HbmCapabilities.getData(entity).getValue(Type.INTERNAL_DAMAGE);
+
+                                    if(internal_dam >= 100) {
+//                                        System.out.println("[Debug] internal damage is greater than or equal to: " + 100);
+
                                         try {
 
                                             entity.hurt(RegisterDamageSources.RADIATION, 1000f);
                                             // grant achievement "wait, what?"
                                         } catch (Exception ignored) { System.err.println("client had a packet error!"); }
                                         // Grant achievement, "Ouch, Radiation!"
-
-
-                                    } else if (eRad >= 800) {
+                                    }
+                                    else if (internal_dam >= 80) {
+//                                        System.out.println("[Debug] internal damage is greater than or equal to: " + 80);
 
                                         if (world.random.nextInt(300) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 5 * 30, 0, true, false));
@@ -203,7 +221,9 @@ public class RadiationSystemNT {
                                             entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 5 * 20, 3, true, false));
                                         if (world.random.nextInt(300) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 5 * 20, 3, true, false));
-                                    } else if (eRad >= 600) {
+                                    }
+                                    else if (internal_dam >= 60) {
+//                                        System.out.println("[Debug] internal damage is greater than or equal to: " + 60);
 
                                         if (world.random.nextInt(300) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 5 * 30, 0, true, false));
@@ -217,7 +237,9 @@ public class RadiationSystemNT {
                                             entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 5 * 20, 3, true, false));
                                         if (world.random.nextInt(400) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 6 * 20, 2, true, false));
-                                    } else if (eRad >= 400) {
+                                    }
+                                    else if (internal_dam >= 40) {
+//                                        System.out.println("[Debug] internal damage is greater than or equal to: " + 40);
 
                                         if (world.random.nextInt(300) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 5 * 30, 0, true, false));
@@ -229,7 +251,9 @@ public class RadiationSystemNT {
                                             entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 3 * 20, 2, true, false));
                                         if (world.random.nextInt(600) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 4 * 20, 1, true, false));
-                                    } else if (eRad >= 200) {
+                                    }
+                                    else if (internal_dam >= 20) {
+//                                        System.out.println("[Debug] internal damage is greater than or equal to: " + 20);
 
                                         if (world.random.nextInt(300) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 5 * 20, 0, true, false));
@@ -239,7 +263,9 @@ public class RadiationSystemNT {
                                             entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 3 * 20, 2, true, false));
                                         if (world.random.nextInt(800) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 4 * 20, 0, true, false));
-                                    } else if (eRad >= 100) {
+                                    }
+                                    else if (internal_dam >= 10) {
+//                                        System.out.println("[Debug] internal damage is greater than or equal to: " + 10);
 
                                         if (world.random.nextInt(800) == 0)
                                             entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 2 * 20, 0, true, false));
@@ -249,6 +275,57 @@ public class RadiationSystemNT {
                                         // Grant achievement, "Yay, Radiation!"
                                         if(entity instanceof ServerPlayer player)
                                             AdvancementManager.grant(player, "rad_poison");
+                                    }
+
+                                    AttributeInstance hp = entity.getAttribute(Attributes.MAX_HEALTH);
+
+                                    int oldRoundedDam = (int)HbmCapabilities.getData(entity).getValue(Type.OLD_ROUNDED_DAMAGE);
+
+                                    int roundedDam = (int)Math.round(internal_dam);
+
+                                    boolean maxHealthChanged;
+
+                                    if (hp != null) {
+
+                                        if(roundedDam != oldRoundedDam) {
+
+                                            float currMax = entity.getMaxHealth();
+                                            float ogMax = (float)HbmCapabilities.getData(entity).getValue(Type.OLD_MAX_HEALTH);
+
+                                            float newMax = switch(roundedDam) {
+
+                                                case 100 -> 1;
+                                                case 95, 90,
+                                                     85, 80,
+                                                     75, 70,
+                                                     65, 60,
+                                                     55, 50,
+                                                     45, 40,
+                                                     35, 30,
+                                                     25, 20,
+                                                     15, 10,
+                                                     5   -> ogMax*(1f - (roundedDam/100f));
+                                                default  -> currMax;
+                                            };
+                                            hp.setBaseValue(newMax);
+
+                                            // clamp current health to new max so the entity doesn't have > max HP
+                                            if (entity.getHealth() > newMax) {
+                                                entity.setHealth(newMax);
+                                            }
+
+                                            HbmCapabilities.getData(entity).setValue(Type.OLD_ROUNDED_DAMAGE, roundedDam);
+                                            HbmCapabilities.getData(entity).syncLivingVariables(entity);
+
+                                            maxHealthChanged = true;
+
+                                            if(entity instanceof ServerPlayer)
+                                                System.out.println("\n================================================================================"
+                                                        + "\ncontamination = " + eRad + ", permanent contamination = " + perm_con + ", internal damage = " + internal_dam
+                                                        + "\nrounded internal damage = " + roundedDam + ", old rounded internal damage = " + oldRoundedDam + ", max health changed = " + maxHealthChanged
+                                                        + "\ncurrent max health = " + currMax + ", new max health = " + newMax + ", entity.getHealth() = " + entity.getHealth()
+                                                        + "\n================================================================================");
+                                        }
                                     }
                                 }
                             }
@@ -421,6 +498,8 @@ public class RadiationSystemNT {
     private static final int MIN_SECONDS_BETWEEN_EVENTS = 0;
     private static final int MAX_SECONDS_BETWEEN_EVENTS = 4;
 
+//    private static int updateEntityCooldown = 0;
+
     @SubscribeEvent
     public static void onWorldUpdate(TickEvent.LevelTickEvent event) {
 //        if(GeneralConfig.enableDebugMode) {
@@ -446,9 +525,14 @@ public class RadiationSystemNT {
             }
         }
 
-        // Make entities stinky
-        if(!event.level.isClientSide())
-            updateEntityContamination(event.level, allowUpdate);
+//        if(--updateEntityCooldown <= 0) {
+
+            // Make entities stinky
+            if(!event.level.isClientSide())
+                updateEntityContamination(event.level, allowUpdate);
+
+//            updateEntityCooldown = 10;
+//        }
     }
 
     public static @NotNull AABB getAabb(Level world, ChunkPos chunkPos) {
