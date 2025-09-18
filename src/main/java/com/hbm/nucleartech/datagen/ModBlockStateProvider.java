@@ -159,10 +159,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_13);
         blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_14);
         blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_15);
-
-
-
-
+        blockWithItem(RegisterBlocks.BRICK_FIRE);
+        blockWithItem(RegisterBlocks.BRICK_FORGOTTEN);
+        blockWithItem(RegisterBlocks.BRICK_JUNGLE_LAVA);
+        blockWithItem(RegisterBlocks.BRICK_JUNGLE_MYSTIC);
+        blockWithItem(RegisterBlocks.BRICK_JUNGLE_OOZE);
+        blockWithItem(RegisterBlocks.BRICK_JUNGLE_TRAP);
+        blockWithItem(RegisterBlocks.BRICK_LIGHT);
+        blockWithItem(RegisterBlocks.BRICK_LIGHT_ALT);
+        blockWithItem(RegisterBlocks.BRICK_OBSIDIAN);
 
         blockWithItem(RegisterBlocks.RED_THORIUM_ORE);
         blockWithItem(RegisterBlocks.ORANGE_THORIUM_ORE);

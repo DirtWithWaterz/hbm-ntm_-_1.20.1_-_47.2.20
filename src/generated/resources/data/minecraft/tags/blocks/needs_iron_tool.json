@@ -75,6 +75,15 @@
     "hbm:brick_jungle_glyph_12",
     "hbm:brick_jungle_glyph_13",
     "hbm:brick_jungle_glyph_14",
-    "hbm:brick_jungle_glyph_15"
+    "hbm:brick_jungle_glyph_15",
+    "hbm:brick_fire",
+    "hbm:brick_forgotten",
+    "hbm:brick_jungle_lava",
+    "hbm:brick_jungle_mystic",
+    "hbm:brick_jungle_ooze",
+    "hbm:brick_jungle_trap",
+    "hbm:brick_light",
+    "hbm:brick_light_alt",
+    "hbm:brick_obsidian"
   ]
 }

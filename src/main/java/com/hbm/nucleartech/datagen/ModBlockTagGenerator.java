@@ -130,7 +130,16 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.JUNGLE_BRICK_GLYPH_12.get(),
                         RegisterBlocks.JUNGLE_BRICK_GLYPH_13.get(),
                         RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get(),
-                        RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get(),
+                        RegisterBlocks.BRICK_FIRE.get(),
+                        RegisterBlocks.BRICK_FORGOTTEN.get(),
+                        RegisterBlocks.BRICK_JUNGLE_LAVA.get(),
+                        RegisterBlocks.BRICK_JUNGLE_MYSTIC.get(),
+                        RegisterBlocks.BRICK_JUNGLE_OOZE.get(),
+                        RegisterBlocks.BRICK_JUNGLE_TRAP.get(),
+                        RegisterBlocks.BRICK_LIGHT.get(),
+                        RegisterBlocks.BRICK_LIGHT_ALT.get(),
+                        RegisterBlocks.BRICK_OBSIDIAN.get());
 
 
         tag(BlockTags.NEEDS_IRON_TOOL)
@@ -209,7 +218,16 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.JUNGLE_BRICK_GLYPH_12.get(),
                         RegisterBlocks.JUNGLE_BRICK_GLYPH_13.get(),
                         RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get(),
-                        RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get(),
+                        RegisterBlocks.BRICK_FIRE.get(),
+                        RegisterBlocks.BRICK_FORGOTTEN.get(),
+                        RegisterBlocks.BRICK_JUNGLE_LAVA.get(),
+                        RegisterBlocks.BRICK_JUNGLE_MYSTIC.get(),
+                        RegisterBlocks.BRICK_JUNGLE_OOZE.get(),
+                        RegisterBlocks.BRICK_JUNGLE_TRAP.get(),
+                        RegisterBlocks.BRICK_LIGHT.get(),
+                        RegisterBlocks.BRICK_LIGHT_ALT.get(),
+                        RegisterBlocks.BRICK_OBSIDIAN.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(RegisterBlocks.URANIUM_ORE.get(),

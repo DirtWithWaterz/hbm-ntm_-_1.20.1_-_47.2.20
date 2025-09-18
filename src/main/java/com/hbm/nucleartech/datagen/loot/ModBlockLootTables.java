@@ -75,6 +75,16 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get());
         this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
 
+        this.dropSelf(RegisterBlocks.BRICK_FIRE.get());
+        this.dropSelf(RegisterBlocks.BRICK_FORGOTTEN.get());
+        this.dropSelf(RegisterBlocks.BRICK_JUNGLE_LAVA.get());
+        this.dropSelf(RegisterBlocks.BRICK_JUNGLE_MYSTIC.get());
+        this.dropSelf(RegisterBlocks.BRICK_JUNGLE_OOZE.get());
+        this.dropSelf(RegisterBlocks.BRICK_JUNGLE_TRAP.get());
+        this.dropSelf(RegisterBlocks.BRICK_LIGHT.get());
+        this.dropSelf(RegisterBlocks.BRICK_LIGHT_ALT.get());
+        this.dropSelf(RegisterBlocks.BRICK_OBSIDIAN.get());
+
 
         this.dropSelf(RegisterBlocks.BLACK_CONCRETE.get());
         this.dropSelf(RegisterBlocks.BLUE_CONCRETE.get());

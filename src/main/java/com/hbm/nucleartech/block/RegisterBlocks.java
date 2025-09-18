@@ -754,6 +754,67 @@ public class RegisterBlocks {
         registerBlockItem(name, toReturn);
         return toReturn;
     }
+    public static final RegistryObject<Block> BRICK_FIRE = registerBlock("brick_fire",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_FORGOTTEN = registerBlock("brick_forgotten",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_JUNGLE_LAVA = registerBlock("brick_jungle_lava",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_JUNGLE_MYSTIC = registerBlock("brick_jungle_mystic",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_JUNGLE_OOZE = registerBlock("brick_jungle_ooze",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_JUNGLE_TRAP = registerBlock("brick_jungle_trap",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_LIGHT = registerBlock("brick_light",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_LIGHT_ALT = registerBlock("brick_light_alt",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
+
+
+    public static final RegistryObject<Block> BRICK_OBSIDIAN = registerBlock("brick_obsidian",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(5.0f, 10.0f)
+            ));
+
 
     private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
 
