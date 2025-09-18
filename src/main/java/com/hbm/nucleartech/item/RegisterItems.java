@@ -132,7 +132,7 @@ public class RegisterItems {
     public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> LIGONITE_INGOT = ITEMS.register("lignite_ingot",
+    public static final RegistryObject<Item> LIGNITE_INGOT = ITEMS.register("lignite_ingot",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_LIGNITE = ITEMS.register("raw_lignite",
