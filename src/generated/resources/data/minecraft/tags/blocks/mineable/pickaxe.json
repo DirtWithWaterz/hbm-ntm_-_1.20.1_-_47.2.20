@@ -89,6 +89,26 @@
     "hbm:purple_concrete",
     "hbm:red_concrete",
     "hbm:white_concrete",
-    "hbm:yellow_concrete"
+    "hbm:yellow_concrete",
+    "hbm:jungle_brick",
+    "hbm:jungle_brick_circle",
+    "hbm:jungle_brick_cracked",
+    "hbm:jungle_brick_fragile",
+    "hbm:jungle_brick_glyph_0",
+    "hbm:jungle_brick_glyph_1",
+    "hbm:jungle_brick_glyph_2",
+    "hbm:jungle_brick_glyph_3",
+    "hbm:jungle_brick_glyph_4",
+    "hbm:jungle_brick_glyph_5",
+    "hbm:jungle_brick_glyph_6",
+    "hbm:jungle_brick_glyph_7",
+    "hbm:jungle_brick_glyph_8",
+    "hbm:jungle_brick_glyph_9",
+    "hbm:jungle_brick_glyph_10",
+    "hbm:jungle_brick_glyph_11",
+    "hbm:jungle_brick_glyph_12",
+    "hbm:jungle_brick_glyph_13",
+    "hbm:jungle_brick_glyph_14",
+    "hbm:jungle_brick_glyph_15"
   ]
 }

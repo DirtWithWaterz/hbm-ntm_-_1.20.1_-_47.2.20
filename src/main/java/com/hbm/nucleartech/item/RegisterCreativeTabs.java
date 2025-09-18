@@ -281,6 +281,27 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterBlocks.RED_CONCRETE.get());
                         output.accept(RegisterBlocks.WHITE_CONCRETE.get());
                         output.accept(RegisterBlocks.YELLOW_CONCRETE.get());
+
+                        output.accept(RegisterBlocks.JUNGLE_BRICK.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_CIRCLE.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_CRACKED.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_FRAGILE.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_0.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_1.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_2.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_3.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_4.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_5.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_6.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_7.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_8.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_9.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_10.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_11.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_12.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_13.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get());
+                        output.accept(RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
                     })
                     .build());
 

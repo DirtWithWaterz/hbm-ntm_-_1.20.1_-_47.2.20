@@ -139,6 +139,30 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.WHITE_CONCRETE);
         blockWithItem(RegisterBlocks.YELLOW_CONCRETE);
 
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_CIRCLE);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_CRACKED);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_FRAGILE);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_0);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_1);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_2);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_3);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_4);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_5);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_6);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_7);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_8);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_9);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_10);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_11);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_12);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_13);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_14);
+        blockWithItem(RegisterBlocks.JUNGLE_BRICK_GLYPH_15);
+
+
+
+
 
         blockWithItem(RegisterBlocks.RED_THORIUM_ORE);
         blockWithItem(RegisterBlocks.ORANGE_THORIUM_ORE);

@@ -110,7 +110,28 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.PURPLE_CONCRETE.get(),
                         RegisterBlocks.RED_CONCRETE.get(),
                         RegisterBlocks.WHITE_CONCRETE.get(),
-                        RegisterBlocks.YELLOW_CONCRETE.get());
+                        RegisterBlocks.YELLOW_CONCRETE.get(),
+                        RegisterBlocks.JUNGLE_BRICK.get(),
+                        RegisterBlocks.JUNGLE_BRICK_CIRCLE.get(),
+                        RegisterBlocks.JUNGLE_BRICK_CRACKED.get(),
+                        RegisterBlocks.JUNGLE_BRICK_FRAGILE.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_0.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_1.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_2.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_3.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_4.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_5.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_6.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_7.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_8.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_9.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_10.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_11.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_12.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_13.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
+
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(RegisterBlocks.TITANIUM_ORE.get(),
@@ -168,7 +189,27 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         RegisterBlocks.PURPLE_CONCRETE.get(),
                         RegisterBlocks.RED_CONCRETE.get(),
                         RegisterBlocks.WHITE_CONCRETE.get(),
-                        RegisterBlocks.YELLOW_CONCRETE.get());
+                        RegisterBlocks.YELLOW_CONCRETE.get(),
+                        RegisterBlocks.JUNGLE_BRICK.get(),
+                        RegisterBlocks.JUNGLE_BRICK_CIRCLE.get(),
+                        RegisterBlocks.JUNGLE_BRICK_CRACKED.get(),
+                        RegisterBlocks.JUNGLE_BRICK_FRAGILE.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_0.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_1.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_2.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_3.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_4.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_5.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_6.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_7.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_8.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_9.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_10.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_11.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_12.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_13.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get(),
+                        RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(RegisterBlocks.URANIUM_ORE.get(),

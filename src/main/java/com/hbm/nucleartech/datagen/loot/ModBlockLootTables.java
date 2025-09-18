@@ -54,6 +54,27 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RegisterBlocks.COLTAN_STORAGE_BLOCK.get());
         this.dropSelf(RegisterBlocks.RAW_COLTAN_STORAGE_BLOCK.get());
 
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_CIRCLE.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_CRACKED.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_FRAGILE.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_0.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_1.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_2.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_3.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_4.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_5.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_6.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_7.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_8.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_9.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_10.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_11.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_12.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_13.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_14.get());
+        this.dropSelf(RegisterBlocks.JUNGLE_BRICK_GLYPH_15.get());
+
 
         this.dropSelf(RegisterBlocks.BLACK_CONCRETE.get());
         this.dropSelf(RegisterBlocks.BLUE_CONCRETE.get());
