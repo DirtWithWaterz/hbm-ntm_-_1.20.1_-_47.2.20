@@ -181,8 +181,8 @@ public class RegisterCreativeTabs {
                         output.accept(RegisterBlocks.DEEPSLATE_NITER_ORE.get());
                         output.accept(RegisterBlocks.TUNGSTEN_ORE.get());
                         output.accept(RegisterBlocks.DEEPSLATE_TUNGSTEN_ORE.get());
-                        output.accept(RegisterBlocks.ALUMINIUM_BEARING_ORE.get());
-                        output.accept(RegisterBlocks.DEEPSLATE_ALUMINIUM_BEARING_ORE.get());
+                        output.accept(RegisterBlocks.ALUMINIUM_ORE.get());
+                        output.accept(RegisterBlocks.DEEPSLATE_ALUMINIUM_ORE.get());
                         output.accept(RegisterBlocks.FLUORITE_ORE.get());
                         output.accept(RegisterBlocks.DEEPSLATE_FLUORITE_ORE.get());
                         output.accept(RegisterBlocks.BERYLLIUM_ORE.get());

@@ -41,8 +41,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RegisterBlocks.TUNGSTEN_ORE);
         blockWithItem(RegisterBlocks.DEEPSLATE_TUNGSTEN_ORE);
 
-        blockWithItem(RegisterBlocks.ALUMINIUM_BEARING_ORE);
-        blockWithItem(RegisterBlocks.DEEPSLATE_ALUMINIUM_BEARING_ORE);
+        blockWithItem(RegisterBlocks.ALUMINIUM_ORE);
+        blockWithItem(RegisterBlocks.DEEPSLATE_ALUMINIUM_ORE);
 
         blockWithItem(RegisterBlocks.FLUORITE_ORE);
         blockWithItem(RegisterBlocks.DEEPSLATE_FLUORITE_ORE);

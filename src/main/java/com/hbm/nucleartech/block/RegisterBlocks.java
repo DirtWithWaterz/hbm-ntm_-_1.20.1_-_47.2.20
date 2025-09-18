@@ -190,14 +190,14 @@ public class RegisterBlocks {
                     0.0035
             ));
 
-    public static final RegistryObject<Block> ALUMINIUM_BEARING_ORE = registerHazardBlock(0.003, "aluminum_bearing_ore",
+    public static final RegistryObject<Block> ALUMINIUM_ORE = registerHazardBlock(0.003, "aluminum_ore",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)
                     .strength(5.0f, 4.0f),
                     UniformInt.of(2, 4),
                     0.0035
             ));
 
-    public static final RegistryObject<Block> DEEPSLATE_ALUMINIUM_BEARING_ORE = registerHazardBlock(0.0035, "deepslate_aluminum_bearing_ore",
+    public static final RegistryObject<Block> DEEPSLATE_ALUMINIUM_ORE = registerHazardBlock(0.0035, "deepslate_aluminum_ore",
             () -> new HazardBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE)
                     .strength(8.0f, 15.0f),
                     UniformInt.of(2, 5),

@@ -23,7 +23,7 @@ public class HBMPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_SULFUR_PLACED_KEY = registerKey("ore_sulfur_placed");
     public static final ResourceKey<PlacedFeature> ORE_NITER_PLACED_KEY = registerKey("ore_niter_placed");
     public static final ResourceKey<PlacedFeature> ORE_TUNGSTEN_PLACED_KEY = registerKey("ore_tungsten_placed");
-    public static final ResourceKey<PlacedFeature> ORE_ALUMINIUM_BEARING_PLACED_KEY = registerKey("ore_aluminium_bearing_placed");
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINIUM_PLACED_KEY = registerKey("ore_aluminium_placed");
     public static final ResourceKey<PlacedFeature> ORE_FLUORITE_PLACED_KEY = registerKey("ore_fluorite_placed");
     public static final ResourceKey<PlacedFeature> ORE_BERYLLIUM_PLACED_KEY = registerKey("ore_beryllium_placed");
     public static final ResourceKey<PlacedFeature> ORE_LEAD_PLACED_KEY = registerKey("ore_lead_placed");
@@ -56,7 +56,7 @@ public class HBMPlacedFeatures {
                 HBMOrePlacement.commonOrePlacement(9,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(34))));
 
-        register(context, ORE_ALUMINIUM_BEARING_PLACED_KEY, configuredFeatures.getOrThrow(HBMConfiguredFeatures.OVERWORLD_ORE_ALUMINIUM_BEARING_KEY),
+        register(context, ORE_ALUMINIUM_PLACED_KEY, configuredFeatures.getOrThrow(HBMConfiguredFeatures.OVERWORLD_ORE_ALUMINIUM_KEY),
                 HBMOrePlacement.commonOrePlacement(9,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(34))));
 

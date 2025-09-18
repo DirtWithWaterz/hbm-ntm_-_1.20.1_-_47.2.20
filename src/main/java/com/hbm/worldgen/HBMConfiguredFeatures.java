@@ -26,7 +26,7 @@ public class HBMConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_SULFUR_KEY = registerKey("ore_sulfur");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_NITER_KEY = registerKey("ore_niter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_TUNGSTEN_KEY = registerKey("ore_tungsten");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_ALUMINIUM_BEARING_KEY = registerKey("ore_aluminium_bearing");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_ALUMINIUM_KEY = registerKey("ore_aluminium");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_FLUORITE_KEY = registerKey("ore_fluorite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_BERYLLIUM_KEY = registerKey("ore_beryllium");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ORE_LEAD_KEY = registerKey("ore_lead");
@@ -87,9 +87,9 @@ public class HBMConfiguredFeatures {
                 OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_TUNGSTEN_ORE.get().defaultBlockState())
         );
 
-        List<OreConfiguration.TargetBlockState> overworldAluminumBearingOres = List.of(
-                OreConfiguration.target(stoneReplaceables, RegisterBlocks.ALUMINIUM_BEARING_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_ALUMINIUM_BEARING_ORE.get().defaultBlockState())
+        List<OreConfiguration.TargetBlockState> overworldAluminiumOres = List.of(
+                OreConfiguration.target(stoneReplaceables, RegisterBlocks.ALUMINIUM_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RegisterBlocks.DEEPSLATE_ALUMINIUM_ORE.get().defaultBlockState())
         );
 
         List<OreConfiguration.TargetBlockState> overworldFluoriteOres = List.of(
@@ -156,7 +156,7 @@ public class HBMConfiguredFeatures {
         register(context, OVERWORLD_ORE_SULFUR_KEY, Feature.ORE, new OreConfiguration(overworldSulfurOres, 12));
         register(context, OVERWORLD_ORE_NITER_KEY, Feature.ORE, new OreConfiguration(overworldNiterOres, 12));
         register(context, OVERWORLD_ORE_TUNGSTEN_KEY, Feature.ORE, new OreConfiguration(overworldTungstenOres, 12));
-        register(context, OVERWORLD_ORE_ALUMINIUM_BEARING_KEY, Feature.ORE, new OreConfiguration(overworldAluminumBearingOres, 12));
+        register(context, OVERWORLD_ORE_ALUMINIUM_KEY, Feature.ORE, new OreConfiguration(overworldAluminiumOres, 12));
         register(context, OVERWORLD_ORE_FLUORITE_KEY, Feature.ORE, new OreConfiguration(overworldFluoriteOres, 12));
         register(context, OVERWORLD_ORE_BERYLLIUM_KEY, Feature.ORE, new OreConfiguration(overworldBerylliumOres, 12));
         register(context, OVERWORLD_ORE_LEAD_KEY, Feature.ORE, new OreConfiguration(overworldLeadOres, 12));
