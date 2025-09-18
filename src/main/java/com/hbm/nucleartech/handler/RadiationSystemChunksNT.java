@@ -1391,60 +1391,56 @@ public class RadiationSystemChunksNT {
 
         @SubscribeEvent
         public static void onChunkLoad(ChunkEvent.Load e) {
-
-            if(e.getLevel().isClientSide())
+            if(e.getLevel().isClientSide() || !(e.getLevel() instanceof ServerLevel serverLevel))
                 return;
 
             LevelChunk chunk = (LevelChunk)e.getChunk();
-
-//            long key = chunkKey(chunk);
-
-//            if(processedChunks.contains(key))
-//                return;
-
-            if(getChunkStorage(chunk).instance.wasInitialized()) {
-
-//                System.out.println("[Debug] chunk already initialized: " + chunk.getPos().toString());
+            ChunkRadiationStorage storage = getChunkStorage(chunk);
+            
+            if(storage.instance.wasInitialized()) {
                 return;
             }
-//            else
-//                System.err.println("[Debug] chunk not initialized: " + chunk.getPos().toString());
+            
+            // Submit the heavy work to run asynchronously
+            serverLevel.getServer().submit(() -> {
+                BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
+                int baseX = chunk.getPos().getMinBlockX();
+                int baseZ = chunk.getPos().getMinBlockZ();
 
-            BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
+                // Process sections in parallel
+                LevelChunkSection[] sections = chunk.getSections();
+                for(int i = 0; i < sections.length; i++) {
+                    LevelChunkSection section = sections[i];
+                    if(section == null || section.hasOnlyAir()) continue;
 
-            int baseX = chunk.getPos().getMinBlockX();
-            int baseZ = chunk.getPos().getMinBlockZ();
-
-            LevelChunkSection[] sections = chunk.getSections();
-            for(int i = 0; i < sections.length; i++) {
-
-                LevelChunkSection section = sections[i];
-
-                if(section == null || section.hasOnlyAir()) continue;
-
-                int sectionBaseY = (i << 4) -64;
-
-                for(int lx = 0; lx < 16; lx++) {
-
-                    int wx = baseX + lx;
-                    for(int ly = 0; ly < 16; ly++) {
-
-                        int wy = sectionBaseY + ly;
-                        for(int lz = 0; lz < 16; lz++) {
-
-                            int wz = baseZ + lz;
-
-                            if(section.getBlockState(lx, ly, lz).getBlock() instanceof HazardBlock hb) {
-
-                                mPos.set(wx, wy, wz);
-                                hb.onGenerated((ServerLevel)e.getLevel(), mPos);
+                    final int sectionBaseY = (i << 4) - 64;
+                    
+                    // Process each block in the section
+                    for(int lx = 0; lx < 16; lx++) {
+                        final int wx = baseX + lx;
+                        for(int ly = 0; ly < 16; ly++) {
+                            final int wy = sectionBaseY + ly;
+                            for(int lz = 0; lz < 16; lz++) {
+                                final int wz = baseZ + lz;
+                                
+                                BlockState state = section.getBlockState(lx, ly, lz);
+                                if(state.getBlock() instanceof HazardBlock hb) {
+                                    // Schedule block updates on the main thread
+                                    BlockPos pos = mPos.set(wx, wy, wz);
+                                    serverLevel.getServer().execute(() -> {
+                                        hb.onGenerated(serverLevel, pos.immutable());
+                                    });
+                                }
                             }
                         }
                     }
                 }
-            }
-//            processedChunks.add(key);
-            getChunkStorage(chunk).instance.setInitialized();
+                
+                // Mark as initialized on the main thread
+                serverLevel.getServer().execute(() -> {
+                    storage.instance.setInitialized();
+                });
+            });
         }
 
         static boolean iteratingDirty;
