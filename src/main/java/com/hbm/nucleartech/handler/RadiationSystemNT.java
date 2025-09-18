@@ -134,7 +134,8 @@ public class RadiationSystemNT {
                                         } else {
                                             try {
 
-                                                entity.hurt(RegisterDamageSources.RADIATION, 100f);
+                                                if(entity != null)
+                                                    entity.hurt(RegisterDamageSources.RADIATION, 100f);
                                                 // grant achievement "wait, what?"
                                             } catch (Exception ignored) { System.err.println("client had a packet error!"); }
                                         }
@@ -374,7 +375,7 @@ public class RadiationSystemNT {
             if(!level.isClientSide())
                 level.addFreshEntity(newEntity);
 
-        oldEntity.kill();
+        oldEntity.discard();
     }
 
 //    public static void updateRadiation() {
