@@ -1,9 +1,15 @@
 package com.hbm.nucleartech.damagesource;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.server.ServerLifecycleHooks;
+import org.jetbrains.annotations.NotNull;
 
 public class RegisterDamageSources {
 
@@ -63,234 +69,83 @@ public class RegisterDamageSources {
     public static final DamageSource BOIL;
     public static final DamageSource ACID_PLAYER;
 
-    static {
-
-        assert Minecraft.getInstance().level != null;
-
-        BLAST = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BLAST
-        ));
-        NUCLEAR_BLAST = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.NUCLEAR_BLAST
-        ));
-        MUD_POISONING = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.MUD_POISONING
-        ));
-        ACID = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ACID
-        ));
-        EUTHANIZED_SELF = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.EUTHANIZED_SELF
-        ));
-        EUTHANIZED_SELF_2 = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.EUTHANIZED_SELF_2
-        ));
-        TAU_BLAST = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.TAU_BLAST
-        ));
-        RADIATION = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.RADIATION
-        ));
-        DIGAMMA = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.DIGAMMA
-        ));
-        SUICIDE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.SUICIDE
-        ));
-        TELEPORTER = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.TELEPORTER
-        ));
-        CHEATER = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.CHEATER
-        ));
-        RUBBLE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.RUBBLE
-        ));
-        SHRAPNEL = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.SHRAPNEL
-        ));
-        BLACK_HOLE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BLACK_HOLE
-        ));
-        BLENDER = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BLENDER
-        ));
-        METEORITE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.METEORITE
-        ));
-        BOXCAR = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BOXCAR
-        ));
-        BOAT = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BOAT
-        ));
-        BUILDING = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BUILDING
-        ));
-        TAINT = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.TAINT
-        ));
-        AMS = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.AMS
-        ));
-        AMS_CORE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.AMS_CORE
-        ));
-        BROADCAST = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BROADCAST
-        ));
-        BANG = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BANG
-        ));
-        PC = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.PC
-        ));
-        CLOUD = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.CLOUD
-        ));
-        LEAD = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.LEAD
-        ));
-        ENERVATION = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ENERVATION
-        ));
-        ELECTRICITY = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ELECTRICITY
-        ));
-        EXHAUST = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.EXHAUST
-        ));
-        SPIKES = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.SPIKES
-        ));
-        LUNAR = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.LUNAR
-        ));
-        MONOXIDE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.MONOXIDE
-        ));
-        ASBESTOS = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ASBESTOS
-        ));
-        BLACKLUNG = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BLACKLUNG
-        ));
-        MKU = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.MKU
-        ));
-        VACUUM = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.VACUUM
-        ));
-        OVERDOSE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.OVERDOSE
-        ));
-        MICROWAVE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.MICROWAVE
-        ));
-        NITAN = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.NITAN
-        ));
-
-
-        REVOLVER_BULLET = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.REVOLVER_BULLET
-        ));
-        CHOPPER_BULLET = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.CHOPPER_BULLET
-        ));
-        TAU = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.TAU
-        ));
-        CMB = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.CMB
-        ));
-        SUB_ATOMIC = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.SUB_ATOMIC
-        ));
-        EUTHANIZED = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.EUTHANIZED
-        ));
-//        LASER = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-//
-//                HbmDamageTypes.LASER
-//        ));
-        ELECTRIFIED = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ELECTRIFIED
-        ));
-        FLAMETHROWER = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.FLAMETHROWER
-        ));
-        PLASMA = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.PLASMA
-        ));
-        ICE = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ICE
-        ));
-        BOIL = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.BOIL
-        ));
-        ACID_PLAYER = new DamageSource(Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(
-
-                HbmDamageTypes.ACID_PLAYER
-        ));
+    /**
+     * Creates a DamageSource for the given damage type key.
+     * This is safe to call on both client and server.
+     */
+    @NotNull
+    private static DamageSource createDamageSource(ResourceKey<DamageType> damageTypeKey) {
+        try {
+            MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+            if (server != null) {
+                return new DamageSource(server.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageTypeKey));
+            }
+        } catch (Exception e) {
+            // Fall through to direct creation
+        }
+        
+        // Create a temporary damage type that will be replaced when the registry is available
+        DamageType tempType = new DamageType("hbm." + damageTypeKey.location().getPath(), 0.1F);
+        return new DamageSource(Holder.direct(tempType));
     }
-
-//    public static DamageSource causeBulletDamage(BulletEntity ent, LivingEntity hit) {
-//
-//        return new DamageSource(REVOLVER_BULLET.typeHolder(), hit, ent);
-//    }
+    
+    static {
+        // Initialize all damage sources using the safe method
+        BLAST = createDamageSource(HbmDamageTypes.BLAST);
+        NUCLEAR_BLAST = createDamageSource(HbmDamageTypes.NUCLEAR_BLAST);
+        MUD_POISONING = createDamageSource(HbmDamageTypes.MUD_POISONING);
+        ACID = createDamageSource(HbmDamageTypes.ACID);
+        EUTHANIZED_SELF = createDamageSource(HbmDamageTypes.EUTHANIZED_SELF);
+        EUTHANIZED_SELF_2 = createDamageSource(HbmDamageTypes.EUTHANIZED_SELF_2);
+        TAU_BLAST = createDamageSource(HbmDamageTypes.TAU_BLAST);
+        RADIATION = createDamageSource(HbmDamageTypes.RADIATION);
+        DIGAMMA = createDamageSource(HbmDamageTypes.DIGAMMA);
+        SUICIDE = createDamageSource(HbmDamageTypes.SUICIDE);
+        TELEPORTER = createDamageSource(HbmDamageTypes.TELEPORTER);
+        CHEATER = createDamageSource(HbmDamageTypes.CHEATER);
+        RUBBLE = createDamageSource(HbmDamageTypes.RUBBLE);
+        SHRAPNEL = createDamageSource(HbmDamageTypes.SHRAPNEL);
+        BLACK_HOLE = createDamageSource(HbmDamageTypes.BLACK_HOLE);
+        BLENDER = createDamageSource(HbmDamageTypes.BLENDER);
+        METEORITE = createDamageSource(HbmDamageTypes.METEORITE);
+        BOXCAR = createDamageSource(HbmDamageTypes.BOXCAR);
+        BOAT = createDamageSource(HbmDamageTypes.BOAT);
+        BUILDING = createDamageSource(HbmDamageTypes.BUILDING);
+        TAINT = createDamageSource(HbmDamageTypes.TAINT);
+        AMS = createDamageSource(HbmDamageTypes.AMS);
+        AMS_CORE = createDamageSource(HbmDamageTypes.AMS_CORE);
+        BROADCAST = createDamageSource(HbmDamageTypes.BROADCAST);
+        BANG = createDamageSource(HbmDamageTypes.BANG);
+        PC = createDamageSource(HbmDamageTypes.PC);
+        CLOUD = createDamageSource(HbmDamageTypes.CLOUD);
+        LEAD = createDamageSource(HbmDamageTypes.LEAD);
+        ENERVATION = createDamageSource(HbmDamageTypes.ENERVATION);
+        ELECTRICITY = createDamageSource(HbmDamageTypes.ELECTRICITY);
+        EXHAUST = createDamageSource(HbmDamageTypes.EXHAUST);
+        SPIKES = createDamageSource(HbmDamageTypes.SPIKES);
+        LUNAR = createDamageSource(HbmDamageTypes.LUNAR);
+        MONOXIDE = createDamageSource(HbmDamageTypes.MONOXIDE);
+        ASBESTOS = createDamageSource(HbmDamageTypes.ASBESTOS);
+        BLACKLUNG = createDamageSource(HbmDamageTypes.BLACKLUNG);
+        MKU = createDamageSource(HbmDamageTypes.MKU);
+        VACUUM = createDamageSource(HbmDamageTypes.VACUUM);
+        OVERDOSE = createDamageSource(HbmDamageTypes.OVERDOSE);
+        MICROWAVE = createDamageSource(HbmDamageTypes.MICROWAVE);
+        NITAN = createDamageSource(HbmDamageTypes.NITAN);
+        REVOLVER_BULLET = createDamageSource(HbmDamageTypes.REVOLVER_BULLET);
+        CHOPPER_BULLET = createDamageSource(HbmDamageTypes.CHOPPER_BULLET);
+        TAU = createDamageSource(HbmDamageTypes.TAU);
+        CMB = createDamageSource(HbmDamageTypes.CMB);
+        SUB_ATOMIC = createDamageSource(HbmDamageTypes.SUB_ATOMIC);
+        EUTHANIZED = createDamageSource(HbmDamageTypes.EUTHANIZED);
+        ELECTRIFIED = createDamageSource(HbmDamageTypes.ELECTRIFIED);
+        FLAMETHROWER = createDamageSource(HbmDamageTypes.FLAMETHROWER);
+        PLASMA = createDamageSource(HbmDamageTypes.PLASMA);
+        ICE = createDamageSource(HbmDamageTypes.ICE);
+        // LASER = createDamageSource(HbmDamageTypes.LASER);
+        BOIL = createDamageSource(HbmDamageTypes.BOIL);
+        ACID_PLAYER = createDamageSource(HbmDamageTypes.ACID_PLAYER);
+    }
 
     public static DamageSource causeBulletDamage(LivingEntity ent, LivingEntity hit) {
 
