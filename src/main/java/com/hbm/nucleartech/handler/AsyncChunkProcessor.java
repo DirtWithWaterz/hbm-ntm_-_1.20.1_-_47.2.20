@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AsyncChunkProcessor {
     private static final int MAX_CONCURRENT_CHUNKS = 4; // Process up to 4 chunks in parallel (original)
-    private static final int QUEUE_CAPACITY = 32; // Maximum number of chunks to queue (original)
+    private static final int QUEUE_CAPACITY = 16; // Maximum number of chunks to queue (original)
     private static final long QUEUE_TIMEOUT_MS = 1000; // 1 second timeout for queue operations
     
     private static final ThreadFactory threadFactory = r -> {
