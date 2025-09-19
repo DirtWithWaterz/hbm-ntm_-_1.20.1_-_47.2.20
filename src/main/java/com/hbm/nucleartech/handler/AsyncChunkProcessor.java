@@ -14,17 +14,28 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AsyncChunkProcessor {
-    private static final int MAX_CONCURRENT_CHUNKS = 4; // Process up to 4 chunks in parallel
-    private static final int QUEUE_CAPACITY = 32; // Maximum number of chunks to queue
+    private static final int MAX_CONCURRENT_CHUNKS = 8; // Process up to 4 chunks in parallel (Timed by 2 from original)
+    private static final int QUEUE_CAPACITY = 320; // Maximum number of chunks to queue (Timed by 10 from original)
     private static final long QUEUE_TIMEOUT_MS = 1000; // 1 second timeout for queue operations
     
-    private static final ExecutorService executorService = Executors.newFixedThreadPool(
-            MAX_CONCURRENT_CHUNKS,
-            r -> {
-                Thread t = new Thread(r, "Radiation Chunk Processor");
-                t.setDaemon(true);
-                return t;
-            });
+    private static final ThreadFactory threadFactory = r -> {
+        Thread t = new Thread(r, "Radiation Chunk Processor");
+        t.setDaemon(true);
+        t.setUncaughtExceptionHandler((thread, throwable) -> {
+            System.err.println("Uncaught exception in " + thread.getName() + ": " + throwable.getMessage());
+            throwable.printStackTrace();
+        });
+        return t;
+    };
+    
+    private static final ExecutorService executorService = new ThreadPoolExecutor(
+        MAX_CONCURRENT_CHUNKS,
+        MAX_CONCURRENT_CHUNKS,
+        60L, TimeUnit.SECONDS,
+        new LinkedBlockingQueue<>(QUEUE_CAPACITY),
+        threadFactory,
+        new ThreadPoolExecutor.CallerRunsPolicy() // Fallback to running on calling thread if queue is full
+    );
     
     private static final BlockingQueue<ProcessChunkTask> taskQueue = new LinkedBlockingQueue<>(QUEUE_CAPACITY);
     private static final Map<ChunkPos, ProcessChunkTask> pendingTasks = new ConcurrentHashMap<>();
@@ -83,9 +94,9 @@ public class AsyncChunkProcessor {
 //                                world.getMinBuildHeight(), world.getMinBuildHeight() + (sectionY << 4));
                         }
 
-                        // Check if this is a grass block with air above it (surface grass)
-                        if (state.getBlock() != net.minecraft.world.level.block.Blocks.GRASS_BLOCK || state.getBlock() !=  net.minecraft.world.level.block.Blocks.PODZOL) {
-//                            LOGGER.trace("Skipping non-grass block at {}", worldPos);
+                        // Check if this is a grass block or podzol with air above it (surface check)
+                        if (state.getBlock() != net.minecraft.world.level.block.Blocks.GRASS_BLOCK && 
+                            state.getBlock() != net.minecraft.world.level.block.Blocks.PODZOL) {
                             continue;
                         }
 
@@ -148,6 +159,10 @@ public class AsyncChunkProcessor {
     }
     
     public static void queueChunkForProcessing(ServerLevel world, LevelChunk chunk, int sectionY, RadiationSystemChunksNT.RadPocket pocket) {
+        if (chunk == null || world == null || pocket == null) {
+            return;
+        }
+        
         ChunkPos chunkPos = new ChunkPos(chunk.getPos().x, chunk.getPos().z);
         
         // Skip if this chunk is already queued for processing
@@ -163,15 +178,28 @@ public class AsyncChunkProcessor {
             if (taskQueue.offer(task, QUEUE_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
                 executorService.submit(() -> {
                     try {
-                        taskQueue.take().call();
+                        ProcessChunkTask currentTask = taskQueue.take();
+                        try {
+                            currentTask.call();
+                        } finally {
+                            // Ensure we always clean up, even if there's an exception
+                            pendingTasks.remove(new ChunkPos(currentTask.chunk.getPos().x, currentTask.chunk.getPos().z));
+                        }
                     } catch (Exception e) {
-                        // Log error but don't crash
+                        System.err.println("Error in chunk processing task: " + e.getMessage());
                         e.printStackTrace();
                     }
                 });
+            } else {
+                // If we couldn't add to queue, clean up
+                pendingTasks.remove(chunkPos);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            pendingTasks.remove(chunkPos);
+        } catch (Exception e) {
+            System.err.println("Unexpected error queueing chunk for processing: " + e.getMessage());
+            e.printStackTrace();
             pendingTasks.remove(chunkPos);
         }
     }
