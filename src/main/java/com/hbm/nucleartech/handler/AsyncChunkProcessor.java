@@ -14,8 +14,8 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AsyncChunkProcessor {
-    private static final int MAX_CONCURRENT_CHUNKS = 8; // Process up to 4 chunks in parallel (Timed by 2 from original)
-    private static final int QUEUE_CAPACITY = 320; // Maximum number of chunks to queue (Timed by 10 from original)
+    private static final int MAX_CONCURRENT_CHUNKS = 4; // Process up to 4 chunks in parallel (original)
+    private static final int QUEUE_CAPACITY = 32; // Maximum number of chunks to queue (original)
     private static final long QUEUE_TIMEOUT_MS = 1000; // 1 second timeout for queue operations
     
     private static final ThreadFactory threadFactory = r -> {
@@ -95,16 +95,16 @@ public class AsyncChunkProcessor {
                         }
 
                         // Check if this is a grass block or podzol with air above it (surface check)
-                        if (state.getBlock() != net.minecraft.world.level.block.Blocks.GRASS_BLOCK && 
+                        if (state.getBlock() != net.minecraft.world.level.block.Blocks.GRASS_BLOCK &&
                             state.getBlock() != net.minecraft.world.level.block.Blocks.PODZOL) {
                             continue;
                         }
 
-                        // Verify the block above is air (surface check)
-                        if (!world.isEmptyBlock(worldPos.above())) {
-//                            LOGGER.trace("Skipping non-surface grass at {}", worldPos);
-                            continue;
-                        }
+//                        // Verify the block above is air (surface check)
+//                        if (!world.isEmptyBlock(worldPos.above())) {
+////                            LOGGER.trace("Skipping non-surface grass at {}", worldPos);
+//                            continue;
+//                        }
 
                         if (pocket.parent.getPocket(worldPos) != pocket) {
 //                            LOGGER.trace("Skipping block not in pocket at {}", worldPos);
