@@ -128,16 +128,16 @@ public class RadiationSystemNT {
                                             entity.getHealth() > 0 &&
                                             entity instanceof Creeper creeper) {
 
-                                        if(world.random.nextInt(3) == 0) {
+                                        if(world.random.nextInt(3) == 0 && creeper != null) {
 
                                             replace(creeper, new NuclearCreeperEntity(HbmEntities.NUCLEAR_CREEPER.get(), world), world);
                                         } else {
                                             try {
 
-                                                if(entity != null)
-                                                    entity.hurt(RegisterDamageSources.RADIATION, 100f);
+                                                if(creeper != null)
+                                                    creeper.hurt(RegisterDamageSources.RADIATION, 100f);
                                                 // grant achievement "wait, what?"
-                                            } catch (Exception ignored) { System.err.println("client had a packet error!"); }
+                                            } catch (Exception ignored) { System.err.println("client had a packet error! e: " + ignored.getCause()); }
                                         }
                                         continue;
                                     }
