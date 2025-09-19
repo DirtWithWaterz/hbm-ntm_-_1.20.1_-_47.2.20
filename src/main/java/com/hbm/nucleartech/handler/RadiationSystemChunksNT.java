@@ -189,53 +189,100 @@ public class RadiationSystemChunksNT {
             }
         }
 
+        /**
+         * Processes radiation spread in a spherical pattern from the source position,
+         * processing blocks from nearest to farthest from the origin
+         */
         private void processRadiationSpread(RadPocket p, long startTime) {
-            // Count connections for radiation spread
-            float count = 0;
-            for (Direction d : Direction.values()) {
-                count += p.connectionIndices[d.ordinal()].size();
+            if (p.radiation < 1.0f) {
+                return; // Not enough radiation to spread
             }
 
-            float amountPer = (count > 0 && p.radiation >= 1) ? (0.7F / count) : 0;
-
-            if (amountPer <= 0) {
+            // Get the center position of this pocket (origin point)
+            BlockPos origin = p.parent.parentChunk.getWorldPos(p.parent.yLevel);
+            if (origin == null) {
                 return;
             }
 
-            BlockPos pos = p.parent.parentChunk.getWorldPos(p.parent.yLevel);
-
-            // Process radiation spread to connected pockets
-            for (Direction e : Direction.values()) {
-                BlockPos nPos = pos.relative(e, 16);
-
-                // Skip if out of bounds or unloaded
-                if (!p.parent.parentChunk.chunk.getLevel().isLoaded(nPos) ||
-                        nPos.getY() < -64 || nPos.getY() > 319) {
-                    continue;
+            final int maxDistance = 16; // Maximum spread distance in blocks
+            final float radiationAmount = p.radiation * 0.7f; // Use 70% of radiation for spreading
+            
+            // Calculate radiation per block at source (will decrease with distance)
+            float baseRadiation = radiationAmount / (maxDistance * maxDistance * (float)Math.PI);
+            
+            // Track processed positions to avoid duplicates
+            Set<BlockPos> processed = new HashSet<>();
+            
+            // Use a priority queue to process blocks by distance from origin
+            PriorityQueue<BlockPos> queue = new PriorityQueue<>(
+                (a, b) -> {
+                    double distA = Math.sqrt(a.distSqr(origin));
+                    double distB = Math.sqrt(b.distSqr(origin));
+                    return Double.compare(distA, distB);
                 }
-
-                List<Integer> connections = p.connectionIndices[e.ordinal()];
-                if (connections.size() == 1 && connections.get(0) == -1) {
-                    // Queue chunk loading on main thread
-                    chunkLoadTasks.add(() -> {
-                        rebuildChunkPockets(
-                                p.parent.parentChunk.chunk.getLevel().getChunkAt(nPos),
-                                ChunkStorageCompat.getIndexFromWorldY(nPos.getY())
-                        );
-                    });
-                } else if (!connections.isEmpty()) {
-                    // Queue radiation spread to connected pockets
-                    // (Implementation depends on how radiation spread is handled)
-                    // This is a placeholder - you'll need to implement the actual radiation spread logic
-                    float finalAmountPer = amountPer;
-                    updates.add(new RadiationUpdate(p, p.radiation - (finalAmountPer * connections.size()), false));
-                }
-
-                // Check if we've used too much time in this tick
+            );
+            
+            // Start with the origin block
+            queue.add(origin);
+            processed.add(origin);
+            
+            // Process blocks in order of increasing distance from origin
+            while (!queue.isEmpty()) {
+                BlockPos current = queue.poll();
+                
+                // Skip if we've used too much time in this tick
                 if (System.currentTimeMillis() - startTime > 15) {
                     break;
                 }
+                
+                // Calculate distance from origin
+                double distance = Math.sqrt(current.distSqr(origin));
+                
+                // Skip if too far from origin
+                if (distance > maxDistance) {
+                    continue;
+                }
+                
+                // Get the subchunk for this position
+                SubChunkRadiationStorage subChunk = getSubChunkStorage(
+                    p.parent.parentChunk.chunk.getLevel(),
+                    new BlockPos(current.getX() & ~0xF, current.getY() & ~0xF, current.getZ() & ~0xF)
+                );
+                
+                if (subChunk == null || subChunk.pockets == null) {
+                    continue;
+                }
+                
+                // Find the radiation pocket at this position
+                for (RadPocket targetPocket : subChunk.pockets) {
+                    if (targetPocket == null || targetPocket == p) {
+                        continue; // Skip self and null pockets
+                    }
+                    
+                    // Calculate radiation amount based on distance (inverse square law)
+                    float radiation = (float)(baseRadiation / (distance * distance + 1));
+                    
+                    if (radiation > 0.01f) { // Only apply significant radiation
+                        final float finalRadiation = radiation;
+                        updates.add(new RadiationUpdate(
+                            targetPocket,
+                            targetPocket.radiation + finalRadiation,
+                            false
+                        ));
+                    }
+                }
+                
+                // Add adjacent blocks to the queue if they haven't been processed yet
+                for (Direction dir : Direction.values()) {
+                    BlockPos neighbor = current.relative(dir);
+                    if (processed.add(neighbor)) { // Only add if not already processed
+                        queue.add(neighbor);
+                    }
+                }
             }
+            
+            // Reduce the source radiation after spreading
+            updates.add(new RadiationUpdate(p, p.radiation * 0.3f, false));
         }
     }
     // -----------------------------------
@@ -616,94 +663,124 @@ public class RadiationSystemChunksNT {
      * @param index - the current pocket number
      * @return a new rad pocket made from the flood fill data
      */
+    // Optimized flood-fill implementation using array-based queue and reduced allocations
+    private static final int MAX_POCKET_SIZE = 4096; // 16*16*16 = 4096 blocks max per subchunk
+    private static final int[] QUEUE_X = new int[MAX_POCKET_SIZE];
+    private static final int[] QUEUE_Y = new int[MAX_POCKET_SIZE];
+    private static final int[] QUEUE_Z = new int[MAX_POCKET_SIZE];
+    
+    /**
+     * Optimized version of buildPocket using array-based flood fill and reduced allocations
+     */
     private static RadPocket buildPocket(SubChunkRadiationStorage subChunk, Level level, BlockPos start,
-                                         BlockPos subChunkWorldPos, ChunkStorageCompat.ExtendedBlockStorage chunk,
-                                         RadPocket[] pocketsByBlock, int index) {
-
-        // Create the new pocket we're going to use
-        RadPocket pocket = new RadPocket(subChunk, index);
-
-//        BlockPos chunkPos = new BlockPos(
-//                pocket.getSubChunkPos().getX() >> 4,
-//                (pocket.getSubChunkPos().getY() >> 4) - 64,
-//                pocket.getSubChunkPos().getZ() >> 4
-//        );
-        //System.out.println("[Debug] Starting build of pocket of index " + index + " for chunk at " + chunkPos + ", at local position " + start);
-
-        // Make sure stack is empty
-        stack.clear();
-        stack.add(start);
-        // Flood fill
-        while(!stack.isEmpty()) {
-
-            BlockPos pos = stack.poll();
-            Block block = chunk.get(pos.getX(), pos.getY(), pos.getZ()).getBlock();
-
-            // If the block is radiation-resistant, or we've already flood-filled here, continue
-            if(pocketsByBlock[pos.getX()*16*16+pos.getY()*16+pos.getZ()] != null)
-                continue;
-
-            // Set the current position in the array to be this pocket
-            pocketsByBlock[pos.getX()*16*16+pos.getY()*16+pos.getZ()] = pocket;
-
-            // For each direction...
-            for(Direction facing : Direction.values()) {
-
-                BlockPos newPos = pos.relative(facing);
-                if(Math.max(Math.max(newPos.getX(), newPos.getY()), newPos.getZ()) > 15 ||
-                        Math.min(Math.min(newPos.getX(), newPos.getY()), newPos.getZ()) < 0) {
-
-                    // If we're outside the sub chunk bounds, try to connect to neighboring chunk pockets
-                    BlockPos outPos = newPos.offset(subChunkWorldPos);
-
-                    // If this position is out of bounds, do nothing
-                    if(outPos.getY() < -64 || outPos.getY() > 319)
-                        continue;
-
-                    // Will also attempt to load the chunk, which will cause neighbor data to be updated correctly if it's unloaded
-                    block = level.getBlockState(outPos).getBlock();
-                    // If the block isn't radiation-resistant...
-                    if(!(block instanceof IRadResistantBlock && ((IRadResistantBlock) block).isRadResistant((ServerLevel) level, outPos))) {
-
-                        if(!isSubChunkLoaded(level, outPos)) {
-
-                            // If it's not loaded, mark it with a single -1 value. This will tell the update method that the
-                            // Chunk still needs to be loaded to propagate radiation into it
-                            if(!pocket.connectionIndices[facing.ordinal()].contains(-1)) {
-
-                                pocket.connectionIndices[facing.ordinal()].add(-1);
-                            }
-                        } else {
-
-                            // If it is loaded, see if the pocket at that position is already connected to us. If not, add it as a connection
-                            // Setting outPocket's connection will be handled in setForYLevel
-                            RadPocket outPocket = getPocket(level, outPos);
-                            if(!pocket.connectionIndices[facing.ordinal()].contains(outPocket.index))
-                                pocket.connectionIndices[facing.ordinal()].add(outPocket.index);
-                        }
-                    }
+                                       BlockPos subChunkWorldPos, ChunkStorageCompat.ExtendedBlockStorage chunk,
+                                       RadPocket[] pocketsByBlock, int index) {
+        final RadPocket pocket = new RadPocket(subChunk, index);
+        final int startX = start.getX();
+        final int startY = start.getY();
+        final int startZ = start.getZ();
+        
+        // Check if starting position is already processed or out of bounds
+        if (startX < 0 || startX > 15 || startY < 0 || startY > 15 || startZ < 0 || startZ > 15 || 
+            pocketsByBlock[startX * 256 + startY * 16 + startZ] != null) {
+            return pocket;
+        }
+        
+        // Initialize queue
+        int queueHead = 0;
+        int queueTail = 1;
+        QUEUE_X[0] = startX;
+        QUEUE_Y[0] = startY;
+        QUEUE_Z[0] = startZ;
+        pocketsByBlock[startX * 256 + startY * 16 + startZ] = pocket;
+        
+        // Pre-compute world position once
+        final int worldX = subChunkWorldPos.getX();
+        final int worldY = subChunkWorldPos.getY();
+        final int worldZ = subChunkWorldPos.getZ();
+        
+        // Process queue
+        while (queueHead < queueTail) {
+            // Get next position from queue
+            final int x = QUEUE_X[queueHead];
+            final int y = QUEUE_Y[queueHead];
+            final int z = QUEUE_Z[queueHead];
+            queueHead++;
+            
+            // Process all 6 directions
+            for (Direction facing : Direction.values()) {
+                int nx = x + facing.getStepX();
+                int ny = y + facing.getStepY();
+                int nz = z + facing.getStepZ();
+                
+                // Check if neighbor is out of bounds
+                if (nx < 0 || nx > 15 || ny < 0 || ny > 15 || nz < 0 || nz > 15) {
+                    handleOutOfBounds(level, pocket, facing, x, y, z, worldX, worldY, worldZ);
                     continue;
                 }
-                // Add the new position onto the stack, to be flood-fill checked later
-                if(!(block instanceof IRadResistantBlock && ((IRadResistantBlock) block).isRadResistant((ServerLevel) level, pos.offset(subChunkWorldPos)))) {
-
-//                    System.err.println("[Debug] block is not rad resistant: " + pos.offset(subChunkWorldPos));
-                    stack.add(newPos);
+                
+                // Check if already processed
+                int idx = nx * 256 + ny * 16 + nz;
+                if (pocketsByBlock[idx] != null) continue;
+                
+                // Check if block is radiation-resistant
+                BlockPos pos = new BlockPos(worldX + x, worldY + y, worldZ + z);
+                BlockState state = chunk.get(x, y, z);
+                if (isRadResistant(level, state, pos)) continue;
+                
+                // Add to pocket and enqueue
+                pocketsByBlock[idx] = pocket;
+                if (queueTail < MAX_POCKET_SIZE) {
+                    QUEUE_X[queueTail] = nx;
+                    QUEUE_Y[queueTail] = ny;
+                    QUEUE_Z[queueTail] = nz;
+                    queueTail++;
                 }
-//                else {
-//
-//                    System.err.println("[Debug] block is rad resistant: " + pos.offset(subChunkWorldPos) + " (Resistance: " + ((IRadResistantBlock) block).getResistance() + ")");
-//                }
             }
         }
-
-//        chunkPos = new BlockPos(
-//                pocket.getSubChunkPos().getX() >> 4,
-//                ChunkStorageCompat.getIndexFromWorldY(pocket.getSubChunkPos().getY()),
-//                pocket.getSubChunkPos().getZ() >> 4);
-        //System.out.println("[Debug] Finished build of pocket of index " + index + " for chunk at " + chunkPos + ", at local position " + start);
-
+        
         return pocket;
+    }
+    
+    /**
+     * Helper method to check if a block is radiation resistant
+     */
+    private static boolean isRadResistant(Level level, BlockState state, BlockPos pos) {
+        if (state.isAir()) return true;
+        Block block = state.getBlock();
+        return block instanceof IRadResistantBlock && 
+               ((IRadResistantBlock) block).isRadResistant((ServerLevel) level, pos);
+    }
+    
+    /**
+     * Handles block positions that are outside the current subchunk
+     */
+    private static void handleOutOfBounds(Level level, RadPocket pocket, Direction facing, 
+                                         int x, int y, int z, int worldX, int worldY, int worldZ) {
+        BlockPos outPos = new BlockPos(
+            worldX + x + facing.getStepX(),
+            worldY + y + facing.getStepY(),
+            worldZ + z + facing.getStepZ()
+        );
+        
+        // Skip if out of world bounds
+        if (outPos.getY() < -64 || outPos.getY() > 319) {
+            return;
+        }
+        
+        // Check if the position is loaded
+        if (!isSubChunkLoaded(level, outPos)) {
+            // If not loaded, mark with -1 if not already present
+            if (!pocket.connectionIndices[facing.ordinal()].contains(-1)) {
+                pocket.connectionIndices[facing.ordinal()].add(-1);
+            }
+        } else {
+            // If loaded, get the pocket and add connection
+            RadPocket outPocket = getPocket(level, outPos);
+            if (outPocket != null && !pocket.connectionIndices[facing.ordinal()].contains(outPocket.index)) {
+                pocket.connectionIndices[facing.ordinal()].add(outPocket.index);
+            }
+        }
     }
 
     /**
@@ -1133,23 +1210,56 @@ public class RadiationSystemChunksNT {
          * @param world - the world to add to
          * @param pos - the position to add to
          */
-        public void add(Level world, BlockPos pos){
-            for(Direction e : Direction.values()){
-                // Tries to load the chunk so it updates right.
-                world.getBlockState(pos.relative(e, 16));
-                if(isSubChunkLoaded(world, pos.relative(e, 16))){
-                    SubChunkRadiationStorage sc = getSubChunkStorage(world, pos.relative(e, 16));
-                    // Clear all the neighbor's references to this sub chunk
-                    for(RadPocket p : sc.pockets){
-                        p.connectionIndices[e.getOpposite().ordinal()].clear();
+        public void add(Level world, BlockPos pos) {
+            if (world == null || pos == null) {
+                return;
+            }
+            
+            for (Direction e : Direction.values()) {
+                try {
+                    // Check if the neighboring chunk is loaded and get its storage
+                    BlockPos neighborPos = pos.relative(e, 16);
+                    if (!isSubChunkLoaded(world, neighborPos)) {
+                        continue;
                     }
-                    // Sync connections to the neighbor to make it two ways
-                    for(RadPocket p : pockets){
-                        List<Integer> indc = p.connectionIndices[e.ordinal()];
-                        for(int idx : indc){
-                            sc.pockets[idx].connectionIndices[e.getOpposite().ordinal()].add(p.index);
+                    
+                    // Get the neighboring subchunk storage
+                    SubChunkRadiationStorage sc = getSubChunkStorage(world, neighborPos);
+                    if (sc == null || sc.pockets == null) {
+                        continue;
+                    }
+                    
+                    // Clear all the neighbor's references to this sub chunk
+                    for (RadPocket p : sc.pockets) {
+                        if (p != null && p.connectionIndices != null && 
+                            e.getOpposite().ordinal() < p.connectionIndices.length) {
+                            p.connectionIndices[e.getOpposite().ordinal()].clear();
                         }
                     }
+                    
+                    // Sync connections to the neighbor to make it two ways
+                    if (pockets != null) {
+                        for (RadPocket p : pockets) {
+                            if (p == null || p.connectionIndices == null || e.ordinal() >= p.connectionIndices.length) {
+                                continue;
+                            }
+                            
+                            List<Integer> indc = p.connectionIndices[e.ordinal()];
+                            if (indc == null) {
+                                continue;
+                            }
+                            
+                            for (int idx : indc) {
+                                if (idx >= 0 && idx < sc.pockets.length && sc.pockets[idx] != null && 
+                                    sc.pockets[idx].connectionIndices != null && 
+                                    e.getOpposite().ordinal() < sc.pockets[idx].connectionIndices.length) {
+                                    sc.pockets[idx].connectionIndices[e.getOpposite().ordinal()].add(p.index);
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    HBM.LOGGER.error("Error updating radiation connections for direction " + e, ex);
                 }
             }
         }
