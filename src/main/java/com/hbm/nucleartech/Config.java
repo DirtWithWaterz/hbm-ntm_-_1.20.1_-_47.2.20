@@ -35,6 +35,10 @@ public class Config
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
+            
+    private static final ForgeConfigSpec.IntValue CONCURRENT_CHUNK_THREADS = BUILDER
+            .comment("Number of concurrent threads to use for chunk processing. Set to 0 to use half of available processors.")
+            .defineInRange("concurrentChunkThreads", 0, 0, 32);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -42,6 +46,7 @@ public class Config
     public static int magicNumber;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
+    public static int concurrentChunkThreads;
 
     private static boolean validateItemName(final Object obj)
     {
@@ -55,9 +60,17 @@ public class Config
         magicNumber = MAGIC_NUMBER.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
+        // Calculate default threads if set to 0 (auto-detect)
+        int availableProcessors = Runtime.getRuntime().availableProcessors();
+        concurrentChunkThreads = CONCURRENT_CHUNK_THREADS.get() > 0 
+            ? CONCURRENT_CHUNK_THREADS.get() 
+            : Math.max(1, availableProcessors / 2);
+
         // convert the list of strings into a set of items
         items = ITEM_STRINGS.get().stream()
                 .map(itemName -> ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(itemName)))
                 .collect(Collectors.toSet());
+
+        HBM.LOGGER.info("Config loaded - Using {} concurrent chunk processing threads", concurrentChunkThreads);
     }
 }

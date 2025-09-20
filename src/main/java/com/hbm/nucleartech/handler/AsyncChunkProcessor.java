@@ -1,5 +1,6 @@
 package com.hbm.nucleartech.handler;
 
+import com.hbm.nucleartech.HBM;
 import com.hbm.nucleartech.block.RegisterBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -14,9 +15,13 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AsyncChunkProcessor {
-    private static final int MAX_CONCURRENT_CHUNKS = 4; // Process up to 4 chunks in parallel (original)
     private static final int QUEUE_CAPACITY = 16; // Maximum number of chunks to queue (original)
     private static final long QUEUE_TIMEOUT_MS = 500; // 1 second timeout for queue operations
+    
+    // Get the number of concurrent chunks from config, with a minimum of 1
+    private static int getMaxConcurrentChunks() {
+        return Math.max(1, com.hbm.nucleartech.Config.concurrentChunkThreads);
+    }
     
     private static final ThreadFactory threadFactory = r -> {
         Thread t = new Thread(r, "Radiation Chunk Processor");
@@ -29,13 +34,23 @@ public class AsyncChunkProcessor {
     };
     
     private static final ExecutorService executorService = new ThreadPoolExecutor(
-        MAX_CONCURRENT_CHUNKS,
-        MAX_CONCURRENT_CHUNKS,
+        getMaxConcurrentChunks(),
+        getMaxConcurrentChunks(),
         60L, TimeUnit.SECONDS,
         new LinkedBlockingQueue<>(QUEUE_CAPACITY),
         threadFactory,
         new ThreadPoolExecutor.CallerRunsPolicy() // Fallback to running on calling thread if queue is full
-    );
+    ) {
+        @Override
+        protected void beforeExecute(Thread t, Runnable r) {
+            super.beforeExecute(t, r);
+            // Log thread pool stats periodically
+            if (System.currentTimeMillis() % 10000 < 50) { // Log roughly every 10 seconds
+                HBM.LOGGER.debug("Chunk processor stats - Active: {}, Queue: {}/{}",
+                    getActiveCount(), getQueue().size(), QUEUE_CAPACITY);
+            }
+        }
+    };
     
     private static final BlockingQueue<ProcessChunkTask> taskQueue = new LinkedBlockingQueue<>(QUEUE_CAPACITY);
     private static final Map<ChunkPos, ProcessChunkTask> pendingTasks = new ConcurrentHashMap<>();
