@@ -2,111 +2,90 @@ package com.hbm.nucleartech.handler;
 
 import com.hbm.nucleartech.block.RegisterBlocks;
 import com.hbm.nucleartech.handler.RadiationSystemChunksNT.ChunkStorageCompat;
-import com.hbm.nucleartech.handler.RadiationSystemChunksNT.ChunkStorageCompat.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RadiationWorldHandler {
 
+    private static final int MAX_CHUNKS_PER_TICK = 2; // Process up to 2 chunks per tick
+    private static final Random random = ThreadLocalRandom.current();
+
     public static void handleWorldDestruction(Level level) {
         if (!(level instanceof ServerLevel world)) return;
-
-//        System.err.println("[Debug] Handle world destruction called");
 
         Collection<RadiationSystemChunksNT.RadPocket> active = RadiationSystemChunksNT.getActivePockets();
         if (active.isEmpty()) return;
 
         int threshold = 5;
-        RadiationSystemChunksNT.RadPocket pocket = pickRandomAboveThreshold(active, world, threshold);
-        if (pocket == null) return;
+        List<RadiationSystemChunksNT.RadPocket> pockets = getPocketsAboveThreshold(active, world, threshold);
+        if (pockets.isEmpty()) return;
 
-        // grab the pocket’s subchunk storage:
-        RadiationSystemChunksNT.SubChunkRadiationStorage sc = pocket.parent;
+        // Process multiple pockets in parallel
+        int processed = 0;
+        for (RadiationSystemChunksNT.RadPocket pocket : pockets) {
+            if (processed >= MAX_CHUNKS_PER_TICK) break;
+            
+            RadiationSystemChunksNT.SubChunkRadiationStorage sc = pocket.parent;
+            if (sc == null || sc.parentChunk == null || sc.parentChunk.chunk == null) continue;
 
-        ExtendedBlockStorage storage = ChunkStorageCompat.getBlockStorageArray(sc.parentChunk.chunk)[ChunkStorageCompat.getIndexFromWorldY(sc.yLevel)];
+            // Queue the chunk section for async processing
+            LevelChunk chunk = sc.parentChunk.chunk;
+            int sectionY = ChunkStorageCompat.getIndexFromWorldY(sc.yLevel);
+            
+            if (sectionY >= 0 && sectionY < chunk.getSections().length) {
+                AsyncChunkProcessor.queueChunkForProcessing(world, chunk, sectionY, pocket);
+                processed++;
+            }
+        }
+    }
 
-        BlockPos subChunkWorldPos = sc.parentChunk.getWorldPos(sc.yLevel);
+    // Get all pockets above the threshold
+    private static List<RadiationSystemChunksNT.RadPocket> getPocketsAboveThreshold(
+            Collection<RadiationSystemChunksNT.RadPocket> pockets, ServerLevel world, int threshold) {
+        
+        if (pockets == null || pockets.isEmpty()) return List.of();
 
-        if(storage == null) return;
+        // Snapshot to avoid concurrent modification
+        List<RadiationSystemChunksNT.RadPocket> snapshot = new ArrayList<>(pockets);
+        List<RadiationSystemChunksNT.RadPocket> result = new ArrayList<>(Math.min(snapshot.size(), 16));
 
-        for(int x = 0; x < 16; x++) {
-
-            for(int y = 0; y < 16; y++) {
-
-                for(int z = 0; z < 16; z++) {
-
-                    BlockState block = storage.get(x, y, z);
-                    if(block.isAir())
-                        continue;
-
-                    if(sc.getPocket(subChunkWorldPos.offset(x, y, z)) != pocket)
-                        continue;
-
-                    if(level.random.nextInt(100) <= 60)
-                        continue;
-
-//                    System.err.println("[Debug] Random succeeded, placing block if grass... " + block.getBlock().getName().getString());
-
-                    if(block.getBlock() == Blocks.GRASS_BLOCK) {
-
-                        BlockPos worldPos = subChunkWorldPos.offset(x, y, z);
-                        level.setBlock(worldPos, RegisterBlocks.DEAD_GRASS.get().defaultBlockState(), 18);
-                    }
-                }
+        for (RadiationSystemChunksNT.RadPocket pocket : snapshot) {
+            if (pocket == null) continue;
+            if (Float.isNaN(pocket.radiation)) continue; // Skip invalid radiation values
+            
+            // Optional: filter by world if needed
+            // if (pocket.parent == null || pocket.parent.parentChunk == null || 
+            //     pocket.parent.parentChunk.chunk.getLevel() != world) continue;
+                
+            if (pocket.radiation >= threshold) {
+                result.add(pocket);
             }
         }
 
+        // Shuffle to distribute processing across chunks
+        if (result.size() > 1) {
+            for (int i = result.size() - 1; i > 0; i--) {
+                int index = random.nextInt(i + 1);
+                RadiationSystemChunksNT.RadPocket temp = result.get(index);
+                result.set(index, result.get(i));
+                result.set(i, temp);
+            }
+        }
+
+        return result;
     }
-
-    // helper to choose a random pocket above the threshold:
-    private static RadiationSystemChunksNT.RadPocket pickRandomAboveThreshold(
-            Collection<RadiationSystemChunksNT.RadPocket> pockets, ServerLevel w, int th) {
-
-        if (pockets == null || pockets.isEmpty()) return null;
-
-        // Snapshot to avoid concurrent mutation issues
-        List<RadiationSystemChunksNT.RadPocket> snapshot = new ArrayList<>(pockets);
-
-        List<RadiationSystemChunksNT.RadPocket> good = new ArrayList<>(Math.min(snapshot.size(), 16));
-        float maxSeen = Float.NEGATIVE_INFINITY;
-        RadiationSystemChunksNT.RadPocket maxPocket = null;
-
-        for (RadiationSystemChunksNT.RadPocket r : snapshot) {
-            if (r == null) continue;
-
-            float rad = r.radiation;
-            if (Float.isNaN(rad)) continue;               // skip NaN entries
-            if (rad > maxSeen) { maxSeen = rad; maxPocket = r; }
-
-            // Optional: only consider pockets in the same world as 'w'
-//             if (r.parent == null || r.parent.parentChunk == null) continue;
-//             if (r.parent.parentChunk.chunk.getLevel() != w) continue;
-
-            if (rad >= th) good.add(r);
-        }
-
-        if (good.isEmpty()) {
-            // Debug output to help you see what's going on when nothing passes the filter
-//            System.err.println("[RAD] pickRandomAboveThreshold: found 0 pockets >= " + th +
-//                    " (snapshot=" + snapshot.size() + ", maxSeen=" + maxSeen +
-//                    (maxPocket == null ? "" : (" at pos=" + (maxPocket.parent==null?"<null>":maxPocket.parent.subChunkPos.toString()))) + ")");
-            return null;
-        }
-//        else {
-//
-//            System.err.println("[RAD] pickRandomAboveThreshold: found " + good.size() + " pockets >= " + th +
-//                    " (snapshot=" + snapshot.size() + ", maxSeen=" + maxSeen +
-//                    (maxPocket == null ? "" : (" at pos=" + (maxPocket.parent==null?"<null>":maxPocket.parent.subChunkPos.toString()))) + ")");
-//        }
-
-        // Choose randomly from the filtered list using the server-level RNG
-        return good.get(w.random.nextInt(good.size()));
+    
+    // Called during server shutdown to clean up resources
+    public static void shutdown() {
+        AsyncChunkProcessor.shutdown();
     }
 }

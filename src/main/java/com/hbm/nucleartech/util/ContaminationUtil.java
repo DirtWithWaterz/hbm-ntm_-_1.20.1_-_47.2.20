@@ -92,9 +92,16 @@ public class ContaminationUtil {
         radiate(level, x, y, z, range, rad3d, dig3d, fire3d, blast3d, range, worldPosition);
     }
     public static void radiate(ServerLevel pLevel, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, double blastRange, BlockPos worldPosition) {
-        List<Entity> entities = pLevel.getEntities(null, new AABB(x-range, y-range, z-range, x+range, y+range, z+range));
-
-//        System.err.println("radiating");
+        if (pLevel == null) return;
+        
+        // Create a thread-safe copy of the entity list to prevent ConcurrentModificationException
+        List<Entity> entities;
+        try {
+            entities = new ArrayList<>(pLevel.getEntities(null, new AABB(x-range, y-range, z-range, x+range, y+range, z+range)));
+        } catch (Exception e) {
+            System.err.println("Failed to get entities for radiation calculation: " + e.getMessage());
+            return;
+        }
 
         List<RadiationSystemChunksNT.RadPocket> pockets = new ArrayList<>();
 
