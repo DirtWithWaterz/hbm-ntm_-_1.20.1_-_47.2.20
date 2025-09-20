@@ -137,7 +137,7 @@ public class RadiationSystemChunksNT {
                     }
 
                     // Calculate radiation decay
-                    float newRad = p.radiation * 0.999F - 0.05F;
+                    float newRad = p.radiation * 0.998F - 0.02F;
                     boolean shouldRemove = newRad <= 0;
 
                     // Queue the update
@@ -153,7 +153,7 @@ public class RadiationSystemChunksNT {
                     }
 
                     // Check if we've used too much time in this tick
-                    if (System.currentTimeMillis() - startTime > 15) {
+                    if (System.currentTimeMillis() - startTime > 30) {
                         break;
                     }
                 }
@@ -194,7 +194,7 @@ public class RadiationSystemChunksNT {
          * processing blocks from nearest to farthest from the origin
          */
         private void processRadiationSpread(RadPocket p, long startTime) {
-            if (p.radiation < 1.0f) {
+            if (p.radiation < 0.5f) {
                 return; // Not enough radiation to spread
             }
 
@@ -205,7 +205,7 @@ public class RadiationSystemChunksNT {
             }
 
             final int maxDistance = 16; // Maximum spread distance in blocks
-            final float radiationAmount = p.radiation * 0.7f; // Use 70% of radiation for spreading
+            final float radiationAmount = p.radiation * 0.1f; // Use 70% of radiation for spreading
             
             // Calculate radiation per block at source (will decrease with distance)
             float baseRadiation = radiationAmount / (maxDistance * maxDistance * (float)Math.PI);
@@ -282,7 +282,7 @@ public class RadiationSystemChunksNT {
             }
             
             // Reduce the source radiation after spreading
-            updates.add(new RadiationUpdate(p, p.radiation * 0.3f, false));
+            updates.add(new RadiationUpdate(p, p.radiation * 0.9f, false));
         }
     }
     // -----------------------------------

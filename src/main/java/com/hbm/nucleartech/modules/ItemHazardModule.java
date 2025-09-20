@@ -147,22 +147,22 @@ public class ItemHazardModule {
 
             if(!hasToxFilter && !hasHazmat) {
 
-                entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 110, this.toxic-1));
+                entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 110, this.toxic-1, true, false));
 
                 if(this.toxic > 2)
-                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 110, Math.min(4, this.toxic-1)));
+                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 110, Math.min(4, this.toxic-1), true, false));
                 if(this.toxic > 4)
-                    entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 110, this.toxic));
+                    entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 110, this.toxic, true, false));
                 if(this.toxic > 6)
                     if(entity.level().random.nextInt((int)(2000/toxic)) == 0)
-                        entity.addEffect(new MobEffectInstance(MobEffects.POISON, 110, this.toxic-4));
+                        entity.addEffect(new MobEffectInstance(MobEffects.POISON, 110, this.toxic-4, true, false));
             }
             if(!(hasHazmat && hasToxFilter)) {
 
                 if(this.toxic > 8)
-                    entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 110, this.toxic-6));
+                    entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 110, this.toxic-6, true, false));
                 if(this.toxic > 16)
-                    entity.addEffect(new MobEffectInstance(MobEffects.HARM, 110, this.toxic-16));
+                    entity.addEffect(new MobEffectInstance(MobEffects.HARM, 110, this.toxic-16, true, false));
             }
         }
     }
@@ -211,15 +211,15 @@ public class ItemHazardModule {
         if(this.toxic * tempMod > 0) {
 
             if(this.toxic > 16)
-                list.add(Component.literal("§a[").append(Component.translatable("adjective.extreme")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+                list.add(Component.literal("[").append(Component.translatable("adjective.extreme")).append(" ").append(Component.translatable("trait.toxic")).append("]").withStyle(ChatFormatting.GREEN));
             else if(this.toxic > 8)
-                list.add(Component.literal("§a[").append(Component.translatable("adjective.very_high")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+                list.add(Component.literal("[").append(Component.translatable("adjective.very_high")).append(" ").append(Component.translatable("trait.toxic")).append("]").withStyle(ChatFormatting.GREEN));
             else if(this.toxic > 4)
-                list.add(Component.literal("§a[").append(Component.translatable("adjective.high")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+                list.add(Component.literal("[").append(Component.translatable("adjective.high")).append(" ").append(Component.translatable("trait.toxic")).append("]").withStyle(ChatFormatting.GREEN));
             else if(this.toxic > 2)
-                list.add(Component.literal("§a[").append(Component.translatable("adjective.medium")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+                list.add(Component.literal("[").append(Component.translatable("adjective.medium")).append(" ").append(Component.translatable("trait.toxic")).append("]").withStyle(ChatFormatting.GREEN));
             else
-                list.add(Component.literal("§a[").append(Component.translatable("adjective.low")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+                list.add(Component.literal("[").append(Component.translatable("adjective.low")).append(" ").append(Component.translatable("trait.toxic")).append("]").withStyle(ChatFormatting.GREEN));
         }
         // Blinding
 

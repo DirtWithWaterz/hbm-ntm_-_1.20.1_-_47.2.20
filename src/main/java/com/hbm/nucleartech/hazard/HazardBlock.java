@@ -167,7 +167,7 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
         super.tick(pState, pLevel, pPos, pRandom);
 
         if(this.rad3d > 0){
-            ContaminationUtil.radiate(pLevel, pPos.getX()+0.5, pPos.getY()+0.5, pPos.getZ()+0.5, 32, (float)this.rad3d * 0.75f, 0, this.module.fire * 5000, 0, 0, pPos);
+            ContaminationUtil.radiate(pLevel, pPos.getX()+0.5, pPos.getY()+0.5, pPos.getZ()+0.5, 32, (float)this.rad3d, 0, this.module.fire * 5000, 0, 0, pPos);
             pLevel.scheduleTick(pPos, this.toBlock(), this.tickRate(pLevel), TickPriority.HIGH);
         }
 //        if(this.radIn > 0){
@@ -177,10 +177,10 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
 
     public int tickRate(Level level){
         if(this.rad3d > 0)
-            return 10;
-        if(this.radIn > 0)
-            return 60+level.random.nextInt(500);
-        return 100;
+            return 1;
+//        if(this.radIn > 0)
+//            return 60+level.random.nextInt(500);
+        return 10;
     }
 
     @Override

@@ -105,22 +105,11 @@ public class ContaminationUtil {
 
         List<RadiationSystemChunksNT.RadPocket> pockets = new ArrayList<>();
 
-        for(Direction d : Direction.values()) {
+        RadiationSystemChunksNT.RadPocket ppppppp = getPocket(pLevel, worldPosition);
 
-            BlockPos relative = worldPosition.relative(d);
-            BlockState state = pLevel.getBlockState(relative);
+        RadiationSavedData.incrementRad(pLevel, worldPosition, rad3d, rad3d);
 
-            RadiationSystemChunksNT.RadPocket decidedPocket = RadiationSystemChunksNT.getPocket(pLevel, relative);
-
-            if(state.isAir() && !pockets.contains(decidedPocket)) {
-
-                RadiationSavedData.incrementRad(pLevel, relative, rad3d, rad3d * 10f);
-
-//                System.out.println("incrementing radiation at " + relative.toString());
-
-                pockets.add(decidedPocket);
-            }
-        }
+        pockets.add(ppppppp);
 
         for(Entity e : entities) {
 
@@ -181,7 +170,7 @@ public class ContaminationUtil {
 
                 if(!pockets.contains(decidedPocket)) {
 
-                    RadiationSavedData.incrementRad(pLevel, dPos, eRads, eRads * 10f);
+                    RadiationSavedData.incrementRad(pLevel, dPos, eRads, eRads);
                     pockets.add(decidedPocket);
                 }
 //                RadiationSavedData.decrementRad(pLevel, e.getOnPos().offset(0,1,0), eRads);
