@@ -1,6 +1,13 @@
 {
   "trait.radioactive": "Radioactive",
   "trait.rad_resistance": "Radiation resistance: %s",
+  "trait.toxic": "Toxicity",
+
+  "adjective.extreme": "Extreme",
+  "adjective.very_high": "Very High",
+  "adjective.high": "High",
+  "adjective.medium": "Medium",
+  "adjective.low": "Low",
 
   "desc.na": "N/A",
   "desc.nofilter": "No filter installed!",
@@ -443,5 +450,7 @@
 
   "item.hbm.iron_plate_stamp": "Iron Plate Stamp",
 
-  "block.hbm.dead_grass": "Dead Grass"
+  "block.hbm.dead_grass": "Dead Grass",
+
+
 }

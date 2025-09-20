@@ -94,16 +94,16 @@ public class RegisterItems {
             () -> new BladeItem(new Item.Properties().stacksTo(1), 9));
 
     public static final RegistryObject<Item> SULFUR_INGOT = ITEMS.register("sulfur_ingot",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties())); // Not a thing
 
     public static final RegistryObject<Item> RAW_SULFUR = ITEMS.register("raw_sulfur",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties())); // Not a thing
 
     public static final RegistryObject<Item> NITER_INGOT = ITEMS.register("niter_ingot",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties())); // Not a thing
 
     public static final RegistryObject<Item> RAW_NITER = ITEMS.register("raw_niter",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties())); // Not a thing
 
     public static final RegistryObject<Item> TUNGSTEN_INGOT = ITEMS.register("tungsten_ingot",
             () -> new Item(new Item.Properties()));
@@ -127,10 +127,10 @@ public class RegisterItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot",
-            () -> new Item(new Item.Properties()));
+            () -> new HazardItem(0, 0, 0, 0, 2, new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead",
-            () -> new Item(new Item.Properties()));
+            () -> new HazardItem(0, 0, 0, 0, 1, new Item.Properties()));
 
     public static final RegistryObject<Item> LIGNITE_INGOT = ITEMS.register("lignite_ingot",
             () -> new Item(new Item.Properties()));

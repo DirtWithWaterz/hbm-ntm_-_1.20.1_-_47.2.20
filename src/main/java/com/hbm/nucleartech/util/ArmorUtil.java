@@ -217,22 +217,21 @@ public class ArmorUtil {
 //		return false;
 //	}
 //
-//	public static boolean checkForHazmat(LivingEntity player) {
-//		if(ArmorUtil.checkArmor(player, RegisterItems.hazmat_helmet, RegisterItems.hazmat_plate, RegisterItems.hazmat_legs, RegisterItems.hazmat_boots) ||
-//			ArmorUtil.checkArmor(player, RegisterItems.hazmat_helmet_red, RegisterItems.hazmat_plate_red, RegisterItems.hazmat_legs_red, RegisterItems.hazmat_boots_red) ||
-//			ArmorUtil.checkArmor(player, RegisterItems.hazmat_helmet_grey, RegisterItems.hazmat_plate_grey, RegisterItems.hazmat_legs_grey, RegisterItems.hazmat_boots_grey) ||
-//			ArmorUtil.checkArmor(player, RegisterItems.t45_helmet, RegisterItems.t45_plate, RegisterItems.t45_legs, RegisterItems.t45_boots) ||
-//			ArmorUtil.checkArmor(player, RegisterItems.schrabidium_helmet, RegisterItems.schrabidium_plate, RegisterItems.schrabidium_legs, RegisterItems.schrabidium_boots) ||
-//			checkForHaz2(player)) {
-//
+	public static boolean checkForHazmat(LivingEntity player) {
+		if(ArmorUtil.checkArmorPieces(player, new Item[]{RegisterItems.HAZMAT_HELMET.get(), RegisterItems.HAZMAT_HELMET_RED.get(), RegisterItems.HAZMAT_HELMET_GREY.get()/*, RegisterItems.T45_HELMET.get(), RegisterItems.SCHRABIDIUM_HELMET.get()*/}, EquipmentSlot.HEAD) ||
+			ArmorUtil.checkArmorPieces(player, new Item[]{RegisterItems.HAZMAT_CHESTPLATE.get(), RegisterItems.HAZMAT_CHESTPLATE_RED.get(), RegisterItems.HAZMAT_CHESTPLATE_GREY.get()/*, RegisterItems.T45_CHESTPLATE.get(), RegisterItems.SCHRABIDIUM_CHESTPLATE.get()*/}, EquipmentSlot.CHEST) ||
+			ArmorUtil.checkArmorPieces(player, new Item[]{RegisterItems.HAZMAT_LEGGINGS.get(), RegisterItems.HAZMAT_LEGGINGS_RED.get(), RegisterItems.HAZMAT_LEGGINGS_GREY.get()/*, RegisterItems.T45_LEGGINGS.get(), RegisterItems.SCHRABIDIUM_LEGGINGS.get()*/}, EquipmentSlot.LEGS) ||
+			ArmorUtil.checkArmorPieces(player, new Item[]{RegisterItems.HAZMAT_BOOTS.get(), RegisterItems.HAZMAT_BOOTS_RED.get(), RegisterItems.HAZMAT_BOOTS_GREY.get()/*, RegisterItems.T45_BOOTS.get(), RegisterItems.SCHRABIDIUM_BOOTS.get()*/}, EquipmentSlot.FEET) /*||
+			checkForHaz2(player)*/) {
+
+			return true;
+		}
+
+//		if(player.hasEffect(RegisterPotions.mutation))
 //			return true;
-//		}
-//
-////		if(player.hasEffect(RegisterPotions.mutation))
-////			return true;
-//
-//		return false;
-//	}
+
+		return false;
+	}
 //
 //	public static boolean checkForAsbestos(LivingEntity player) {
 //
@@ -254,8 +253,17 @@ public class ArmorUtil {
 		return false;
 	}
 
-	public static boolean checkArmorPiece(Player player, Item armor, int slot) {
-		if(player.getInventory().armor.get(slot).getItem() == armor) {
+	public static boolean checkArmorPieces(LivingEntity player, Item[] armors, EquipmentSlot slot) {
+
+		for(Item armor : armors)
+			if(checkArmorPiece(player, armor, slot))
+				return true;
+
+		return false;
+	}
+
+	public static boolean checkArmorPiece(LivingEntity player, Item armor, EquipmentSlot slot) {
+		if(player.getItemBySlot(slot).getItem() == armor) {
 			return true;
 		}
 	

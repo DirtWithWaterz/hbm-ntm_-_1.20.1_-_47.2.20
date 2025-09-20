@@ -2,6 +2,9 @@ package com.hbm.nucleartech.modules;
 
 import com.hbm.nucleartech.item.RegisterItems;
 import com.hbm.nucleartech.lib.Library;
+import com.hbm.nucleartech.util.ArmorRegistry;
+import com.hbm.nucleartech.util.ArmorRegistry.HazardClass;
+import com.hbm.nucleartech.util.ArmorUtil;
 import com.hbm.nucleartech.util.ContaminationUtil;
 import com.hbm.nucleartech.util.ContaminationUtil.HazardType;
 import com.hbm.nucleartech.util.ContaminationUtil.ContaminationType;
@@ -10,7 +13,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity.RemovalReason;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -111,6 +117,7 @@ public class ItemHazardModule {
 
 
         if(this.radiation * tempMod > 0) {
+
             double rad = this.radiation * tempMod * mod / 20f;
 
 //            System.out.println("[Debug] reacher: " + reacher);
@@ -123,6 +130,40 @@ public class ItemHazardModule {
 
 //            System.err.println("calling ContaminationUtil.contaminate() for " + entity.getName().getString() + " with rad value: " + rad);
             ContaminationUtil.contaminate(entity, HazardType.RADIATION, ContaminationType.CREATIVE, (float) rad);
+        }
+        if(this.toxic * tempMod > 0) {
+
+            boolean hasToxFilter = false;
+            boolean hasHazmat = false;
+            if(entity instanceof Player player) {
+
+                if(ArmorRegistry.hasProtection(player, EquipmentSlot.HEAD, HazardClass.NERVE_AGENT)) {
+
+                    ArmorUtil.damageGasMaskFilter(player, 1);
+                    hasToxFilter = true;
+                }
+                hasHazmat = ArmorUtil.checkForHazmat(entity);
+            }
+
+            if(!hasToxFilter && !hasHazmat) {
+
+                entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 110, this.toxic-1));
+
+                if(this.toxic > 2)
+                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 110, Math.min(4, this.toxic-1)));
+                if(this.toxic > 4)
+                    entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 110, this.toxic));
+                if(this.toxic > 6)
+                    if(entity.level().random.nextInt((int)(2000/toxic)) == 0)
+                        entity.addEffect(new MobEffectInstance(MobEffects.POISON, 110, this.toxic-4));
+            }
+            if(!(hasHazmat && hasToxFilter)) {
+
+                if(this.toxic > 8)
+                    entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 110, this.toxic-6));
+                if(this.toxic > 16)
+                    entity.addEffect(new MobEffectInstance(MobEffects.HARM, 110, this.toxic-16));
+            }
         }
     }
 
@@ -151,6 +192,7 @@ public class ItemHazardModule {
 
     public void addInformation(ItemStack stack, List<Component> list, TooltipFlag flagIn) {
 
+        // Rad
         if(this.radiation * tempMod > 0) {
 
             list.add(Component.literal("§a[Radioactive]"));
@@ -163,6 +205,25 @@ public class ItemHazardModule {
                 list.add(Component.literal("§eStack: " + Library.roundDouble(getNewValue(stackRad), 3) + getSuffix(stackRad) + " RAD/s"));
             }
         }
+        // Pyro
+
+        // Toxic
+        if(this.toxic * tempMod > 0) {
+
+            if(this.toxic > 16)
+                list.add(Component.literal("§a[").append(Component.translatable("adjective.extreme")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+            else if(this.toxic > 8)
+                list.add(Component.literal("§a[").append(Component.translatable("adjective.very_high")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+            else if(this.toxic > 4)
+                list.add(Component.literal("§a[").append(Component.translatable("adjective.high")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+            else if(this.toxic > 2)
+                list.add(Component.literal("§a[").append(Component.translatable("adjective.medium")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+            else
+                list.add(Component.literal("§a[").append(Component.translatable("adjective.low")).append(" ").append(Component.translatable("trait.toxic")).append("]"));
+        }
+        // Blinding
+
+        // Hydro
     }
 
     public boolean onEntityItemUpdate(ItemEntity item) {

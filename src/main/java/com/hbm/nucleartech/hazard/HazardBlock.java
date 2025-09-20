@@ -25,7 +25,6 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
     ItemHazardModule module;
 
     private double radIn = 0.0F;
-    private double radMax = 0.0F;
     private double rad3d = 0.0f;
     private ExtDisplayEffect extEffect = null;
 
@@ -141,7 +140,6 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
     public IItemHazard addRadiation(double radiation){
         this.getModule().addRadiation(radiation);
         this.radIn = radiation * 0.1F;
-        this.radMax = radiation;
         return this;
     }
 
@@ -179,7 +177,7 @@ public class HazardBlock extends DropExperienceBlock implements IItemHazard {
 
     public int tickRate(Level level){
         if(this.rad3d > 0)
-            return 20;
+            return 10;
         if(this.radIn > 0)
             return 60+level.random.nextInt(500);
         return 100;
