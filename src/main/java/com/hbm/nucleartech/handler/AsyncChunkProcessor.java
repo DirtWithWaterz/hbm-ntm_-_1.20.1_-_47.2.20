@@ -136,10 +136,10 @@ public class AsyncChunkProcessor {
                         processed++;
                         
                         // Replace the grass block with dead grass
-                        world.setBlock(worldPos, RegisterBlocks.DEAD_GRASS.get().defaultBlockState(), 3);
+                        world.setBlock(worldPos, RegisterBlocks.DEAD_GRASS.get().defaultBlockState(), 34);
 
                         // Update the block to trigger any necessary updates
-                        world.sendBlockUpdated(worldPos, world.getBlockState(worldPos), RegisterBlocks.DEAD_GRASS.get().defaultBlockState(), 3);
+                        world.sendBlockUpdated(worldPos, world.getBlockState(worldPos), RegisterBlocks.DEAD_GRASS.get().defaultBlockState(), 34);
                     }
                 }
             }

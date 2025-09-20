@@ -205,7 +205,7 @@ public class RadiationSystemChunksNT {
             }
 
             final int maxDistance = 16; // Maximum spread distance in blocks
-            final float radiationAmount = p.radiation * 0.1f; // Use 70% of radiation for spreading
+            final float radiationAmount = p.radiation * 0.85f; // Use 85% of radiation for spreading
             
             // Calculate radiation per block at source (will decrease with distance)
             float baseRadiation = radiationAmount / (maxDistance * maxDistance * (float)Math.PI);
@@ -281,8 +281,8 @@ public class RadiationSystemChunksNT {
                 }
             }
             
-            // Reduce the source radiation after spreading
-            updates.add(new RadiationUpdate(p, p.radiation * 0.9f, false));
+            // Do not reduce the source radiation after spreading
+            updates.add(new RadiationUpdate(p, p.radiation, false));
         }
     }
     // -----------------------------------

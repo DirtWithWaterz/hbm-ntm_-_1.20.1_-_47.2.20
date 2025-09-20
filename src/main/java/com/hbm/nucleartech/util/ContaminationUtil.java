@@ -350,11 +350,8 @@ public class ContaminationUtil {
 
     public static void printGeigerData(Player player) {
 
-        Level level = player.level();
-
         double playerContamination = (double)((HbmCapabilities.getData(player).getValue(Type.RADIATION) * 10)) / 10D;
 
-        double chunkRads = (double)(RadiationSystemChunksNT.getRadForCoord(level, player.getOnPos().offset(0,1,0)) * 10) / 10D;
         double environmentalRads = (double)(HbmCapabilities.getData(player).getValue(Type.RADENV) * 10) / 10D;
 
         double neutronRads = (double)(HbmCapabilities.getData(player).getValue(Type.NEUTRON) * 10) / 10D;
@@ -362,7 +359,6 @@ public class ContaminationUtil {
         double res = ((int)(10000D - ContaminationUtil.calculateRadiationMod(player) * 10000D)) / 100D;
         double resKoeff = ((int)(HazmatRegistry.getResistance(player) * 100D)) / 100D;
 
-        String chunkPrefix = getPrefixFromRad(chunkRads);
         String envPrefix = getPrefixFromRad(environmentalRads);
         String radPrefix = "";
         String resPrefix = "" + ChatFormatting.WHITE;
@@ -384,7 +380,6 @@ public class ContaminationUtil {
             resPrefix += ChatFormatting.GREEN;
 
         player.sendSystemMessage(Component.literal("===== ☢ ").append(Component.translatable("geiger.title")).append(Component.literal(" ☢ =====")).withStyle(ChatFormatting.GOLD));
-        player.sendSystemMessage(Component.translatable("geiger.chunk_rad").append(Component.literal(" " + chunkPrefix + String.format("%.1f", chunkRads) + " RAD/s")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.env_rad").append(Component.literal(" " + envPrefix + String.format("%.1f", environmentalRads + neutronRads) + " RAD/s")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.player_rad").append(Component.literal(" " + radPrefix + String.format("%.1f", playerContamination) + " RAD")).withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("geiger.player_res").append(Component.literal(" " + resPrefix + res + "% (" + resKoeff + ")")).withStyle(ChatFormatting.YELLOW));
