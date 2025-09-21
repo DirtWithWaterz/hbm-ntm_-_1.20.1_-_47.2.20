@@ -39,7 +39,7 @@ import static com.hbm.nucleartech.handler.RadiationSystemChunksNT.RadiationEvent
 public class GeigerCounterItem extends Item {
 
     public GeigerCounterItem(Properties pProperties) {
-        super(pProperties);
+        super(pProperties.stacksTo(1));
     }
 
     public static final Map<Integer, SoundEvent> soundMap = new HashMap<>();

@@ -102,8 +102,6 @@ public class RegisterCreativeTabs {
 
                         output.accept(RegisterItems.IRON_PLATE_STAMP.get());
                         output.accept(RegisterItems.IRON_PLATE.get());
-
-                        output.accept(RegisterItems.GENERIC_BATTERY.get());
                     })
                     .build());
 

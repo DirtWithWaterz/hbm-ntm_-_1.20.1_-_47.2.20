@@ -10,7 +10,7 @@ public class SelfChargingBatteryItem extends EnergyItem {
     protected final double dischargeRate;
 
     public SelfChargingBatteryItem(Properties pProperties, double dischargeRate) {
-        super(pProperties, false, true);
+        super(pProperties.stacksTo(1), false, true);
 
         this.dischargeRate = dischargeRate;
     }
