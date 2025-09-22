@@ -29,9 +29,16 @@ public class RadiationWorldHandler {
         List<RadiationSystemChunksNT.RadPocket> pockets = getPocketsAboveThreshold(active, world, threshold);
         if (pockets.isEmpty()) return;
 
+        List<RadiationSystemChunksNT.RadPocket> theChosenONESSSSS = choosePocketsFromList(pockets, world, MAX_CHUNKS_PER_TICK);
+        String str = "";
+        for(RadiationSystemChunksNT.RadPocket p : theChosenONESSSSS)
+            str = str.concat(p.parent.parentChunk.chunk.getPos().toString() + "\n");
+        System.err.println("================\n" + str + "================");
+        if(theChosenONESSSSS.isEmpty()) return;
+
         // Process multiple pockets in parallel
         int processed = 0;
-        for (RadiationSystemChunksNT.RadPocket pocket : pockets) {
+        for (RadiationSystemChunksNT.RadPocket pocket : theChosenONESSSSS) {
             if (processed >= MAX_CHUNKS_PER_TICK) break;
             
             RadiationSystemChunksNT.SubChunkRadiationStorage sc = pocket.parent;
@@ -41,11 +48,21 @@ public class RadiationWorldHandler {
             LevelChunk chunk = sc.parentChunk.chunk;
             int sectionY = ChunkStorageCompat.getIndexFromWorldY(sc.yLevel);
             
-            if (sectionY >= 0 && sectionY < chunk.getSections().length) {
+//            if (sectionY >= 0 && sectionY < chunk.getSections().length) {
                 AsyncChunkProcessor.queueChunkForProcessing(world, chunk, sectionY, pocket);
                 processed++;
-            }
+//            }
         }
+    }
+
+    private static List<RadiationSystemChunksNT.RadPocket> choosePocketsFromList(List<RadiationSystemChunksNT.RadPocket> pockets, ServerLevel world, int i) {
+
+        List<RadiationSystemChunksNT.RadPocket> list = new ArrayList<>();
+
+        for(int j = 0; j < i; j++)
+            list.add(pockets.get(world.random.nextInt(pockets.size())));
+
+        return list;
     }
 
     // Get all pockets above the threshold
