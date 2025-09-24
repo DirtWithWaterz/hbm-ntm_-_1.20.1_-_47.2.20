@@ -45,10 +45,10 @@ public class AsyncChunkProcessor {
         protected void beforeExecute(Thread t, Runnable r) {
             super.beforeExecute(t, r);
             // Log thread pool stats periodically
-            if (System.currentTimeMillis() % 10000 < 50) { // Log roughly every 10 seconds
-                HBM.LOGGER.debug("Chunk processor stats - Active: {}, Queue: {}/{}",
-                    getActiveCount(), getQueue().size(), QUEUE_CAPACITY);
-            }
+//            if (System.currentTimeMillis() % 10000 < 50) { // Log roughly every 10 seconds
+//                HBM.LOGGER.debug("Chunk processor stats - Active: {}, Queue: {}/{}",
+//                    getActiveCount(), getQueue().size(), QUEUE_CAPACITY);
+//            }
         }
     };
 
@@ -69,7 +69,7 @@ public class AsyncChunkProcessor {
             this.sectionY = sectionY;
             this.pocket = pocket;
             this.section = chunk.getSections()[sectionY];
-            LOGGER.info("Created task for chunk at ({}, {}) sectionY: {}", chunk.getPos().x, chunk.getPos().z, sectionY);
+//            LOGGER.info("Created task for chunk at ({}, {}) sectionY: {}", chunk.getPos().x, chunk.getPos().z, sectionY);
         }
 
         @Override
@@ -109,7 +109,7 @@ public class AsyncChunkProcessor {
                 }
 
                 if (!blocksToUpdate.isEmpty()) {
-                    LOGGER.info("Scheduling {} block updates for chunk at ({}, {})", blocksToUpdate.size(), chunk.getPos().x, chunk.getPos().z);
+//                    LOGGER.info("Scheduling {} block updates for chunk at ({}, {})", blocksToUpdate.size(), chunk.getPos().x, chunk.getPos().z);
                     int updated = 0;
                     for (BlockPos pos : blocksToUpdate) {
                         if (world.getBlockState(pos).getBlock() == net.minecraft.world.level.block.Blocks.GRASS_BLOCK) {
@@ -117,7 +117,7 @@ public class AsyncChunkProcessor {
                             updated++;
                         }
                     }
-                    LOGGER.info("Updated {} grass blocks to dead grass in chunk at ({}, {})", updated, chunk.getPos().x, chunk.getPos().z);
+//                    LOGGER.info("Updated {} grass blocks to dead grass in chunk at ({}, {})", updated, chunk.getPos().x, chunk.getPos().z);
                 }
             } catch (Exception e) {
                 LOGGER.error("Error processing chunk at ({}, {})", chunk.getPos().x, chunk.getPos().z, e);

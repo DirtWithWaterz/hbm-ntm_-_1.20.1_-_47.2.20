@@ -1395,56 +1395,79 @@ public class RadiationSystemChunksNT {
             if(e.getLevel().isClientSide())
                 return;
 
-            LevelChunk chunk = (LevelChunk)e.getChunk();
+            try {
 
-//            long key = chunkKey(chunk);
-
-//            if(processedChunks.contains(key))
-//                return;
-
-            if(getChunkStorage(chunk).instance.wasInitialized()) {
-
-//                System.out.println("[Debug] chunk already initialized: " + chunk.getPos().toString());
-                return;
+                Objects.requireNonNull(e.getLevel().getServer()).execute(new InitializeChunkTask((ServerLevel)e.getLevel(), (LevelChunk)e.getChunk()));
             }
-//            else
-//                System.err.println("[Debug] chunk not initialized: " + chunk.getPos().toString());
+            catch(Exception ex) {
 
-            BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
+                HBM.LOGGER.error("failed to execute initialize chunk task: ", ex);
+            }
+        }
 
-            int baseX = chunk.getPos().getMinBlockX();
-            int baseZ = chunk.getPos().getMinBlockZ();
+        private static class InitializeChunkTask implements Runnable {
 
-            LevelChunkSection[] sections = chunk.getSections();
-            for(int i = 0; i < sections.length; i++) {
+            final ServerLevel level;
+            final LevelChunk chunk;
 
-                LevelChunkSection section = sections[i];
+            InitializeChunkTask(ServerLevel level, LevelChunk chunk) {
 
-                if(section == null || section.hasOnlyAir()) continue;
+                this.level = level;
+                this.chunk = chunk;
+            }
 
-                int sectionBaseY = (i << 4) -64;
+            @Override
+            public void run() {
 
-                for(int lx = 0; lx < 16; lx++) {
+                try {
 
-                    int wx = baseX + lx;
-                    for(int ly = 0; ly < 16; ly++) {
+                    if(getChunkStorage(chunk).instance.wasInitialized()) {
 
-                        int wy = sectionBaseY + ly;
-                        for(int lz = 0; lz < 16; lz++) {
+//                        HBM.LOGGER.error("chunk at [{}, {}] already initialized.", chunk.getPos().x, chunk.getPos().z);
+                        return;
+                    }
 
-                            int wz = baseZ + lz;
+                    BlockPos.MutableBlockPos mPos = new BlockPos.MutableBlockPos();
 
-                            if(section.getBlockState(lx, ly, lz).getBlock() instanceof HazardBlock hb) {
+                    int baseX = chunk.getPos().getMinBlockX();
+                    int baseZ = chunk.getPos().getMinBlockZ();
 
-                                mPos.set(wx, wy, wz);
-                                hb.onGenerated((ServerLevel)e.getLevel(), mPos);
+                    LevelChunkSection[] sections = chunk.getSections();
+                    for(int i = 0; i < sections.length; i++) {
+
+                        LevelChunkSection section = sections[i];
+
+                        if(section == null || section.hasOnlyAir()) continue;
+
+                        int sectionBaseY = (i << 4) -64;
+
+                        for(int lx = 0; lx < 16; lx++) {
+
+                            int wx = baseX + lx;
+                            for(int ly = 0; ly < 16; ly++) {
+
+                                int wy = sectionBaseY + ly;
+                                for(int lz = 0; lz < 16; lz++) {
+
+                                    int wz = baseZ + lz;
+
+                                    if(section.getBlockState(lx, ly, lz).getBlock() instanceof HazardBlock hb) {
+
+                                        mPos.set(wx, wy, wz);
+                                        hb.onGenerated(level, mPos);
+                                    }
+                                }
                             }
                         }
                     }
+                    getChunkStorage(chunk).instance.setInitialized();
+//                    HBM.LOGGER.debug("chunk at [{}, {}] has been initialized.", chunk.getPos().x, chunk.getPos().z);
+                }
+                catch (Exception e) {
+
+                    HBM.LOGGER.error("failed to initialize chunk: ", e);
                 }
             }
-//            processedChunks.add(key);
-            getChunkStorage(chunk).instance.setInitialized();
         }
 
         static boolean iteratingDirty;
